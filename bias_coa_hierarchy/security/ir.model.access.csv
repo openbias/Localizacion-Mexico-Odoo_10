@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_bias_coa_hierarchy_bias_coa_hierarchy,bias_coa_hierarchy.bias_coa_hierarchy,model_bias_coa_hierarchy_bias_coa_hierarchy,,1,0,0,0

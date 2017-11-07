@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="candidato_con_apellidos_form_view">
+            <field name="name">candidato.con.apellidos.form.view</field>
+            <field name="model">hr.applicant</field>
+            <field name="inherit_id" ref="hr_recruitment.crm_case_form_view_job"/>
+            <field name="arch" type="xml">
+                <field name="partner_name" position="replace">
+                    <label for="partner_name"/>
+                    <field name="partner_first_name" string="Nombre" placeholder="Nombre"/>
+                    <field name="appat" string="Ap. paterno" placeholder="Apellido paterno"/>
+                    <field name="apmat" string="Ap. materno" placeholder="Apellido materno"/>
+                </field>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="candidato_con_apellidos_tree_view">
+            <field name="name">candidato.con.apellidos.tree.view</field>
+            <field name="model">hr.applicant</field>
+            <field name="inherit_id" ref="hr_recruitment.crm_case_tree_view_job"/>
+            <field name="arch" type="xml">
+                <field name="partner_name" position="replace">
+                    <field name="partner_first_name"/>
+                    <field name="appat"/>
+                    <field name="apmat"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

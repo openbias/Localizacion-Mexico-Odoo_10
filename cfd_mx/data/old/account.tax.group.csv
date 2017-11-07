@@ -1,0 +1,8 @@
+id,name,cfdi_impuestos,cfdi_traslado,cfdi_retencion
+tax_group_iva_ret,IVA-RET,002,FALSE,TRUE
+tax_group_iva,IVA,002,TRUE,FALSE
+tax_group_iva_exent,IVA-EXENTO,002,TRUE,FALSE
+tax_group_isr,ISR,001,TRUE,FALSE
+tax_group_isr_ret,ISR-RET,001,FALSE,TRUE
+tax_group_ieps,IEPS,003,,
+tax_group_ietu,IETU,001,,

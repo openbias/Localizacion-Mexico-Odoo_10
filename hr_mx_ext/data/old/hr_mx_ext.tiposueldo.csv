@@ -1,0 +1,4 @@
+id,name,code
+hr_mx_ext.tiposueldo_1,Fijo,0
+hr_mx_ext.tiposueldo_2,Variable,1
+hr_mx_ext.tiposueldo_3,Mixto,2

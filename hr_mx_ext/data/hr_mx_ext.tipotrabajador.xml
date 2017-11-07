@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <!--Generated for OpenBIAS-->
+    <data noupdate="1">
+        <record id="hr_mx_ext.tipotrabajador_1" model="hr_mx_ext.tipotrabajador">
+            <field name="name">Permanente</field>
+            <field name="code">1</field>
+        </record>
+        <record id="hr_mx_ext.tipotrabajador_2" model="hr_mx_ext.tipotrabajador">
+            <field name="name">Eventual</field>
+            <field name="code">2</field>
+        </record>
+        <record id="hr_mx_ext.tipotrabajador_3" model="hr_mx_ext.tipotrabajador">
+            <field name="name">Contrucción</field>
+            <field name="code">3</field>
+        </record>
+        <record id="hr_mx_ext.tipotrabajador_4" model="hr_mx_ext.tipotrabajador">
+            <field name="name">Eventuales del Campo</field>
+            <field name="code">4</field>
+        </record>
+    </data>
+</odoo>

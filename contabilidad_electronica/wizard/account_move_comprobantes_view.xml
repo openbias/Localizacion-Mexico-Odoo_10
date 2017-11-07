@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+        <record model="ir.ui.view" id="llenar_comprobantes_form">
+            <field name="name">llenar.comprobantes.form</field>
+            <field name="model">contabilidad_electronica.llenar.comprobantes</field>
+            <field name="arch" type="xml">
+                <form string="Llenar Comprobantes UUID">
+                    <p>Está acción llenará el campo de UUID en todas las pólizas de facturas y notas de crédito
+                    que aún no lo tengan lleno. Para continuar presione OK</p>
+                    <footer>
+                        <button type="special" special="cancel" string="Cerrar" icon="gtk-cancel"/>
+                        <button type="object" name="create_move_comprobantes" string="OK" icon="gtk-execute"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    
+        <record id="action_llenar_comprobantes" model="ir.actions.act_window">
+            <field name="name">Llenar Comprobantes UUID</field>
+            <field name="res_model">contabilidad_electronica.llenar.comprobantes</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="llenar_comprobantes_form"/>
+            <field name="target">new</field>
+            <field name="multi">True</field>
+        </record>
+        
+        <menuitem 
+            id="menu_llenar_comprobantes" 
+            parent="contabilidad_electronica.menu_contabilidad_electronica"
+            action="action_llenar_comprobantes"
+            sequence="5" />
+
+        
+    </data>
+</odoo>    

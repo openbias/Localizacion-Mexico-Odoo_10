@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_account_journal_cfdi_form">
+            <field name="name">view_account_journal_cfdi_form</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="CFDI">
+                        <group>
+                            <field name="lugar" invisible="1" />
+                            <field name="codigo_postal_id" string="C.P. Lugar Expedicion" />
+                            <field name="serie" />
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_tax_categoria_cfdi_form">
+            <field name="name">view_tax_categoria_cfdi_form</field>
+            <field name="model">account.tax</field>
+            <field name="inherit_id" ref="account.view_tax_form"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="cfdi_tipofactor"/>
+                </field>
+            </field>
+        </record>
+
+        <!-- GRUPO DE IMPUESTOS -->
+        <record id="account_tax_group_view_tree" model="ir.ui.view">
+            <field name="name">account.tax.group.view.tree</field>
+            <field name="model">account.tax.group</field>
+            <field name="arch" type="xml">
+                <tree string="Tax Group">
+                    <field name="sequence"/>
+                    <field name="name"/>
+                    <field name="cfdi_impuestos"/>
+                    <field name="cfdi_traslado"/>
+                    <field name="cfdi_retencion"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_account_tax_group" model="ir.actions.act_window">
+            <field name="name">Tax Group</field>
+            <field name="res_model">account.tax.group</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">tree</field>
+            <field name="view_mode">list,form</field>
+            <field name="target"></field>
+        </record>
+        <menuitem action="action_account_tax_group" 
+            parent="bias_base_report.menu_localizacion_mexico_root"
+            groups="group_cfd_mx_user"
+            id="menu_account_tax_group" sequence="130" />
+
+
+
+        <record model="ir.ui.view" id="view_currency_nombre_cfdi_form">
+            <field name="name">view_currency_nombre_cfdi_form</field>
+            <field name="model">res.currency</field>
+            <field name="inherit_id" ref="base.view_currency_form"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="nombre_largo"/>
+                </field>
+            </field>
+        </record>
+
+
+            
+    </data>
+</openerp>

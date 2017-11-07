@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <!-- TAGS FOR CASH FLOW STATEMENT -->
+
+        <record id="tax_tag_0" model="account.account.tag">
+            <field name="name">TAX 0</field>
+            <field name="applicability">taxes</field>
+        </record>
+        <record id="tax_tag_1" model="account.account.tag">
+            <field name="name">TAX 1</field>
+            <field name="applicability">taxes</field>
+        </record>
+        <record id="tax_tag_2" model="account.account.tag">
+            <field name="name">TAX 2</field>
+            <field name="applicability">taxes</field>
+        </record>
+        <record id="tax_tag_3" model="account.account.tag">
+            <field name="name">TAX 3</field>
+            <field name="applicability">taxes</field>
+        </record>
+        <record id="tax_tag_4" model="account.account.tag">
+            <field name="name">TAX 4</field>
+            <field name="applicability">taxes</field>
+        </record>
+        <record id="tax_tag_5" model="account.account.tag">
+            <field name="name">TAX 5</field>
+            <field name="applicability">taxes</field>
+        </record>
+        <record id="tax_tag_6" model="account.account.tag">
+            <field name="name">TAX 6</field>
+            <field name="applicability">taxes</field>
+        </record>
+        <record id="tax_tag_7" model="account.account.tag">
+            <field name="name">TAX 7</field>
+            <field name="applicability">taxes</field>
+        </record>
+        <record id="tax_tag_8" model="account.account.tag">
+            <field name="name">TAX 8</field>
+            <field name="applicability">taxes</field>
+        </record>
+        <record id="tax_tag_9" model="account.account.tag">
+            <field name="name">TAX 9</field>
+            <field name="applicability">taxes</field>
+        </record>
+        <record id="tax_tag_a" model="account.account.tag">
+            <field name="name">TAX a</field>
+            <field name="applicability">taxes</field>
+        </record>
+        <record id="tax_tag_b" model="account.account.tag">
+            <field name="name">TAX b</field>
+            <field name="applicability">taxes</field>
+        </record>
+        <record id="tax_tag_c" model="account.account.tag">
+            <field name="name">TAX c</field>
+            <field name="applicability">taxes</field>
+        </record>
+        <record id="tax_tag_d" model="account.account.tag">
+            <field name="name">TAX d</field>
+            <field name="applicability">taxes</field>
+        </record>
+        <record id="tax_tag_e" model="account.account.tag">
+            <field name="name">TAX e</field>
+            <field name="applicability">taxes</field>
+        </record>
+        <record id="tax_tag_f" model="account.account.tag">
+            <field name="name">TAX f</field>
+            <field name="applicability">taxes</field>
+        </record>
+
+    </data>
+</openerp>

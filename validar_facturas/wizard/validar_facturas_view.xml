@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+<!--         <record id="validar_facturas_info_form" model="ir.ui.view">
+            <field name="name">validar_facturas_info_form</field>
+            <field name="model">validar.facturas</field>
+            <field name="arch" type="xml">
+            </field>
+        </record> -->
+
+        <record id="validar_facturas_form" model="ir.ui.view">
+            <field name="name">validar_facturas_form</field>
+            <field name="model">validar.facturas</field>
+            <field name="arch" type="xml">
+                <form string="Validar XML CFDI">
+                    <group>
+                        <field name="company_id" invisible="1"/>
+                        <field name="xml" required="1"/>
+                        <field name="pdf" required="1"/>
+                    </group>
+                    <footer>
+                        <button type="special" special="cancel" string="Cancelar"/>
+                        <button type="object" name="action_validar_facturas" string="Subir archivos"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="validar_facturas_crear_form" model="ir.ui.view">
+            <field name="name">validar_facturas_crear_form</field>
+            <field name="model">validar.facturas</field>
+            <field name="arch" type="xml">
+                <form string="Validar XML CFDI">
+                    <field name="uui_duplicado" invisible="1"/>
+                    <field name="act_next" invisible="1"/>
+                    <notebook name="info_sat">
+                        <page string="Info. SAT">
+                            <field name="reporte_validation_xml" colspan="4" nolabel="1" readonly="1"/>
+                            <newline/>
+                            <group>
+                                <field name="codigo" readonly="1"/>
+                                <field name="estado" readonly="1"/>
+                            </group>
+                            <group attrs="{'invisible':[('uui_duplicado','=', False)]}">
+                                <div class="alert alert-info">
+                                    <strong>Info!</strong> 
+                                    El UUID ya existe en el Sistema: <field name="uuid" readonly="1" class="oe_inline"/>
+                                </div>
+                            </group>
+                            <group attrs="{'invisible':[('act_next', '=', False)]}">
+                                <field name="moneda" style="width:40%" attrs="{'required':[('act_next','!=', False)]}"/>
+                                <field name="product_id" style="width:40%" attrs="{'required':[('act_next','!=', False)]}"/>
+                            </group>
+                        </page>
+                        <page string="Validacion XML SAT">
+                            <field name="message_validation_xml" colspan="4" nolabel="1" readonly="1"/>
+                        </page>
+                    </notebook>
+                    <footer>
+                        <button type="special" special="cancel" string="Cancelar"/>
+                        <button type="object" name="action_create_invoice" string="Terminar Validación" attrs="{'invisible':['|', ('uui_duplicado','=', 'False')]}"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+
+
+        <!-- Crear Factura -->
+        <record id="action_validar_facturas" model="ir.actions.act_window">
+            <field name="name">Validar XML CFDI</field>
+            <field name="res_model">validar.facturas</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="validar_facturas_form"/>
+            <field name="context">{'inv_create': True}</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem 
+            action="action_validar_facturas" 
+            id="menu_action_validar_facturas" 
+            parent="account.menu_finance_payables" 
+            sequence="1"/>
+
+    </data>
+</odoo>

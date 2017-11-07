@@ -1,0 +1,21 @@
+id,name,clave,banco,rfc_ordenante,cuenta_ordenante,patron_ordenante,rfc_beneficiario,cuenta_beneficiario,patron_beneficiario,tipo_cadena
+__export__.cfd_mx_formapago_01,Efectivo,01,False,False,False,,False,False,,False
+__export__.cfd_mx_formapago_02,Cheque nominativo,02,True,False,False,[0-9]{11}|[0-9]{18},False,False,"[0-9]{10,11}|[0-9]{15,16}|[0-9]{18}|[A-Z0-9_]{10,50}",False
+__export__.cfd_mx_formapago_03,Transferencia electrónica de fondos,03,True,False,False,[0-9]{10}|[0-9]{16}|[0-9]{18},False,False,[0-9]{10}|[0-9]{18},False
+__export__.cfd_mx_formapago_04,Tarjeta de crédito,04,True,False,False,[0-9]{16},False,False,"[0-9]{10,11}|[0-9]{15,16}|[0-9]{18}|[A-Z0-9_]{10,50}",False
+__export__.cfd_mx_formapago_05,Monedero electrónico,05,True,False,False,"[0-9]{10,11}|[0-9]{15,16}|[0-9]{18}|[A-Z0-9_]{10,50}",False,False,"[0-9]{10,11}|[0-9]{15,16}|[0-9]{18}|[A-Z0-9_]{10,50}",False
+__export__.cfd_mx_formapago_06,Dinero electrónico,06,True,False,False,[0-9]{10},False,False,,False
+__export__.cfd_mx_formapago_08,Vales de despensa,08,False,False,False,,False,False,,False
+__export__.cfd_mx_formapago_12,Dación en pago,12,False,False,False,,False,False,,False
+__export__.cfd_mx_formapago_13,Pago por subrogación,13,False,False,False,,False,False,,False
+__export__.cfd_mx_formapago_14,Pago por consignación,14,False,False,False,,False,False,,False
+__export__.cfd_mx_formapago_15,Condonación,15,False,False,False,,False,False,,False
+__export__.cfd_mx_formapago_17,Compensación,17,False,False,False,,False,False,,False
+__export__.cfd_mx_formapago_23,Novación,23,False,False,False,,False,False,,False
+__export__.cfd_mx_formapago_24,Confusión,24,False,False,False,,False,False,,False
+__export__.cfd_mx_formapago_25,Remisión de deuda,25,False,False,False,,False,False,,False
+__export__.cfd_mx_formapago_26,Prescripción o caducidad,26,False,False,False,,False,False,,False
+__export__.cfd_mx_formapago_27,A satisfacción del acreedor,27,False,False,False,,False,False,,False
+__export__.cfd_mx_formapago_28,Tarjeta de débito,28,True,False,False,[0-9]{16},False,False,"[0-9]{10,11}|[0-9]{15,16}|[0-9]{18}|[A-Z0-9_]{10,50}",False
+__export__.cfd_mx_formapago_29,Tarjeta de servicios,29,True,False,False,"[0-9]{15,16}",False,False,"[0-9]{10,11}|[0-9]{15,16}|[0-9]{18}|[A-Z0-9_]{10,50}",False
+__export__.cfd_mx_formapago_99,Por definir,99,False,False,False,Opcional,False,False,,False

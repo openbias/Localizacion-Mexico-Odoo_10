@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <!--Generated for OpenBIAS-->
+    <data noupdate="1">
+        <record id="tax_group_iva_ret" model="account.tax.group">
+            <field name="name">IVA-RET</field>
+            <field name="cfdi_impuestos">002</field>
+            <field name="cfdi_traslado">FALSE</field>
+            <field name="cfdi_retencion">TRUE</field>
+        </record>
+        <record id="tax_group_iva" model="account.tax.group">
+            <field name="name">IVA</field>
+            <field name="cfdi_impuestos">002</field>
+            <field name="cfdi_traslado">TRUE</field>
+            <field name="cfdi_retencion">FALSE</field>
+        </record>
+        <record id="tax_group_iva_exent" model="account.tax.group">
+            <field name="name">IVA-EXENTO</field>
+            <field name="cfdi_impuestos">002</field>
+            <field name="cfdi_traslado">TRUE</field>
+            <field name="cfdi_retencion">FALSE</field>
+        </record>
+        <record id="tax_group_isr" model="account.tax.group">
+            <field name="name">ISR</field>
+            <field name="cfdi_impuestos">001</field>
+            <field name="cfdi_traslado">TRUE</field>
+            <field name="cfdi_retencion">FALSE</field>
+        </record>
+        <record id="tax_group_isr_ret" model="account.tax.group">
+            <field name="name">ISR-RET</field>
+            <field name="cfdi_impuestos">001</field>
+            <field name="cfdi_traslado">FALSE</field>
+            <field name="cfdi_retencion">TRUE</field>
+        </record>
+        <record id="tax_group_ieps" model="account.tax.group">
+            <field name="name">IEPS</field>
+            <field name="cfdi_impuestos">003</field>
+            <field name="cfdi_traslado" />
+            <field name="cfdi_retencion" />
+        </record>
+        <record id="tax_group_ietu" model="account.tax.group">
+            <field name="name">IETU</field>
+            <field name="cfdi_impuestos">001</field>
+            <field name="cfdi_traslado" />
+            <field name="cfdi_retencion" />
+        </record>
+    </data>
+</odoo>

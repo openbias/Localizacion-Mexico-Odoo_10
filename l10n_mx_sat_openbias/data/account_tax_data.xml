@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data noupdate="1">
+
+
+        <!-- Account Tax Group -->
+
+
+        <!--         
+        <record id="cfd_mx.tax_group_iva_ret" model="account.tax.group">
+            <field name="name">IVA-RET</field>
+        </record>
+        <record id="cfd_mx.tax_group_iva" model="account.tax.group">
+            <field name="name">IVA</field>
+        </record>
+        <record id="cfd_mx.tax_group_iva_exent" model="account.tax.group">
+            <field name="name">IVA-EXENTO</field>
+        </record>
+        <record id="cfd_mx.tax_group_isr" model="account.tax.group">
+            <field name="name">ISR</field>
+        </record>
+        <record id="cfd_mx.tax_group_isr_ret" model="account.tax.group">
+            <field name="name">ISR-RET</field>
+        </record>
+        <record id="cfd_mx.tax_group_ieps" model="account.tax.group">
+            <field name="name">IEPS</field>
+        </record>
+        <record id="cfd_mx.tax_group_ietu" model="account.tax.group">
+            <field name="name">IETU</field>
+        </record> -->
+
+
+        <!-- Taxes Tags -->
+
+        <record id="tax_tag_0" model="account.account.tag">
+            <field name="name">TAX 0</field>                 <!--  "IVA 0%"  ¿en compras o ventas?-->
+            <field name="applicability">taxes</field>
+        </record>
+        <record id="tax_tag_1" model="account.account.tag">
+            <field name="name">TAX 1</field>                 <!--  "IVA Exento" ¿en compras o ventas? -->
+            <field name="applicability">taxes</field>
+        </record>
+        <record id="tax_tag_2" model="account.account.tag">
+            <field name="name">TAX 2</field>                 <!--  "IVA Exento en Importaciones"  -->
+            <field name="applicability">taxes</field>
+        </record>
+        <record id="tax_tag_3" model="account.account.tag">
+            <field name="name">TAX 3</field>                 <!--  "IVA 16% en compras o ventas"  -->
+            <field name="applicability">taxes</field>
+        </record>
+        <record id="tax_tag_4" model="account.account.tag">
+            <field name="name">TAX 4</field>                 <!--  "IVA 16% en compras o ventas usado en pedimentos"  -->
+            <field name="applicability">taxes</field>
+        </record>
+        <record id="tax_tag_5" model="account.account.tag">
+            <field name="name">TAX 5</field>                 <!--  "IVA no acreditable"  -->
+            <field name="applicability">taxes</field>
+        </record>
+        <record id="tax_tag_6" model="account.account.tag">
+            <field name="name">TAX 6</field>                 <!--  "Retencion de IVA 4% en fletes"  -->
+            <field name="applicability">taxes</field>
+        </record>
+        <record id="tax_tag_7" model="account.account.tag">
+            <field name="name">TAX 7</field>                 <!--  "Retencion de IVA 10% en arrendamientos"  -->
+            <field name="applicability">taxes</field>
+        </record>
+        <record id="tax_tag_8" model="account.account.tag">
+            <field name="name">TAX 8</field>                 <!--  "Retencion de IVA 10.67% en servicios profesionales"  -->
+            <field name="applicability">taxes</field>
+        </record>
+        <record id="tax_tag_9" model="account.account.tag">
+            <field name="name">TAX 9</field>                 <!--  "Retencion de ISR 10.67% en servicios profesionales y arrendamientos"  -->
+            <field name="applicability">taxes</field>
+        </record>
+        <record id="tax_tag_a" model="account.account.tag">
+            <field name="name">TAX a</field>                 <!--  "Impuesto especial sobre productos y servicios"  -->
+            <field name="applicability">taxes</field>
+        </record>
+        <record id="tax_tag_b" model="account.account.tag">
+            <field name="name">TAX b</field>                 <!--  "Impuesto especial sobre productos y servicios en importaciones"  -->
+            <field name="applicability">taxes</field>
+        </record>
+        <record id="tax_tag_c" model="account.account.tag">
+            <field name="name">TAX c</field>
+            <field name="applicability">taxes</field>
+        </record>
+        <record id="tax_tag_d" model="account.account.tag">
+            <field name="name">TAX d</field>
+            <field name="applicability">taxes</field>
+        </record>
+        <record id="tax_tag_e" model="account.account.tag">
+            <field name="name">TAX e</field>
+            <field name="applicability">taxes</field>
+        </record>
+        <record id="tax_tag_f" model="account.account.tag">
+            <field name="name">TAX f</field>
+            <field name="applicability">taxes</field>
+        </record>
+
+
+        <!-- IVA VENTAS 
+
+        code		Nombre							Tasa 	 Comentarios
+        209.01.01	IVA trasladado no cobrado				16%	 Este se registra cuando se realiza la facturación al cliente y será traspasado al cobrado cuando exista la gestión del pago del cliente
+        208.01.01	IVA trasladado cobrado					16%	 Se traspasa del no cobrado cuando el cliente paga
+        -->
+
+        <record id="tax0" model="account.tax.template">
+            <field name="chart_template_id" ref="mx_coa_sat"/>
+            <field name="name">IVA(0%) VENTAS</field>
+            <field name="description">IVA(0%) VENTAS</field>
+            <field name="amount">0</field>
+            <field name="amount_type">percent</field>
+            <field name="type_tax_use">sale</field>
+            <field name="account_id" ref="l10n_mx_sat_openbias.account_209_01_01"/>
+            <field name="refund_account_id" ref="l10n_mx_sat_openbias.account_209_01_01"/>
+            <field name="tag_ids" eval="[(6,0,[ref('tax_tag_0')])]"/>
+            <field name="tax_group_id" ref="cfd_mx.tax_group_iva"/>
+        </record>
+        <record id="tax1" model="account.tax.template">
+            <field name="chart_template_id" ref="mx_coa_sat"/>
+            <field name="name">IVA Exento</field>
+            <field name="description">IVA Exento</field>
+            <field name="amount">0</field>
+            <field name="amount_type">percent</field>
+            <field name="type_tax_use">sale</field>
+            <field name="account_id" ref="l10n_mx_sat_openbias.account_209_01_01"/>
+            <field name="refund_account_id" ref="l10n_mx_sat_openbias.account_209_01_01"/>
+            <field name="tag_ids" eval="[(6,0,[ref('tax_tag_1')])]"/>
+            <field name="tax_group_id" ref="cfd_mx.tax_group_iva_exent"/>
+        </record>
+        <record id="tax3" model="account.tax.template">
+            <field name="chart_template_id" ref="mx_coa_sat"/>
+            <field name="name">IVA(16%) VENTAS</field>
+            <field name="description">IVA(16%) VENTAS</field>
+            <field name="amount">16</field>
+            <field name="amount_type">percent</field>
+            <field name="type_tax_use">sale</field>
+            <field name="account_id" ref="l10n_mx_sat_openbias.account_209_01_01"/>
+            <field name="refund_account_id" ref="l10n_mx_sat_openbias.account_209_01_01"/>
+            <field name="tag_ids" eval="[(6,0,[ref('tax_tag_3')])]"/>
+            <field name="tax_group_id" ref="cfd_mx.tax_group_iva"/>
+        </record>
+
+
+        <!-- IVA COMPRAS
+
+        code		Nombre							Tasa 	 Comentarios
+        119.01.01	IVA pendiente de pago					16%	 Cuando se registra el compromiso de pago (provisión de pasivo), se registra el IVA acreditable no pagado y se hace su traspaso al IVA Acreditable pagado cuando exista flujo de efectivo 
+        118.01.01	IVA acreditable pagado					16%	 Se registra el traspaso del IVA acreditable no pagado al pago (cuando se pague la erogación)
+
+        119.02.01	IVA de importación pendiente de pago				 Cuando se registran los costos de los honorarios al agente aduanal se crea una estimación la cual detona un registro lo mas estimado posible de IVA, el cual será corregido y/o complementado por el pedimento de importación 
+        118.02.01	IVA acreditable de importación pagado				 Se registra cuando se tiene el pedimento de importación, compras de productos al extranjero
+        -->
+
+        <record id="tax12" model="account.tax.template">
+            <field name="chart_template_id" ref="mx_coa_sat"/>
+            <field name="name">IVA(0%) COMPRAS</field>
+            <field name="description">IVA(0%) COMPRAS</field>
+            <field name="amount">0</field>
+            <field name="amount_type">percent</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="account_id" ref="l10n_mx_sat_openbias.account_119_01_01"/>
+            <field name="refund_account_id" ref="l10n_mx_sat_openbias.account_119_01_01"/>
+            <field name="tag_ids" eval="[(6,0,[ref('tax_tag_0')])]"/>
+            <field name="tax_group_id" ref="cfd_mx.tax_group_iva"/>
+        </record>
+        <record id="tax2" model="account.tax.template">
+            <field name="chart_template_id" ref="mx_coa_sat"/>
+            <field name="name">IVA Exento en Importaciones</field>
+            <field name="description">IVA Exento en Importaciones</field>
+            <field name="amount">0</field>
+            <field name="amount_type">percent</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="account_id" ref="l10n_mx_sat_openbias.account_119_02_01"/>
+            <field name="refund_account_id" ref="l10n_mx_sat_openbias.account_119_02_01"/>
+            <field name="tag_ids" eval="[(6,0,[ref('tax_tag_2')])]"/>
+            <field name="tax_group_id" ref="cfd_mx.tax_group_iva_exent"/>
+        </record>
+        <record id="tax4" model="account.tax.template">
+            <field name="chart_template_id" ref="mx_coa_sat"/>
+            <field name="name">IVA 16% en compras usado en pedimentos</field>
+            <field name="description">IVA 16% en compras usado en pedimentos</field>
+            <field name="amount">16</field>
+            <field name="amount_type">percent</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="account_id" ref="l10n_mx_sat_openbias.account_119_02_01"/>
+            <field name="refund_account_id" ref="l10n_mx_sat_openbias.account_119_02_01"/>
+            <field name="tag_ids" eval="[(6,0,[ref('tax_tag_4')])]"/>
+            <field name="tax_group_id" ref="cfd_mx.tax_group_iva"/>
+        </record>
+
+
+        <!-- RETENSIONES IVA
+        code		Nombre							Tasa 	 Comentarios
+        216.10.01	Impuestos retenidos de IVA Honorarios			10.6667% Se registra por la retención del IVA por servicios profesionales 
+        216.10.02	Impuestos retenidos de IVA Arrendamientos		10.6667% Se registra por la retención del IVA por servicios de arrendamientos 
+        216.10.03	Fletes y acarreos					4%	 Se registra por la retención de fletes y acarreos
+        -->
+
+        <record id="tax8" model="account.tax.template">
+            <field name="chart_template_id" ref="mx_coa_sat"/>
+            <field name="name">RETENCION IVA HONORARIOS</field>
+            <field name="description">RETENCION IVA HONORARIOS</field>
+            <field name="amount">-10.67</field>
+            <field name="amount_type">percent</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="account_id" ref="l10n_mx_sat_openbias.account_216_10_01"/>
+            <field name="refund_account_id" ref="l10n_mx_sat_openbias.account_216_10_01"/>
+            <field name="tag_ids" eval="[(6,0,[ref('tax_tag_8')])]"/>
+            <field name="tax_group_id" ref="cfd_mx.tax_group_iva_ret"/>
+        </record>
+       <record id="tax11" model="account.tax.template">
+            <field name="chart_template_id" ref="mx_coa_sat"/>
+            <field name="name">RETENCION IVA ARRENDAMIENTO</field>
+            <field name="description">RETENCION IVA ARRENDAMIENTO</field>
+            <field name="amount">-10.67</field>
+            <field name="amount_type">percent</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="account_id" ref="l10n_mx_sat_openbias.account_216_10_02"/>
+            <field name="refund_account_id" ref="l10n_mx_sat_openbias.account_216_10_02"/>
+            <field name="tag_ids" eval="[(6,0,[ref('tax_tag_7')])]"/>
+            <field name="tax_group_id" ref="cfd_mx.tax_group_iva_ret"/>
+        </record>
+        <record id="tax6" model="account.tax.template">
+            <field name="chart_template_id" ref="mx_coa_sat"/>
+            <field name="name">RET IVA FLETES 4%</field>
+            <field name="description">RET IVA FLETES 4%</field>
+            <field name="amount">-4</field>
+            <field name="amount_type">percent</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="account_id" ref="l10n_mx_sat_openbias.account_216_10_03"/>
+            <field name="refund_account_id" ref="l10n_mx_sat_openbias.account_216_10_03"/>
+            <field name="tag_ids" eval="[(6,0,[ref('tax_tag_6')])]"/>
+            <field name="tax_group_id" ref="cfd_mx.tax_group_iva_ret"/>
+        </record>
+
+
+        <!-- RETENSIONES ISR
+
+        code		Nombre							Tasa 	 Comentarios
+        216.03.01	Impuestos retenidos de ISR por arrendamiento		10%	 Se registra por la retención del ISR por arrendamientos a la tasa del 10%
+        216.04.01	Impuestos retenidos de ISR por servicios profesionales	10%	 Se registra por la retención del ISR por servicios profecionales a la tasa del 10%
+        -->
+
+        <record id="tax9" model="account.tax.template">
+            <field name="chart_template_id" ref="mx_coa_sat"/>
+            <field name="name">RET ISR ARRENDAMIENTO</field>
+            <field name="description">RET ISR ARRENDAMIENTO</field>
+            <field name="amount">-10</field>
+            <field name="amount_type">percent</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="account_id" ref="l10n_mx_sat_openbias.account_216_03_01"/>
+            <field name="refund_account_id" ref="l10n_mx_sat_openbias.account_216_03_01"/>
+            <field name="tag_ids" eval="[(6,0,[ref('tax_tag_9')])]"/>
+            <field name="tax_group_id" ref="cfd_mx.tax_group_isr_ret"/>
+        </record>
+
+        <record id="tax10" model="account.tax.template">
+            <field name="chart_template_id" ref="mx_coa_sat"/>
+            <field name="name">RET ISR HONORARIOS 10%</field>
+            <field name="description">RET ISR HONORARIOS 10%</field>
+            <field name="amount">-10</field>
+            <field name="amount_type">percent</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="account_id" ref="l10n_mx_sat_openbias.account_216_04_01"/>
+            <field name="refund_account_id" ref="l10n_mx_sat_openbias.account_216_04_01"/>
+            <field name="tag_ids" eval="[(6,0,[ref('tax_tag_9')])]"/>     
+            <field name="tax_group_id" ref="cfd_mx.tax_group_isr_ret"/>
+        </record>
+        <record id="tax13" model="account.tax.template">
+            <field name="chart_template_id" ref="mx_coa_sat"/>
+            <field name="name">IVA(16%) COMPRAS</field>
+            <field name="description">IVA(16%) COMPRAS</field>
+            <field name="amount">16</field>
+            <field name="amount_type">percent</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="account_id" ref="l10n_mx_sat_openbias.account_119_01_01"/>
+            <field name="refund_account_id" ref="l10n_mx_sat_openbias.account_119_01_01"/>
+            <field name="tag_ids" eval="[(6,0,[ref('tax_tag_3')])]"/>
+            <field name="tax_group_id" ref="cfd_mx.tax_group_iva"/>
+        </record>
+ 
+
+
+        <!-- 
+        <record id="tax5" model="account.tax.template">
+            <field name="chart_template_id" ref="mx_coa_sat"/>
+            <field name="name">IVA no acreditable</field>
+            <field name="description">IVA no acreditable</field>
+            <field name="amount">16</field>
+            <field name="amount_type">percent</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="account_id" ref="l10n_mx_sat_openbias.account_119.01.01"/>  604.81.003 Otros gastos sin requisitos fiscales
+            <field name="refund_account_id" ref="l10n_mx_sat_openbias.account_???"/>
+            <field name="tag_ids" eval="[(6,0,[ref('tax_tag_5')])]"/>
+            <field name="tax_group_id" ref="cfd_mx.tax_group_iva"/>
+        </record>
+
+
+
+              IEPS VENTAS  qué tasa???
+
+        code		Nombre							 	 
+        209.02.xx	IEPS trasladado no cobrado
+        208.02.xx	IEPS trasladado cobrado
+
+
+            <record id="tax14" model="account.tax.template">
+                <field name="chart_template_id" ref="mx_coa_sat"/>
+                <field name="name">IEPS Ventas</field>
+                <field name="description">IEPS Ventas</field>
+                <field name="amount">16</field>
+                <field name="amount_type">percent</field>
+                <field name="type_tax_use">sale</field>
+                <field name="account_id" ref="l10n_mx_sat_openbias.account_209_02_XX"/>
+                <field name="refund_account_id" ref="l10n_mx_sat_openbias.account_209_02_XX"/>
+                <field name="tag_ids" eval="[(6,0,[ref('tax_tag_a')])]"/>
+                <field name="tax_group_id" ref="cfd_mx.tax_group_ieps"/>
+            </record>
+            <record id="tax15" model="account.tax.template">
+                <field name="chart_template_id" ref="mx_coa_sat"/>
+                <field name="name">IEPS Exportaciones</field>
+                <field name="description">IEPS Exportaciones</field>
+                <field name="amount">16</field>
+                <field name="amount_type">percent</field>
+                <field name="type_tax_use">sale</field>
+                <field name="account_id" ref="l10n_mx_sat_openbias.account_119_04_xx"/>
+                <field name="refund_account_id" ref="l10n_mx_sat_openbias.account_119_04_xx"/>
+                <field name="tag_ids" eval="[(6,0,[ref('tax_tag_b')])]"/>
+                <field name="tax_group_id" ref="cfd_mx.tax_group_ieps"/>
+            </record>
+
+
+
+
+                      IEPS COMPRAS    qué tasa???
+        code		Nombre							 	 
+        119.03.xx	IEPS pendiente de pago
+        118.03.xx	IEPS acreditable pagado
+
+        119.04.xx	IEPS pendiente de pago en importación
+        118.04.xx	IEPS pagado en importación
+         
+
+            <record id="tax14" model="account.tax.template">
+                <field name="chart_template_id" ref="mx_coa_sat"/>
+                <field name="name">IEPS Compras</field>
+                <field name="description">IEPS Compras</field>
+                <field name="amount">16</field>
+                <field name="amount_type">percent</field>
+                <field name="type_tax_use">purchase</field>
+                <field name="account_id" ref="l10n_mx_sat_openbias.account_119_03_XX"/>
+                <field name="refund_account_id" ref="l10n_mx_sat_openbias.account_119_03_XX"/>
+                <field name="tag_ids" eval="[(6,0,[ref('tax_tag_a')])]"/>
+                <field name="tax_group_id" ref="cfd_mx.tax_group_ieps"/>
+            </record>
+            <record id="tax15" model="account.tax.template">
+                <field name="chart_template_id" ref="mx_coa_sat"/>
+                <field name="name">IEPS Importaciones</field>
+                <field name="description">IEPS Importaciones</field>
+                <field name="amount">16</field>
+                <field name="amount_type">percent</field>
+                <field name="type_tax_use">purchase</field>
+                <field name="account_id" ref="l10n_mx_sat_openbias.account_119_04_xx"/>
+                <field name="refund_account_id" ref="l10n_mx_sat_openbias.account_119_04_xx"/>
+                <field name="tag_ids" eval="[(6,0,[ref('tax_tag_b')])]"/>
+                <field name="tax_group_id" ref="cfd_mx.tax_group_ieps"/>
+            </record>
+
+        -->
+
+  </data>
+</odoo>

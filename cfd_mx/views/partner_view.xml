@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+        <record model="ir.ui.view" id="view_partner_cfdi_categ_form">
+            <field name="name">view_partner_cfdi_categ_form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <notebook position="inside">
+                        <page string="CFDI">
+                            <group>
+                                <group>
+                                    <field name="regimen_id" string="Régimen Fiscal" groups="cfd_mx.group_cfd_mx_manager"/>
+                                    <field name="usocfdi_id" string="Uso CFDI" groups="cfd_mx.group_cfd_mx_manager"/>
+                                    <field name="formapago_id"/>
+                                    <field name="metodopago_id" />
+                                </group>
+                                <group>
+                                    <field name="es_personafisica" />
+                                    <field name="es_extranjero" />
+                                    <field name="identidad_fiscal" string="Identidad Fiscal" groups="cfd_mx.group_cfd_mx_manager"/>
+                                    <field name="curp" />
+                                    <field name="xml_cfdi_sinacento"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </data>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_partner_cfdi_street_form">
+            <field name="name">view_partner_cfdi_street_form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="street" position="after">
+                        <field name="noExterior" 
+                            placeholder="No. ext." class="o_address_city"
+                            attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                        <field name="noInterior" 
+                            placeholder="No. int." class="o_address_city"
+                            attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_partner_cfdi_street2_form">
+            <field name="name">view_partner_cfdi_street2_form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="street2" position="attributes">
+                        <attribute name="placeholder">Colonia:</attribute>
+                    </field>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</openerp>
+
+

@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="report_hr_payslip_mx_document">
+            <t t-call="report.html_container">
+                <div class="page">
+
+                        <table class="table table-condensed" id="company" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th><h2>Empresa:</h2></th>
+                                    <th><h2>Registro Patronal:</h2></th>
+                                    <th><h2>RFC:</h2></th>
+                                    <th><h2>Periodicidad de Pago:</h2></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span t-field="o.company_id.name"/></td>
+                                    <td><span t-field="o.company_id.registro_patronal_id.name"/></td>
+                                    <td><span t-field="o.company_id.vat"/></td>
+                                    <td><span t-field="o.employee_id.contract_id.periodicidad_pago_id.code"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-condensed" id="empleado" style="width: 100%; font-size: 10px;">
+                            <tr>
+                                <td colspan="2" style="width: 50%; border-left: 1px solid #BDBDBD !important; border-right: 1px solid #BDBDBD !important; border-top: 1px solid #BDBDBD !important;">
+                                    <strong t-field="o.employee_id.cod_emp"/> - <strong t-field="o.employee_id.nombre_completo"/>
+                                </td>
+                                <td colspan="2" style="width: 50%; border-right: 1px solid #BDBDBD !important; border-top: 1px solid #BDBDBD !important;">
+                                    <strong>Periodo Calculado:</strong> <strong t-esc="o.get_periodo() "/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 18%; vertical-align:top; border-left: 1px solid #BDBDBD !important; ">RFC:</td>
+                                <td style="width: 32%; vertical-align:top; "><span t-field="o.employee_id.rfc"/></td>
+                                <td style="width: 18%; vertical-align:top; border-left: 1px solid #BDBDBD !important;">Fecha Pago</td>
+                                <td style="width: 32%; vertical-align:top; border-right: 1px solid #BDBDBD !important;"><span t-field="o.date"/></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 18%; vertical-align:top; border-left: 1px solid #BDBDBD !important;">CURP:</td>
+                                <td style="width: 32%; vertical-align:top;"><span t-field="o.employee_id.curp"/></td>
+                                <td style="width: 18%; vertical-align:top; border-left: 1px solid #BDBDBD !important;">Puesto</td>
+                                <td style="width: 32%; vertical-align:top; border-right: 1px solid #BDBDBD !important;"><span t-field="o.employee_id.job_id.name"/></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 18%; vertical-align:top; border-left: 1px solid #BDBDBD !important;">Fecha Inicio Laboral:</td>
+                                <td style="width: 32%; vertical-align:top;"><span t-field="o.employee_id.contract_id.date_start"/></td>
+                                <td style="width: 18%; vertical-align:top; border-left: 1px solid #BDBDBD !important;">Departamento</td>
+                                <td style="width: 32%; vertical-align:top; border-right: 1px solid #BDBDBD !important;"><span t-field="o.employee_id.department_id.name"/></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 18%; vertical-align:top; border-left: 1px solid #BDBDBD !important;">NSS:</td>
+                                <td style="width: 32%; vertical-align:top;"><span t-field="o.employee_id.imss"/></td>
+                                <td style="width: 18%; vertical-align:top; border-left: 1px solid #BDBDBD !important;">Días Trabajados</td>
+                                <td style="width: 32%; vertical-align:top; border-right: 1px solid #BDBDBD !important;"><span t-esc="o.get_dias_trabajados()"/></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 18%; vertical-align:top; border-left: 1px solid #BDBDBD !important; border-bottom: 1px solid #BDBDBD !important;">Tipo de Contrato:</td>
+                                <td style="width: 32%; vertical-align:top; border-bottom: 1px solid #BDBDBD !important;"><span t-field="o.employee_id.contract_id.type_id.code"/></td>
+                                <td style="width: 18%; vertical-align:top; border-left: 1px solid #BDBDBD !important; border-bottom: 1px solid #BDBDBD !important;">SDI</td>
+                                <td style="width: 32%; vertical-align:top; border-right: 1px solid #BDBDBD !important; border-bottom: 1px solid #BDBDBD !important;"><span t-field="o.employee_id.sueldo_diario"/></td>
+                            </tr>
+                        </table>
+                        <t t-set="p_total" t-value="0"/>
+                        <t t-set="d_total" t-value="0"/>
+                        <table class="table table-condensed" id="percepciones" style="width: 100%; font-size: 10px;">
+                            <thead>
+                                <tr>
+                                    <th colspan="3">PERCEPCIONES:</th>
+                                    <th colspan="3">DEDUCCIONES:</th>
+                                </tr>
+                                <tr>
+                                    <th>Clave</th>
+                                    <th>Descripción</th>
+                                    <th>Importe</th>
+                                    <th>Clave</th>
+                                    <th>Descripción</th>
+                                    <th>Importe</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.get_lines_dp()" t-as="d">
+                                    <tr>
+                                        <td>&amp;nbsp;<span t-esc="d['p_code']"/></td>
+                                        <td>&amp;nbsp;<span t-esc="d['p_name']"/></td>
+                                        <td style="text-align: right;">
+                                            <t t-if="d['p_name'] != ' '">
+                                                $ <span t-esc="d['p_total']"/>
+                                                <t t-set="p_total" t-value="p_total+d['p_total']"/>
+                                            </t>
+                                        </td>
+                                        <td>&amp;nbsp;<span t-esc="d['d_code']"/></td>
+                                        <td>&amp;nbsp;<span t-esc="d['d_name']"/></td>
+                                        <td style="text-align: right;">
+                                            <t t-if="d['d_name'] != ' '">
+                                                $ <span t-esc="d['d_total']"/>
+                                                <t t-set="d_total" t-value="d_total+d['d_total']"/>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <th colspan="3">Otros Pagos:</th>
+                                    <th colspan="3"></th>
+                                </tr>
+                                <t t-foreach="o.get_lines_o()" t-as="d">
+                                    <tr>
+                                        <td>&amp;nbsp;<span t-esc="d['p_code']"/></td>
+                                        <td>&amp;nbsp;<span t-esc="d['p_name']"/></td>
+                                        <td style="text-align: right;">
+                                            <t t-if="d['p_name'] != ' '">
+                                                $ <span t-esc="d['p_total']"/>
+                                                <t t-set="p_total" t-value="p_total+d['p_total']"/>
+                                            </t>
+                                        </td>
+                                        <td>&amp;nbsp;<span t-esc="d['d_code']"/></td>
+                                        <td>&amp;nbsp;<span t-esc="d['d_name']"/></td>
+                                        <td style="text-align: right;">
+                                            <t t-if="d['d_name'] != ' '">
+                                                $ <span t-esc="d['d_total']"/>
+                                                <t t-set="d_total" t-value="d_total+d['d_total']"/>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="2"><strong>Total de Percepciones y Otros Pagos </strong></td>
+                                    <td style="text-align: right;">&amp;nbsp;$ <span t-esc="p_total"/></td>
+                                    <td colspan="2"><strong>Total de Deducciones </strong></td>
+                                    <td style="text-align: right;">&amp;nbsp;$ <span t-esc="d_total"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">&amp;nbsp;</td>
+                                    <td colspan="2"><strong>Total a pagar </strong></td>
+                                    <td style="text-align: right;"><span t-field="o.total"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" style="width: 50%;text-align: justify;"><span t-esc="o.get_message() "/></td>
+                                    <td colspan="3" style="width: 50%;">
+                                        <div class="row">
+                                            <div class="col-4"><br /><br/><span>&amp;nbsp;</span></div>
+                                            <div class="col-4 text-center" style="text-align: center; border-top: 1px solid #BDBDBD;">
+                                                <span>FIRMA DEL TRABAJADOR </span>
+                                            </div>
+                                            <div class="col-4"><br /><br/><span>&amp;nbsp;</span></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <table class="table table-condensed" id="info" style="width: 100%; font-size: 10px;">
+                            <tr>
+                                <td style="width: 35%; text-align: center; vertical-align:top;">
+                                    <img t-if="o.qrcode" t-att-src="'data:image/png;base64,%s' % o.qrcode" style="vertical-align: text-top; width:140px!important;height:140px!important;"/>
+                                </td>
+                                <td style="width: 5%;"><span>&amp;nbsp;</span></td>
+                                <td style="width: 60%; vertical-align:top;">
+                                    <table class="table table-condensed" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2"><span>Este documento es una representación impresa de un CFDI</span> </th>
+                                            </tr><tr>
+                                                <td colspan="2"><strong>Pago en Una Sola Exhibición</strong></td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><strong>Folio Fiscal UUID: </strong></td>
+                                                <td><span t-esc="o.uuid"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Número de Certificado: </strong></td>
+                                                <td><span t-esc="o.noCertificado"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Número de Certificado SAT: </strong></td>
+                                                <td><span t-esc="o.certificado_sat"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Fecha y hora Certificación: </strong></td>
+                                                <td><span t-esc="o.fecha_timbrado"/></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" style="width: 100%;">
+                                    <t t-if="o.sello_sat">
+                                        <strong>Sello Digital CFDI: </strong> <t t-esc="o.get_info_sat(o.sello_sat)"/>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" style="width: 100%;">
+                                    <t t-if="o.cadena_sat">
+                                        <strong>Cadena original del complemento de certificación SAT: </strong><br/>
+                                        <t t-esc="o.get_info_sat(o.cadena_sat)"/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </table>
+<!--                         <table class="table table-condensed" style="width: 100%; font-size: 10px;">
+                            <tr>
+                                <td colspan="3" style="width: 100%;">
+                                    <t t-if="o.sello_sat">
+                                        <strong>Sello Digital CFDI: </strong> <t t-esc="o.get_info_sat(o.sello_sat)"/>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" style="width: 100%;">
+                                    <t t-if="o.cadena_sat">
+                                        <strong>Cadena original del complemento de certificación SAT: </strong><br/>
+                                        <t t-esc="o.get_info_sat(o.cadena_sat)"/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </table> -->
+                </div>
+            </t>
+        </template>
+
+        <template id="report_hr_payslip_mx">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="cfdi_nomina.report_hr_payslip_mx_document"/>
+                </t>
+            </t>
+        </template>
+
+
+    </data>
+</odoo>

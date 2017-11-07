@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+        <record model="ir.ui.view" id="reporte_acumulado_view_form">
+            <field name="name">reporte.acumulado.view.form</field>
+            <field name="model">cfdi_nomina.reporte_acumulado</field>
+            <field name="arch" type="xml">
+                <form string="Reporte acumulados">
+                    <group string="Periodo">
+                        <group>
+                            <field name="fecha_inicio"/>
+                        </group>
+                        <group>
+                            <field name="fecha_fin"/>
+                        </group>
+                    </group>
+                    <separator string="Nóminas"/>
+                    <field name="nomina_ids" 
+                        domain="[('date_start','&gt;=',fecha_inicio), ('date_end','&lt;=',fecha_fin)]"/>
+                    <separator string="Reglas Salariales (Agrupaciones)"/>
+                    <field name="rule_group_ids"/>
+                    <separator string="Empleados"/>
+                    <field name="employee_ids"/>
+                    <div attrs="{'invisible':[('datas','=',False)]}">
+                        <group string="Archivo CSV">
+                            <field name="fname" invisible="1"/>
+                            <field name="datas" filename="fname" readonly="1"/>
+                        </group>
+                    </div>
+                    <footer>
+                        <button type="special" special="cancel" string="Cerrar" icon="fa-times-circle-o"/>
+                        <button type="object" string="CSV" name="action_reporte_excel" icon="fa-cogs"/>
+                        <button type="object" string="Vista lista" name="action_reporte_acumulado" icon="fa-cogs"/>
+                    </footer>
+                </form>
+            </field>
+        </record>    
+        <record id="action_reporte_acumulado" model="ir.actions.act_window">
+            <field name="name">Reporte acumulados</field>
+            <field name="res_model">cfdi_nomina.reporte_acumulado</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="reporte_acumulado_view_form"/>
+            <field name="target">new</field>
+        </record>        
+        <menuitem 
+            id="menu_reporte_acumulado" 
+            action="action_reporte_acumulado"
+            parent="cfdi_nomina.menu_cfdi_nomina_mx" />
+
+          
+        <record model="ir.ui.view" id="reporte_acumulado_line_view">
+            <field name="name">reporte.acumulado.line.view</field>
+            <field name="model">cfdi_nomina.reporte_acumulado_line</field>
+            <field name="arch" type="xml">
+                <tree string="Reporte acumulados">
+                    <field name="employee_id"/>
+                    <field name="codemp"/>
+                    <field name="rfc"/>
+                    <field name="imss"/>
+                    <field name="p_otras" string="Otras percepciones" sum="Total percepciones"/>
+                    <field name="d_otras" string="Otras deducciones" sum="Total deducciones"/>
+                    <field name="gravado" string="Gravado" sum="Total gravado"/>
+                    <field name="exento" string="Exento" sum="Total exento"/>
+                    <field name="neto" string="Neto" sum="Total neto"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>    
+
+
+

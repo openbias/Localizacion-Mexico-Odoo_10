@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="invoice_supplier_validar_form">
+            <field name="name">invoice_supplier_validar_form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                 <button name="action_invoice_cancel" position="before">
+                    <button type="object" name="action_subir_xml" states="draft,proforma2" string="Subir XML y PDF" class="oe_highlight" groups="account.group_account_invoice"/>
+                </button>
+                <field name="company_currency_id" position="after">
+                    <field name="uuid"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

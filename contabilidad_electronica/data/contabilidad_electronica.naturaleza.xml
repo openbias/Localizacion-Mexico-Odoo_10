@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <!--Generated for OpenBIAS-->
+    <data noupdate="1">
+        <record id="contabilidad_electronica.naturaleza_acreedora" model="contabilidad_electronica.naturaleza">
+            <field name="name">Acreedora</field>
+            <field name="code">A</field>
+        </record>
+        <record id="contabilidad_electronica.naturaleza_deudora" model="contabilidad_electronica.naturaleza">
+            <field name="name">Deudora</field>
+            <field name="code">D</field>
+        </record>
+    </data>
+</odoo>

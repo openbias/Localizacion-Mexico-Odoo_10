@@ -1,0 +1,229 @@
+<odoo>
+    <data>
+
+        <!-- HR Payroll  -->
+        <record model="ir.ui.view" id="hr_salary_rule_form_inherit">
+            <field name="name">hr.salary.rule.form.inherit</field>
+            <field name="model">hr.salary.rule</field>
+            <field name="inherit_id" ref="hr_payroll.hr_salary_rule_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[1]" position="inside">
+                    <group col="4">
+                        <separator colspan="4" string="Complemento Nómina SAT"/>
+                        <field name="tipo_id" colspan="2" />
+                        <field name="gravado_o_exento" colspan="2" />
+                        <field name="codigo_agrupador_id" domain="[('tipo_id', '=', tipo_id)]" colspan="2" />
+                        <field name="tipo_horas_id" colspan="2" />
+                        <field name="agrupacion_id" colspan="2" />
+                    </group>
+                </xpath>
+            </field>
+        </record>        
+        <record model="ir.ui.view" id="hr_salary_rule_list_inherit">
+            <field name="name">hr.salary.rule.list.inherit</field>
+            <field name="model">hr.salary.rule</field>
+            <field name="inherit_id" ref="hr_payroll.hr_salary_rule_list"/>
+            <field name="arch" type="xml">
+                <field name="code" position="before">
+                    <field name="codigo_agrupador_id"/>
+                </field>
+            </field>
+        </record>
+
+        <!-- HR Contract  -->
+        <record model="ir.ui.view" id="hr_contract_view_form_inherit">
+            <field name="name">hr.contract.view.form.inherit</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+                <field name="type_id" position="after">
+                    <field name="regimen_contratacion_id"/>
+                </field>
+                <field name="wage" position="after">
+                    <field name="periodicidad_pago_id"/>
+                </field>
+            </field>
+        </record>
+        <!-- HR JOB -->
+        <record model="ir.ui.view" id="view_hr_job_riesgopuesto_form">
+            <field name="name">view_hr_job_riesgopuesto_form</field>
+            <field name="model">hr.job</field>
+            <field name="inherit_id" ref="hr.view_hr_job_form"/>
+            <field name="arch" type="xml">
+                <field name="department_id" position="after">
+                    <field name="riesgo_puesto_id"/>
+                </field>
+            </field>
+        </record>        
+
+
+        <!-- HR Payslip  -->
+        <record id="hr_payslip_run_chatter_form" model="ir.ui.view">
+            <field name="name">hr.payslip.run.chatter.form</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form"/>
+            <field name="arch" type="xml">
+                <sheet position="after">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </sheet>
+            </field>
+        </record>
+
+        <record id="hr_payslip_run_total_tree" model="ir.ui.view">
+            <field name="name">hr.payslip.run.total.tree</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="hr_payroll.hr_payslip_run_tree"/>
+            <field name="arch" type="xml">
+                <field name="state" position="after">
+                    <field name="total" />
+                    <field name="eval_state" invisible="1" />
+                    <button string="Confirm Payslips" name="confirm_sheet_run" type="object" states="draft" icon="fa-cogs" />
+                </field>
+            </field>
+        </record>
+        <record id="hr_payslip_run_total_form" model="ir.ui.view">
+            <field name="name">hr.payslip.run.total.form</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form"/>
+            <field name="arch" type="xml">
+                <button name="close_payslip_run" position="before" >
+                    <button string="Confirm Payslips" name="confirm_sheet_run" type="object" states="draft" class="oe_highlight" icon="fa-cogs" />
+                    <button string="Refund Payslips" name="refund_sheet_run" type="object" states="close" class="oe_highlight" icon="fa-cogs" />
+                </button>
+                <button name="close_payslip_run" position="replace"></button>
+                <field name="state" position="before" >
+                    <field name="eval_state" invisible="0" />
+                </field>
+                <field name="credit_note" position="after" >
+                    <field name="total" readonly="1" />
+                    <field name="concepto" />
+                    <field name="fecha_pago" />
+                    <field name="es_sncf" invisible="1" />
+                    <field name="source_sncf" />
+                    <field name="amount_sncf" />
+                </field>
+            </field>
+        </record>
+
+        <record id="view_hr_payslip_total_form" model="ir.ui.view">
+            <field name="name">hr.payslip.total.form</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+                <button name="refund_sheet" position="replace"></button>
+                <button name="action_payslip_cancel" position="replace">
+                    <button string="Cancel Payslip" name="action_payslip_cancel_nomina" type="object" states="draft,hr_check,confirm,verify,done" class="oe_highlight"/>
+                </button>
+                <field name="state">
+                    <field name="state" widget="statusbar" statusbar_visible="draft,cancel,confirm"/>
+                </field>
+                <field name="credit_note" position="before" >
+                    <field name="fecha_pago" />
+                    <field name="total" readonly="1" />
+                    <field name="source_sncf" />
+                    <field name="amount_sncf" />
+                </field>
+            </field>
+        </record>
+        <record id="view_hr_payslip_total_tree" model="ir.ui.view">
+            <field name="name">hr.payslip.total.tree</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_tree"/>
+            <field name="arch" type="xml">
+                <field name="state" position="before" >
+                    <field name="total" string="Total" sum="Total Amount" readonly="1" />
+                    <field name="source_sncf" />
+                    <field name="amount_sncf" />
+                </field>
+            </field>
+        </record>
+        <record id="view_hr_payslip_total01_tree" model="ir.ui.view">
+            <field name="name">hr.payslip.total01.tree</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="colors"><![CDATA[green:total<=0.0;]]></attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_hr_payslip_tree_inherit">
+            <field name="name">view.hr.payslip.form.inherit</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_tree"/>
+            <field name="arch" type="xml">
+                <field name="state" position="after">
+                     <field name="timbrada"/>
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_hr_payslip_form_inherit">
+            <field name="name">view.hr.payslip.form.inherit</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="concepto"/>
+                    <field name="tipo_nomina" />
+                </field>
+                <notebook position="inside">
+                    <page string="Info. SAT">
+                        <group>
+                            <field name="date_invoice_cfdi" readonly="0" />
+                            <field name="uuid" readonly="1"/>
+                            <field name="test" readonly="1"/>
+                            <field name="noCertificado" readonly="1"/>
+                            <field name="sello_sat" readonly="1"/>
+                            <field name="certificado_sat" readonly="1"/>
+                            <field name="fecha_timbrado" readonly="1"/>
+                            <field name="cadena_sat" readonly="1"/>
+                        </group>
+                    </page>
+                    <page string="Cancelación" attrs="{'invisible': [('mandada_cancelar','=',False)]}">
+                        <field name="mandada_cancelar" invisible="1"/>
+                        <label for="mensaje_pac"/>
+                        <field name="mensaje_pac" readonly="1"/>
+                    </page>
+                </notebook>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='rate']" position="after">
+                    <field name="gravado"/>
+                    <field name="exento"/>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/form/group/field[@name='rate']" position="after">
+                    <field name="gravado"/>
+                    <field name="exento"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <!-- HR Salary Rule  -->
+        <record id="hr_rule_group_view_tree" model="ir.ui.view">
+            <field name="name">hr.salary.rule.group.view.tree</field>
+            <field name="model">hr.salary.rule.group</field>
+            <field name="arch" type="xml">
+                <tree string="Agrupación reglas" editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>        
+        <record id="act_open_hr_rule_group" model="ir.actions.act_window">
+            <field name="name">Agrupación reglas</field>
+            <field name="res_model">hr.salary.rule.group</field>
+            <field name="view_mode">list</field>
+            <field name="view_type">form</field>
+        </record>
+        <menuitem 
+            action="act_open_hr_rule_group" 
+            id="menu_open_hr_rule_group"
+            name="Agrupación Reglas Salariales"
+            parent="cfdi_nomina.menu_cfdi_nomina" 
+            sequence="100"/>
+
+
+    </data>
+</odoo>

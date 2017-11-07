@@ -1,0 +1,54 @@
+<odoo>
+    <data>
+
+        <!--
+            PRODUCT TEMPLATE
+        -->
+        <record model="ir.ui.view" id="product_template_form_view_cfdi">
+            <field name="name">product.template.invoice.cfdi</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <page name="invoicing" position="inside">
+                    <separator string="CFDI 3.3"/>
+                    <group>
+                        <field name="clave_prodser_id"/>
+                        <field name="cuenta_predial" />
+                    </group>
+                </page>
+            </field>
+        </record>
+<!--         <record id="product_template_cfdi_view" model="ir.ui.view">
+            <field name="name">product_template_cfdi_view</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="account.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <group name="accounting" position="after">
+                    <group>
+                        <separator string="CFDI 3.3" colspan="4" />
+                        <group>
+                            <group>
+                                <field name="clave_prodser_id"/>
+                                <field name="cuenta_predial" />
+                            </group>
+                        </group>
+                    </group>
+                </group>
+            </field>
+        </record> -->
+        <!--
+            PRODUCT UOM
+        -->
+        <record id="product_uom_clave_sat_form_view" model="ir.ui.view">
+            <field name="name">product_uom_clave_sat_form_view</field>
+            <field name="model">product.uom</field>
+            <field name="inherit_id" ref="product.product_uom_form_view"/>
+            <field name="arch" type="xml">
+                <field name="category_id" position="after">
+                    <field name="clave_unidadesmedida_id"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

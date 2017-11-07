@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <menuitem
+            id="menu_cfdi_nomina_mx"
+            name="Localización México"
+            parent="hr_payroll.menu_hr_payroll_root" 
+            sequence="99"/>
+
+
+        <record id="hr_salary_rule_form_report" model="ir.ui.view">
+            <field name="name">hr.salary.rule.form.report</field>
+            <field name="model">hr.salary.rule</field>
+            <field name="inherit_id" ref="hr_payroll.hr_salary_rule_form"/>
+            <field name="arch" type="xml">
+                <field name="appears_on_payslip" position="after">
+                    <field name="appears_on_payslip_report"  />
+                </field>
+            </field>
+        </record>
+
+
+        <record id="hr_payslip_line_view_tree" model="ir.ui.view">
+            <field name="name">hr.payslip.line.view.tree</field>
+            <field name="model">hr.payslip.line</field>
+            <field name="priority" eval="15"/>
+            <field name="arch" type="xml">
+                <tree string="Payslip line">
+                    <field name="slip_id"/>
+                    <field name="employee_id"/>
+                    <field name="name"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="codigo_agrupador"/>
+                    <field name="code"/>
+                    <field name="category_id"/>
+                    <field name="gravado" sum="Total gravado"/>
+                    <field name="exento" sum="Total exento"/>
+                    <field name="total" sum="Total"/>
+                </tree>
+            </field>
+        </record>        
+        <record id="hr_payslip_line_view_search" model="ir.ui.view">
+            <field name="name">hr.payslip.line.view.search</field>
+            <field name="model">hr.payslip.line</field>
+            <field name="arch" type="xml">
+                <search string="Payslip line">
+                  <field name="employee_id"/>
+                  <field name="name"/>
+                  <field name="code"/>
+                  <field name="slip_id"/>
+                  <field name="category_id"/>
+                  <group expand="0" string="Group by...">
+                      <filter name="nomina" string="Nómina" context="{'group_by': 'slip_id'}"/>
+                      <filter name="empleado" string="Empleado" context="{'group_by': 'employee_id'}"/>
+                      <filter name="categoria" string="Categoría" context="{'group_by': 'category_id'}"/>
+                  </group>
+                </search>
+            </field>
+        </record>        
+        <record id="hr_payslip_line_view_form" model="ir.ui.view">
+            <field name="name">hr.payslip.line.view.form</field>
+            <field name="model">hr.payslip.line</field>
+            <field name="arch" type="xml">
+                <form string="Payslip line">
+                    <group>
+                    </group>
+                </form>
+            </field>
+        </record>        
+        <record id="act_open_hr_payslip_line" model="ir.actions.act_window">
+            <field name="name">Detalle Nomina</field>
+            <field name="res_model">hr.payslip.line</field>
+            <field name="view_mode">list</field>
+            <field name="view_type">tree</field>
+            <field name="view_id" ref="hr_payslip_line_view_tree"/>
+            <field name="search_view_id" ref="hr_payslip_line_view_search"/>
+        </record>
+        <menuitem 
+            action="act_open_hr_payslip_line" 
+            id="menu_open_hr_payslip_line"
+            name="Detalle Nomina"
+            parent="cfdi_nomina.menu_cfdi_nomina_mx" 
+            sequence="99"/>  
+
+    </data>
+</odoo>
+

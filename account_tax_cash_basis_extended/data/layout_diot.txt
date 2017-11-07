@@ -1,0 +1,466 @@
+TODOS LOS CAMPOS DEBEN DE ESTAR EN UN SOLO RENGLON SEPARADOS POR EL CARACTER | (PIPE)
+DENTRO DE UN ARCHIVO DE TIPO TEXTO (.txt)
+ 
+EJEMPLO:
+Campo1|Campo2|Campo3...|CampoN|
+Campo1|Campo2|Campo3...|CampoN|
+ 
+		ORDEN Y TIPO DE CAMPOS
+ 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ INFORMACIÓN DE IDENTIFICACIÓN DEL PROVEEDOR O TERCERO     
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 
+ Campo: 1
+ Descripción: 			Tipo de tercero
+ Dato obligatorio 		
+ Valores permitidos: 		
+			Valor		Descripción
+			-------		--------------
+			00		Seleccione...
+			04		Proveedor Nacional 
+			05		Proveedor Extranjero
+			15		Proveedor Global
+ 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Campo: 2
+ Descripción: 			Tipo de operación
+ Dato obligatorio 		
+ Valores permitidos: 		
+			Valor		Descripción
+			-------		--------------
+			00		Seleccione...
+			03		Prestación de Servicios Profesionales
+			06		Arrendamiento  de Inmuebles
+			85		Otros
+ 
+Cuando el tipo de tercero sea igual a: 05 solo aplicaran los valores 03 y 85
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Campo: 3
+ Descripción: 			Registro Federal de Contribuyentes
+ Tipo de campo: 		RFC
+ Personas físicas y morales 	
+ Homoclave requerida 		
+ Dato opcional 		
+ 
+Obligatorio cuando: tipo de tercero sea igual a: 04
+Opcional cuando: tipo de tercero sea igual a: 05
+No obligatorio cuando: tipo de tercero sea igual a: 15
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Campo: 4
+ Descripción: 			Número de ID fiscal
+ Tipo de campo: 		Alfanumérico
+ Caracteres especiales:		 @´%!¡.$&¿?Ñ
+ Dato opcional 		
+ 
+Aplica solo cuando tipo de tercero sea igual a: 05
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Campo: 5
+ Descripción: 			Nombre del extranjero
+ Tipo de campo: 		Alfanumérico
+ Caracteres especiales:		 @´%!¡$.&,
+ Dato opcional 		
+ 
+Aplica solo cuando tipo de tercero sea igual a: 05
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Campo: 6
+ Descripción: 			País de residencia
+ Dato obligatorio 		
+ Valores permitidos: 		
+			Valor		Descripción
+			-------		--------------
+			0		  
+			AD		AD - Principado de Andorra
+			AE		AE - Emiratos Arabes Unidos
+			AF		AF - Afganistán
+			AG		AG - Antigua y Bermuda
+			AI		AI - Isla Anguilla
+			AL		AL - República de Albania
+			AN		AN - Antillas Neerlandesas
+			AO		AO - República de Angola
+			AQ		AQ - Antártica
+			AR		AR - Argentina
+			AS		AS - Samoa Americana
+			AT		AT - Austria
+			AU		AU - Australia
+			AW		AW - Aruba
+			AX		AX - Ascensión
+			AZ		AZ - Islas Azores
+			BB		BB - Barbados
+			BD		BD - Bangladesh
+			BE		BE - Bélgica
+			BF		BF - Burkina Faso
+			BG		BG - Bulgaria
+			BH		BH - Estado de Bahrein
+			BI		BI - Burundi
+			BJ		BJ - Benin
+			BL		BL - Belice
+			BM		BM - Bermudas
+			BN		BN - Brunei Darussalam
+			BO		BO - Bolivia
+			BR		BR - Brasil
+			BS		BS - Commonwealth de las Bahamas
+			BT		BT - Buthan
+			BU		BU - Burma
+			BV		BV - Isla Bouvet
+			BW		BW - Botswana
+			BY		BY - Bielorrusia
+			CA		CA - Canadá
+			CC		CC - Isla de Cocos o Kelling
+			CD		CD - Islas Canarias
+			CE		CE - Isla de Christmas
+			CF		CF - República Centro Africana
+			CG		CG - Congo
+			CH		CH - Suiza
+			CI		CI - Costa de Marfil
+			CK		CK - Islas Cook
+			CL		CL - Chile
+			CM		CM - Camerún
+			CN		CN - China
+			CO		CO - Colombia
+			CP		CP - Campione D'Italia
+			CR		CR - República de Costa Rica
+			CS		CS - República Checa y República Eslovaca
+			CU		CU - Cuba
+			CV		CV - República de Cabo Verde
+			CX		CX - Isla de Navidad
+			CY		CY - República de Chipre
+			DD		DD - Alemania
+			DJ		DJ - República de Djibouti
+			DK		DK - Dinamarca
+			DM		DM - República Dominicana
+			DN		DN - Commonwealth de Dominica
+			DZ		DZ - Argelia
+			EC		EC - Ecuador
+			EG		EG - Egipto
+			EH		EH - Sahara del Oeste
+			EO		EO - Estado Independiente de Samoa Occidental
+			ES		ES - España
+			ET		ET - Etiopía
+			FI		FI - Finlandia
+			FJ		FJ - Fiji
+			FK		FK - Islas Malvinas
+			FM		FM - Micronesia
+			FO		FO - Islas Faroe
+			FR		FR - Francia
+			GA		GA - Gabón
+			GB		GB - Gran Bretaña (Reino Unido)
+			GD		GD - Granada
+			GF		GF - Guyana Francesa
+			GH		GH - Ghana
+			GI		GI - Gibraltar
+			GJ		GJ - Groenlandia
+			GM		GM - Gambia
+			GN		GN - Guinea
+			GP		GP - Guadalupe
+			GQ		GQ - Guinea Ecuatorial
+			GR		GR - Grecia
+			GT		GT - Guatemala
+			GU		GU - Guam
+			GW		GW - Guinea Bissau
+			GY		GY - República de Guyana
+			GZ		GZ - Islas de Guernesey, Jersey, Alderney, Isla Great Sark, Herm, Little Sark, Berchou, Jethou, Lihou (Islas del Canal)
+			HK		HK - Hong Kong
+			HM		HM - Islas Heard and Mc Donald
+			HN		HN - República de Honduras
+			HT		HT - Haití
+			HU		HU - Hungría
+			ID		ID - Indonesia
+			IE		IE - Irlanda
+			IH		IH - Isla del Hombre
+			IL		IL - Israel
+			IN		IN - India
+			IO		IO - Territorio Británico en el Océano Indico
+			IP		IP - Islas Pacífico
+			IQ		IQ - Iraq
+			IR		IR - Irán
+			IS		IS - Islandia
+			IT		IT - Italia
+			JM		JM - Jamaica
+			JO		JO - Reino Hachemita de Jordania
+			JP		JP - Japón
+			KE		KE - Kenia
+			KH		KH - Campuchea Democrática
+			KI		KI - Kiribati
+			KM		KM - Comoros
+			KN		KN - San Kitts
+			KP		KP - República Democrática de Corea
+			KR		KR - República de Corea
+			KW		KW - Estado de Kuwait
+			KY		KY - Islas Caimán
+			LA		LA - República Democrática de Laos
+			LB		LB - Líbano
+			LC		LC - Santa Lucía
+			LI		LI - Principado de Liechtenstein
+			LK		LK - República Socialista Democrática de Sri Lanka
+			LN		LN - Labuán
+			LR		LR - República de Liberia
+			LS		LS - Lesotho
+			LU		LU - Gran Ducado de Luxemburgo
+			LY		LY - Libia
+			MA		MA - Marruecos
+			MC		MC - Principado de Mónaco
+			MD		MD - Madeira
+			MG		MG - Madagascar
+			MH		MH - República de las Islas Marshall
+			ML		ML - Malí
+			MN		MN - Mongolia
+			MO		MO - Macao
+			MP		MP - Islas Marianas del Noreste
+			MQ		MQ - Martinica
+			MR		MR - Mauritania
+			MS		MS - Monserrat
+			MT		MT - Malta
+			MU		MU - República de Mauricio
+			MV		MV - República de Maldivas
+			MW		MW - Malawi
+			MY		MY - Malasia 
+			MZ		MZ - Mozambique
+			NA		NA - República de Namibia
+			NC		NC - Nueva Caledonia
+			NE		NE - Níger
+			NF		NF - Isla de Norfolk
+			NG		NG - Nigeria
+			NI		NI - Nicaragua
+			NL		NL - Holanda
+			NO		NO - Noruega
+			NP		NP - Nepal
+			NR		NR - República de Nauru
+			NT		NT - Zona Neutral
+			NU		NU - Niue
+			NV		NV - Nevis
+			NZ		NZ - Nueva Zelandia
+			OM		OM - Sultanía de Omán
+			PA		PA - República de Panamá
+			PE		PE - Perú
+			PF		PF - Polinesia Francesa
+			PG		PG - Papúa Nueva Guinea
+			PH		PH - Filipinas
+			PK		PK - Pakistán
+			PL		PL - Polonia
+			PM		PM - Isla de San Pedro y Miguelón
+			PN		PN - Pitcairn
+			PR		PR - Estado Libre Asociado de Puerto Rico
+			PT		PT - Portugal
+			PU		PU - Patau
+			PW		PW - Palau
+			PY		PY - Paraguay
+			QA		QA - Estado de Quatar
+			QB		QB - Isla Qeshm
+			RE		RE - Reunión
+			RO		RO - Rumania
+			RW		RW - Rhuanda
+			SA		SA - Arabia Saudita
+			SB		SB - Islas Salomón
+			SC		SC - Seychelles Islas
+			SD		SD - Sudán
+			SE		SE - Suecia
+			SG		SG - Singapur
+			SH		SH - Santa Elena
+			SI		SI - Archipiélago de Svalbard
+			SJ		SJ - Islas Svalbard and Jan Mayen
+			SK		SK - Sark
+			SL		SL - Sierra Leona
+			SM		SM - Serenísima República de San Marino
+			SN		SN - Senegal
+			SO		SO - Somalia
+			SR		SR - Surinam
+			ST		ST - Sao Tome and Príncipe
+			SU		SU - Países de la Ex-U.R.S.S., excepto Ucrania y Bielorusia
+			SV		SV - El Salvador
+			SW		SW - República de Seychelles
+			SY		SY - Siria
+			SZ		SZ - Reino de Swazilandia
+			TC		TC - Islas Turcas y Caicos
+			TD		TD - Chad
+			TF		TF - Territorios Franceses del Sureste
+			TG		TG - Togo
+			TH		TH - Thailandia
+			TK		TK - Tokelau
+			TN		TN - República de Túnez
+			TO		TO - Reino de Tonga
+			TP		TP - Timor Este
+			TR		TR - Trieste
+			TS		TS - Tristán Da Cunha
+			TT		TT - República de Trinidad y Tobago
+			TU		TU - Turquía
+			TV		TV - Tuvalu
+			TW		TW - Taiwán
+			TZ		TZ - Tanzania
+			UA		UA - Ucrania
+			UG		UG - Uganda
+			UM		UM - Islas menores alejadas de los Estados Unidos
+			US		US - Estados Unidos de América
+			UY		UY - República Oriental del Uruguay
+			VA		VA - El Vaticano
+			VC		VC - San Vicente y Las Granadinas
+			VE		VE - Venezuela
+			VG		VG - Islas Vírgenes Británicas
+			VI		VI - Islas Vírgenes de Estados Unidos de América
+			VN		VN - Vietnam
+			VU		VU - República de Vanuatu
+			WF		WF - Islas Wallis y Funtuna
+			XX		XX - Otro
+			YD		YD - Yemen Democrática
+			YE		YE - República del Yemen
+			YU		YU - Países de la Ex-Yugoslavia
+			ZA		ZA - Sudáfrica
+			ZC		ZC - Zona Especial Canaria
+			ZM		ZM - Zambia
+			ZO		ZO - Zona Libre Ostrava
+			ZR		ZR - Zaire
+			ZW		ZW - Zimbawe
+ 
+Obligatorio solo cuando exista valor en el campo NOMBRE DEL EXTRANJERO
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Campo: 7
+ Descripción: 			Nacionalidad
+ Tipo de campo: 		Alfabetico
+ Caracteres especiales:		 Ñ&´.
+ Dato opcional 		
+ 
+Obligatorio solo cuando exista valor en el campo NOMBRE DEL EXTRANJERO
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Campo: 8
+ Descripción: 			Valor de los actos o actividades pagados a la tasa del 15% ó 16% de IVA
+ Tipo de campo: 		Numérico
+ Valor mínimo:  		0
+ Valor máximo:  		999999999999
+ Dato opcional 		
+ 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Campo: 9
+ Descripción: 			Valor de los actos o actividades pagados a la tasa del 15% de IVA
+ Tipo de campo: 		Numérico
+ Valor mínimo:  		0
+ Valor máximo:  		999999999999
+ Dato opcional 		
+ 
+Aplica únicamente para periodo Enero 2010
+ESTE CAMPO SE UTILIZARÁ ÚNICAMENTE PARA EFECTOS DE DECLARAR ENAJENACIÓN DE BIENES, PRESTACIÓN DE SERVICIOS O EL OTORGAMIENTO DEL USO O GOCE TEMPORAL DE BIENES CELEBRADAS CON ANTERIORIDAD AL EJERCICIO 2010, ASÍ COMO DE CONFORMIDAD CON LO ESTABLECIDO EN LAS DISPOSICIONES TRANSITORIAS DE LA LEY DEL IMPUESTO AL VALOR AGREGADO.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Campo: 10
+ Descripción: 			Monto del IVA pagado no acreditable a la tasa del 15% ó 16%  (correspondiente en la proporción de las deducciones autorizadas)
+ Tipo de campo: 		Numérico
+ Valor mínimo:  		0
+ Valor máximo:  		999999999999
+ Dato opcional 		
+ 
+
+EN LAS DEDUCCIONES PARCIALMENTE DEDUCIBLES SE INDICARÁ EL MONTO QUE NO SEA DEDUCIBLE PARA EFECTOS DEL ISR; EJEMPLO: EN UN GASTO DONDE EL 80% ES DEDUCIBLE Y EL 20% NO ES DEDUCIBLE, EL IVA QUE SE ANOTARÁ EN ESTE CAMPO ES EL QUE CORRESPONDA AL 20%
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Campo: 11
+ Descripción: 			Valor de los actos o actividades pagados a la tasa del 10% u 11% de IVA
+ Tipo de campo: 		Numérico
+ Valor mínimo:  		0
+ Valor máximo:  		999999999999
+ Dato opcional 		
+ 
+Aplica únicamente para periodos menor o igual a Enero 2014
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Campo: 12
+ Descripción: 			Valor de los actos o actividades pagados a la tasa del 10% de IVA
+ Tipo de campo: 		Numérico
+ Valor mínimo:  		0
+ Valor máximo:  		999999999999
+ Dato opcional 		
+ 
+Aplica únicamente para periodo Enero 2010
+ESTE CAMPO SE UTILIZARÁ ÚNICAMENTE PARA EFECTOS DE DECLARAR ENAJENACIÓN DE BIENES, PRESTACIÓN DE SERVICIOS O EL OTORGAMIENTO DEL USO O GOCE TEMPORAL DE BIENES CELEBRADAS CON ANTERIORIDAD AL EJERCICIO 2010, ASÍ COMO DE CONFORMIDAD CON LO ESTABLECIDO EN LAS DISPOSICIONES TRANSITORIAS DE LA LEY DEL IMPUESTO AL VALOR AGREGADO.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Campo: 13
+ Descripción: 			Monto del IVA pagado no acreditable a la tasa del 10% u 11% (correspondiente en la proporción de las deducciones autorizadas)
+ Tipo de campo: 		Numérico
+ Valor mínimo:  		0
+ Valor máximo:  		999999999999
+ Dato opcional 		
+ 
+Aplica únicamente para periodos menor o igual a Enero 2014
+EN LAS DEDUCCIONES PARCIALMENTE DEDUCIBLES SE INDICARÁ EL MONTO QUE NO SEA DEDUCIBLE PARA EFECTOS DEL ISR; EJEMPLO: EN UN GASTO DONDE EL 80% ES DEDUCIBLE Y EL 20% NO ES DEDUCIBLE, EL IVA QUE SE ANOTARÁ EN ESTE CAMPO ES EL QUE CORRESPONDA AL 20%
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Campo: 14
+ Descripción: 			Valor de los actos o actividades pagados en la importación de bienes y servicios  a la tasa del 15% ó 16% de  IVA
+ Tipo de campo: 		Numérico
+ Valor mínimo:  		0
+ Valor máximo:  		999999999999
+ Dato opcional 		
+ 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Campo: 15
+ Descripción: 			Monto del IVA pagado no acreditable por la importación  a la tasa del 15% ó 16% (correspondiente en la proporción de las deducciones autorizadas)
+ Tipo de campo: 		Numérico
+ Valor mínimo:  		0
+ Valor máximo:  		999999999999
+ Dato opcional 		
+ 
+
+EN LAS DEDUCCIONES PARCIALMENTE DEDUCIBLES SE INDICARÁ EL MONTO QUE NO SEA DEDUCIBLE PARA EFECTOS DEL ISR; EJEMPLO: EN UN GASTO DONDE EL 80% ES DEDUCIBLE Y EL 20% NO ES DEDUCIBLE, EL IVA QUE SE ANOTARÁ EN ESTE CAMPO ES EL QUE CORRESPONDA AL 20%
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Campo: 16
+ Descripción: 			Valor de los actos o actividades pagados en la importación de bienes y servicios a la tasa del 10% u 11% de IVA
+ Tipo de campo: 		Numérico
+ Valor mínimo:  		0
+ Valor máximo:  		999999999999
+ Dato opcional 		
+ 
+Aplica únicamente para periodos menor o igual a Enero 2014
+EN LAS DEDUCCIONES PARCIALMENTE DEDUCIBLES SE INDICARÁ EL MONTO QUE NO SEA DEDUCIBLE PARA EFECTOS DEL ISR; EJEMPLO: EN UN GASTO DONDE EL 80% ES DEDUCIBLE Y EL 20% NO ES DEDUCIBLE, EL IVA QUE SE ANOTARÁ EN ESTE CAMPO ES EL QUE CORRESPONDA AL 20%
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Campo: 17
+ Descripción: 			Monto del IVA pagado no acreditable por la importación a la tasa del 10% u 11% (correspondiente en la proporción de las deducciones autorizadas)
+ Tipo de campo: 		Numérico
+ Valor mínimo:  		0
+ Valor máximo:  		999999999999
+ Dato opcional 		
+ 
+Aplica únicamente para periodos menor o igual a Enero 2014
+EN LAS DEDUCCIONES PARCIALMENTE DEDUCIBLES SE INDICARÁ EL MONTO QUE NO SEA DEDUCIBLE PARA EFECTOS DEL ISR; EJEMPLO: EN UN GASTO DONDE EL 80% ES DEDUCIBLE Y EL 20% NO ES DEDUCIBLE, EL IVA QUE SE ANOTARÁ EN ESTE CAMPO ES EL QUE CORRESPONDA AL 20%
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Campo: 18
+ Descripción: 			Valor de los actos o actividades pagados en la importación de bienes y servicios por los que no se paragá el IVA (Exentos)
+ Tipo de campo: 		Numérico
+ Valor mínimo:  		0
+ Valor máximo:  		999999999999
+ Dato opcional 		
+ 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Campo: 19
+ Descripción: 			Valor de los demás actos o actividades pagados a la tasa del 0% de IVA
+ Tipo de campo: 		Numérico
+ Valor mínimo:  		0
+ Valor máximo:  		999999999999
+ Dato opcional 		
+ 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Campo: 20
+ Descripción: 			Valor de los actos o actividades pagados por los que no se pagará el IVA (Exentos)
+ Tipo de campo: 		Numérico
+ Valor mínimo:  		0
+ Valor máximo:  		999999999999
+ Dato opcional 		
+ 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Campo: 21
+ Descripción: 			IVA Retenido por el contribuyente
+ Tipo de campo: 		Numérico
+ Valor mínimo:  		0
+ Valor máximo:  		999999999999
+ Dato opcional 		
+ 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Campo: 22
+ Descripción: 			IVA correspondiente a las devoluciones, descuentos y bonificaciones sobre compras
+ Tipo de campo: 		Numérico
+ Valor mínimo:  		0
+ Valor máximo:  		999999999999
+ Dato opcional 		
+ 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------

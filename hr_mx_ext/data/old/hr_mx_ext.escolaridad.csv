@@ -1,0 +1,6 @@
+id,name,code
+hr_mx_ext.tipopensionados_primaria,Primaria,primaria
+hr_mx_ext.tipopensionados_secundaria,Secundaria,secundaria
+hr_mx_ext.tipopensionados_prepa,Preparatoria,prepa
+hr_mx_ext.tipopensionados_licenciatura,Licenciatura,licenciatura
+hr_mx_ext.tipopensionados_tecnico,Técnico superior universitario,tecnico

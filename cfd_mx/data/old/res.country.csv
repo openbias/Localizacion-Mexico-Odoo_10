@@ -1,0 +1,249 @@
+id,name,code,code_alpha3
+base.af,"Afghanistan, Islamic State of",AF,AFG
+base.ax,Åland Islands,AX,ALA
+base.al,Albania,AL,ALB
+base.dz,Algeria,DZ,DZA
+base.as,American Samoa,AS,ASM
+base.ad,"Andorra, Principality of",AD,AND
+base.ao,Angola,AO,AGO
+base.ai,Anguilla,AI,AIA
+base.aq,Antarctica,AQ,ATA
+base.ag,Antigua and Barbuda,AG,ATG
+base.ar,Argentina,AR,ARG
+base.am,Armenia,AM,ARM
+base.aw,Aruba,AW,ABW
+base.au,Australia,AU,AUS
+base.at,Austria,AT,AUT
+base.az,Azerbaijan,AZ,AZE
+base.bs,Bahamas,BS,BHS
+base.bh,Bahrain,BH,BHR
+base.bd,Bangladesh,BD,BGD
+base.bb,Barbados,BB,BRB
+base.by,Belarus,BY,BLR
+base.be,Belgium,BE,BEL
+base.bz,Belize,BZ,BLZ
+base.bj,Benin,BJ,BEN
+base.bm,Bermuda,BM,BMU
+base.bt,Bhutan,BT,BTN
+base.bo,Bolivia,BO,BOL
+base.bq,"Bonaire, Sint Eustatius and Saba",BQ,BES
+base.ba,Bosnia-Herzegovina,BA,BIH
+base.bw,Botswana,BW,BWA
+base.bv,Bouvet Island,BV,BVT
+base.br,Brazil,BR,BRA
+base.io,British Indian Ocean Territory,IO,IOT
+base.bn,Brunei Darussalam,BN,BRN
+base.bg,Bulgaria,BG,BGR
+base.bf,Burkina Faso,BF,BFA
+base.bi,Burundi,BI,BDI
+base.kh,"Cambodia, Kingdom of",KH,KHM
+base.cm,Cameroon,CM,CMR
+base.ca,Canada,CA,CAN
+base.cv,Cape Verde,CV,CPV
+base.ky,Cayman Islands,KY,CYM
+base.cf,Central African Republic,CF,CAF
+base.td,Chad,TD,TCD
+base.cl,Chile,CL,CHL
+base.cn,China,CN,CHN
+base.cx,Christmas Island,CX,CXR
+base.cc,Cocos (Keeling) Islands,CC,CCK
+base.co,Colombia,CO,COL
+base.km,Comoros,KM,COM
+base.cg,Congo,CG,COG
+base.cd,"Congo, Democratic Republic of the",CD,COD
+base.ck,Cook Islands,CK,COK
+base.cr,Costa Rica,CR,CRI
+base.hr,Croatia,HR,HRV
+base.cu,Cuba,CU,CUB
+base.cw,Curaçao,CW,CUW
+base.cy,Cyprus,CY,CYP
+base.cz,Czech Republic,CZ,CZE
+base.dk,Denmark,DK,DNK
+base.dj,Djibouti,DJ,DJI
+base.dm,Dominica,DM,DMA
+base.do,Dominican Republic,DO,DOM
+base.ec,Ecuador,EC,ECU
+base.eg,Egypt,EG,EGY
+base.sv,El Salvador,SV,SLV
+base.gq,Equatorial Guinea,GQ,GNQ
+base.er,Eritrea,ER,ERI
+base.ee,Estonia,EE,EST
+base.et,Ethiopia,ET,ETH
+base.fk,Falkland Islands,FK,FLK
+base.fo,Faroe Islands,FO,FRO
+base.fj,Fiji,FJ,FJI
+base.fi,Finland,FI,FIN
+base.fr,France,FR,FRA
+base.gf,French Guyana,GF,GUF
+base.tf,French Southern Territories,TF,ATF
+base.ga,Gabon,GA,GAB
+base.gm,Gambia,GM,GMB
+base.ge,Georgia,GE,GEO
+base.de,Germany,DE,DEU
+base.gh,Ghana,GH,GHA
+base.gi,Gibraltar,GI,GIB
+base.gr,Greece,GR,GRC
+base.gl,Greenland,GL,GRL
+base.gd,Grenada,GD,GRD
+base.gp,Guadeloupe (French),GP,GLP
+base.gu,Guam (USA),GU,GUM
+base.gt,Guatemala,GT,GTM
+base.gg,Guernsey,GG,GGY
+base.gn,Guinea,GN,GIN
+base.gw,Guinea Bissau,GW,GNB
+base.gy,Guyana,GY,GUY
+base.ht,Haiti,HT,HTI
+base.hm,Heard and McDonald Islands,HM,HMD
+base.va,Holy See (Vatican City State),VA,VAT
+base.hn,Honduras,HN,HND
+base.hk,Hong Kong,HK,HKG
+base.hu,Hungary,HU,HUN
+base.is,Iceland,IS,ISL
+base.in,India,IN,IND
+base.id,Indonesia,ID,IDN
+base.ir,Iran,IR,IRN
+base.iq,Iraq,IQ,IRQ
+base.ie,Ireland,IE,IRL
+base.im,Isle of Man,IM,IMN
+base.il,Israel,IL,ISR
+base.it,Italy,IT,ITA
+base.ci,Ivory Coast (Cote D'Ivoire),CI,CIV
+base.jm,Jamaica,JM,JAM
+base.jp,Japan,JP,JPN
+base.je,Jersey,JE,JEY
+base.jo,Jordan,JO,JOR
+base.kz,Kazakhstan,KZ,KAZ
+base.ke,Kenya,KE,KEN
+base.ki,Kiribati,KI,KIR
+base.kw,Kuwait,KW,KWT
+base.kg,Kyrgyz Republic (Kyrgyzstan),KG,KGZ
+base.la,Laos,LA,LAO
+base.lv,Latvia,LV,LVA
+base.lb,Lebanon,LB,LBN
+base.ls,Lesotho,LS,LSO
+base.lr,Liberia,LR,LBR
+base.ly,Libya,LY,LBY
+base.li,Liechtenstein,LI,LIE
+base.lt,Lithuania,LT,LTU
+base.lu,Luxembourg,LU,LUX
+base.mo,Macau,MO,MAC
+base.mk,"Macedonia, the former Yugoslav Republic of",MK,MKD
+base.mg,Madagascar,MG,MDG
+base.mw,Malawi,MW,MWI
+base.my,Malaysia,MY,MYS
+base.mv,Maldives,MV,MDV
+base.ml,Mali,ML,MLI
+base.mt,Malta,MT,MLT
+base.mh,Marshall Islands,MH,MHL
+base.mq,Martinique (French),MQ,MTQ
+base.mr,Mauritania,MR,MRT
+base.mu,Mauritius,MU,MUS
+base.yt,Mayotte,YT,MYT
+base.mx,Mexico,MX,MEX
+base.fm,Micronesia,FM,FSM
+base.md,Moldavia,MD,MDA
+base.mc,Monaco,MC,MCO
+base.mn,Mongolia,MN,MNG
+base.me,Montenegro,ME,MNE
+base.ms,Montserrat,MS,MSR
+base.ma,Morocco,MA,MAR
+base.mz,Mozambique,MZ,MOZ
+base.mm,Myanmar,MM,MMR
+base.na,Namibia,NA,NAM
+base.nr,Nauru,NR,NRU
+base.np,Nepal,NP,NPL
+base.nl,Netherlands,NL,NLD
+base.nc,New Caledonia (French),NC,NCL
+base.nz,New Zealand,NZ,NZL
+base.ni,Nicaragua,NI,NIC
+base.ne,Niger,NE,NER
+base.ng,Nigeria,NG,NGA
+base.nu,Niue,NU,NIU
+base.nf,Norfolk Island,NF,NFK
+base.mp,Northern Mariana Islands,MP,MNP
+base.kp,North Korea,KP,PRK
+base.no,Norway,NO,NOR
+base.om,Oman,OM,OMN
+base.pk,Pakistan,PK,PAK
+base.pw,Palau,PW,PLW
+base.ps,"Palestinian Territory, Occupied",PS,PSE
+base.pa,Panama,PA,PAN
+base.pg,Papua New Guinea,PG,PNG
+base.py,Paraguay,PY,PRY
+base.pe,Peru,PE,PER
+base.ph,Philippines,PH,PHL
+base.pn,Pitcairn Island,PN,PCN
+base.pl,Poland,PL,POL
+base.pf,Polynesia (French),PF,PYF
+base.pt,Portugal,PT,PRT
+base.pr,Puerto Rico,PR,PRI
+base.qa,Qatar,QA,QAT
+base.re,Reunion (French),RE,REU
+base.ro,Romania,RO,ROU
+base.ru,Russian Federation,RU,RUS
+base.rw,Rwanda,RW,RWA
+base.bl,Saint Barthélémy,BL,BLM
+base.sh,Saint Helena,SH,SHN
+base.kn,Saint Kitts & Nevis Anguilla,KN,KNA
+base.lc,Saint Lucia,LC,LCA
+base.mf,Saint Martin (French part),MF,MAF
+base.pm,Saint Pierre and Miquelon,PM,SPM
+base.st,Saint Tome (Sao Tome) and Principe,ST,STP
+base.vc,Saint Vincent & Grenadines,VC,VCT
+base.ws,Samoa,WS,WSM
+base.sm,San Marino,SM,SMR
+base.sa,Saudi Arabia,SA,SAU
+base.sn,Senegal,SN,SEN
+base.rs,Serbia,RS,SRB
+base.sc,Seychelles,SC,SYC
+base.sl,Sierra Leone,SL,SLE
+base.sg,Singapore,SG,SGP
+base.sx,Sint Maarten (Dutch part),SX,SXM
+base.sk,Slovakia,SK,SVK
+base.si,Slovenia,SI,SVN
+base.sb,Solomon Islands,SB,SLB
+base.so,Somalia,SO,SOM
+base.za,South Africa,ZA,ZAF
+base.gs,South Georgia and the South Sandwich Islands,GS,SGS
+base.kr,South Korea,KR,KOR
+base.ss,South Sudan,SS,SSD
+base.es,Spain,ES,ESP
+base.lk,Sri Lanka,LK,LKA
+base.sd,Sudan,SD,SDN
+base.sr,Suriname,SR,SUR
+base.sj,Svalbard and Jan Mayen Islands,SJ,SJM
+base.sz,Swaziland,SZ,SWZ
+base.se,Sweden,SE,SWE
+base.ch,Switzerland,CH,CHE
+base.sy,Syria,SY,SYR
+base.tw,Taiwan,TW,TWN
+base.tj,Tajikistan,TJ,TJK
+base.tz,Tanzania,TZ,TZA
+base.th,Thailand,TH,THA
+base.tg,Togo,TG,TGO
+base.tk,Tokelau,TK,TKL
+base.to,Tonga,TO,TON
+base.tt,Trinidad and Tobago,TT,TTO
+base.tn,Tunisia,TN,TUN
+base.tr,Turkey,TR,TUR
+base.tm,Turkmenistan,TM,TKM
+base.tc,Turks and Caicos Islands,TC,TCA
+base.tv,Tuvalu,TV,TUV
+base.ug,Uganda,UG,UGA
+base.ua,Ukraine,UA,UKR
+base.ae,United Arab Emirates,AE,ARE
+base.uk,United Kingdom,GB,GBR
+base.us,United States,US,USA
+base.uy,Uruguay,UY,URY
+base.um,USA Minor Outlying Islands,UM,UMI
+base.uz,Uzbekistan,UZ,UZB
+base.vu,Vanuatu,VU,VUT
+base.ve,Venezuela,VE,VEN
+base.vn,Vietnam,VN,VNM
+base.vg,Virgin Islands (British),VG,VGB
+base.vi,Virgin Islands (USA),VI,VIR
+base.wf,Wallis and Futuna Islands,WF,WLF
+base.eh,Western Sahara,EH,ESH
+base.ye,Yemen,YE,YEM
+base.zm,Zambia,ZM,ZMB
+base.zw,Zimbabwe,ZW,ZWE

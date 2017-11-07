@@ -1,0 +1,996 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_tax_cash_basis_extended
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-03-08 20:53+0000\n"
+"PO-Revision-Date: 2016-03-08 20:53+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_account_id
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Account"
+msgstr "Cuenta"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model,name:account_tax_cash_basis_extended.model_account_diot
+msgid "Account DIOT"
+msgstr "Account DIOT"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model,name:account_tax_cash_basis_extended.model_account_move
+msgid "Account Entry"
+msgstr "Entrada contable"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model,name:account_tax_cash_basis_extended.model_account_account_tag
+msgid "Account Tag"
+msgstr "Etiqueta de Cuenta"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_amount_before_retension
+msgid "Amount Before Retension"
+msgstr "Monto Antes de Retención"
+
+#. module: account_tax_cash_basis_extended
+#: selection:res.partner,operation_type:0
+msgid "Arrendamiento de Inmuebles"
+msgstr "Arrendamiento de Inmuebles"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_line_id
+msgid "Bank Journal Line"
+msgstr "Apunte Bancario"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Bank entries without invoice application"
+msgstr "Asiento bancario sin aplicación de factura"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_base_0
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Base 0"
+msgstr "IVA 0%"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_base_1
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Base 1"
+msgstr "IVA Excento"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_base_2
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Base 2"
+msgstr "IVA Excento en Importaciones"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_base_3
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Base 3"
+msgstr "IVA 16% en compras o ventas"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_base_4
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Base 4"
+msgstr "IVA 16% en compras o ventas usado en pedimentos"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_base_5
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Base 5"
+msgstr "IVA no no acreditable"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_base_6
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Base 6"
+msgstr "Retencion de IVA 4% en fletes"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_base_7
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Base 7"
+msgstr "Retencion de IVA 10% en arrendamientos"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_base_8
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Base 8"
+msgstr "Retencion de IVA 10.67% en servicios profesionales"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_base_9
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Base 9"
+msgstr "Retencion de ISR 10% en servicios profesionales y arrendamientos"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_base_a
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Base a"
+msgstr "IEPS"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_base_b
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Base b"
+msgstr "IEPS en importaciones"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_base_c
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Base c"
+msgstr "Base c"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_base_d
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Base d"
+msgstr "Base d"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_base_e
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Base e"
+msgstr "Base e"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_base_f
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Base f"
+msgstr "Base f"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_diot
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_diot
+msgid "Close"
+msgstr "Cerrar"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_diot_company_id
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_company_currency_id
+msgid "Company Currency"
+msgstr "Moneda de la Compañía"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_diot
+msgid "Create DIOT File"
+msgstr "Crear Archivo DIOT"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "Create Fiscal Entry"
+msgstr "Crear Asiento Fiscal"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_diot_create_uid
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_diot_create_date
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_currency_id
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_diot_diot_file
+msgid "DIOT File"
+msgstr "Archivo DIOT"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.menu,name:account_tax_cash_basis_extended.menu_account_diot_declaration
+msgid "DIOT Report"
+msgstr "Reporte DIOT"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.actions.act_window,name:account_tax_cash_basis_extended.action_account_diot
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_diot
+msgid "DIOT Statement File Generation"
+msgstr "Generación de archivo para declaración de la DIOT"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_diot_date_from
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Date"
+msgstr "Fecha"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,help:account_tax_cash_basis_extended.field_res_partner_operation_type
+msgid "Define the operation type, when partner type is 05 the only valid selections are 03 and 85, this field is used to get the DIOT report."
+msgstr "Define el tipo de operación, cuando un proveedor es 05 los únicos valores válidos son 03 y 85. Este dato se usa para obtener el reporte de la DIOT."
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,help:account_tax_cash_basis_extended.field_res_partner_supplier_type
+msgid "Define the type of supplier, this field is used to get the DIOT report."
+msgstr "Define el tipo de proveedor, este dato se usa para obtener el reporte de la DIOT."
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "Delete Fiscal Entry"
+msgstr "Borrar Asiento Fiscal"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_diot_display_name
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_diot_date_to
+msgid "End Date"
+msgstr "Fecha final"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Entry"
+msgstr "Póliza"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_diot
+msgid "Export Complete"
+msgstr "Exportación Completa"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_diot_filename
+msgid "File Name"
+msgstr "Nombre de archivo"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "Fiscal"
+msgstr "Fiscal"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model,name:account_tax_cash_basis_extended.model_account_move_fiscal
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_ids
+msgid "Fiscal Entries"
+msgstr "Asientos Fiscales"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_res_partner_fiscal_id
+msgid "Fiscal ID"
+msgstr "Numero de ID Fiscal"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.actions.act_window,name:account_tax_cash_basis_extended.action_account_move_fiscal
+#: model:ir.ui.menu,name:account_tax_cash_basis_extended.menu_action_account_move_fiscal
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_form
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "Fiscal Lines"
+msgstr "Asientos Fiscales"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Group By..."
+msgstr "Agrupar por..."
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_diot
+msgid "Here is the exported DIOT Report file:"
+msgstr "Aquí está el archivo del reporte de la DIOT:"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_diot_id
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_tax_cash_basis_extended
+#: selection:account.move.fiscal,operation_type:0
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Income"
+msgstr "Ingresos"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Income bank journal lines"
+msgstr "Ingresos Bancarios"
+
+#. module: account_tax_cash_basis_extended
+#: selection:account.move.fiscal,operation_type:0
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Interbank Income"
+msgstr "Ingresos Interbancarios"
+
+#. module: account_tax_cash_basis_extended
+#: selection:account.move.fiscal,operation_type:0
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Interbank Outcome"
+msgstr "Egresos Interbancarios"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_invoice_id
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_invoice_total
+msgid "Invoice Total"
+msgstr "Factura Total"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_journal_id
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Journal"
+msgstr "Diario"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_move_id
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model,name:account_tax_cash_basis_extended.model_account_move_line
+msgid "Journal Item"
+msgstr "Apunte contable"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_diot___last_update
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal___last_update
+msgid "Last Modified on"
+msgstr "Última Modifiación en"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_diot_write_uid
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_write_uid
+msgid "Last Updated by"
+msgstr "Última actualización de"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_diot_write_date
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_write_date
+msgid "Last Updated on"
+msgstr "Última actualización en"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_ref
+msgid "Number"
+msgstr "Número"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_res_partner_operation_type
+msgid "Operation Type"
+msgstr "Tipo de Operación"
+
+#. module: account_tax_cash_basis_extended
+#: selection:res.partner,operation_type:0
+msgid "Otros"
+msgstr "Otros"
+
+#. module: account_tax_cash_basis_extended
+#: selection:account.move.fiscal,operation_type:0
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Outcome"
+msgstr "Egresos"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Outcome bank journal lines"
+msgstr "Egresos Bancarios"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model,name:account_tax_cash_basis_extended.model_account_partial_reconcile
+msgid "Partial Reconcile"
+msgstr "Conciliación Parcial"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model,name:account_tax_cash_basis_extended.model_res_partner
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_partner_id
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Partner"
+msgstr "Empresa"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "Payment"
+msgstr "Payment"
+
+#. module: account_tax_cash_basis_extended
+#: selection:res.partner,operation_type:0
+msgid "Prestación de Servicios Profesionales"
+msgstr "Prestación de Servicios Profesionales"
+
+#. module: account_tax_cash_basis_extended
+#: selection:res.partner,supplier_type:0
+msgid "Proveedor Extranjero"
+msgstr "Proveedor Extranjero"
+
+#. module: account_tax_cash_basis_extended
+#: selection:res.partner,supplier_type:0
+msgid "Proveedor Global"
+msgstr "Proveedor Global"
+
+#. module: account_tax_cash_basis_extended
+#: selection:res.partner,supplier_type:0
+msgid "Proveedor Nacional"
+msgstr "Proveedor Nacional"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_diot
+msgid "Send DIOT Satatement"
+msgstr "Send DIOT Satatement"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_show_fiscal
+msgid "Show fiscal"
+msgstr "Show fiscal"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_diot_state
+msgid "State"
+msgstr "Estado"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_diot
+msgid "Statement Date"
+msgstr "Statement Date"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_res_partner_supplier_type
+msgid "Supplier Type"
+msgstr "Tipo de Tercero"
+
+#. module: account_tax_cash_basis_extended
+#: model:account.account.tag,name:account_tax_cash_basis_extended.tax_tag_0
+msgid "TAX 0"
+msgstr "IVA 0%"
+
+#. module: account_tax_cash_basis_extended
+#: model:account.account.tag,name:account_tax_cash_basis_extended.tax_tag_1
+msgid "TAX 1"
+msgstr "IVA Excento"
+
+#. module: account_tax_cash_basis_extended
+#: model:account.account.tag,name:account_tax_cash_basis_extended.tax_tag_2
+msgid "TAX 2"
+msgstr "IVA Excento en Importaciones"
+
+#. module: account_tax_cash_basis_extended
+#: model:account.account.tag,name:account_tax_cash_basis_extended.tax_tag_3
+msgid "TAX 3"
+msgstr "IVA 16% en compras o ventas"
+
+#. module: account_tax_cash_basis_extended
+#: model:account.account.tag,name:account_tax_cash_basis_extended.tax_tag_4
+msgid "TAX 4"
+msgstr "IVA 16% en compras o ventas usado en pedimentos"
+
+#. module: account_tax_cash_basis_extended
+#: model:account.account.tag,name:account_tax_cash_basis_extended.tax_tag_5
+msgid "TAX 5"
+msgstr "IVA no no acreditable"
+
+#. module: account_tax_cash_basis_extended
+#: model:account.account.tag,name:account_tax_cash_basis_extended.tax_tag_6
+msgid "TAX 6"
+msgstr "Retencion de IVA 4% en fletes"
+
+#. module: account_tax_cash_basis_extended
+#: model:account.account.tag,name:account_tax_cash_basis_extended.tax_tag_7
+msgid "TAX 7"
+msgstr "Retencion de IVA 10% en arrendamientos"
+
+#. module: account_tax_cash_basis_extended
+#: model:account.account.tag,name:account_tax_cash_basis_extended.tax_tag_8
+msgid "TAX 8"
+msgstr "Retencion de IVA 10.67% en servicios profesionales"
+
+#. module: account_tax_cash_basis_extended
+#: model:account.account.tag,name:account_tax_cash_basis_extended.tax_tag_9
+msgid "TAX 9"
+msgstr "Retencion de ISR 10% en servicios profesionales y arrendamientos"
+
+#. module: account_tax_cash_basis_extended
+#: model:account.account.tag,name:account_tax_cash_basis_extended.tax_tag_a
+msgid "TAX a"
+msgstr "Impuesto especial sobre productos y servicios"
+
+#. module: account_tax_cash_basis_extended
+#: model:account.account.tag,name:account_tax_cash_basis_extended.tax_tag_b
+msgid "TAX b"
+msgstr "Impuesto especial sobre productos y servicios en importaciones"
+
+#. module: account_tax_cash_basis_extended
+#: model:account.account.tag,name:account_tax_cash_basis_extended.tax_tag_c
+msgid "TAX c"
+msgstr "TAX c"
+
+#. module: account_tax_cash_basis_extended
+#: model:account.account.tag,name:account_tax_cash_basis_extended.tax_tag_d
+msgid "TAX d"
+msgstr "TAX d"
+
+#. module: account_tax_cash_basis_extended
+#: model:account.account.tag,name:account_tax_cash_basis_extended.tax_tag_e
+msgid "TAX e"
+msgstr "TAX e"
+
+#. module: account_tax_cash_basis_extended
+#: model:account.account.tag,name:account_tax_cash_basis_extended.tax_tag_f
+msgid "TAX f"
+msgstr "TAX f"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_vat
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "TIN"
+msgstr "RFC"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_tax_0
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Tax 0"
+msgstr "IVA 0%"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_tax_1
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Tax 1"
+msgstr "IVA Excento"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_tax_2
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Tax 2"
+msgstr "IVA Excento en Importaciones"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_tax_3
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Tax 3"
+msgstr "IVA 16% en compras o ventas"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_tax_4
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Tax 4"
+msgstr "IVA 16% en compras o ventas usado en pedimentos"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_tax_5
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Tax 5"
+msgstr "IVA no no acreditable"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_tax_6
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Tax 6"
+msgstr "Retencion de IVA 4% en fletes"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_tax_7
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Tax 7"
+msgstr "Retencion de IVA 10% en arrendamientos"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_tax_8
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Tax 8"
+msgstr "Retencion de IVA 10.67% en servicios profesionales"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_tax_9
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Tax 9"
+msgstr "Retencion de ISR 10% en servicios profesionales y arrendamientos"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_form
+msgid "Tax Amounts"
+msgstr "Monto de Impuestos"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_form
+msgid "Tax Bases"
+msgstr "Base de Impuestos"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,help:account_tax_cash_basis_extended.field_account_move_fiscal_vat
+msgid "Tax Identification Number. Fill it if the company is subjected to taxes. Used by the some of the legal statements."
+msgstr "Tax Identification Number. Fill it if the company is subjected to taxes. Used by the some of the legal statements."
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.menu,name:account_tax_cash_basis_extended.menu_finance_tax_reports
+msgid "Tax Reports"
+msgstr "Reportes de Impuestos"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_tax_a
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Tax a"
+msgstr "IEPS"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_tax_b
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Tax b"
+msgstr "IEPS en importaciones"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_tax_c
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Tax c"
+msgstr "Tax c"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_tax_d
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Tax d"
+msgstr "Tax d"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_tax_e
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Tax e"
+msgstr "Tax e"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_tax_f
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Tax f"
+msgstr "Tax f"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,help:account_tax_cash_basis_extended.field_res_partner_fiscal_id
+msgid "Tax identifier for Foreign partners."
+msgstr "Identificador fiscal para proveedores extranjeros."
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,help:account_tax_cash_basis_extended.field_account_move_fiscal_move_id
+msgid "The move of this entry line."
+msgstr "La póliza de esta línea"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_diot
+msgid "The next step is upload the file to the SAT portal:"
+msgstr "El siguiente paso es subirlo al portal del SAT:"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_diot
+msgid "This file was generated using the universal <strong>Unicode/UTF-8</strong> file encoding, please be sure to view and edit\n"
+"                       using the same encoding."
+msgstr "Este archivo fue generado con la codificación universal <strong>Unicode/UTF-8</strong>, por favor asegurate de usar esta misma\n"
+"                       codificación para ver o editar este archivo."
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_diot
+msgid "This wizard create the DIOT statement file filter by date. Select any date of the period to process. The information required for this tax stastement is automatically generated by Odoo after pressing the button <strong>Create DIOT File</strong>."
+msgstr "Este asistente crea el archivo para la declaración de la DIOT. Selecciona cualquier fecha del período que quieras procesar. Los datos necesarios para generar este archivo son procesados por Odoo después de precionar el botón <strong>Crear Archivo DIOT</strong>."
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_payment_total
+msgid "Total Payment"
+msgstr "Pago Total"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Outcome transactions between banks"
+msgstr "Egresos a otra cuenta bancaria de la compañía"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Income transactions between banks"
+msgstr "Ingreso de otra cuenta bancaria de la compañía"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Type"
+msgstr "Tipo"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "VAT 0"
+msgstr "VAT 0"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "VAT 1"
+msgstr "VAT 1"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "VAT 2"
+msgstr "VAT 2"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "VAT 3"
+msgstr "VAT 3"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "VAT 4"
+msgstr "VAT 4"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "VAT 5"
+msgstr "VAT 5"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "VAT 6"
+msgstr "VAT 6"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "VAT 7"
+msgstr "VAT 7"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "VAT 8"
+msgstr "VAT 8"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "VAT 9"
+msgstr "VAT 9"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "VAT a"
+msgstr "VAT a"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "VAT b"
+msgstr "VAT b"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "VAT c"
+msgstr "VAT c"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "VAT d"
+msgstr "VAT d"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "VAT e"
+msgstr "VAT e"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "VAT f"
+msgstr "VAT f"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "View linked entries"
+msgstr "Ver pólizas ligadas"
+
+#. module: account_tax_cash_basis_extended
+#: code:addons/account_tax_cash_basis_extended/wizard/account_diot.py:143
+#, python-format
+msgid "Warning!\n"
+"The report have no result"
+msgstr "Información!\n"
+"Este reporte no arrojó resultados"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Without Invoice"
+msgstr "Sin Factura"
+
+#. module: account_tax_cash_basis_extended
+#: selection:account.diot,state:0
+msgid "choose"
+msgstr "choose"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_date
+msgid "date"
+msgstr "Fecha"
+
+#. module: account_tax_cash_basis_extended
+#: selection:account.diot,state:0
+msgid "get"
+msgstr "get"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_operation_type
+msgid "operation_type"
+msgstr "Tipo de Operación"
+
+#. module: base
+#: model:ir.module.module,description:base.module_account_tax_cash_basis_extended
+msgid " \n"
+"Tax Model:\n"
+"==========\n"
+"\n"
+"- Create all the financial accounts for taxes: Accounting > Configuration > Accounts > Accounts. \n"
+"- The module can handle up to 16 different taxes, but more can be added if needed, taxes already included are:\n"
+"    * VAT 0% (IVA 0%)\n"
+"    * VAT Exempt (IVA Excento)\n"
+"    * VAT Exempt Importation (IVA Excento en Importaciones)\n"
+"    * VAT 16% (IVA 16% en compras o ventas)\n"
+"    * VAT 16% Importation (IVA 16% en compras o ventas usado en pedimentos)\n"
+"    * VAT 16% Not Creditable (IVA no no acreditable)\n"
+"    * Retention VAT 4% (Retencion de IVA 4% en fletes)\n"
+"    * Retention VAT 10% (Retencion de IVA 10% en arrendamientos)\n"
+"    * Retention VAT 10.67% (Retencion de IVA 10.67% en servicios profesionales)\n"
+"    * Retention ISR 10% (Retencion de ISR 10% en servicios profesionales y arrendamientos)\n"
+"    * IEPS (Impuesto especial sobre productos y servicios)\n"
+"    * IEPS Importation (Impuesto especial sobre productos y servicios en importaciones)\n"
+"- Creates all taxes using the respective financial accounts: Accounting > Configuration > Taxes > Taxes\n"
+"- Go to Advanced Option tab to set the propper tag in Tags field.\n"
+"- Every time that reconcile bank payment with an invoice, the model creates a fiscal line in account entry tab Fiscal.\n"
+"- The fiscal line contain taxes, bases, invoice, operation type and totals involved in transaction.\n"
+"- If the payed invoice is in foreign corrency, the tax transfer will be done using the payed date rate.\n"
+"\n"
+"Fiscal Entries:\n"
+"==================\n"
+"\n"
+"- The module add a new object \"Fiscal Report Lines\" that cantain all taxes involved in payment transaction, base and amount.\n"
+"- Fiscal lines are calculated in reconcile process if one of the entries is bank entry.\n"
+"- Fiscal lines are show a new tab \"Fiscal Lines\" in bank journal entries\n"
+"- Fiscal lines can be used for tax calculation, the menu is in Accounting > Reporting > Generic Reporting > Taxes > Fiscal Lines\n"
+"- The fiscal line types are:\n"
+"    - Outcome.- when the bank account pay some document\n"
+"    - Inter Bank Outcome.- when the bank account send money to other bank account.\n"
+"    - Other Outcome.- when the bank account pay to some account not defined in any fical position\n"
+"    - Income.- when the bank account receives money to pay some document\n"
+"    - Inter Bank Income.- when the bank account receives money from other bank account.\n"
+"    - Other Income.- when the bank account receives money from some account not defined in any fical position\n"
+"\n"
+"DIOT Report:\n"
+"============\n"
+"\n"
+"This module add a wizard to generate the external load file (batch type) for DIOT \"DECLARACION INFORMATIVA DE OPERACIONES CON TERCEROS. SIMPLIFICADA” (Regla 5.1.13.),\n"
+"This text file avoid the direct codify resulting in optimizing the time expended in presenting the duty to the SAT.\n"
+"In order to work properly some aditionald field must be filled:\n"
+"    * Supplier Type (Tipo de Tercero) in each supplier: Accounting > Supplier > Supplier > Accounting > Supplier Type\n"
+"        - 04 - Proveedor Nacional\n"
+"        - 05 - Proveedor Extranjero\n"
+"        - 15- Proveedor global\n"
+"    * Operation Type (Tipo de Operacion) in each Fiscal Position: Accounting > Supplier > Supplier > Accounting > Operation Type\n"
+"        - 03 - Prestacion de Servicios Profesionales\n"
+"        - 06 - Arrendamiento de Inmuebles\n"
+"        - 85 – Otros\n"
+"    * Fiscal ID (Numero de ID Fiscal) when supplier type is 05: ccounting > Supplier > Supplier > Accounting > Fiscal ID\n"
+"    * The partner country is mandatory when the supplier is 05\n"
+"    * And finally, configure all taxes.\n"
+"\n"
+"\n"
+"\n"
+"To display all fiscal lines go to:\n"
+"    * Accounting > Reporting > Tax Reports > Taxes > Fiscal Lines\n"
+"\n"
+"To create the text file for external load go to:\n"
+"    * Accounting > Reporting > Tax Reports > Taxes > DIOT Report\n"
+"        - Select any date af the period.\n"
+"        - Press button \"Create DIOT File\" and you can download the file \"DIOT_YYYY-MM\"\n"
+"\n"
+"For more information contact info@bias.com.mx\n"
+"\n"
+"\n"
+""
+msgstr " \n"
+"Modelo de Impuestos:\n"
+"====================\n"
+"\n"
+"- Crea todas las cuentas contables para los impuestos: Facturación > Asesor > Gráfica de Cuentas. \n"
+"- El módulo maneja 16 impuestos, se pueden agregar mas si es necesario, los impuestos incluidos son:\n"
+"    * IVA 0%\n"
+"    * IVA Excento\n"
+"    * IVA Excento en Importaciones\n"
+"    * IVA 16% en compras o ventas\n"
+"    * IVA 16% en compras o ventas usado en pedimentos\n"
+"    * IVA no no acreditable\n"
+"    * Retencion de IVA 4% en fletes\n"
+"    * Retencion de IVA 10% en arrendamientos\n"
+"    * Retencion de IVA 10.67% en servicios profesionales\n"
+"    * Retencion de ISR 10% en servicios profesionales y arrendamientos\n"
+"    * IEPS Impuesto especial sobre productos y servicios\n"
+"    * IEPS Impuesto especial sobre productos y servicios en importaciones\n"
+"- Crea todos los impuestos asignando la cuenta contable respectiva: Facturación > Configuración > Contabilidad > Impuestos\n"
+"- En el campo de Etiquetas de la pestaña de Opciones Avanzadas asigna la etiqueta correspondiente.\n"
+"- Cada vez que sea aplicado un pago a una factura, el módulo creará una línea fiscal en la pestaña Fiscal de la póliza de pago.\n"
+"- La línea fiscal contiene impuestos, bases, factura, tipo de operación y totales involucrados en la transacción.\n"
+"- Si la factura pagada está en moneda extranjera, la trasferencia de impuestos se hara utilizando el tipo de cambio del día de pago.\n"
+"\n"
+"Asientos Fiscales:\n"
+"==================\n"
+"\n"
+"- El módulo añade un nuevo objeto: \"Asientos Fiscales\" que contiene todos los impuestos involucrados en un pago, montos de impuestos y bases.\n"
+"- Los asientos fiscales son creados en el momento de conciliar un pago con una factura.\n"
+"- Los asientos fiscales se muestran en la pestaña \"Fiscal\" que aparece en las pólizas de bancos y efectivo\n"
+"- Los asientos fiscales se usan para el calculo de impuestos por flujo. \n"
+"- El menú esta en: Facturación > Reportes > Reportes de Impuestos > Asientos Fiscales\n"
+"- Los tipos de asiento fiscal son:\n"
+"    - Egreso.- Cuando es una salida de dinero\n"
+"    - Egreso Interbancario.- Cuando es una salida de dinero a otro diario de banco de la compañía.\n"
+"    - Ingreso.- Cuando es una entrad de dinero\n"
+"    - Ingreso Interbancario.- Cuando el diario recibe dinero de otro diario de banco de la compañía.\n"
+"\n"
+"Reporte DIOT:\n"
+"==============\n"
+"\n"
+"El módulo agrega un asistente para generar el archivo de carga (tipo batch) para la DIOT \"DECLARACION INFORMATIVA DE OPERACIONES CON TERCEROS. SIMPLIFICADA” (Regla 5.1.13.),\n"
+"Este archivo evita la codificación manual optimizando el tiempo empleado en la presentación de esta obligación del SAT.\n"
+"Para que funcione debe llenarse algunos campos adicionales:\n"
+"    * Tipo de Tercero en cada proveedor: Facturación > Compras > Proveedores > Contabilidad > Tipo de Tercero\n"
+"        - 04 - Proveedor Nacional\n"
+"        - 05 - Proveedor Extranjero\n"
+"        - 15- Proveedor global\n"
+"    * Tipo de Operacion en cada proveedor: Facturación > Compras > Proveedores > Contabilidad > Tipo de Operacion\n"
+"        - 03 - Prestacion de Servicios Profesionales\n"
+"        - 06 - Arrendamiento de Inmuebles\n"
+"        - 85 – Otros\n"
+"    * Numero de ID Fiscal cuando el proveedor es 05: Facturación > Compras > Proveedores > Contabilidad > Numero de ID Fiscal\n"
+"    * El campo Pais es obligatorio para el tipo de tercero 05\n"
+"    * Y finalmente, recuerda configurar las etiquetas y cuentas de cada impuesto.\n"
+"\n"
+"\n"
+"\n"
+"Para mostrar todos los asientos fiscales abre el menú:\n"
+"    * Facturación > Reportes > Reportes de Impuestos > Asientos Fiscales\n"
+"\n"
+"Para crear el archivo de carga para la declaración de la DIOT:\n"
+"    * Facturación > Reportes > Reportes de Impuestos > Reporte DIOT\n"
+"        - Selecciona cualquier fecha del período.\n"
+"        - da clic al botón \"Crear Archivo DIOT\" después puedes bajar el archivo \"DIOT_AAAA-MM\"\n"
+"\n"
+"Para mas información contactar a info@bias.com.mx\n"
+"\n"
+"\n"
+""
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_account_tax_cash_basis
+msgid "Account Tax Cash Basis"
+msgstr "Contabilidad de Impuestos Basada en Flujo"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_account_tax_cash_basis_extended
+msgid "Account Tax Cash Basis Extended"
+msgstr "Extensión de Contabilidad de Impuestos Basada en Flujo"
+
+#. module: base
+#: model:ir.module.module,summary:base.module_account_tax_cash_basis_extended
+msgid "This module add DIOT report, Fiscal Entries, and a buton in account entries to link payment, invoice and tax transfer entries"
+msgstr "Este módulo agrega el reporte de la DIOT, asientos fiscales por flujo, y un botón que liga a las pólizas de pago, factura y traslado de impuestos"
+
+
+
+
+
+

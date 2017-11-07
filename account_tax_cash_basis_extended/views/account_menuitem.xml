@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Reporting sub-menus -->
+        <menuitem 
+            id="menu_finance_tax_reports" 
+            name="Tax Reports" 
+            parent="account.menu_finance_reports"/>
+        <menuitem
+            id="menu_action_account_move_fiscal"
+            name="Fiscal Lines"
+            parent="account_tax_cash_basis_extended.menu_finance_tax_reports"
+            action="action_account_move_fiscal"
+            sequence="15"
+            icon="STOCK_PRINT"/>
+        <menuitem
+            id="menu_account_diot_declaration"
+            name="DIOT Report"
+            parent="account_tax_cash_basis_extended.menu_finance_tax_reports"
+            action="action_account_diot"
+            icon="STOCK_PRINT"/>
+
+
+    </data>
+</openerp>
+

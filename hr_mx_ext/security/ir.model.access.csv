@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_mx_ext_tipopensionados,access_hr_mx_ext_tipopensionados,model_hr_mx_ext_tipopensionados,,1,1,1,1
+access_hr_mx_ext_tipodescuento,access_hr_mx_ext_tipodescuento,model_hr_mx_ext_tipodescuento,,1,1,1,1
+access_hr_mx_ext_tipotrabajador,access_hr_mx_ext_tipotrabajador,model_hr_mx_ext_tipotrabajador,,1,1,1,1
+access_hr_mx_ext_tiposueldo,access_hr_mx_ext_tiposueldo,model_hr_mx_ext_tiposueldo,,1,1,1,1
+access_hr_mx_ext_tipojornada,access_hr_mx_ext_tipojornada,model_hr_mx_ext_tipojornada,,1,1,1,1
+access_hr_mx_ext_zonasalario,access_hr_mx_ext_zonasalario,model_hr_mx_ext_zonasalario,,1,1,1,1
+access_hr_mx_ext_formapago,access_hr_mx_ext_formapago,model_hr_mx_ext_formapago,,1,1,1,1
+access_hr_mx_ext_regpat,access_hr_mx_ext_regpat,model_hr_mx_ext_regpat,,1,1,1,1
+access_hr_mx_ext_escolaridad,access_hr_mx_ext_escolaridad,model_hr_mx_ext_escolaridad,,1,1,1,1

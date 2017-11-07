@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_invoice_ine_entidad,account_invoice_ine_entidad,model_account_invoice_ine_entidad,,1,1,1,1
+access_account_invoice_ine_contabilidad,account_invoice_ine_contabilidad,model_account_invoice_ine_contabilidad,,1,1,1,1

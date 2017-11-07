@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <menuitem 
+            id="menu_cfdi_nomina"
+            name="CFDI Nomina"
+            string="CFDI Nomina"
+            parent="hr_payroll.menu_hr_payroll_configuration" 
+            sequence="100"/>
+
+        <menuitem 
+            id="menu_hr_cfdi_nomina"
+            name="CFDI Nomina"
+            string="CFDI Nomina"
+            parent="hr.menu_human_resources_configuration" 
+            sequence="100"/>
+
+        <!-- Codigo Agrupador -->
+        <record id="cfdi_nomina_codigo_agrupador_view_tree" model="ir.ui.view">
+            <field name="name">Codigo Agrupador</field>
+            <field name="model">cfdi_nomina.codigo_agrupador</field>
+            <field name="arch" type="xml">
+                <tree string="Tipo" editable="bottom">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="tipo_id"/>
+                </tree>
+            </field>
+        </record>        
+        <record id="act_open_cfdi_nomina_codigo_agrupador" model="ir.actions.act_window">
+            <field name="name">Catálogo SAT Tipo Reglas</field>
+            <field name="res_model">cfdi_nomina.codigo_agrupador</field>
+            <field name="view_mode">list</field>
+            <field name="view_type">form</field>
+        </record>
+        <menuitem 
+            action="act_open_cfdi_nomina_codigo_agrupador" 
+            id="menu_open_hr_tipo"
+            parent="cfdi_nomina.menu_cfdi_nomina" 
+            sequence="1"/>
+
+
+        <!-- Tabla ISR -->
+        <record id="hr_tabla_isr_view_tree" model="ir.ui.view">
+            <field name="name">hr.tabla.isr.view.tree</field>
+            <field name="model">cfdi_nomina.hr_tabla_isr</field>
+            <field name="arch" type="xml">
+                <tree string="Tabla ISR" editable="bottom">
+                    <field name="name"/>
+                    <field name="limite_inferior"/>
+                    <field name="limite_superior"/>
+                    <field name="cuota_fija"/>
+                    <field name="tasa"/>
+                </tree>
+            </field>
+        </record>        
+        <record id="hr_tabla_isr_view_search" model="ir.ui.view">
+            <field name="name">hr.tabla.isr.view.search</field>
+            <field name="model">cfdi_nomina.hr_tabla_isr</field>
+            <field name="arch" type="xml">
+                <search string="Tabla ISR">
+                    <field name="name"/>
+                    <field name="limite_inferior"/>
+                    <field name="limite_superior"/>
+                    <field name="cuota_fija"/>
+                    <field name="tasa"/>
+                </search>
+            </field>
+        </record>        
+        <record id="hr_tabla_isr_view_form" model="ir.ui.view">
+            <field name="name">hr.tabla.isr.view.form</field>
+            <field name="model">cfdi_nomina.hr_tabla_isr</field>
+            <field name="arch" type="xml">
+                <form string="Tabla ISR" >
+                    <group>
+                        <field name="name"/>
+                        <field name="limite_inferior"/>
+                        <field name="limite_superior"/>
+                        <field name="cuota_fija"/>
+                        <field name="tasa"/>
+                    </group>
+                </form>
+            </field>
+        </record>        
+        <record id="act_open_hr_tabla_isr" model="ir.actions.act_window">
+            <field name="name">Tabla ISR</field>
+            <field name="res_model">cfdi_nomina.hr_tabla_isr</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_type">tree</field>
+        </record>
+        <menuitem 
+            action="act_open_hr_tabla_isr" 
+            id="menu_open_hr_tabla_isr"
+            name="Tabla ISR"
+            parent="cfdi_nomina.menu_hr_cfdi_nomina" 
+            sequence="90"/>
+
+        <record id="hr_tabla_subsidio_view_tree" model="ir.ui.view">
+            <field name="name">hr.tabla.subsidio.view.tree</field>
+            <field name="model">cfdi_nomina.hr_tabla_subsidio</field>
+            <field name="arch" type="xml">
+                <tree string="Tabla subsidio al empleo">
+                    <field name="name"/>
+                    <field name="limite_inferior"/>
+                    <field name="limite_superior"/>
+                    <field name="subsidio"/>
+                </tree>
+            </field>
+        </record>        
+        <record id="hr_tabla_subsidio_view_search" model="ir.ui.view">
+            <field name="name">hr.tabla.subsidio.view.search</field>
+            <field name="model">cfdi_nomina.hr_tabla_subsidio</field>
+            <field name="arch" type="xml">
+                <search string="Tabla Subsidio al Empleo" editable="bottom">
+                    <field name="name"/>
+                    <field name="limite_inferior"/>
+                    <field name="limite_superior"/>
+                    <field name="subsidio"/>
+                </search>
+            </field>
+        </record>
+        <record id="hr_tabla_subsidio_view_form" model="ir.ui.view">
+            <field name="name">hr.tabla.subsidio.view.form</field>
+            <field name="model">cfdi_nomina.hr_tabla_subsidio</field>
+            <field name="arch" type="xml">
+                <form string="Tabla Subsidio al Empleo">
+                    <group>
+                        <field name="name"/>
+                        <field name="limite_inferior"/>
+                        <field name="limite_superior"/>
+                        <field name="subsidio"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="act_open_hr_tabla_subsidio" model="ir.actions.act_window">
+            <field name="name">Tabla Subsidio al Empleo</field>
+            <field name="res_model">cfdi_nomina.hr_tabla_subsidio</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_type">tree</field>
+        </record>
+        <menuitem 
+            action="act_open_hr_tabla_subsidio" 
+            id="menu_open_hr_tabla_subsidio"
+            name="Tabla Subsidio al Empleo"
+            parent="cfdi_nomina.menu_hr_cfdi_nomina" 
+            sequence="91"/> 
+        
+
+    </data>
+</odoo>

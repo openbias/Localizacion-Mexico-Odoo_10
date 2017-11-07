@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <!--Generated for OpenBIAS-->
+    <data noupdate="1">
+        <record id="hr_mx_ext.tipopensionados_0" model="hr_mx_ext.tipopensionados">
+            <field name="name">Sin Pension</field>
+            <field name="code">0</field>
+        </record>
+        <record id="hr_mx_ext.tipopensionados_1" model="hr_mx_ext.tipopensionados">
+            <field name="name">Pensionado en invalidez y vida</field>
+            <field name="code">1</field>
+        </record>
+        <record id="hr_mx_ext.tipopensionados_2" model="hr_mx_ext.tipopensionados">
+            <field name="name">Pensionado en cesantia y vejez</field>
+            <field name="code">2</field>
+        </record>
+        <record id="hr_mx_ext.tipopensionados_3" model="hr_mx_ext.tipopensionados">
+            <field name="name">No definido</field>
+            <field name="code">3</field>
+        </record>
+    </data>
+</odoo>

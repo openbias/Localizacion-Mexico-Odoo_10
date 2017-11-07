@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <menuitem 
+            id="menu_contabilidad_electronica"
+            name="Contabilidad Electrónica"
+            parent="bias_base_report.menu_localizacion_mexico_root"
+            sequence="150" />
+
+        <!-- Account Account -->
+        <record id="view_account_inherit_form" model="ir.ui.view">
+            <field name="name">view.account.inherit.form</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath
+                        expr="//form/sheet/group" position="before">
+                            <group string="Contabilidad electrónica">
+                                <field name="codigo_agrupador_id" options="{'no_create': True, 'no_open':True}" style="width:40%%"/>
+                                <field name="naturaleza_id" options="{'no_create': True, 'no_open':True}" style="width:40%%"/>
+                            </group>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+        <record id="view_account_inherit_list" model="ir.ui.view">
+            <field name="name">view.account.inherit.list</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_list"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="name" position="after">
+                        <field name="codigo_agrupador_id"/>
+                        <field name="naturaleza_id"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+        <record id="view_account_inherit_search" model="ir.ui.view">
+            <field name="name">view.account.inherit.search</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_search"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="name" position="after">
+                        <field name="codigo_agrupador_id" filter_domain="[('codigo_agrupador_id','ilike',self)]" />
+                        <field name="naturaleza_id"/>
+                    </field>
+                    <group expand="0" position="inside">
+                        <filter string="Naturaleza_id" domain="" context="{'group_by':'naturaleza_id'}"/>
+                    </group>
+                </data>
+            </field>
+        </record>
+
+
+        <!-- Vista de las polizas -->
+        <record id="view_move_inherit_form" model="ir.ui.view">
+            <field name="name">view.move.inherit.form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <field name="journal_id" position="after">
+                    <field name="tipo_poliza"/>
+                </field>
+            </field>
+        </record>
+
+        <!-- Vista de las transacciones -->
+        <record id="view_move_line_inherit_form" model="ir.ui.view">
+            <field name="name">view.move.line.inherit.form</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="account.view_move_line_form"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Comprobantes">
+                        <separator string="CFDI"/>
+                        <field name="comprobantes_ids">
+                            <tree string="Comprobantes" editable="bottom">
+                                <field name="uuid"/>
+                                <field name="monto"/>
+                                <field name="rfc"/>
+                                <field name="moneda_id"/>
+                                <field name="tipo_cambio"/>
+                            </tree>
+                        </field>
+                        <separator string="CFD o CBB"/>
+                        <field name="comprobantes_cfd_cbb_ids">
+                            <tree string="Comprobantes (CFD o CBB)" editable="bottom">
+                                <field name="serie"/>
+                                <field name="folio"/>
+                                <field name="rfc"/>
+                                <field name="monto"/>
+                                <field name="moneda_id"/>
+                                <field name="tipo_cambio"/>
+                            </tree>
+                        </field>
+                        <separator string="Extranjeros"/>
+                        <field name="comprobantes_ext_ids">
+                            <tree string="Comprobantes extranjeros" editable="bottom">
+                                <field name="num"/>
+                                <field name="tax_id"/>
+                                <field name="monto"/>
+                                <field name="moneda_id"/>
+                                <field name="tipo_cambio"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Pagos">  
+                        <separator string="Transferencias"/>
+                        <field name="transferencias_ids">
+                            <tree string="Transferencias" editable="bottom">
+                                <field name="cta_ori_id"/>
+                                <field name="cta_dest_id"/>
+                                <field name="fecha"/>
+                                <field name="monto"/>
+                                <field name="moneda_id"/>
+                                <field name="tipo_cambio"/>
+                            </tree>
+                        </field>
+                        <separator string="Cheques"/>
+                        <field name="cheques_ids">
+                            <tree string="Cheques" editable="bottom">
+                                <field name="num"/>
+                                <field name="cta_ori_id"/>
+                                <field name="fecha"/>
+                                <field name="monto"/>
+                                <field name="moneda_id"/>
+                                <field name="tipo_cambio"/>
+                            </tree>
+                        </field>
+                        <separator string="Otros métodos de pago"/>
+                        <field name="otros_metodos_ids">
+                            <tree string="Otros métodos de pago" editable="bottom">
+                                <field name="metodo_id"/>
+                                <field name="fecha"/>
+                                <field name="benef_id"/>
+                                <field name="monto"/>
+                                <field name="moneda_id"/>
+                                <field name="tipo_cambio"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+
+
+    </data>
+</odoo>

@@ -1,0 +1,5 @@
+id,name,code
+hr_mx_ext.tipopensionados_0,Sin Pension,0
+hr_mx_ext.tipopensionados_1,Pensionado en invalidez y vida,1
+hr_mx_ext.tipopensionados_2,Pensionado en cesantia y vejez,2
+hr_mx_ext.tipopensionados_3,No definido,3

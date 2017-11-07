@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+        <!-- QWeb Reports -->
+        <report 
+            id="hr_payslip_mx"
+            model="hr.payslip"
+            string="Nomina CFDI"
+            report_type="qweb-pdf"
+            name="cfdi_nomina.report_hr_payslip_mx"
+            file="cfdi_nomina.report_hr_payslip_mx"
+            usage="default"
+            header="False"
+            attachment_use="True"
+            attachment="(object.state in ('done')) and ('NOM'+(object.number or '').replace('/','')+'.pdf')" 
+        />
+        <record id="hr_payslip_mx" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="bias_base_report.paperformat_us_portrait"/>
+        </record>
+    </data>
+<!-- 
+            attachment_use="True"
+            attachment="(object.state in ('done')) and ('INV'+(object.number or '').replace('/','')+'.pdf')" -->
+
+
+</odoo>
+

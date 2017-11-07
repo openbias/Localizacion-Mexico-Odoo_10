@@ -1,0 +1,59 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="complemento_pagos.list">
+      <field name="name">complemento_pagos list</field>
+      <field name="model">complemento_pagos.complemento_pagos</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="complemento_pagos.action_window">
+      <field name="name">complemento_pagos window</field>
+      <field name="res_model">complemento_pagos.complemento_pagos</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="complemento_pagos.action_server">
+      <field name="name">complemento_pagos server</field>
+      <field name="model_id" ref="model_complemento_pagos_complemento_pagos"/>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="complemento_pagos" id="complemento_pagos.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="complemento_pagos.menu_1" parent="complemento_pagos.menu_root"/>
+    <menuitem name="Menu 2" id="complemento_pagos.menu_2" parent="complemento_pagos.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="complemento_pagos.menu_1_list" parent="complemento_pagos.menu_1"
+              action="complemento_pagos.action_window"/>
+    <menuitem name="Server to list" id="complemento_pagos" parent="complemento_pagos.menu_2"
+              action="complemento_pagos.action_server"/>
+    -->
+  </data>
+</odoo>

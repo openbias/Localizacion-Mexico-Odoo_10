@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="accountchartmoves_report_pdf">
+        <t t-call="report.html_container">
+            <t t-call="report.html_container">
+                <div class="page">
+                    <div class="row mt32 mb32" style="border-bottom: 2px solid #808080; padding-bottom:4px;" >
+                        <div class="col-xs-3 text-center">
+                            <div style="text-align:center;">
+                                <img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' % res_company.logo" class="img img-responsive" style="max-height: 75px;"/>
+                            </div>
+                        </div>
+                        <div class="col-xs-9 text-right" style="vertical-align: middle !important;">
+                            <strong><spam t-field="res_company.partner_id.name" /></strong>
+                            <div class="text-right">
+                                <strong>Auxiliar de Cuentas</strong> <br />
+                            </div>
+                            <div style="font-size:10px;">
+                                <strong> Printed by: </strong> <spam t-field="user.name" /> <br />
+                                <strong> Printing Date: </strong> <span style="" t-esc="time.strftime('%Y-%m-%d')"/> <br />
+                                <span t-usertime="%Y-%m-%d %H-%M-%S" /> 
+                            </div>
+                        </div>
+                    </div>
+                    <h2 class="text-center"><strong>Auxiliar de Cuentas</strong></h2>
+                    <table class="table table-condensed">
+                        <tr class="border_polizas">
+                            <td class="bg_color"><strong>Fecha Inicial :</strong></td>
+                            <td><span t-esc="data['date_from']"/></td>
+                            <td class="bg_color"><strong>Fecha Final :</strong></td>
+                            <td><span t-esc="data['date_to']"/></td>
+                        </tr>
+                        <tr class="border_polizas">
+                            <td class="bg_color"><strong>Movimientos:</strong> </td>
+                            <td colspan="3">
+                                <span t-if="data['state'] == 'all'">Todas las Entradas</span>
+                                <span t-if="data['state'] == 'posted'">Todas las Entradas Posteadas</span>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="table-condensed" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th width="40%" >Cliente</th>
+                                <th class="text-left">Factura</th>
+                                <th class="text-left">Referencia</th>
+                                <th class="text-left">Fecha</th>
+                                <th class="text-right">Debito</th>
+                                <th class="text-right">Credito</th>
+                                <th class="text-right"> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="Accounts" t-as="account">
+                                <tr class="border_polizas poliza_datas">
+                                    <t t-if="account.get('type') == 'view'">
+                                        <t t-set="style" t-value="'color:blue; font-size: 11px;'"/>
+                                        
+                                        <td width="40%"><span t-att-style="style" t-esc="account.get('name')"/></td>
+                                        <td><span> </span></td>
+                                        <td><span> </span></td>
+                                        <td class="text-right">
+                                            <span t-att-style="style" t-esc="account.get('initial', 0.0)" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}'/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-att-style="style" t-esc="account.get('debit', 0.0)" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}'/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-att-style="style" t-esc="account.get('credit', 0.0)" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}'/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-att-style="style" t-esc="account.get('balance', 0.0)" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}'/>
+                                        </td>
+                                    </t>
+                                    <t t-if="account.get('type') != 'view'">
+                                        <t t-set="style" t-value="'color:black; font-size: 11px;'"/>
+
+                                        <td width="40%"><span t-att-style="style" t-esc="account.get('partner')"/></td>
+                                        <td><span t-att-style="style" t-esc="account.get('name')"/></td>
+                                        <td><span t-att-style="style" t-esc="account.get('ref')"/></td>
+                                        <td><span t-att-style="style" t-esc="account.get('date')"/></td>
+                                        <td class="text-right">
+                                            <span t-att-style="style" t-esc="account.get('debit', 0.0)" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}'/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-att-style="style" t-esc="account.get('credit', 0.0)" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}'/>
+                                        </td>
+                                        <td><span> </span></td>
+                                    </t>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

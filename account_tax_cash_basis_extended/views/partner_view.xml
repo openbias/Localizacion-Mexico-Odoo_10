@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!--
+        Partners Extension
+        -->
+        <record id="view_partner_diot_form" model="ir.ui.view">
+            <field name="name">res.partner.diot.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.view_partner_property_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='property_account_position_id']" position="after">
+                    <field name="supplier_type" attrs="{'invisible': [('supplier','=',False)]}"/>
+                    <field name="operation_type" attrs="{'invisible': [('supplier','=',False)]}"/>
+                    <field name="fiscal_id" attrs="{'invisible': [('supplier','=',False)]}"/>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

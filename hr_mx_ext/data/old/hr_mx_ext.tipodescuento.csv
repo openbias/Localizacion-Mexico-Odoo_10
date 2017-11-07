@@ -1,0 +1,5 @@
+id,name,code
+hr_mx_ext.tipodescuento_1,Porcentaje,1
+hr_mx_ext.tipodescuento_2,Cuota Fija Monetaria,2
+hr_mx_ext.tipodescuento_3,Cuota Fija VSM DF,3
+hr_mx_ext.tipodescuento_4,Suspensión Descuento,4

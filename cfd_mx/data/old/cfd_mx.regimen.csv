@@ -1,0 +1,22 @@
+id,name,clave,persona_fisica,persona_moral
+__export__.cfd_mx_regimen_601,General de Ley Personas Morales,601,False,True
+__export__.cfd_mx_regimen_603,Personas Morales con Fines no Lucrativos,603,False,True
+__export__.cfd_mx_regimen_605,Sueldos y Salarios e Ingresos Asimilados a Salarios,605,True,False
+__export__.cfd_mx_regimen_606,Arrendamiento,606,True,False
+__export__.cfd_mx_regimen_608,Demás ingresos,608,True,False
+__export__.cfd_mx_regimen_609,Consolidación,609,False,True
+__export__.cfd_mx_regimen_610,Residentes en el Extranjero sin Establecimiento Permanente en México,610,True,True
+__export__.cfd_mx_regimen_611,Ingresos por Dividendos (socios y accionistas),611,True,False
+__export__.cfd_mx_regimen_612,Personas Físicas con Actividades Empresariales y Profesionales,612,True,False
+__export__.cfd_mx_regimen_614,Ingresos por intereses,614,True,False
+__export__.cfd_mx_regimen_616,Sin obligaciones fiscales,616,True,False
+__export__.cfd_mx_regimen_620,Sociedades Cooperativas de Producción que optan por diferir sus ingresos,620,False,True
+__export__.cfd_mx_regimen_621,Incorporación Fiscal,621,True,False
+__export__.cfd_mx_regimen_622,"Actividades Agrícolas, Ganaderas, Silvícolas y Pesqueras",622,True,True
+__export__.cfd_mx_regimen_623,Opcional para Grupos de Sociedades,623,False,True
+__export__.cfd_mx_regimen_624,Coordinados,624,False,True
+__export__.cfd_mx_regimen_628,Hidrocarburos,628,False,True
+__export__.cfd_mx_regimen_607,Régimen de Enajenación o Adquisición de Bienes,607,False,True
+__export__.cfd_mx_regimen_629,De los Regímenes Fiscales Preferentes y de las Empresas Multinacionales,629,True,False
+__export__.cfd_mx_regimen_630,Enajenación de acciones en bolsa de valores,630,True,False
+__export__.cfd_mx_regimen_615,Régimen de los ingresos por obtención de premios,615,True,False

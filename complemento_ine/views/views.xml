@@ -1,0 +1,47 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="view_invoice_form_add_ine">
+            <field name="name">account_invoice_form_add_ine</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="partner_id" position="after">
+                        <field name="ine_activate" invisible="1"/>
+                    </field>
+                    <notebook position="inside">
+                        <page string="Complemento INE" attrs="{'invisible':[('ine_activate','=',False)]}">
+                            <group>
+                                <field name="ine_tipo_proceso"/>
+                                <field name="ine_tipo_comite"/>
+                                <field name="ine_id_contabilidad"/>
+                            </group>
+                            <separator string="Entidades" />
+                            <field name="ine_entidades" colspan="4" nolabel="1">
+                                <tree string="Entidades">
+                                    <field name="state_id"/>
+                                    <field name="ambito"/>
+                                    <field name="contabilidad"/>
+                                </tree>
+                                <form string="Entidades">
+                                    <group>
+                                        <field name="state_id"/>
+                                        <field name="ambito"/>
+                                        <field name="contabilidad">
+                                            <tree string="contabilidad" editable="bottom">
+                                                <field name="id_contabilidad"/>
+                                            </tree>
+                                        </field>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>   
+                </data>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

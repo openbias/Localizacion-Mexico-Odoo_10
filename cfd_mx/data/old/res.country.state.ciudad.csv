@@ -1,0 +1,646 @@
+id,name,state_id/id
+ciudad_2,Aguascalientes,cfd_mx.res_country_state_mx_ags
+ciudad_8,Asientos,cfd_mx.res_country_state_mx_ags
+ciudad_9,Calvillo,cfd_mx.res_country_state_mx_ags
+ciudad_5,Cosío,cfd_mx.res_country_state_mx_ags
+ciudad_10,Jesús María ,cfd_mx.res_country_state_mx_ags
+ciudad_7,Pabellón de Arteaga,cfd_mx.res_country_state_mx_ags
+ciudad_4,Rincón de Romos,cfd_mx.res_country_state_mx_ags
+ciudad_3,San Francisco de los Romo,cfd_mx.res_country_state_mx_ags
+ciudad_6,Tepezalá,cfd_mx.res_country_state_mx_ags
+ciudad_17,Ensenada,cfd_mx.res_country_state_mx_bc
+ciudad_11,Mexicali,cfd_mx.res_country_state_mx_bc
+ciudad_15,Playas de Rosarito,cfd_mx.res_country_state_mx_bc
+ciudad_16,Rodolfo Sánchez T. (Maneadero),cfd_mx.res_country_state_mx_bc
+ciudad_13,San Felipe,cfd_mx.res_country_state_mx_bc
+ciudad_12,Tecate,cfd_mx.res_country_state_mx_bc
+ciudad_14,Tijuana,cfd_mx.res_country_state_mx_bc
+ciudad_21,Cabo San Lucas,cfd_mx.res_country_state_mx_bcs
+ciudad_22,Ciudad Constitución,cfd_mx.res_country_state_mx_bcs
+ciudad_28,Guerrero Negro,cfd_mx.res_country_state_mx_bcs
+ciudad_25,Heroica Mulegé,cfd_mx.res_country_state_mx_bcs
+ciudad_18,La Paz,cfd_mx.res_country_state_mx_bcs
+ciudad_24,Loreto,cfd_mx.res_country_state_mx_bcs
+ciudad_23,Puerto Adolfo López Mateos,cfd_mx.res_country_state_mx_bcs
+ciudad_26,San Ignacio,cfd_mx.res_country_state_mx_bcs
+ciudad_20,San José del Cabo,cfd_mx.res_country_state_mx_bcs
+ciudad_19,Todos Santos,cfd_mx.res_country_state_mx_bcs
+ciudad_27,Villa Alberto Andrés Alvarado Arámburo,cfd_mx.res_country_state_mx_bcs
+ciudad_38,Calkini,cfd_mx.res_country_state_mx_camp
+ciudad_32,Candelaria,cfd_mx.res_country_state_mx_camp
+ciudad_34,Champotón,cfd_mx.res_country_state_mx_camp
+ciudad_30,Ciudad del Carmen,cfd_mx.res_country_state_mx_camp
+ciudad_33,Escárcega,cfd_mx.res_country_state_mx_camp
+ciudad_36,Hecelchakán,cfd_mx.res_country_state_mx_camp
+ciudad_35,Hopelchén,cfd_mx.res_country_state_mx_camp
+ciudad_37,Pomuch,cfd_mx.res_country_state_mx_camp
+ciudad_31,Sabancuy,cfd_mx.res_country_state_mx_camp
+ciudad_29,San Francisco de Campeche,cfd_mx.res_country_state_mx_camp
+ciudad_96,Bachíniva,cfd_mx.res_country_state_mx_chih
+ciudad_93,Chihuahua,cfd_mx.res_country_state_mx_chih
+ciudad_95,Colonia Anáhuac,cfd_mx.res_country_state_mx_chih
+ciudad_94,Cuauhtémoc,cfd_mx.res_country_state_mx_chih
+ciudad_102,Delicias,cfd_mx.res_country_state_mx_chih
+ciudad_105,Hidalgo del Parral,cfd_mx.res_country_state_mx_chih
+ciudad_106,José Mariano Jiménez,cfd_mx.res_country_state_mx_chih
+ciudad_101,Juan Aldama,cfd_mx.res_country_state_mx_chih
+ciudad_99,Juárez,cfd_mx.res_country_state_mx_chih
+ciudad_98,Madera,cfd_mx.res_country_state_mx_chih
+ciudad_100,Manuel Ojinaga,cfd_mx.res_country_state_mx_chih
+ciudad_97,Nuevo Casas Grandes,cfd_mx.res_country_state_mx_chih
+ciudad_104,Santa Rosalía de Camargo,cfd_mx.res_country_state_mx_chih
+ciudad_103,Saucillo,cfd_mx.res_country_state_mx_chih
+ciudad_72,Acala,cfd_mx.res_country_state_mx_chis
+ciudad_83,Arriaga,cfd_mx.res_country_state_mx_chis
+ciudad_91,Cacahoatán,cfd_mx.res_country_state_mx_chis
+ciudad_70,Chiapa de Corzo,cfd_mx.res_country_state_mx_chis
+ciudad_81,Cintalapa de Figueroa,cfd_mx.res_country_state_mx_chis
+ciudad_77,Comitán de Domínguez,cfd_mx.res_country_state_mx_chis
+ciudad_88,Huixtla,cfd_mx.res_country_state_mx_chis
+ciudad_82,Jiquipilas,cfd_mx.res_country_state_mx_chis
+ciudad_78,Las Margaritas,cfd_mx.res_country_state_mx_chis
+ciudad_80,Las Rosas,cfd_mx.res_country_state_mx_chis
+ciudad_87,Mapastepec,cfd_mx.res_country_state_mx_chis
+ciudad_92,Motozintla de Mendoza,cfd_mx.res_country_state_mx_chis
+ciudad_75,Ocosingo,cfd_mx.res_country_state_mx_chis
+ciudad_69,Ocozocoautla de Espinosa,cfd_mx.res_country_state_mx_chis
+ciudad_76,Palenque,cfd_mx.res_country_state_mx_chis
+ciudad_74,Pichucalco,cfd_mx.res_country_state_mx_chis
+ciudad_86,Pijijiapan,cfd_mx.res_country_state_mx_chis
+ciudad_90,Puerto Madero (San Benito),cfd_mx.res_country_state_mx_chis
+ciudad_73,Reforma,cfd_mx.res_country_state_mx_chis
+ciudad_71,San Cristóbal de las Casas,cfd_mx.res_country_state_mx_chis
+ciudad_89,Tapachula de Córdova y Ordóñez,cfd_mx.res_country_state_mx_chis
+ciudad_85,Tonalá,cfd_mx.res_country_state_mx_chis
+ciudad_68,Tuxtla Gutiérrez,cfd_mx.res_country_state_mx_chis
+ciudad_79,Venustiano Carranza,cfd_mx.res_country_state_mx_chis
+ciudad_84,Villaflores,cfd_mx.res_country_state_mx_chis
+ciudad_66,Ciudad de Armería,cfd_mx.res_country_state_mx_col
+ciudad_67,Ciudad de Villa de Álvarez,cfd_mx.res_country_state_mx_col
+ciudad_63,Colima,cfd_mx.res_country_state_mx_col
+ciudad_65,Manzanillo,cfd_mx.res_country_state_mx_col
+ciudad_64,Tecoman,cfd_mx.res_country_state_mx_col
+ciudad_1,Ciudad de México,cfd_mx.res_country_state_mx_df
+ciudad_108,Canatlán,cfd_mx.res_country_state_mx_dgo
+ciudad_117,Ciudad Lerdo,cfd_mx.res_country_state_mx_dgo
+ciudad_115,El Salto,cfd_mx.res_country_state_mx_dgo
+ciudad_112,Francisco I. Madero,cfd_mx.res_country_state_mx_dgo
+ciudad_116,Gómez Palacio,cfd_mx.res_country_state_mx_dgo
+ciudad_113,Nombre de Dios,cfd_mx.res_country_state_mx_dgo
+ciudad_111,Peñón Blanco,cfd_mx.res_country_state_mx_dgo
+ciudad_109,San Juan del Río del Centauro del Norte,cfd_mx.res_country_state_mx_dgo
+ciudad_118,Santa María del Oro,cfd_mx.res_country_state_mx_dgo
+ciudad_110,Santiago Papasquiaro,cfd_mx.res_country_state_mx_dgo
+ciudad_114,Vicente Guerrero,cfd_mx.res_country_state_mx_dgo
+ciudad_107,Victoria de Durango,cfd_mx.res_country_state_mx_dgo
+ciudad_161,Acapulco de Juárez,cfd_mx.res_country_state_mx_gro
+ciudad_171,Arcelia,cfd_mx.res_country_state_mx_gro
+ciudad_183,Atoyac de Álvarez,cfd_mx.res_country_state_mx_gro
+ciudad_160,Ayutla de los Libres,cfd_mx.res_country_state_mx_gro
+ciudad_194,Azoyú,cfd_mx.res_country_state_mx_gro
+ciudad_169,Buenavista de Cuellar,cfd_mx.res_country_state_mx_gro
+ciudad_187,Chilapa de Álvarez,cfd_mx.res_country_state_mx_gro
+ciudad_157,Chilpancingo de los Bravo,cfd_mx.res_country_state_mx_gro
+ciudad_175,Ciudad Altamirano,cfd_mx.res_country_state_mx_gro
+ciudad_172,Ciudad Apaxtla de Castrejón,cfd_mx.res_country_state_mx_gro
+ciudad_193,Copala,cfd_mx.res_country_state_mx_gro
+ciudad_185,Coyuca de Benítez,cfd_mx.res_country_state_mx_gro
+ciudad_176,Coyuca de Catalán,cfd_mx.res_country_state_mx_gro
+ciudad_192,Cruz Grande,cfd_mx.res_country_state_mx_gro
+ciudad_196,Cuajinicuilapa,cfd_mx.res_country_state_mx_gro
+ciudad_174,Cutzamala de Pinzón,cfd_mx.res_country_state_mx_gro
+ciudad_188,Huamuxtitlan,cfd_mx.res_country_state_mx_gro
+ciudad_165,Huitzuco,cfd_mx.res_country_state_mx_gro
+ciudad_164,Iguala de la Independencia,cfd_mx.res_country_state_mx_gro
+ciudad_177,La Unión,cfd_mx.res_country_state_mx_gro
+ciudad_195,Marquelia,cfd_mx.res_country_state_mx_gro
+ciudad_158,Ocotito,cfd_mx.res_country_state_mx_gro
+ciudad_186,Olinalá,cfd_mx.res_country_state_mx_gro
+ciudad_178,Petatlán,cfd_mx.res_country_state_mx_gro
+ciudad_184,San Jerónimo de Juárez,cfd_mx.res_country_state_mx_gro
+ciudad_191,San Luis Acatlán,cfd_mx.res_country_state_mx_gro
+ciudad_182,San Luis de la Loma,cfd_mx.res_country_state_mx_gro
+ciudad_181,San Luis San Pedro,cfd_mx.res_country_state_mx_gro
+ciudad_163,San Marcos,cfd_mx.res_country_state_mx_gro
+ciudad_168,Taxco de Alarcón,cfd_mx.res_country_state_mx_gro
+ciudad_180,Técpan de Galeana,cfd_mx.res_country_state_mx_gro
+ciudad_170,Teloloapan,cfd_mx.res_country_state_mx_gro
+ciudad_166,Tepecoacuilco de Trujano,cfd_mx.res_country_state_mx_gro
+ciudad_162,Tierra Colorada,cfd_mx.res_country_state_mx_gro
+ciudad_159,Tixtla de Guerrero,cfd_mx.res_country_state_mx_gro
+ciudad_190,Tlalixtaquilla,cfd_mx.res_country_state_mx_gro
+ciudad_189,Tlapa de Comonfort,cfd_mx.res_country_state_mx_gro
+ciudad_173,Tlapehuala,cfd_mx.res_country_state_mx_gro
+ciudad_179,Zihuatanejo,cfd_mx.res_country_state_mx_gro
+ciudad_167,Zumpango del Río,cfd_mx.res_country_state_mx_gro
+ciudad_130,Abasolo,cfd_mx.res_country_state_mx_gto
+ciudad_150,Acámbaro,cfd_mx.res_country_state_mx_gto
+ciudad_148,Apaseo el Alto,cfd_mx.res_country_state_mx_gto
+ciudad_140,Apaseo el Grande,cfd_mx.res_country_state_mx_gto
+ciudad_138,Celaya,cfd_mx.res_country_state_mx_gto
+ciudad_125,Ciudad Manuel Doblado,cfd_mx.res_country_state_mx_gto
+ciudad_141,Comonfort,cfd_mx.res_country_state_mx_gto
+ciudad_145,Cortazar,cfd_mx.res_country_state_mx_gto
+ciudad_129,Cuerámaro,cfd_mx.res_country_state_mx_gto
+ciudad_136,Doctor Mora,cfd_mx.res_country_state_mx_gto
+ciudad_142,Empalme Escobedo (Escobedo),cfd_mx.res_country_state_mx_gto
+ciudad_119,Guanajuato,cfd_mx.res_country_state_mx_gto
+ciudad_131,Huanímaro,cfd_mx.res_country_state_mx_gto
+ciudad_126,Irapuato,cfd_mx.res_country_state_mx_gto
+ciudad_147,Jaral del Progreso,cfd_mx.res_country_state_mx_gto
+ciudad_149,Jerécuaro,cfd_mx.res_country_state_mx_gto
+ciudad_132,León de los Aldama,cfd_mx.res_country_state_mx_gto
+ciudad_122,Marfil,cfd_mx.res_country_state_mx_gto
+ciudad_152,Moroleón,cfd_mx.res_country_state_mx_gto
+ciudad_128,Pénjamo,cfd_mx.res_country_state_mx_gto
+ciudad_124,Purísima de Bustos,cfd_mx.res_country_state_mx_gto
+ciudad_139,Rincón de Tamayo,cfd_mx.res_country_state_mx_gto
+ciudad_121,Romita,cfd_mx.res_country_state_mx_gto
+ciudad_127,Salamanca,cfd_mx.res_country_state_mx_gto
+ciudad_153,Salvatierra,cfd_mx.res_country_state_mx_gto
+ciudad_134,San Diego de la Unión,cfd_mx.res_country_state_mx_gto
+ciudad_123,San Francisco del Rincón,cfd_mx.res_country_state_mx_gto
+ciudad_137,San José Iturbide,cfd_mx.res_country_state_mx_gto
+ciudad_135,San Luis de la Paz,cfd_mx.res_country_state_mx_gto
+ciudad_133,San miguel de Allende,cfd_mx.res_country_state_mx_gto
+ciudad_143,Santa Cruz Juventino Rosas,cfd_mx.res_country_state_mx_gto
+ciudad_155,Santiago Maravatío,cfd_mx.res_country_state_mx_gto
+ciudad_120,Silao,cfd_mx.res_country_state_mx_gto
+ciudad_151,Tarandacuao,cfd_mx.res_country_state_mx_gto
+ciudad_156,Uriangato,cfd_mx.res_country_state_mx_gto
+ciudad_146,Valle de Santiago,cfd_mx.res_country_state_mx_gto
+ciudad_144,Villagrán,cfd_mx.res_country_state_mx_gto
+ciudad_154,Yuriria,cfd_mx.res_country_state_mx_gto
+ciudad_200,Actopan,cfd_mx.res_country_state_mx_hgo
+ciudad_209,Apan,cfd_mx.res_country_state_mx_hgo
+ciudad_211,Ciudad de Fray Bernardino de Sahagún,cfd_mx.res_country_state_mx_hgo
+ciudad_202,Cruz Azul,cfd_mx.res_country_state_mx_hgo
+ciudad_205,Huejutla de Reyes,cfd_mx.res_country_state_mx_hgo
+ciudad_198,Ixmiquilpan,cfd_mx.res_country_state_mx_hgo
+ciudad_197,Pachuca de Soto,cfd_mx.res_country_state_mx_hgo
+ciudad_207,Santiago Tulantepec,cfd_mx.res_country_state_mx_hgo
+ciudad_210,Tepeapulco,cfd_mx.res_country_state_mx_hgo
+ciudad_203,Tepeji del Rio,cfd_mx.res_country_state_mx_hgo
+ciudad_208,Tizayuca,cfd_mx.res_country_state_mx_hgo
+ciudad_204,Tlaxcoapan,cfd_mx.res_country_state_mx_hgo
+ciudad_201,Tula de Allende,cfd_mx.res_country_state_mx_hgo
+ciudad_206,Tulancingo,cfd_mx.res_country_state_mx_hgo
+ciudad_199,Zimapan,cfd_mx.res_country_state_mx_hgo
+ciudad_221,Acatlán de Juárez,cfd_mx.res_country_state_mx_jal
+ciudad_234,Ahualulco de Mercado,cfd_mx.res_country_state_mx_jal
+ciudad_226,Ajijic,cfd_mx.res_country_state_mx_jal
+ciudad_233,Ameca,cfd_mx.res_country_state_mx_jal
+ciudad_239,Arandas,cfd_mx.res_country_state_mx_jal
+ciudad_250,Atotonilco el Alto,cfd_mx.res_country_state_mx_jal
+ciudad_258,Autlán de Navarro,cfd_mx.res_country_state_mx_jal
+ciudad_225,Chapala,cfd_mx.res_country_state_mx_jal
+ciudad_260,Cihuatlán,cfd_mx.res_country_state_mx_jal
+ciudad_261,Ciudad Guzmán,cfd_mx.res_country_state_mx_jal
+ciudad_256,Cocula,cfd_mx.res_country_state_mx_jal
+ciudad_229,Colotlán,cfd_mx.res_country_state_mx_jal
+ciudad_257,El Grullo,cfd_mx.res_country_state_mx_jal
+ciudad_220,El Quince (San José el Quince),cfd_mx.res_country_state_mx_jal
+ciudad_232,Etzatlán,cfd_mx.res_country_state_mx_jal
+ciudad_212,Guadalajara,cfd_mx.res_country_state_mx_jal
+ciudad_228,Huejuquilla el Alto,cfd_mx.res_country_state_mx_jal
+ciudad_236,Jalostotitlán,cfd_mx.res_country_state_mx_jal
+ciudad_252,Jamay,cfd_mx.res_country_state_mx_jal
+ciudad_224,Jocotepec,cfd_mx.res_country_state_mx_jal
+ciudad_253,La Barca,cfd_mx.res_country_state_mx_jal
+ciudad_259,La Resolana,cfd_mx.res_country_state_mx_jal
+ciudad_245,Lagos de Moreno,cfd_mx.res_country_state_mx_jal
+ciudad_218,Las Pintitas,cfd_mx.res_country_state_mx_jal
+ciudad_231,Magdalena,cfd_mx.res_country_state_mx_jal
+ciudad_251,Ocotlán,cfd_mx.res_country_state_mx_jal
+ciudad_227,Poncitlán,cfd_mx.res_country_state_mx_jal
+ciudad_255,Puerto Vallarta,cfd_mx.res_country_state_mx_jal
+ciudad_247,San Diego de Alejandría,cfd_mx.res_country_state_mx_jal
+ciudad_240,San Ignacio Cerro Gordo,cfd_mx.res_country_state_mx_jal
+ciudad_219,San José el Verde (El Verde),cfd_mx.res_country_state_mx_jal
+ciudad_235,San Juan de los Lagos,cfd_mx.res_country_state_mx_jal
+ciudad_238,San Julián,cfd_mx.res_country_state_mx_jal
+ciudad_237,San Miguel el Alto,cfd_mx.res_country_state_mx_jal
+ciudad_262,Sayula,cfd_mx.res_country_state_mx_jal
+ciudad_214,Tala,cfd_mx.res_country_state_mx_jal
+ciudad_254,Talpa de Allende,cfd_mx.res_country_state_mx_jal
+ciudad_264,Tamazula de Gordiano,cfd_mx.res_country_state_mx_jal
+ciudad_266,Tecalitlán,cfd_mx.res_country_state_mx_jal
+ciudad_241,Teocaltiche,cfd_mx.res_country_state_mx_jal
+ciudad_248,Tepatitlán de Morelos,cfd_mx.res_country_state_mx_jal
+ciudad_230,Tequila,cfd_mx.res_country_state_mx_jal
+ciudad_217,Tlajomulco de Zúñiga,cfd_mx.res_country_state_mx_jal
+ciudad_216,Tlaquepaque,cfd_mx.res_country_state_mx_jal
+ciudad_215,Tonalá,cfd_mx.res_country_state_mx_jal
+ciudad_249,Tototlán,cfd_mx.res_country_state_mx_jal
+ciudad_265,Tuxpan,cfd_mx.res_country_state_mx_jal
+ciudad_246,Unión de San Antonio,cfd_mx.res_country_state_mx_jal
+ciudad_244,Valle de Guadalupe,cfd_mx.res_country_state_mx_jal
+ciudad_222,Villa Corona,cfd_mx.res_country_state_mx_jal
+ciudad_242,Villa Hidalgo,cfd_mx.res_country_state_mx_jal
+ciudad_243,Yahualica de González Gallo,cfd_mx.res_country_state_mx_jal
+ciudad_223,Zacoalco de Torres,cfd_mx.res_country_state_mx_jal
+ciudad_213,Zapopan,cfd_mx.res_country_state_mx_jal
+ciudad_263,Zapotiltic,cfd_mx.res_country_state_mx_jal
+ciudad_268,Almoloya de Juárez,cfd_mx.res_country_state_mx_mex
+ciudad_270,Amatepec,cfd_mx.res_country_state_mx_mex
+ciudad_274,Capulhuac,cfd_mx.res_country_state_mx_mex
+ciudad_298,Chalco de Díaz Covarrubias,cfd_mx.res_country_state_mx_mex
+ciudad_293,Chiconcuac,cfd_mx.res_country_state_mx_mex
+ciudad_294,Chimalhuacán,cfd_mx.res_country_state_mx_mex
+ciudad_277,Ciudad Adolfo López Mateos,cfd_mx.res_country_state_mx_mex
+ciudad_301,Ciudad Nezahualcoyotl,cfd_mx.res_country_state_mx_mex
+ciudad_290,Coacalco de Berriozabal,cfd_mx.res_country_state_mx_mex
+ciudad_283,Cuautitlán,cfd_mx.res_country_state_mx_mex
+ciudad_282,Cuautitlán Izcalli,cfd_mx.res_country_state_mx_mex
+ciudad_287,Ecatepec de Morelos,cfd_mx.res_country_state_mx_mex
+ciudad_276,Huixquilucan de Degollado,cfd_mx.res_country_state_mx_mex
+ciudad_297,Ixtapaluca,cfd_mx.res_country_state_mx_mex
+ciudad_300,Juchitepec de Mariano Riva Palacio,cfd_mx.res_country_state_mx_mex
+ciudad_296,Los Reyes Acaquilpan (La Paz),cfd_mx.res_country_state_mx_mex
+ciudad_284,Melchor Ocampo,cfd_mx.res_country_state_mx_mex
+ciudad_273,Metepec,cfd_mx.res_country_state_mx_mex
+ciudad_278,Naucalpan de Juárez,cfd_mx.res_country_state_mx_mex
+ciudad_275,Ocoyoacac,cfd_mx.res_country_state_mx_mex
+ciudad_272,San Mateo Atenco,cfd_mx.res_country_state_mx_mex
+ciudad_295,San Vicente Chicoloapan de Juárez,cfd_mx.res_country_state_mx_mex
+ciudad_286,Santa Maria Tultepec,cfd_mx.res_country_state_mx_mex
+ciudad_291,Tecamac de Felipe Villanueva,cfd_mx.res_country_state_mx_mex
+ciudad_269,Tejupilco de Hidalgo,cfd_mx.res_country_state_mx_mex
+ciudad_281,Tepotzotlán,cfd_mx.res_country_state_mx_mex
+ciudad_289,Tequixquiac,cfd_mx.res_country_state_mx_mex
+ciudad_292,Texcoco de Mora,cfd_mx.res_country_state_mx_mex
+ciudad_279,Tlalnepantla de Baz,cfd_mx.res_country_state_mx_mex
+ciudad_267,Toluca de Lerdo,cfd_mx.res_country_state_mx_mex
+ciudad_285,Tultitlán de Mariano Escobedo,cfd_mx.res_country_state_mx_mex
+ciudad_299,Valle de Chalco Solidaridad,cfd_mx.res_country_state_mx_mex
+ciudad_280,Villa Nicolás Romero,cfd_mx.res_country_state_mx_mex
+ciudad_271,Xonacatlán,cfd_mx.res_country_state_mx_mex
+ciudad_288,Zumpango,cfd_mx.res_country_state_mx_mex
+ciudad_318,Apatzingán de la Constitución,cfd_mx.res_country_state_mx_mich
+ciudad_321,Ciudad Hidalgo,cfd_mx.res_country_state_mx_mich
+ciudad_319,Ciudad Lázaro Cárdenas,cfd_mx.res_country_state_mx_mich
+ciudad_314,Cotija de la Paz,cfd_mx.res_country_state_mx_mich
+ciudad_305,Cuitzeo del Porvenir,cfd_mx.res_country_state_mx_mich
+ciudad_324,Heroica Zitácuaro,cfd_mx.res_country_state_mx_mich
+ciudad_328,Huetamo de Núñez,cfd_mx.res_country_state_mx_mich
+ciudad_313,Jacona de Plancarte,cfd_mx.res_country_state_mx_mich
+ciudad_310,Jiquilpan de Juárez,cfd_mx.res_country_state_mx_mich
+ciudad_309,La piedad de Cabadas,cfd_mx.res_country_state_mx_mich
+ciudad_320,Las Guacamayas,cfd_mx.res_country_state_mx_mich
+ciudad_317,Los Reyes de Salgado,cfd_mx.res_country_state_mx_mich
+ciudad_322,Maravatío de Ocampo,cfd_mx.res_country_state_mx_mich
+ciudad_302,Morelia,cfd_mx.res_country_state_mx_mich
+ciudad_327,Nueva Italia de Ruiz,cfd_mx.res_country_state_mx_mich
+ciudad_316,Paracho de Verduzco,cfd_mx.res_country_state_mx_mich
+ciudad_325,Pátzcuaro,cfd_mx.res_country_state_mx_mich
+ciudad_303,Puruándiro,cfd_mx.res_country_state_mx_mich
+ciudad_307,Sahuayo de Morelos,cfd_mx.res_country_state_mx_mich
+ciudad_326,Tacámbaro de Codallos,cfd_mx.res_country_state_mx_mich
+ciudad_312,Tangancícuaro de Arista,cfd_mx.res_country_state_mx_mich
+ciudad_323,Tuxpan,cfd_mx.res_country_state_mx_mich
+ciudad_315,Uruapan,cfd_mx.res_country_state_mx_mich
+ciudad_308,Yurécuaro,cfd_mx.res_country_state_mx_mich
+ciudad_304,Zacapu,cfd_mx.res_country_state_mx_mich
+ciudad_311,Zamora de Hidalgo,cfd_mx.res_country_state_mx_mich
+ciudad_306,Zinapécuaro de Figueroa,cfd_mx.res_country_state_mx_mich
+ciudad_331,Cuautla (Cuautla de Morelos),cfd_mx.res_country_state_mx_mor
+ciudad_329,Cuernavaca,cfd_mx.res_country_state_mx_mor
+ciudad_334,Galeana,cfd_mx.res_country_state_mx_mor
+ciudad_335,Jojutla,cfd_mx.res_country_state_mx_mor
+ciudad_330,Puente de Ixtla,cfd_mx.res_country_state_mx_mor
+ciudad_332,Santa Rosa Treinta,cfd_mx.res_country_state_mx_mor
+ciudad_336,Tlaquiltenango,cfd_mx.res_country_state_mx_mor
+ciudad_333,Zacatepec de Hidalgo,cfd_mx.res_country_state_mx_mor
+ciudad_340,Acaponeta,cfd_mx.res_country_state_mx_nay
+ciudad_353,Ahuacatlán,cfd_mx.res_country_state_mx_nay
+ciudad_348,Bucerías,cfd_mx.res_country_state_mx_nay
+ciudad_345,Compostela,cfd_mx.res_country_state_mx_nay
+ciudad_342,Francisco I. Madero (Puga),cfd_mx.res_country_state_mx_nay
+ciudad_354,Ixtlán del Río,cfd_mx.res_country_state_mx_nay
+ciudad_352,Jala,cfd_mx.res_country_state_mx_nay
+ciudad_347,La peñita de Jaltemba,cfd_mx.res_country_state_mx_nay
+ciudad_346,Las Varas,cfd_mx.res_country_state_mx_nay
+ciudad_344,Ruiz,cfd_mx.res_country_state_mx_nay
+ciudad_349,San Blas,cfd_mx.res_country_state_mx_nay
+ciudad_351,San pedro Lagunillas,cfd_mx.res_country_state_mx_nay
+ciudad_339,Santiago Ixcuintla,cfd_mx.res_country_state_mx_nay
+ciudad_341,Tecuala,cfd_mx.res_country_state_mx_nay
+ciudad_337,Tepic,cfd_mx.res_country_state_mx_nay
+ciudad_338,Tuxpan,cfd_mx.res_country_state_mx_nay
+ciudad_343,Villa Hidalgo (El Nuevo),cfd_mx.res_country_state_mx_nay
+ciudad_350,Xalisco,cfd_mx.res_country_state_mx_nay
+ciudad_356,Anáhuac,cfd_mx.res_country_state_mx_nl
+ciudad_369,Cadereyta Jiménez,cfd_mx.res_country_state_mx_nl
+ciudad_358,Ciénega de Flores,cfd_mx.res_country_state_mx_nl
+ciudad_364,Ciudad Apodaca,cfd_mx.res_country_state_mx_nl
+ciudad_366,Ciudad Benito Juárez,cfd_mx.res_country_state_mx_nl
+ciudad_360,Ciudad General Escobedo,cfd_mx.res_country_state_mx_nl
+ciudad_357,Ciudad Sabinas Hidalgo,cfd_mx.res_country_state_mx_nl
+ciudad_361,Ciudad Santa Catarina,cfd_mx.res_country_state_mx_nl
+ciudad_373,Doctor Arroyo,cfd_mx.res_country_state_mx_nl
+ciudad_368,El cercado,cfd_mx.res_country_state_mx_nl
+ciudad_359,García,cfd_mx.res_country_state_mx_nl
+ciudad_365,Guadalupe,cfd_mx.res_country_state_mx_nl
+ciudad_372,Hualahuises,cfd_mx.res_country_state_mx_nl
+ciudad_371,Linares,cfd_mx.res_country_state_mx_nl
+ciudad_370,Montemorelos,cfd_mx.res_country_state_mx_nl
+ciudad_355,Monterrey,cfd_mx.res_country_state_mx_nl
+ciudad_363,San Nicolás de los Garza,cfd_mx.res_country_state_mx_nl
+ciudad_362,San Pedro Garza García,cfd_mx.res_country_state_mx_nl
+ciudad_367,Santiago,cfd_mx.res_country_state_mx_nl
+ciudad_390,Asunción Nochixtlán,cfd_mx.res_country_state_mx_oax
+ciudad_412,Bahias de Huatulco,cfd_mx.res_country_state_mx_oax
+ciudad_399,Chahuites,cfd_mx.res_country_state_mx_oax
+ciudad_395,Ciudad Ixtepec,cfd_mx.res_country_state_mx_oax
+ciudad_380,Cosolapa,cfd_mx.res_country_state_mx_oax
+ciudad_421,Cuilápam de Guerrero,cfd_mx.res_country_state_mx_oax
+ciudad_405,El Camarón,cfd_mx.res_country_state_mx_oax
+ciudad_420,El Rosario,cfd_mx.res_country_state_mx_oax
+ciudad_423,Heroica Ciudad de Ejutla de Crespo,cfd_mx.res_country_state_mx_oax
+ciudad_387,Heroica Ciudad de Huajuapan de León,cfd_mx.res_country_state_mx_oax
+ciudad_393,Heroica Ciudad de Tlaxiaco,cfd_mx.res_country_state_mx_oax
+ciudad_394,Juchitán (Juchitán de Zaragoza),cfd_mx.res_country_state_mx_oax
+ciudad_401,Lagunas,cfd_mx.res_country_state_mx_oax
+ciudad_379,Loma Bonita,cfd_mx.res_country_state_mx_oax
+ciudad_388,Mariscala de Juárez,cfd_mx.res_country_state_mx_oax
+ciudad_400,Matías Romero Avendaño,cfd_mx.res_country_state_mx_oax
+ciudad_409,Miahuatlán de Porfirio Díaz,cfd_mx.res_country_state_mx_oax
+ciudad_386,Natividad,cfd_mx.res_country_state_mx_oax
+ciudad_374,Oaxaca de Juárez,cfd_mx.res_country_state_mx_oax
+ciudad_424,Ocotlán de Morelos,cfd_mx.res_country_state_mx_oax
+ciudad_430,Puerto Escondido,cfd_mx.res_country_state_mx_oax
+ciudad_413,Putla Villa de Guerrero,cfd_mx.res_country_state_mx_oax
+ciudad_429,Río Grande o Piedra Parada,cfd_mx.res_country_state_mx_oax
+ciudad_406,Salina Cruz,cfd_mx.res_country_state_mx_oax
+ciudad_418,San Antonio de la Cal,cfd_mx.res_country_state_mx_oax
+ciudad_408,San Blas Atempa,cfd_mx.res_country_state_mx_oax
+ciudad_382,San Felipe Jalapa de Díaz,cfd_mx.res_country_state_mx_oax
+ciudad_397,San Francisco Ixhuatán,cfd_mx.res_country_state_mx_oax
+ciudad_375,San Francisco Telixtlahuaca,cfd_mx.res_country_state_mx_oax
+ciudad_385,San Juan Bautista Cuicatlán,cfd_mx.res_country_state_mx_oax
+ciudad_427,San Juan Bautista lo de Soto,cfd_mx.res_country_state_mx_oax
+ciudad_378,San Juan Bautista Tuxtepec,cfd_mx.res_country_state_mx_oax
+ciudad_383,San Juan Bautista Valle Nacional,cfd_mx.res_country_state_mx_oax
+ciudad_426,San Juan Cacahuatepec,cfd_mx.res_country_state_mx_oax
+ciudad_414,San Miguel el Grande,cfd_mx.res_country_state_mx_oax
+ciudad_376,San Pablo Huitzo,cfd_mx.res_country_state_mx_oax
+ciudad_403,San Pablo Villa de Mitla,cfd_mx.res_country_state_mx_oax
+ciudad_431,San Pedro Mixtepec -Dto. 22-,cfd_mx.res_country_state_mx_oax
+ciudad_410,San Pedro Pochutla,cfd_mx.res_country_state_mx_oax
+ciudad_398,San Pedro Tapanatepec,cfd_mx.res_country_state_mx_oax
+ciudad_404,San Pedro Totolapa,cfd_mx.res_country_state_mx_oax
+ciudad_392,San Sebastián Tecomaxtlahuaca,cfd_mx.res_country_state_mx_oax
+ciudad_415,Santa Cruz Itundujia,cfd_mx.res_country_state_mx_oax
+ciudad_417,Santa Lucia del Camino,cfd_mx.res_country_state_mx_oax
+ciudad_411,Santa María Huatulco,cfd_mx.res_country_state_mx_oax
+ciudad_428,Santiago Jamiltepec,cfd_mx.res_country_state_mx_oax
+ciudad_391,Santiago Juxtlahuaca,cfd_mx.res_country_state_mx_oax
+ciudad_425,Santiago Pinotepa Nacional,cfd_mx.res_country_state_mx_oax
+ciudad_377,Santiago Suchilquitongo,cfd_mx.res_country_state_mx_oax
+ciudad_407,Santo Domingo Tehuantepec,cfd_mx.res_country_state_mx_oax
+ciudad_384,Teotitlán de Flores Magón,cfd_mx.res_country_state_mx_oax
+ciudad_402,Tlacolula de Matamoros,cfd_mx.res_country_state_mx_oax
+ciudad_396,Unión Hidalgo,cfd_mx.res_country_state_mx_oax
+ciudad_381,Vicente Camalote,cfd_mx.res_country_state_mx_oax
+ciudad_389,Villa de Tamazulápam del Progreso,cfd_mx.res_country_state_mx_oax
+ciudad_419,Villa de Zaachila,cfd_mx.res_country_state_mx_oax
+ciudad_422,Villa Sola de Vega,cfd_mx.res_country_state_mx_oax
+ciudad_416,Zimatlán de Álvarez,cfd_mx.res_country_state_mx_oax
+ciudad_444,Acatlán de Osorio,cfd_mx.res_country_state_mx_pue
+ciudad_436,Amozoc,cfd_mx.res_country_state_mx_pue
+ciudad_442,Atlixco,cfd_mx.res_country_state_mx_pue
+ciudad_447,Ciudad Serdán,cfd_mx.res_country_state_mx_pue
+ciudad_433,Cuautlancingo,cfd_mx.res_country_state_mx_pue
+ciudad_438,Huauchinango,cfd_mx.res_country_state_mx_pue
+ciudad_443,Izúcar de Matamoros,cfd_mx.res_country_state_mx_pue
+ciudad_432,Puebla (Heroica Puebla),cfd_mx.res_country_state_mx_pue
+ciudad_435,San Andrés Cholula,cfd_mx.res_country_state_mx_pue
+ciudad_441,San Martín Texmelucan de Labastida,cfd_mx.res_country_state_mx_pue
+ciudad_434,San Pedro Cholula,cfd_mx.res_country_state_mx_pue
+ciudad_446,Tecamachalco,cfd_mx.res_country_state_mx_pue
+ciudad_448,Tehuacan,cfd_mx.res_country_state_mx_pue
+ciudad_445,Tepeaca,cfd_mx.res_country_state_mx_pue
+ciudad_440,Teziutlan,cfd_mx.res_country_state_mx_pue
+ciudad_437,Xicotepec,cfd_mx.res_country_state_mx_pue
+ciudad_439,Zacatlán,cfd_mx.res_country_state_mx_pue
+ciudad_459,Bacalar,cfd_mx.res_country_state_mx_qro
+ciudad_456,Cancún,cfd_mx.res_country_state_mx_qro
+ciudad_452,Chetumal,cfd_mx.res_country_state_mx_qro
+ciudad_457,Cozumel,cfd_mx.res_country_state_mx_qro
+ciudad_451,El Pueblito,cfd_mx.res_country_state_mx_qro
+ciudad_453,Felipe Carrillo Puerto,cfd_mx.res_country_state_mx_qro
+ciudad_455,Isla Mujeres,cfd_mx.res_country_state_mx_qro
+ciudad_454,Kantunilkín,cfd_mx.res_country_state_mx_qro
+ciudad_458,Playa del Carmen,cfd_mx.res_country_state_mx_qro
+ciudad_449,Querétaro,cfd_mx.res_country_state_mx_qro
+ciudad_450,San Juan del Rio,cfd_mx.res_country_state_mx_qro
+ciudad_481,Aguaruto,cfd_mx.res_country_state_mx_sin
+ciudad_489,Ahome,cfd_mx.res_country_state_mx_sin
+ciudad_493,Angostura,cfd_mx.res_country_state_mx_sin
+ciudad_494,Choix,cfd_mx.res_country_state_mx_sin
+ciudad_485,Cosalá,cfd_mx.res_country_state_mx_sin
+ciudad_480,Culiacán Rosales,cfd_mx.res_country_state_mx_sin
+ciudad_502,El rosario,cfd_mx.res_country_state_mx_sin
+ciudad_500,Escuinapa de Hidalgo,cfd_mx.res_country_state_mx_sin
+ciudad_497,Estación Naranjo,cfd_mx.res_country_state_mx_sin
+ciudad_492,Guamúchil,cfd_mx.res_country_state_mx_sin
+ciudad_487,Guasave,cfd_mx.res_country_state_mx_sin
+ciudad_490,Higuera de Zaragoza,cfd_mx.res_country_state_mx_sin
+ciudad_501,La Cruz,cfd_mx.res_country_state_mx_sin
+ciudad_483,Lic. Benito Juárez (Campo Gobierno),cfd_mx.res_country_state_mx_sin
+ciudad_488,Los Mochis,cfd_mx.res_country_state_mx_sin
+ciudad_498,Mazatlán,cfd_mx.res_country_state_mx_sin
+ciudad_486,Mocorito,cfd_mx.res_country_state_mx_sin
+ciudad_482,Navolato,cfd_mx.res_country_state_mx_sin
+ciudad_484,Quila,cfd_mx.res_country_state_mx_sin
+ciudad_495,San Blas,cfd_mx.res_country_state_mx_sin
+ciudad_503,San Ignacio,cfd_mx.res_country_state_mx_sin
+ciudad_496,Sinaloa de Leyva,cfd_mx.res_country_state_mx_sin
+ciudad_491,Topolobampo,cfd_mx.res_country_state_mx_sin
+ciudad_499,Villa Unión,cfd_mx.res_country_state_mx_sin
+ciudad_471,Cárdenas,cfd_mx.res_country_state_mx_slp
+ciudad_462,Cedral,cfd_mx.res_country_state_mx_slp
+ciudad_472,Cerritos,cfd_mx.res_country_state_mx_slp
+ciudad_463,Charcas,cfd_mx.res_country_state_mx_slp
+ciudad_470,Ciudad del Maíz,cfd_mx.res_country_state_mx_slp
+ciudad_466,Ciudad Valles,cfd_mx.res_country_state_mx_slp
+ciudad_467,Ébano,cfd_mx.res_country_state_mx_slp
+ciudad_469,El Naranjo,cfd_mx.res_country_state_mx_slp
+ciudad_477,Fracción el Refugio,cfd_mx.res_country_state_mx_slp
+ciudad_465,Matehuala,cfd_mx.res_country_state_mx_slp
+ciudad_476,Rioverde,cfd_mx.res_country_state_mx_slp
+ciudad_464,Salinas de Hidalgo,cfd_mx.res_country_state_mx_slp
+ciudad_460,San Luis Potosí,cfd_mx.res_country_state_mx_slp
+ciudad_474,Santa María del Río,cfd_mx.res_country_state_mx_slp
+ciudad_461,Soledad de Graciano Sánchez,cfd_mx.res_country_state_mx_slp
+ciudad_478,Tamasopo,cfd_mx.res_country_state_mx_slp
+ciudad_479,Tamazunchale,cfd_mx.res_country_state_mx_slp
+ciudad_468,Tamuin,cfd_mx.res_country_state_mx_slp
+ciudad_475,Tierra Nueva,cfd_mx.res_country_state_mx_slp
+ciudad_473,Villa de Reyes,cfd_mx.res_country_state_mx_slp
+ciudad_511,Agua Prieta,cfd_mx.res_country_state_mx_son
+ciudad_513,Ciudad Obregón,cfd_mx.res_country_state_mx_son
+ciudad_514,Empalme,cfd_mx.res_country_state_mx_son
+ciudad_504,Hermosillo,cfd_mx.res_country_state_mx_son
+ciudad_508,Heroica Caborca,cfd_mx.res_country_state_mx_son
+ciudad_512,Heroica Ciudad de Cananea,cfd_mx.res_country_state_mx_son
+ciudad_515,Heroica Guaymas,cfd_mx.res_country_state_mx_son
+ciudad_509,Heroica Nogales,cfd_mx.res_country_state_mx_son
+ciudad_517,Huatabampo,cfd_mx.res_country_state_mx_son
+ciudad_510,Magdalena de Kino,cfd_mx.res_country_state_mx_son
+ciudad_516,Navojoa,cfd_mx.res_country_state_mx_son
+ciudad_506,Puerto Peñasco,cfd_mx.res_country_state_mx_son
+ciudad_505,San Luis Río Colorado,cfd_mx.res_country_state_mx_son
+ciudad_507,Sonoita,cfd_mx.res_country_state_mx_son
+ciudad_52,Allende,cfd_mx.res_country_state_mx_tab
+ciudad_40,Arteaga,cfd_mx.res_country_state_mx_tab
+ciudad_522,Cárdenas,cfd_mx.res_country_state_mx_tab
+ciudad_44,Castaños,cfd_mx.res_country_state_mx_tab
+ciudad_48,Ciudad Acuña,cfd_mx.res_country_state_mx_tab
+ciudad_49,Ciudad Melchor Múzquiz,cfd_mx.res_country_state_mx_tab
+ciudad_520,Comalcalco,cfd_mx.res_country_state_mx_tab
+ciudad_59,Cuatro Ciénegas de Carranza,cfd_mx.res_country_state_mx_tab
+ciudad_524,Cunduacán,cfd_mx.res_country_state_mx_tab
+ciudad_528,Emiliano Zapata,cfd_mx.res_country_state_mx_tab
+ciudad_61,Francisco I. Madero (Chávez),cfd_mx.res_country_state_mx_tab
+ciudad_42,Frontera,cfd_mx.res_country_state_mx_tab
+ciudad_521,Huimanguillo,cfd_mx.res_country_state_mx_tab
+ciudad_519,Jalpa de Méndez,cfd_mx.res_country_state_mx_tab
+ciudad_525,Macuspana,cfd_mx.res_country_state_mx_tab
+ciudad_56,Matamoros,cfd_mx.res_country_state_mx_tab
+ciudad_43,Monclova,cfd_mx.res_country_state_mx_tab
+ciudad_51,Morelos,cfd_mx.res_country_state_mx_tab
+ciudad_58,Nadadores,cfd_mx.res_country_state_mx_tab
+ciudad_47,Nava,cfd_mx.res_country_state_mx_tab
+ciudad_54,Nueva Rosita,cfd_mx.res_country_state_mx_tab
+ciudad_523,Paraíso,cfd_mx.res_country_state_mx_tab
+ciudad_62,Parras de la Fuente,cfd_mx.res_country_state_mx_tab
+ciudad_46,Piedras Negras,cfd_mx.res_country_state_mx_tab
+ciudad_45,Ramos Arizpe,cfd_mx.res_country_state_mx_tab
+ciudad_53,Sabinas,cfd_mx.res_country_state_mx_tab
+ciudad_39,Saltillo,cfd_mx.res_country_state_mx_tab
+ciudad_41,San Buenaventura,cfd_mx.res_country_state_mx_tab
+ciudad_60,San Pedro,cfd_mx.res_country_state_mx_tab
+ciudad_526,Teapa,cfd_mx.res_country_state_mx_tab
+ciudad_527,Tenosique de Pino Suárez,cfd_mx.res_country_state_mx_tab
+ciudad_55,Torreón,cfd_mx.res_country_state_mx_tab
+ciudad_57,Viesca,cfd_mx.res_country_state_mx_tab
+ciudad_518,Villahermosa,cfd_mx.res_country_state_mx_tab
+ciudad_50,Zaragoza,cfd_mx.res_country_state_mx_tab
+ciudad_552,Apizaco,cfd_mx.res_country_state_mx_talx
+ciudad_551,Calpulalpan,cfd_mx.res_country_state_mx_talx
+ciudad_554,Chiautempan,cfd_mx.res_country_state_mx_talx
+ciudad_553,Huamantla,cfd_mx.res_country_state_mx_talx
+ciudad_550,Tlaxcala (Tlaxcala de Xicotencatl),cfd_mx.res_country_state_mx_talx
+ciudad_555,Villa Vicente Guerrero,cfd_mx.res_country_state_mx_talx
+ciudad_545,Altamira,cfd_mx.res_country_state_mx_tamps
+ciudad_540,Ciudad Camargo,cfd_mx.res_country_state_mx_tamps
+ciudad_539,Ciudad Gustavo Díaz Ordaz,cfd_mx.res_country_state_mx_tamps
+ciudad_544,Ciudad Madero,cfd_mx.res_country_state_mx_tamps
+ciudad_549,Ciudad Mante,cfd_mx.res_country_state_mx_tamps
+ciudad_537,Ciudad Miguel Alemán,cfd_mx.res_country_state_mx_tamps
+ciudad_542,Ciudad Río Bravo,cfd_mx.res_country_state_mx_tamps
+ciudad_534,Ciudad Tula,cfd_mx.res_country_state_mx_tamps
+ciudad_529,Ciudad Victoria,cfd_mx.res_country_state_mx_tamps
+ciudad_547,Estación Manuel (Úrsulo Galván),cfd_mx.res_country_state_mx_tamps
+ciudad_546,González,cfd_mx.res_country_state_mx_tamps
+ciudad_530,Heroica Matamoros,cfd_mx.res_country_state_mx_tamps
+ciudad_535,Jaumave,cfd_mx.res_country_state_mx_tamps
+ciudad_538,Nueva Ciudad Guerrero,cfd_mx.res_country_state_mx_tamps
+ciudad_536,Nuevo Laredo,cfd_mx.res_country_state_mx_tamps
+ciudad_541,Reynosa,cfd_mx.res_country_state_mx_tamps
+ciudad_532,San Fernando,cfd_mx.res_country_state_mx_tamps
+ciudad_533,Soto la Marina,cfd_mx.res_country_state_mx_tamps
+ciudad_543,Tampico,cfd_mx.res_country_state_mx_tamps
+ciudad_531,Valle Hermoso,cfd_mx.res_country_state_mx_tamps
+ciudad_548,Xicoténcatl,cfd_mx.res_country_state_mx_tamps
+ciudad_614,Acayucan,cfd_mx.res_country_state_mx_ver
+ciudad_619,Agua dulce,cfd_mx.res_country_state_mx_ver
+ciudad_579,Altotonga,cfd_mx.res_country_state_mx_ver
+ciudad_599,Alvarado,cfd_mx.res_country_state_mx_ver
+ciudad_611,Ángel R. Cabada,cfd_mx.res_country_state_mx_ver
+ciudad_594,Atoyac,cfd_mx.res_country_state_mx_ver
+ciudad_557,Banderilla,cfd_mx.res_country_state_mx_ver
+ciudad_584,Boca del RÍo,cfd_mx.res_country_state_mx_ver
+ciudad_602,Carlos A. Carrillo,cfd_mx.res_country_state_mx_ver
+ciudad_613,Catemaco,cfd_mx.res_country_state_mx_ver
+ciudad_572,Cazones de Herrera,cfd_mx.res_country_state_mx_ver
+ciudad_568,Cerro Azul,cfd_mx.res_country_state_mx_ver
+ciudad_558,Coatepec,cfd_mx.res_country_state_mx_ver
+ciudad_618,Coatzacoalcos,cfd_mx.res_country_state_mx_ver
+ciudad_573,Coatzintla,cfd_mx.res_country_state_mx_ver
+ciudad_588,Córdoba,cfd_mx.res_country_state_mx_ver
+ciudad_603,Cosamaloapan,cfd_mx.res_country_state_mx_ver
+ciudad_616,Cosoleacaque,cfd_mx.res_country_state_mx_ver
+ciudad_617,Cuichapa,cfd_mx.res_country_state_mx_ver
+ciudad_592,Cuitláhuac,cfd_mx.res_country_state_mx_ver
+ciudad_567,El Higo,cfd_mx.res_country_state_mx_ver
+ciudad_587,Fortín de las Flores,cfd_mx.res_country_state_mx_ver
+ciudad_595,General Miguel Alemán (Potrero Nuevo),cfd_mx.res_country_state_mx_ver
+ciudad_576,Gutiérrez Zamora,cfd_mx.res_country_state_mx_ver
+ciudad_582,Huatusco de Chicuellar,cfd_mx.res_country_state_mx_ver
+ciudad_569,Huayacocotla,cfd_mx.res_country_state_mx_ver
+ciudad_591,Huiloapan de Cuauhtémoc,cfd_mx.res_country_state_mx_ver
+ciudad_606,Isla,cfd_mx.res_country_state_mx_ver
+ciudad_586,Ixtaczoquitlán,cfd_mx.res_country_state_mx_ver
+ciudad_615,Jáltipan de Morelos,cfd_mx.res_country_state_mx_ver
+ciudad_560,José Cardel,cfd_mx.res_country_state_mx_ver
+ciudad_612,Juan Díaz Covarrubias,cfd_mx.res_country_state_mx_ver
+ciudad_607,Juan Rodríguez Clara,cfd_mx.res_country_state_mx_ver
+ciudad_621,Las Choapas,cfd_mx.res_country_state_mx_ver
+ciudad_600,Lerdo de Tejada,cfd_mx.res_country_state_mx_ver
+ciudad_620,Minatitlán,cfd_mx.res_country_state_mx_ver
+ciudad_566,Naranjos,cfd_mx.res_country_state_mx_ver
+ciudad_589,Nogales,cfd_mx.res_country_state_mx_ver
+ciudad_585,Orizaba,cfd_mx.res_country_state_mx_ver
+ciudad_581,Pánuco,cfd_mx.res_country_state_mx_ver
+ciudad_575,Papantla de Olarte,cfd_mx.res_country_state_mx_ver
+ciudad_593,Paraje Nuevo,cfd_mx.res_country_state_mx_ver
+ciudad_559,Paso de Ovejas,cfd_mx.res_country_state_mx_ver
+ciudad_596,Paso del Macho,cfd_mx.res_country_state_mx_ver
+ciudad_565,Platón Sánchez,cfd_mx.res_country_state_mx_ver
+ciudad_605,Playa Vicente,cfd_mx.res_country_state_mx_ver
+ciudad_574,Poza Rica de Hidalgo,cfd_mx.res_country_state_mx_ver
+ciudad_590,Río Blanco,cfd_mx.res_country_state_mx_ver
+ciudad_608,San Andrés Tuxtla,cfd_mx.res_country_state_mx_ver
+ciudad_577,San Rafael,cfd_mx.res_country_state_mx_ver
+ciudad_610,Santiago Tuxtla,cfd_mx.res_country_state_mx_ver
+ciudad_609,Sihuapan,cfd_mx.res_country_state_mx_ver
+ciudad_583,Soledad de Doblado,cfd_mx.res_country_state_mx_ver
+ciudad_562,Tampico Alto,cfd_mx.res_country_state_mx_ver
+ciudad_564,Tantoyuca,cfd_mx.res_country_state_mx_ver
+ciudad_563,Tempoal de Sánchez,cfd_mx.res_country_state_mx_ver
+ciudad_597,Tezonapa,cfd_mx.res_country_state_mx_ver
+ciudad_598,Tierra Blanca,cfd_mx.res_country_state_mx_ver
+ciudad_571,Tihuatlán,cfd_mx.res_country_state_mx_ver
+ciudad_604,Tlacojalpan,cfd_mx.res_country_state_mx_ver
+ciudad_578,Tlapacoyan,cfd_mx.res_country_state_mx_ver
+ciudad_601,Tres Valles,cfd_mx.res_country_state_mx_ver
+ciudad_570,Túxpam de Rodríguez Cano,cfd_mx.res_country_state_mx_ver
+ciudad_561,Veracruz,cfd_mx.res_country_state_mx_ver
+ciudad_556,Xalapa-Enríquez,cfd_mx.res_country_state_mx_ver
+ciudad_580,Yecuatla,cfd_mx.res_country_state_mx_ver
+ciudad_622,Mérida,cfd_mx.res_country_state_mx_yuc
+ciudad_623,Motul de Carrillo Puerto,cfd_mx.res_country_state_mx_yuc
+ciudad_626,Ticul,cfd_mx.res_country_state_mx_yuc
+ciudad_624,Tizimín,cfd_mx.res_country_state_mx_yuc
+ciudad_625,Valladolid,cfd_mx.res_country_state_mx_yuc
+ciudad_633,Ciudad Cuauhtémoc,cfd_mx.res_country_state_mx_zac
+ciudad_638,Fresnillo,cfd_mx.res_country_state_mx_zac
+ciudad_632,Guadalupe,cfd_mx.res_country_state_mx_zac
+ciudad_643,Jalpa,cfd_mx.res_country_state_mx_zac
+ciudad_641,Jerez de García Salinas,cfd_mx.res_country_state_mx_zac
+ciudad_628,Juan Aldama,cfd_mx.res_country_state_mx_zac
+ciudad_636,Loreto,cfd_mx.res_country_state_mx_zac
+ciudad_635,Luis Moya,cfd_mx.res_country_state_mx_zac
+ciudad_645,Moyahua de Estrada,cfd_mx.res_country_state_mx_zac
+ciudad_644,Nochistlán de Mejía,cfd_mx.res_country_state_mx_zac
+ciudad_634,Ojocaliente,cfd_mx.res_country_state_mx_zac
+ciudad_629,Río Grande,cfd_mx.res_country_state_mx_zac
+ciudad_639,Sombrerete,cfd_mx.res_country_state_mx_zac
+ciudad_640,Valparaíso,cfd_mx.res_country_state_mx_zac
+ciudad_631,Víctor Rosales,cfd_mx.res_country_state_mx_zac
+ciudad_630,Villa de Cos,cfd_mx.res_country_state_mx_zac
+ciudad_637,Villa Hidalgo,cfd_mx.res_country_state_mx_zac
+ciudad_642,Villanueva,cfd_mx.res_country_state_mx_zac
+ciudad_627,Zacatecas,cfd_mx.res_country_state_mx_zac

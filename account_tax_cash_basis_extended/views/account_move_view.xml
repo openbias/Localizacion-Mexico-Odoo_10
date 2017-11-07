@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        
+	<!--        Account Fiscal Lines -->
+        <record id="view_account_move_fiscal_tree" model="ir.ui.view">
+            <field name="name">Fiscal Lines Tree</field>
+            <field name="model">account.move.fiscal</field>
+            <field name="arch" type="xml">
+            <tree string="Fiscal Lines">
+                <field name="company_currency_id" invisible="1"/>
+                <field name="partner_id"/>
+                <field name="vat"/>
+                <field name="currency_id"/>
+                <field name="account_id"/>
+                <field name="journal_id"/>
+                <field name="invoice_name"/>
+                <field name="ref"/>
+                <field name="date"/>
+                <field name="base_0" sum="Base 0"/>
+                <field name="base_1" sum="Base 1"/>
+                <field name="base_2" sum="Base 2"/>
+                <field name="base_3" sum="Base 3"/>
+                <field name="base_4" sum="Base 4"/>
+                <field name="base_5" sum="Base 5"/>
+                <field name="base_6" sum="Base 6"/>
+                <field name="base_7" sum="Base 7"/>
+                <field name="base_8" sum="Base 8"/>
+                <field name="base_9" sum="Base 9"/>
+                <field name="base_a" sum="Base a"/>
+                <field name="base_b" sum="Base b"/>
+                <field name="base_c" sum="Base c" invisible="1"/>
+                <field name="base_d" sum="Base d" invisible="1"/>
+                <field name="base_e" sum="Base e" invisible="1"/>
+                <field name="base_f" sum="Base f" invisible="1"/>
+                <field name="tax_0" sum="Tax 0"/>
+                <field name="tax_1" sum="Tax 1"/>
+                <field name="tax_2" sum="Tax 2"/>
+                <field name="tax_3" sum="Tax 3"/>
+                <field name="tax_4" sum="Tax 4"/>
+                <field name="tax_5" sum="Tax 5"/>
+                <field name="tax_6" sum="Tax 6"/>
+                <field name="tax_7" sum="Tax 7"/>
+                <field name="tax_8" sum="Tax 8"/>
+                <field name="tax_9" sum="Tax 9"/>
+                <field name="tax_a" sum="Tax a"/>
+                <field name="tax_b" sum="Tax b"/>
+                <field name="tax_c" sum="Tax c" invisible="1"/>
+                <field name="tax_d" sum="Tax d" invisible="1"/>
+                <field name="tax_e" sum="Tax e" invisible="1"/>
+                <field name="tax_f" sum="Tax f" invisible="1"/>
+                <field name="payment_total" sum="Payment"/>
+                <field name="invoice_total" sum="Invoice"/>
+            </tree>
+            </field>
+        </record>
+        <record id="view_account_move_fiscal_form" model="ir.ui.view">
+            <field name="name">Fiscal Lines Form</field>
+            <field name="model">account.move.fiscal</field>
+            <field name="arch" type="xml">
+                <form string="Fiscal Lines" version="7.0">
+                    <group colspan="4">
+                        <group col="2">
+                            <field name="partner_id" invisible="1"/>
+                            <field name="payment_total"/>
+                            <field name="invoice_total"/>
+                            <field name="line_id"/>
+                        </group>
+                        <group col="2">
+                            <field name="operation_type" readonly="1"/>
+                            <field name="invoice_id"/>
+                        </group>
+                    </group>
+                    <group colspan="4">
+                        <group string="Tax Bases" col="2">
+                            <field name="base_0" readonly="1"/>
+                            <field name="base_1" readonly="1"/>
+                            <field name="base_2" readonly="1"/>
+                            <field name="base_3" readonly="1"/>
+                            <field name="base_4" readonly="1"/>
+                            <field name="base_5" readonly="1"/>
+                            <field name="base_6" readonly="1"/>
+                            <field name="base_7" readonly="1"/>
+                            <field name="base_8" readonly="1"/>
+                            <field name="base_9" readonly="1"/>
+                            <field name="base_a" readonly="1"/>
+                            <field name="base_b" readonly="1"/>
+                            <field name="base_c" invisible="1" readonly="1"/>
+                            <field name="base_d" invisible="1" readonly="1"/>
+                            <field name="base_e" invisible="1" readonly="1"/>
+                            <field name="base_f" invisible="1" readonly="1"/>
+                        </group>
+                        <group string="Tax Amounts" col="2">
+                            <field name="tax_0" readonly="1"/>
+                            <field name="tax_1" readonly="1"/>
+                            <field name="tax_2" readonly="1"/>
+                            <field name="tax_3" readonly="1"/>
+                            <field name="tax_4" readonly="1"/>
+                            <field name="tax_5" readonly="1"/>
+                            <field name="tax_6" readonly="1"/>
+                            <field name="tax_7" readonly="1"/>
+                            <field name="tax_8" readonly="1"/>
+                            <field name="tax_9" readonly="1"/>
+                            <field name="tax_a" readonly="1"/>
+                            <field name="tax_b" readonly="1"/>
+                            <field name="tax_c" invisible="1" readonly="1"/>
+                            <field name="tax_d" invisible="1" readonly="1"/>
+                            <field name="tax_e" invisible="1" readonly="1"/>
+                            <field name="tax_f" invisible="1" readonly="1"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="view_account_move_fiscal_filter" model="ir.ui.view">
+            <field name="name">Fiscal Lines</field>
+            <field name="model">account.move.fiscal</field>
+            <field name="arch" type="xml">
+                <search string="Fiscal Lines">
+                    <field name="date"/>
+                    <field name="operation_type"/>
+                    <field name="partner_id"/>
+                    <field name="journal_id"/>
+                    <field name="move_id"/>
+                    <field name="vat"/>
+                    <filter string="Income" name="income" 
+                            domain="[('operation_type','=','income')]" 
+                            help="Income bank journal lines"/>
+                    <filter string="Outcome" name="outcome" 
+                            domain="[('operation_type','=','outcome')]" 
+                            help="Outcome bank journal lines"/>
+                    <filter string="Interbank Outcome" name="inter_bank_out" 
+                            domain="[('operation_type','=','inter_bank_out')]" 
+                            help="Outcome transactions between banks"/>
+                    <filter string="Interbank Income" name="inter_bank_in" 
+                            domain="[('operation_type','=','inter_bank_in')]" 
+                            help="Income transactions between banks"/>
+                    <filter string="Without Invoice" name="Without" 
+                            domain="[('invoice_id','=',False)]" 
+                            help="Bank entries without invoice application"/>
+                    <separator/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Partner" icon="terp-partner" name='group_partner' domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="TIN" icon="terp-partner" name='group_vat' domain="[]" context="{'group_by':'vat'}"/>
+                        <filter string="Journal" icon="terp-folder-orange" name='group_journal' domain="[]" context="{'group_by':'journal_id'}"/>
+                        <filter string="Account"  icon="terp-folder-green" name='group_account' context="{'group_by':'account_id'}"/>
+                        <filter string="Date" icon="terp-go-month" name='group_date' domain="[]" context="{'group_by':'date'}"/>
+                        <filter string="Currency" icon="terp-go-month" name='group_currency' domain="[]" context="{'group_by':'currency_id'}"/>
+                        <filter string="Type" icon="terp-accessories-archiver" name='group_type' domain="[]" context="{'group_by':'operation_type'}"/>
+                        <filter string="Entry" icon="terp-accessories-archiver" name='group_entry' domain="[]" context="{'group_by':'move_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_account_move_fiscal" model="ir.actions.act_window">
+            <field name="name">Fiscal Lines</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.move.fiscal</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+	<!--        Account Entry Fiscal Tab -->
+        <record id="view_move_fiscal_form" model="ir.ui.view">
+            <field name="name">account.move.fiscal.form</field>
+            <field name="model">account.move</field>
+            <field name="priority">20</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <field name="amount" position="after">
+                    <field name="show_fiscal" invisible="1"/>
+                </field>
+                <field name="name" position="after">
+                    <button name="button_create_fiscal" string="Create Fiscal Entry" type="object" 
+			    attrs="{'invisible': ['|',('fiscal_ids','!=',[]),'|',('show_fiscal','=',False),'|',('state','=','posted')]}"/>
+                    <button name="button_delete_fiscal" string="Delete Fiscal Entry" type="object" 
+			    attrs="{'invisible': ['|',('fiscal_ids','=',[]),'|',('show_fiscal','=',False),'|',('state','=','posted')]}"/>
+                </field>
+                <button name="open_reconcile_view" position="after">
+                    <button name="open_cash_basis_view"
+                        class="oe_stat_button"
+                        icon="fa-bars"
+                        type="object"
+                        string="View linked entries">
+                    </button>
+                </button>
+                <notebook position="inside">
+                    <page string="Fiscal" groups="account.group_account_invoice" attrs="{'invisible': [('show_fiscal','=',False)]}">
+                    <field colspan="4" name="fiscal_ids" nolabel="1" readonly="1">
+                        <tree string="Fiscal Lines">
+                            <field name="tax_0" sum="VAT 0"/>
+                            <field name="tax_1" sum="VAT 1"/>
+                            <field name="tax_2" sum="VAT 2"/>
+                            <field name="tax_3" sum="VAT 3"/>
+                            <field name="tax_4" sum="VAT 4"/>
+                            <field name="tax_5" sum="VAT 5"/>
+                            <field name="tax_6" sum="VAT 6"/>
+                            <field name="tax_7" sum="VAT 7"/>
+                            <field name="tax_8" sum="VAT 8"/>
+                            <field name="tax_9" sum="VAT 9"/>
+                            <field name="tax_a" sum="VAT a"/>
+                            <field name="tax_b" sum="VAT b"/>
+                            <field name="tax_c" sum="VAT c" invisible="1"/>
+                            <field name="tax_d" sum="VAT d" invisible="1"/>
+                            <field name="tax_e" sum="VAT e" invisible="1"/>
+                            <field name="tax_f" sum="VAT f" invisible="1"/>
+                            <field name="payment_total" sum="Payment"/>
+                        </tree>
+                    	</field>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+    </data>
+</openerp>

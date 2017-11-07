@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <!--Generated for OpenBIAS-->
+    <data noupdate="1">
+        <record id="contabilidad_electronica.metodo_pago_1" model="contabilidad_electronica.metodo.pago">
+            <field name="code">01</field>
+            <field name="name">Efectivo</field>
+        </record>
+        <record id="contabilidad_electronica.metodo_pago_2" model="contabilidad_electronica.metodo.pago">
+            <field name="code">02</field>
+            <field name="name">Cheque</field>
+        </record>
+        <record id="contabilidad_electronica.metodo_pago_3" model="contabilidad_electronica.metodo.pago">
+            <field name="code">03</field>
+            <field name="name">Transferencia</field>
+        </record>
+        <record id="contabilidad_electronica.metodo_pago_4" model="contabilidad_electronica.metodo.pago">
+            <field name="code">04</field>
+            <field name="name">Tarjetas de crédito</field>
+        </record>
+        <record id="contabilidad_electronica.metodo_pago_5" model="contabilidad_electronica.metodo.pago">
+            <field name="code">05</field>
+            <field name="name">Monederos electrónicos</field>
+        </record>
+        <record id="contabilidad_electronica.metodo_pago_6" model="contabilidad_electronica.metodo.pago">
+            <field name="code">06</field>
+            <field name="name">Dinero electrónico</field>
+        </record>
+        <record id="contabilidad_electronica.metodo_pago_7" model="contabilidad_electronica.metodo.pago">
+            <field name="code">07</field>
+            <field name="name">Tarjetas digitales</field>
+        </record>
+        <record id="contabilidad_electronica.metodo_pago_8" model="contabilidad_electronica.metodo.pago">
+            <field name="code">08</field>
+            <field name="name">Vales de despensa</field>
+        </record>
+        <record id="contabilidad_electronica.metodo_pago_9" model="contabilidad_electronica.metodo.pago">
+            <field name="code">09</field>
+            <field name="name">Bienes</field>
+        </record>
+        <record id="contabilidad_electronica.metodo_pago_10" model="contabilidad_electronica.metodo.pago">
+            <field name="code">10</field>
+            <field name="name">Servicio</field>
+        </record>
+        <record id="contabilidad_electronica.metodo_pago_11" model="contabilidad_electronica.metodo.pago">
+            <field name="code">11</field>
+            <field name="name">Por cuenta de tercero</field>
+        </record>
+        <record id="contabilidad_electronica.metodo_pago_12" model="contabilidad_electronica.metodo.pago">
+            <field name="code">12</field>
+            <field name="name">Dación en pago</field>
+        </record>
+        <record id="contabilidad_electronica.metodo_pago_13" model="contabilidad_electronica.metodo.pago">
+            <field name="code">13</field>
+            <field name="name">Pago por subrogación</field>
+        </record>
+        <record id="contabilidad_electronica.metodo_pago_14" model="contabilidad_electronica.metodo.pago">
+            <field name="code">14</field>
+            <field name="name">Pago por consignación</field>
+        </record>
+        <record id="contabilidad_electronica.metodo_pago_15" model="contabilidad_electronica.metodo.pago">
+            <field name="code">15</field>
+            <field name="name">Condonación</field>
+        </record>
+        <record id="contabilidad_electronica.metodo_pago_16" model="contabilidad_electronica.metodo.pago">
+            <field name="code">16</field>
+            <field name="name">Cancelación</field>
+        </record>
+        <record id="contabilidad_electronica.metodo_pago_17" model="contabilidad_electronica.metodo.pago">
+            <field name="code">17</field>
+            <field name="name">Compensación</field>
+        </record>
+        <record id="contabilidad_electronica.metodo_pago_98" model="contabilidad_electronica.metodo.pago">
+            <field name="code">98</field>
+            <field name="name">NA</field>
+        </record>
+        <record id="contabilidad_electronica.metodo_pago_99" model="contabilidad_electronica.metodo.pago">
+            <field name="code">99</field>
+            <field name="name">Otros</field>
+        </record>
+    </data>
+</odoo>

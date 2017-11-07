@@ -1,0 +1,728 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_tax_cash_basis_extended
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-02-24 16:59+0000\n"
+"PO-Revision-Date: 2016-02-24 16:59+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_account_id
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Account"
+msgstr "Account"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model,name:account_tax_cash_basis_extended.model_account_move
+msgid "Account Entry"
+msgstr "Account Entry"
+
+#. module: account_tax_cash_basis_extended
+#: code:addons/account_tax_cash_basis_extended/account_move_line.py:304
+#, python-format
+msgid "Account Position defined in Partner %s is inactive. Entry %s"
+msgstr "Account Position defined in Partner %s is inactive. Entry %s"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model,name:account_tax_cash_basis_extended.model_account_account_tag
+msgid "Account Tag"
+msgstr "Account Tag"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_amount_before_retension
+msgid "Amount Before Retension"
+msgstr "Amount Before Retension"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_line_id
+msgid "Bank Journal Line"
+msgstr "Bank Journal Line"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_base_0
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Base 0"
+msgstr "Base VAT 0%"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_base_1
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Base 1"
+msgstr "Base VAT Exempt"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_base_2
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Base 2"
+msgstr "Base VAT Exempt Importation"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_base_3
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Base 3"
+msgstr "Base VAT 16%"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_base_4
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Base 4"
+msgstr "Base VAT 16% Importation"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_base_5
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Base 5"
+msgstr "Base VAT 16% Not Creditable"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_base_6
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Base 6"
+msgstr "Base Retention VAT 4%"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_base_7
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Base 7"
+msgstr "Base Retention VAT 10%"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_base_8
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Base 8"
+msgstr "Base Retention VAT 10.67%"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_base_9
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Base 9"
+msgstr "Base Retention ISR 10%"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_base_a
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Base a"
+msgstr "Base a"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_base_b
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Base b"
+msgstr "Base b"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_base_c
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Base c"
+msgstr "Base c"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_base_d
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Base d"
+msgstr "Base d"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_base_e
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Base e"
+msgstr "Base e"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_base_f
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Base f"
+msgstr "Base f"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_company_id
+msgid "Company"
+msgstr "Company"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "Create Fiscal"
+msgstr "Create Fiscal"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_create_uid
+msgid "Created by"
+msgstr "Created by"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_create_date
+msgid "Created on"
+msgstr "Created on"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_company_currency_id
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_currency_id
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Currency"
+msgstr "Currency"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Date"
+msgstr "Date"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,help:account_tax_cash_basis_extended.field_res_partner_supplier_type
+msgid "Define the type of supplier, this field is used to get the DIOT report."
+msgstr "Define the type of supplier, this field is used to get the DIOT report."
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "Delete Fiscal"
+msgstr "Delete Fiscal"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_display_name
+msgid "Display Name"
+msgstr "Display Name"
+
+#. module: account_tax_cash_basis_extended
+#: code:addons/account_tax_cash_basis_extended/account_move_line.py:152
+#, python-format
+msgid "ERROR!"
+msgstr "ERROR!"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Entry"
+msgstr "Entry"
+
+#. module: account_tax_cash_basis_extended
+#: code:addons/account_tax_cash_basis_extended/account.py:95
+#: code:addons/account_tax_cash_basis_extended/account_move_line.py:298
+#: code:addons/account_tax_cash_basis_extended/account_move_line.py:304
+#: code:addons/account_tax_cash_basis_extended/account_move_line.py:306
+#: code:addons/account_tax_cash_basis_extended/account_move_line.py:308
+#, python-format
+msgid "Error !"
+msgstr "Error !"
+
+#. module: account_tax_cash_basis_extended
+#: code:addons/account_tax_cash_basis_extended/account_move_line.py:217
+#, python-format
+msgid "Error!"
+msgstr "Error!"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "Fiscal"
+msgstr "Fiscal"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model,name:account_tax_cash_basis_extended.model_account_move_fiscal
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_ids
+msgid "Fiscal Entries"
+msgstr "Fiscal Entries"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_res_partner_fiscal_id
+msgid "Fiscal ID"
+msgstr "Fiscal ID"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.actions.act_window,name:account_tax_cash_basis_extended.action_account_move_fiscal
+#: model:ir.ui.menu,name:account_tax_cash_basis_extended.menu_action_account_move_fiscal
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_form
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "Fiscal Lines"
+msgstr "Fiscal Lines"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Group By..."
+msgstr "Group By..."
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Income"
+msgstr "Income"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Income bank journal lines"
+msgstr "Income bank journal lines"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Income bank journal lines with account different to fiscal position trigger accounts"
+msgstr "Income bank journal lines with account different to fiscal position trigger accounts"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Inter-Bank Income"
+msgstr "Inter-Bank Income"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Inter-Bank Outcome"
+msgstr "Inter-Bank Outcome"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_total
+msgid "Invoice Total"
+msgstr "Invoice Total"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_invoice_ids
+msgid "Invoice ids"
+msgstr "Invoice ids"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_journal_id
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Journal"
+msgstr "Journal"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_move_id
+msgid "Journal Entry"
+msgstr "Journal Entry"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal___last_update
+msgid "Last Modified on"
+msgstr "Last Modified on"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_write_uid
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_write_date
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: account_tax_cash_basis_extended
+#: code:addons/account_tax_cash_basis_extended/account_move_line.py:306
+#, python-format
+msgid "No transfer model defined in Account Position %s. Entry %s"
+msgstr "No transfer model defined in Account Position %s. Entry %s"
+
+#. module: account_tax_cash_basis_extended
+#: code:addons/account_tax_cash_basis_extended/account_move_line.py:308
+#, python-format
+msgid "Not default account position defined."
+msgstr "Not default account position defined."
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Not line reconcile so the module use default account position"
+msgstr "Not line reconcile so the module use default account position"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Other Income"
+msgstr "Other Income"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Other Outcome"
+msgstr "Other Outcome"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Outcome"
+msgstr "Outcome"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Outcome bank journal lines"
+msgstr "Outcome bank journal lines"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Outcome bank journal lines with account different to fiscal position trigger accounts"
+msgstr "Outcome bank journal lines with account different to fiscal position trigger accounts"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model,name:account_tax_cash_basis_extended.model_res_partner
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_partner_id
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Partner"
+msgstr "Partner"
+
+#. module: account_tax_cash_basis_extended
+#: code:addons/account_tax_cash_basis_extended/account_move_line.py:298
+#, python-format
+msgid "Partner %s is inactive. Entry %s"
+msgstr "Partner %s is inactive. Entry %s"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "Payment"
+msgstr "Payment"
+
+#. module: account_tax_cash_basis_extended
+#: selection:res.partner,supplier_type:0
+msgid "Proveedor Extranjero"
+msgstr "Proveedor Extranjero"
+
+#. module: account_tax_cash_basis_extended
+#: selection:res.partner,supplier_type:0
+msgid "Proveedor Global"
+msgstr "Proveedor Global"
+
+#. module: account_tax_cash_basis_extended
+#: selection:res.partner,supplier_type:0
+msgid "Proveedor Nacional"
+msgstr "Proveedor Nacional"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_ref
+msgid "Reference"
+msgstr "Reference"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_form
+msgid "Related Invoices"
+msgstr "Related Invoices"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_show_fiscal
+msgid "Show fiscal"
+msgstr "Show fiscal"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_state
+msgid "State"
+msgstr "State"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_res_partner_supplier_type
+msgid "Supplier Type"
+msgstr "Supplier Type"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_vat
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "TIN"
+msgstr "TIN"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_tax_0
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Tax 0"
+msgstr "Tax 0"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_tax_1
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Tax 1"
+msgstr "Tax 1"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_tax_2
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Tax 2"
+msgstr "Tax 2"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_tax_3
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Tax 3"
+msgstr "Tax 3"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_tax_4
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Tax 4"
+msgstr "Tax 4"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_tax_5
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Tax 5"
+msgstr "Tax 5"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_tax_6
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Tax 6"
+msgstr "Tax 6"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_tax_7
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Tax 7"
+msgstr "Tax 7"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_tax_8
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Tax 8"
+msgstr "Tax 8"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_tax_9
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Tax 9"
+msgstr "Tax 9"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_form
+msgid "Tax Amounts"
+msgstr "Tax Amounts"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_form
+msgid "Tax Bases"
+msgstr "Tax Bases"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,help:account_tax_cash_basis_extended.field_account_move_fiscal_vat
+msgid "Tax Identification Number. Fill it if the company is subjected to taxes. Used by the some of the legal statements."
+msgstr "Tax Identification Number. Fill it if the company is subjected to taxes. Used by the some of the legal statements."
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.menu,name:account_tax_cash_basis_extended.menu_finance_tax_reports
+msgid "Tax Reports"
+msgstr "Tax Reports"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_account_tag_section
+msgid "Tax Section"
+msgstr "Tax Section"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_form
+msgid "Tax Transfer"
+msgstr "Tax Transfer"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_form
+msgid "Tax Untransfer"
+msgstr "Tax Untransfer"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_tax_a
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Tax a"
+msgstr "Tax a"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_tax_b
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Tax b"
+msgstr "Tax b"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_tax_c
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Tax c"
+msgstr "Tax c"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_tax_d
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Tax d"
+msgstr "Tax d"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_tax_e
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Tax e"
+msgstr "Tax e"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_tax_f
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Tax f"
+msgstr "Tax f"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,help:account_tax_cash_basis_extended.field_res_partner_fiscal_id
+msgid "Tax identifier for Foreign partners."
+msgstr "Tax identifier for Foreign partners."
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,help:account_tax_cash_basis_extended.field_account_move_fiscal_move_id
+msgid "The move of this entry line."
+msgstr "The move of this entry line."
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,help:account_tax_cash_basis_extended.field_account_move_fiscal_currency_id
+msgid "The optional other currency if it is a multi-currency entry."
+msgstr "The optional other currency if it is a multi-currency entry."
+
+#. module: account_tax_cash_basis_extended
+#: code:addons/account_tax_cash_basis_extended/wizard/account_diot.py:188
+#, python-format
+msgid "The reporte have no result"
+msgstr "The reporte have no result"
+
+#. module: account_tax_cash_basis_extended
+#: code:addons/account_tax_cash_basis_extended/account_move_line.py:217
+#, python-format
+msgid "The tax \"%s\" from fiscal position \"%s\" belongs to company \"%s\" and you are working in company \"%s\""
+msgstr "The tax \"%s\" from fiscal position \"%s\" belongs to company \"%s\" and you are working in company \"%s\""
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_tree
+msgid "Total"
+msgstr "Total"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_payment
+msgid "Total Payment"
+msgstr "Total Payment"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Transactions between banks"
+msgstr "Transactions between banks"
+
+#. module: account_tax_cash_basis_extended
+#: selection:account.move.fiscal,state:0
+msgid "Transfer"
+msgstr "Transfer"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_form
+msgid "Transferred Taxes"
+msgstr "Transferred Taxes"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Type"
+msgstr "Type"
+
+#. module: account_tax_cash_basis_extended
+#: selection:account.move.fiscal,state:0
+msgid "Untransfer"
+msgstr "Untransfer"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "VAT 0"
+msgstr "VAT 0"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "VAT 1"
+msgstr "VAT 1"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "VAT 2"
+msgstr "VAT 2"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "VAT 3"
+msgstr "VAT 3"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "VAT 4"
+msgstr "VAT 4"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "VAT 5"
+msgstr "VAT 5"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "VAT 6"
+msgstr "VAT 6"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "VAT 7"
+msgstr "VAT 7"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "VAT 8"
+msgstr "VAT 8"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "VAT 9"
+msgstr "VAT 9"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "VAT a"
+msgstr "VAT a"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "VAT b"
+msgstr "VAT b"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "VAT c"
+msgstr "VAT c"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "VAT d"
+msgstr "VAT d"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "VAT e"
+msgstr "VAT e"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_move_fiscal_form
+msgid "VAT f"
+msgstr "VAT f"
+
+#. module: account_tax_cash_basis_extended
+#: code:addons/account_tax_cash_basis_extended/wizard/account_diot.py:188
+#, python-format
+msgid "Warning!"
+msgstr "Warning!"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.ui.view,arch_db:account_tax_cash_basis_extended.view_account_move_fiscal_filter
+msgid "Without Invoice"
+msgstr "Without Invoice"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_xfer_ids
+msgid "Xfer ids"
+msgstr "Xfer ids"
+
+#. module: account_tax_cash_basis_extended
+#: code:addons/account_tax_cash_basis_extended/account.py:95
+#, python-format
+msgid "You can not add/modify entries in a closed journal."
+msgstr "You can not add/modify entries in a closed journal."
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_date
+msgid "date"
+msgstr "date"
+
+#. module: account_tax_cash_basis_extended
+#: model:ir.model.fields,field_description:account_tax_cash_basis_extended.field_account_move_fiscal_operation_type
+msgid "operation_type"
+msgstr "operation_type"
+

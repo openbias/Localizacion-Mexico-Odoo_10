@@ -1,0 +1,87 @@
+<odoo>
+
+    <data noupdate="1">
+        <record model="account.account.type" id="data_account_type_view">
+            <field name="name">View</field>
+            <field name="type">view</field>
+        </record>
+    </data>
+
+    <data>
+        <!-- Accounts -->
+        <record id="account_inherit_form_view" model="ir.ui.view">
+            <field name="name">account.account.form.new</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_form"/>
+            <field name="arch" type="xml">
+                <field name="user_type_id" position="after">
+                    <field name="parent_id" context="{'view_all': True}" />
+                    <field name="level"/>
+                    <field name="children_ids" invisible="1"/>
+                    <field name="child_id" invisible="1"/>
+                </field>
+            </field>
+         </record>
+
+        <record id="view_account_tree_chart" model="ir.ui.view">
+            <field name="name">account.account.tree</field>
+            <field name="model">account.account</field>
+            <field name="field_parent">children_ids</field>
+            <field name="arch" type="xml">
+                <tree string="Chart of accounts"  
+                      colors="blue:internal_type=='view';black:internal_type in ('other','receivable','payable','consolidation');gray:internal_type=='closed'"><!-- toolbar="1" -->
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="initial"/>
+                    <field name="debit"/>
+                    <field name="credit"/>
+                    <field name="balance"/>
+                    <field name="internal_type"/>
+                    <field name="parent_id" invisible="1"/>
+                    <field name="currency_id" options="{'no_create': True}" groups="base.group_multi_currency"/>
+                    <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_account_tree_chart" model="ir.actions.act_window">
+            <field name="name">Chart of Accounts</field>
+            <field name="res_model">account.account</field>
+            <field name="view_type">tree</field>
+            <field name="view_id" ref="view_account_tree_chart"/>
+            <field name="domain">[('parent_id','=',False)]</field>
+            <field name="search_view_id" ref="account.view_account_search"/>
+            <field name="context">{'view_all': True}</field>
+        </record>
+
+        <record id="account.action_account_form" model="ir.actions.act_window">
+            <field name="context">{'view_all': True}</field>
+        </record>
+
+        <menuitem
+            id="menu_action_account_tree_chart"
+            name="Chart of Accounts (BIAS)"
+            parent="account.menu_finance_entries"
+            action="action_account_tree_chart"
+            sequence="22" />
+
+      <!-- Account Types -->
+        <record id="view_account_type_coa_tree" model="ir.ui.view">
+            <field name="name">account.account.type.coa.tree</field>
+            <field name="model">account.account.type</field>
+            <field name="inherit_id" ref="account.view_account_type_tree"/>
+            <field name="arch" type="xml">
+                <field name="type" position="after">
+                    <field name="include_initial_balance"/>
+                    <field name="es_resultado" invisible="1" />
+                </field>
+            </field>
+        </record>
+        <menuitem
+            action="account.action_account_type_form"
+            id="menu_account_account_type" 
+            name="Account Types" 
+            parent="account.menu_finance_entries"
+            sequence="0" />
+
+    </data>
+</odoo>

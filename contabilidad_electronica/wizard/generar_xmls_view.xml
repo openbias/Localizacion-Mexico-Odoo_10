@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="wizard_generar_xmls_form">
+            <field name="name">wizard.generar.xmls.form</field>
+            <field name="model">contabilidad_electronica.wizard.generar.xmls</field>
+            <field name="arch" type="xml">
+                <form string="Generar XMLs">
+                    <notebook>
+                        <page string="Generar XMLs">
+                            <group>
+                                <field name="company_id" invisible="1" />
+                            </group>
+                            <group col="4" colspan="4" >
+                                <group col="2" colspan="2">
+                                    <separator string="Tipo de Documento Digital" colspan="4" />
+                                    <field name="documento_id" widget="radio" nolabel="1"/>
+                                </group>
+                                <group col="2" colspan="2">
+                                    <separator string="Periodo (Mes y Año)" colspan="4" />
+                                    <field name="date_today" nolabel="1" colspan="4" />
+
+                                    <div style="font-weight: bold;">
+                                        <field name="date_from" nolabel="1" readonly="1" class="oe_inline" />
+                                        <span style="margin:5px;"> - </span>
+                                        <field name="date_to" nolabel="1" readonly="1" class="oe_inline" />
+                                        <br />
+                                        <field name="period_id" nolabel="1" readonly="1" class="oe_inline" />
+                                        <span style="margin:5px;"> - </span>
+                                        <field name="fiscalyear" nolabel="1" readonly="1" class="oe_inline" />
+                                    </div>
+                                </group>
+                            </group>
+                            <group col="4" colspan="4" attrs="{'invisible': [('documento_id','!=','02')]}" >
+                                <group colspan="4">
+                                    <h3 class="oe_grey">Balanza</h3>
+                                </group>
+                                <group colspan="4">
+                                    <field name="tipo_envio" />
+                                    <field name="fecha_mod_bal" attrs="{'invisible': [('tipo_envio','=','N')], 'required': [('tipo_envio','=','C')]}"/>
+                                </group>
+                            </group>
+                            <group col="4" colspan="4" attrs="{'invisible': [('documento_id','not in',['03', '04', '05'])]}" >
+                                <group colspan="4">
+                                    <h3 class="oe_grey">Pólizas</h3>
+                                </group>
+                                <group colspan="4">
+                                    <field name="tipo_solicitud" />
+                                    <field name="num_orden" 
+                                            attrs="{'invisible': [('tipo_solicitud','not in',('AF','FC'))],'required': [('tipo_solicitud','in',('AF','FC'))]}"/>
+                                    <field name="num_tramite" 
+                                            attrs="{'invisible': [('tipo_solicitud','not in',('DE','CO'))],'required': [('tipo_solicitud','in',('DE','CO'))]}"/>
+                                </group>
+                            </group>
+                            <group col="4">
+                                <div style="font-weight: bold;">
+                                    <field name="fname" invisible="1" colspan="4"/>
+                                    <field name="xml" nolabel="1" readonly="1" filename="fname" colspan="4" />  <br />
+                                    <field name="fname_xlsx" invisible="1" colspan="4"/>
+                                    <field name="xlsx" nolabel="1" readonly="1" filename="fname_xlsx" colspan="4"/>
+                                </div>
+                            </group>
+                        </page>
+                        <page string="Mensaje Validacion XML" attrs="{'invisible': [('message_validation_xml','==',False)]}">
+                            <group>
+                                <p>Validador de Forma y Sintaxis de Documentos Digitales con XSD del SAT </p>
+                                <field name="message_validation_xml" readonly="True"  nolabel="1" colspan="4" />
+                            </group>
+                        </page>
+                    </notebook>
+                    <footer>
+                        <button type="object" 
+                            name="action_xml_catalogo" 
+                            string="XML Catálogo"  icon="fa-cogs"
+                            attrs="{'invisible': [('documento_id','!=','01')]}" />
+                        <button type="object" 
+                            name="action_xml_balanza" 
+                            string="XML Balanza" icon="fa-cogs"
+                            attrs="{'invisible': [('documento_id','!=','02')]}" />
+                        <button type="object" 
+                            name="action_xml_polizas" 
+                            string="XML Pólizas" 
+                            icon="fa-cogs"
+                            attrs="{'invisible': [('documento_id','!=','03')]}" />
+                        <button type="object" 
+                            name="action_xml_aux_folios" 
+                            string="Auxiliar Folios" 
+                            icon="fa-cogs"
+                            attrs="{'invisible': [('documento_id','!=','04')]}" />
+                        <button type="object" 
+                            name="action_xml_aux_cuentas" 
+                            string="Auxiliar Cuentas" icon="fa-cogs"
+                            attrs="{'invisible': [('documento_id','!=','05')]}" />
+                        <button 
+                            name="validar_contabilidad_electronica" 
+                            string="Abrir Validador XML SAT (Web)" 
+                            type="object" icon="fa-external-link" 
+                            colspan="2" />
+                        <button type="special" 
+                            special="cancel" string="Cerrar" 
+                            icon="fa-times-circle"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_generar_xmls" model="ir.actions.act_window">
+            <field name="name">Generar XMLs Anexo 24</field>
+            <field name="res_model">contabilidad_electronica.wizard.generar.xmls</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="wizard_generar_xmls_form"/>
+            <field name="target">new</field>
+            <field name="multi">True</field>
+        </record>
+        
+        <menuitem id="menu_generar_xmls" 
+                parent="contabilidad_electronica.menu_contabilidad_electronica"
+                action="action_generar_xmls"
+                sequence="99" />
+
+    </data>
+</odoo>

@@ -1,0 +1,466 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <!--Generated for OpenBIAS-->
+    <data noupdate="1">
+        <record id="cfd_mx.res_bank_2" model="res.bank">
+            <field name="name">BANAMEX</field>
+            <field name="bic">002</field>
+            <field name="description">Banco Nacional de México, S.A., Institución de Banca Múltiple, Grupo Financiero Banamex</field>
+        </record>
+        <record id="cfd_mx.res_bank_6" model="res.bank">
+            <field name="name">BANCOMEXT</field>
+            <field name="bic">006</field>
+            <field name="description">Banco Nacional de Comercio Exterior, Sociedad Nacional de Crédito, Institución de Banca de Desarrollo</field>
+        </record>
+        <record id="cfd_mx.res_bank_9" model="res.bank">
+            <field name="name">BANOBRAS</field>
+            <field name="bic">009</field>
+            <field name="description">Banco Nacional de Obras y Servicios Públicos, Sociedad Nacional de Crédito, Institución de Banca de Desarrollo</field>
+        </record>
+        <record id="cfd_mx.res_bank_12" model="res.bank">
+            <field name="name">BBVA BANCOMER</field>
+            <field name="bic">012</field>
+            <field name="description">BBVA Bancomer, S.A., Institución de Banca Múltiple, Grupo Financiero BBVA Bancomer</field>
+        </record>
+        <record id="cfd_mx.res_bank_14" model="res.bank">
+            <field name="name">SANTANDER</field>
+            <field name="bic">014</field>
+            <field name="description">Banco Santander (México), S.A., Institución de Banca Múltiple, Grupo Financiero Santander</field>
+        </record>
+        <record id="cfd_mx.res_bank_19" model="res.bank">
+            <field name="name">BANJERCITO</field>
+            <field name="bic">019</field>
+            <field name="description">Banco Nacional del Ejército, Fuerza Aérea y Armada, Sociedad Nacional de Crédito, Institución de Banca de Desarrollo</field>
+        </record>
+        <record id="cfd_mx.res_bank_21" model="res.bank">
+            <field name="name">HSBC</field>
+            <field name="bic">021</field>
+            <field name="description">HSBC México, S.A., institución De Banca Múltiple, Grupo Financiero HSBC</field>
+        </record>
+        <record id="cfd_mx.res_bank_30" model="res.bank">
+            <field name="name">BAJIO</field>
+            <field name="bic">030</field>
+            <field name="description">Banco del Bajío, S.A., Institución de Banca Múltiple</field>
+        </record>
+        <record id="cfd_mx.res_bank_32" model="res.bank">
+            <field name="name">IXE</field>
+            <field name="bic">032</field>
+            <field name="description">IXE Banco, S.A., Institución de Banca Múltiple, IXE Grupo Financiero</field>
+        </record>
+        <record id="cfd_mx.res_bank_36" model="res.bank">
+            <field name="name">INBURSA</field>
+            <field name="bic">036</field>
+            <field name="description">Banco Inbursa, S.A., Institución de Banca Múltiple, Grupo Financiero Inbursa</field>
+        </record>
+        <record id="cfd_mx.res_bank_37" model="res.bank">
+            <field name="name">INTERACCIONES</field>
+            <field name="bic">037</field>
+            <field name="description">Banco Interacciones, S.A., Institución de Banca Múltiple</field>
+        </record>
+        <record id="cfd_mx.res_bank_42" model="res.bank">
+            <field name="name">MIFEL</field>
+            <field name="bic">042</field>
+            <field name="description">Banca Mifel, S.A., Institución de Banca Múltiple, Grupo Financiero Mifel</field>
+        </record>
+        <record id="cfd_mx.res_bank_44" model="res.bank">
+            <field name="name">SCOTIABANK</field>
+            <field name="bic">044</field>
+            <field name="description">Scotiabank Inverlat, S.A.</field>
+        </record>
+        <record id="cfd_mx.res_bank_58" model="res.bank">
+            <field name="name">BANREGIO</field>
+            <field name="bic">058</field>
+            <field name="description">Banco Regional de Monterrey, S.A., Institución de Banca Múltiple, Banregio Grupo Financiero</field>
+        </record>
+        <record id="cfd_mx.res_bank_59" model="res.bank">
+            <field name="name">INVEX</field>
+            <field name="bic">059</field>
+            <field name="description">Banco Invex, S.A., Institución de Banca Múltiple, Invex Grupo Financiero</field>
+        </record>
+        <record id="cfd_mx.res_bank_60" model="res.bank">
+            <field name="name">BANSI</field>
+            <field name="bic">060</field>
+            <field name="description">Bansi, S.A., Institución de Banca Múltiple</field>
+        </record>
+        <record id="cfd_mx.res_bank_62" model="res.bank">
+            <field name="name">AFIRME</field>
+            <field name="bic">062</field>
+            <field name="description">Banca Afirme, S.A., Institución de Banca Múltiple</field>
+        </record>
+        <record id="cfd_mx.res_bank_72" model="res.bank">
+            <field name="name">BANORTE</field>
+            <field name="bic">072</field>
+            <field name="description">Banco Mercantil del Norte, S.A., Institución de Banca Múltiple, Grupo Financiero Banorte</field>
+        </record>
+        <record id="cfd_mx.res_bank_102" model="res.bank">
+            <field name="name">THE ROYAL BANK</field>
+            <field name="bic">102</field>
+            <field name="description">The Royal Bank of Scotland México, S.A., Institución de Banca Múltiple</field>
+        </record>
+        <record id="cfd_mx.res_bank_103" model="res.bank">
+            <field name="name">AMERICAN EXPRESS</field>
+            <field name="bic">103</field>
+            <field name="description">American Express Bank (México), S.A., Institución de Banca Múltiple</field>
+        </record>
+        <record id="cfd_mx.res_bank_106" model="res.bank">
+            <field name="name">BAMSA</field>
+            <field name="bic">106</field>
+            <field name="description">Bank of America México, S.A., Institución de Banca Múltiple, Grupo Financiero Bank of America</field>
+        </record>
+        <record id="cfd_mx.res_bank_108" model="res.bank">
+            <field name="name">TOKYO</field>
+            <field name="bic">108</field>
+            <field name="description">Bank of Tokyo-Mitsubishi UFJ (México), S.A.</field>
+        </record>
+        <record id="cfd_mx.res_bank_110" model="res.bank">
+            <field name="name">JP MORGAN</field>
+            <field name="bic">110</field>
+            <field name="description">Banco J.P. Morgan, S.A., Institución de Banca Múltiple, J.P. Morgan Grupo Financiero</field>
+        </record>
+        <record id="cfd_mx.res_bank_112" model="res.bank">
+            <field name="name">BMONEX</field>
+            <field name="bic">112</field>
+            <field name="description">Banco Monex, S.A., Institución de Banca Múltiple</field>
+        </record>
+        <record id="cfd_mx.res_bank_113" model="res.bank">
+            <field name="name">VE POR MAS</field>
+            <field name="bic">113</field>
+            <field name="description">Banco Ve Por Mas, S.A. Institución de Banca Múltiple</field>
+        </record>
+        <record id="cfd_mx.res_bank_116" model="res.bank">
+            <field name="name">ING</field>
+            <field name="bic">116</field>
+            <field name="description">ING Bank (México), S.A., Institución de Banca Múltiple, ING Grupo Financiero</field>
+        </record>
+        <record id="cfd_mx.res_bank_124" model="res.bank">
+            <field name="name">DEUTSCHE</field>
+            <field name="bic">124</field>
+            <field name="description">Deutsche Bank México, S.A., Institución de Banca Múltiple</field>
+        </record>
+        <record id="cfd_mx.res_bank_126" model="res.bank">
+            <field name="name">CREDIT SUISSE</field>
+            <field name="bic">126</field>
+            <field name="description">Banco Credit Suisse (México), S.A. Institución de Banca Múltiple, Grupo Financiero Credit Suisse (México)</field>
+        </record>
+        <record id="cfd_mx.res_bank_127" model="res.bank">
+            <field name="name">AZTECA</field>
+            <field name="bic">127</field>
+            <field name="description">Banco Azteca, S.A. Institución de Banca Múltiple.</field>
+        </record>
+        <record id="cfd_mx.res_bank_128" model="res.bank">
+            <field name="name">AUTOFIN</field>
+            <field name="bic">128</field>
+            <field name="description">Banco Autofin México, S.A. Institución de Banca Múltiple</field>
+        </record>
+        <record id="cfd_mx.res_bank_129" model="res.bank">
+            <field name="name">BARCLAYS</field>
+            <field name="bic">129</field>
+            <field name="description">Barclays Bank México, S.A., Institución de Banca Múltiple, Grupo Financiero Barclays México</field>
+        </record>
+        <record id="cfd_mx.res_bank_130" model="res.bank">
+            <field name="name">COMPARTAMOS</field>
+            <field name="bic">130</field>
+            <field name="description">Banco Compartamos, S.A., Institución de Banca Múltiple</field>
+        </record>
+        <record id="cfd_mx.res_bank_131" model="res.bank">
+            <field name="name">BANCO FAMSA</field>
+            <field name="bic">131</field>
+            <field name="description">Banco Ahorro Famsa, S.A., Institución de Banca Múltiple</field>
+        </record>
+        <record id="cfd_mx.res_bank_132" model="res.bank">
+            <field name="name">BMULTIVA</field>
+            <field name="bic">132</field>
+            <field name="description">Banco Multiva, S.A., Institución de Banca Múltiple, Multivalores Grupo Financiero</field>
+        </record>
+        <record id="cfd_mx.res_bank_133" model="res.bank">
+            <field name="name">ACTINVER</field>
+            <field name="bic">133</field>
+            <field name="description">Banco Actinver, S.A. Institución de Banca Múltiple, Grupo Financiero Actinver</field>
+        </record>
+        <record id="cfd_mx.res_bank_134" model="res.bank">
+            <field name="name">WAL-MART</field>
+            <field name="bic">134</field>
+            <field name="description">Banco Wal-Mart de México Adelante, S.A., Institución de Banca Múltiple</field>
+        </record>
+        <record id="cfd_mx.res_bank_135" model="res.bank">
+            <field name="name">NAFIN</field>
+            <field name="bic">135</field>
+            <field name="description">Nacional Financiera, Sociedad Nacional de Crédito, Institución de Banca de Desarrollo</field>
+        </record>
+        <record id="cfd_mx.res_bank_136" model="res.bank">
+            <field name="name">INTERBANCO</field>
+            <field name="bic">136</field>
+            <field name="description">Inter Banco, S.A. Institución de Banca Múltiple</field>
+        </record>
+        <record id="cfd_mx.res_bank_137" model="res.bank">
+            <field name="name">BANCOPPEL</field>
+            <field name="bic">137</field>
+            <field name="description">BanCoppel, S.A., Institución de Banca Múltiple</field>
+        </record>
+        <record id="cfd_mx.res_bank_138" model="res.bank">
+            <field name="name">ABC CAPITAL</field>
+            <field name="bic">138</field>
+            <field name="description">ABC Capital, S.A., Institución de Banca Múltiple</field>
+        </record>
+        <record id="cfd_mx.res_bank_139" model="res.bank">
+            <field name="name">UBS BANK</field>
+            <field name="bic">139</field>
+            <field name="description">UBS Bank México, S.A., Institución de Banca Múltiple, UBS Grupo Financiero</field>
+        </record>
+        <record id="cfd_mx.res_bank_140" model="res.bank">
+            <field name="name">CONSUBANCO</field>
+            <field name="bic">140</field>
+            <field name="description">Consubanco, S.A. Institución de Banca Múltiple</field>
+        </record>
+        <record id="cfd_mx.res_bank_141" model="res.bank">
+            <field name="name">VOLKSWAGEN</field>
+            <field name="bic">141</field>
+            <field name="description">Volkswagen Bank, S.A., Institución de Banca Múltiple</field>
+        </record>
+        <record id="cfd_mx.res_bank_143" model="res.bank">
+            <field name="name">CIBANCO</field>
+            <field name="bic">143</field>
+            <field name="description">CIBanco, S.A.</field>
+        </record>
+        <record id="cfd_mx.res_bank_145" model="res.bank">
+            <field name="name">BBASE</field>
+            <field name="bic">145</field>
+            <field name="description">Banco Base, S.A., Institución de Banca Múltiple</field>
+        </record>
+        <record id="cfd_mx.res_bank_166" model="res.bank">
+            <field name="name">BANSEFI</field>
+            <field name="bic">166</field>
+            <field name="description">Banco del Ahorro Nacional y Servicios Financieros, Sociedad Nacional de Crédito, Institución de Banca de Desarrollo</field>
+        </record>
+        <record id="cfd_mx.res_bank_168" model="res.bank">
+            <field name="name">HIPOTECARIA FEDERAL</field>
+            <field name="bic">168</field>
+            <field name="description">Sociedad Hipotecaria Federal, Sociedad Nacional de Crédito, Institución de Banca de Desarrollo</field>
+        </record>
+        <record id="cfd_mx.res_bank_600" model="res.bank">
+            <field name="name">MONEXCB</field>
+            <field name="bic">600</field>
+            <field name="description">Monex Casa de Bolsa, S.A. de C.V. Monex Grupo Financiero</field>
+        </record>
+        <record id="cfd_mx.res_bank_601" model="res.bank">
+            <field name="name">GBM</field>
+            <field name="bic">601</field>
+            <field name="description">GBM Grupo Bursátil Mexicano, S.A. de C.V. Casa de Bolsa</field>
+        </record>
+        <record id="cfd_mx.res_bank_602" model="res.bank">
+            <field name="name">MASARI</field>
+            <field name="bic">602</field>
+            <field name="description">Masari Casa de Bolsa, S.A.</field>
+        </record>
+        <record id="cfd_mx.res_bank_605" model="res.bank">
+            <field name="name">VALUE</field>
+            <field name="bic">605</field>
+            <field name="description">Value, S.A. de C.V. Casa de Bolsa</field>
+        </record>
+        <record id="cfd_mx.res_bank_606" model="res.bank">
+            <field name="name">ESTRUCTURADORES</field>
+            <field name="bic">606</field>
+            <field name="description">Estructuradores del Mercado de Valores Casa de Bolsa, S.A. de C.V.</field>
+        </record>
+        <record id="cfd_mx.res_bank_607" model="res.bank">
+            <field name="name">TIBER</field>
+            <field name="bic">607</field>
+            <field name="description">Casa de Cambio Tiber, S.A. de C.V.</field>
+        </record>
+        <record id="cfd_mx.res_bank_608" model="res.bank">
+            <field name="name">VECTOR</field>
+            <field name="bic">608</field>
+            <field name="description">Vector Casa de Bolsa, S.A. de C.V.</field>
+        </record>
+        <record id="cfd_mx.res_bank_610" model="res.bank">
+            <field name="name">B&amp;B</field>
+            <field name="bic">610</field>
+            <field name="description">B y B, Casa de Cambio, S.A. de C.V.</field>
+        </record>
+        <record id="cfd_mx.res_bank_614" model="res.bank">
+            <field name="name">ACCIVAL</field>
+            <field name="bic">614</field>
+            <field name="description">Acciones y Valores Banamex, S.A. de C.V., Casa de Bolsa</field>
+        </record>
+        <record id="cfd_mx.res_bank_615" model="res.bank">
+            <field name="name">MERRILL LYNCH</field>
+            <field name="bic">615</field>
+            <field name="description">Merrill Lynch México, S.A. de C.V. Casa de Bolsa</field>
+        </record>
+        <record id="cfd_mx.res_bank_616" model="res.bank">
+            <field name="name">FINAMEX</field>
+            <field name="bic">616</field>
+            <field name="description">Casa de Bolsa Finamex, S.A. de C.V.</field>
+        </record>
+        <record id="cfd_mx.res_bank_617" model="res.bank">
+            <field name="name">VALMEX</field>
+            <field name="bic">617</field>
+            <field name="description">Valores Mexicanos Casa de Bolsa, S.A. de C.V.</field>
+        </record>
+        <record id="cfd_mx.res_bank_618" model="res.bank">
+            <field name="name">UNICA</field>
+            <field name="bic">618</field>
+            <field name="description">Unica Casa de Cambio, S.A. de C.V.</field>
+        </record>
+        <record id="cfd_mx.res_bank_619" model="res.bank">
+            <field name="name">MAPFRE</field>
+            <field name="bic">619</field>
+            <field name="description">MAPFRE Tepeyac, S.A.</field>
+        </record>
+        <record id="cfd_mx.res_bank_620" model="res.bank">
+            <field name="name">PROFUTURO</field>
+            <field name="bic">620</field>
+            <field name="description">Profuturo G.N.P., S.A. de C.V., Afore</field>
+        </record>
+        <record id="cfd_mx.res_bank_621" model="res.bank">
+            <field name="name">CB ACTINVER</field>
+            <field name="bic">621</field>
+            <field name="description">Actinver Casa de Bolsa, S.A. de C.V.</field>
+        </record>
+        <record id="cfd_mx.res_bank_622" model="res.bank">
+            <field name="name">OACTIN</field>
+            <field name="bic">622</field>
+            <field name="description">OPERADORA ACTINVER, S.A. DE C.V.</field>
+        </record>
+        <record id="cfd_mx.res_bank_623" model="res.bank">
+            <field name="name">SKANDIA</field>
+            <field name="bic">623</field>
+            <field name="description">Skandia Vida, S.A. de C.V.</field>
+        </record>
+        <record id="cfd_mx.res_bank_626" model="res.bank">
+            <field name="name">CBDEUTSCHE</field>
+            <field name="bic">626</field>
+            <field name="description">Deutsche Securities, S.A. de C.V. CASA DE BOLSA</field>
+        </record>
+        <record id="cfd_mx.res_bank_627" model="res.bank">
+            <field name="name">ZURICH</field>
+            <field name="bic">627</field>
+            <field name="description">Zurich Compañía de Seguros, S.A.</field>
+        </record>
+        <record id="cfd_mx.res_bank_628" model="res.bank">
+            <field name="name">ZURICHVI</field>
+            <field name="bic">628</field>
+            <field name="description">Zurich Vida, Compañía de Seguros, S.A.</field>
+        </record>
+        <record id="cfd_mx.res_bank_629" model="res.bank">
+            <field name="name">SU CASITA</field>
+            <field name="bic">629</field>
+            <field name="description">Hipotecaria Su Casita, S.A. de C.V. SOFOM ENR</field>
+        </record>
+        <record id="cfd_mx.res_bank_630" model="res.bank">
+            <field name="name">CB INTERCAM</field>
+            <field name="bic">630</field>
+            <field name="description">Intercam Casa de Bolsa, S.A. de C.V.</field>
+        </record>
+        <record id="cfd_mx.res_bank_631" model="res.bank">
+            <field name="name">CI BOLSA</field>
+            <field name="bic">631</field>
+            <field name="description">CI Casa de Bolsa, S.A. de C.V.</field>
+        </record>
+        <record id="cfd_mx.res_bank_632" model="res.bank">
+            <field name="name">BULLTICK CB</field>
+            <field name="bic">632</field>
+            <field name="description">Bulltick Casa de Bolsa, S.A., de C.V.</field>
+        </record>
+        <record id="cfd_mx.res_bank_633" model="res.bank">
+            <field name="name">STERLING</field>
+            <field name="bic">633</field>
+            <field name="description">Sterling Casa de Cambio, S.A. de C.V.</field>
+        </record>
+        <record id="cfd_mx.res_bank_634" model="res.bank">
+            <field name="name">FINCOMUN</field>
+            <field name="bic">634</field>
+            <field name="description">Fincomún, Servicios Financieros Comunitarios, S.A. de C.V.</field>
+        </record>
+        <record id="cfd_mx.res_bank_636" model="res.bank">
+            <field name="name">HDI SEGUROS</field>
+            <field name="bic">636</field>
+            <field name="description">HDI Seguros, S.A. de C.V.</field>
+        </record>
+        <record id="cfd_mx.res_bank_637" model="res.bank">
+            <field name="name">ORDER</field>
+            <field name="bic">637</field>
+            <field name="description">Order Express Casa de Cambio, S.A. de C.V</field>
+        </record>
+        <record id="cfd_mx.res_bank_638" model="res.bank">
+            <field name="name">AKALA</field>
+            <field name="bic">638</field>
+            <field name="description">Akala, S.A. de C.V., Sociedad Financiera Popular</field>
+        </record>
+        <record id="cfd_mx.res_bank_640" model="res.bank">
+            <field name="name">CB JPMORGAN</field>
+            <field name="bic">640</field>
+            <field name="description">J.P. Morgan Casa de Bolsa, S.A. de C.V. J.P. Morgan Grupo Financiero</field>
+        </record>
+        <record id="cfd_mx.res_bank_642" model="res.bank">
+            <field name="name">REFORMA</field>
+            <field name="bic">642</field>
+            <field name="description">Operadora de Recursos Reforma, S.A. de C.V., S.F.P.</field>
+        </record>
+        <record id="cfd_mx.res_bank_646" model="res.bank">
+            <field name="name">STP</field>
+            <field name="bic">646</field>
+            <field name="description">Sistema de Transferencias y Pagos STP, S.A. de C.V.SOFOM ENR</field>
+        </record>
+        <record id="cfd_mx.res_bank_647" model="res.bank">
+            <field name="name">TELECOMM</field>
+            <field name="bic">647</field>
+            <field name="description">Telecomunicaciones de México</field>
+        </record>
+        <record id="cfd_mx.res_bank_648" model="res.bank">
+            <field name="name">EVERCORE</field>
+            <field name="bic">648</field>
+            <field name="description">Evercore Casa de Bolsa, S.A. de C.V.</field>
+        </record>
+        <record id="cfd_mx.res_bank_649" model="res.bank">
+            <field name="name">SKANDIA</field>
+            <field name="bic">649</field>
+            <field name="description">Skandia Operadora de Fondos, S.A. de C.V.</field>
+        </record>
+        <record id="cfd_mx.res_bank_651" model="res.bank">
+            <field name="name">SEGMTY</field>
+            <field name="bic">651</field>
+            <field name="description">Seguros Monterrey New York Life, S.A de C.V</field>
+        </record>
+        <record id="cfd_mx.res_bank_652" model="res.bank">
+            <field name="name">ASEA</field>
+            <field name="bic">652</field>
+            <field name="description">Solución Asea, S.A. de C.V., Sociedad Financiera Popular</field>
+        </record>
+        <record id="cfd_mx.res_bank_653" model="res.bank">
+            <field name="name">KUSPIT</field>
+            <field name="bic">653</field>
+            <field name="description">Kuspit Casa de Bolsa, S.A. de C.V.</field>
+        </record>
+        <record id="cfd_mx.res_bank_655" model="res.bank">
+            <field name="name">SOFIEXPRESS</field>
+            <field name="bic">655</field>
+            <field name="description">J.P. SOFIEXPRESS, S.A. de C.V., S.F.P.</field>
+        </record>
+        <record id="cfd_mx.res_bank_656" model="res.bank">
+            <field name="name">UNAGRA</field>
+            <field name="bic">656</field>
+            <field name="description">UNAGRA, S.A. de C.V., S.F.P.</field>
+        </record>
+        <record id="cfd_mx.res_bank_659" model="res.bank">
+            <field name="name">OPCIONES EMPRESARIALES DEL NOROESTE</field>
+            <field name="bic">659</field>
+            <field name="description">OPCIONES EMPRESARIALES DEL NORESTE, S.A. DE C.V., S.F.P.</field>
+        </record>
+        <record id="cfd_mx.res_bank_901" model="res.bank">
+            <field name="name">CLS</field>
+            <field name="bic">901</field>
+            <field name="description">Cls Bank International</field>
+        </record>
+        <record id="cfd_mx.res_bank_902" model="res.bank">
+            <field name="name">INDEVAL</field>
+            <field name="bic">902</field>
+            <field name="description">SD. Indeval, S.A. de C.V.</field>
+        </record>
+        <record id="cfd_mx.res_bank_670" model="res.bank">
+            <field name="name">LIBERTAD</field>
+            <field name="bic">670</field>
+            <field name="description">Libertad Servicios Financieros, S.A. De C.V.</field>
+        </record>
+    </data>
+</odoo>

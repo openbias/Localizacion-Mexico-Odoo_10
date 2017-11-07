@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+
+        <template id="assets_common" name="nomina_assets_common" inherit_id="report.assets_common">
+            <xpath expr="." position="inside">
+                <link href="/bias_base_report/static/src/less/layout_background.less" rel="stylesheet" type="text/less"/>
+            </xpath>
+        </template>
+
+
+
+        <menuitem
+            name="Localización México"
+            parent="account.menu_finance"
+            id="menu_localizacion_mexico_root"
+            sequence="100" />
+
+    </data>
+</odoo>

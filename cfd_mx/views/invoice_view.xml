@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+        <record id="view_account_invoice_refund_cfdi" model="ir.ui.view">
+            <field name="name">account.invoice.refund.cfdi.form</field>
+            <field name="model">account.invoice.refund</field>
+            <field name="inherit_id" ref="account.view_account_invoice_refund"/>
+            <field name="arch" type="xml">
+                <field name="description" position="after">
+                    <field name="tiporelacion_id"/>
+                </field>
+            </field>
+        </record>
+
+
+        <!-- INVOICE -->
+        <record model="ir.ui.view" id="invoice_cfdi_form">
+            <field name="name">invoice_cfdi_form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <h1 position="before">
+                    <field name="qrcode" widget="image" class="oe_left oe_avatar" attrs="{'invisible':[('uuid','=',False)]}"/>
+                </h1>
+                <field name="number" position="after" >
+                    <field name="internal_number" readonly="1" class="oe_inline" 
+                        attrs="{'invisible': [('move_id', '!=', False)]}"/>
+                </field>
+                <field name="date_invoice" position="after">
+                    <field name="date_invoice_cfdi" invisible="1" />
+                    <field name="es_cfdi" invisible="1"/>
+                    <field name="timbrada" invisible="1"/>
+                    <field name="mandada_cancelar" invisible="1"/>
+                    <field name="pagos" invisible="1"/>
+                    <field name="tipo_comprobante" invisible="1" />
+                    <field name="usocfdi_id" />
+                    <field name="tipo_cambio" readonly="1" />
+                </field>
+                <notebook position="inside">
+                    <page string="Info. SAT" attrs="{'invisible': [('es_cfdi', '=', False)]}">
+                        <group>
+                            <field name="tiporelacion_id" />
+                            <field name="uuid_relacionado_id" />
+                            <field name="uuid_egreso" />
+                        </group>
+                        <group name="timbre_cfdi" attrs="{'invisible': [('timbrada', '=', False)]}">
+                            <group colspan="4">
+                                <h1 class="mt0">Timbre Fiscal</h1>
+                            </group>
+                            <group>
+                                <field name="test" readonly="1"/>
+                                <field name="uuid" readonly="1"/>
+                                <field name="fecha_timbrado" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="noCertificado" readonly="1" />
+                                <field name="certificado_sat" readonly="1"/>
+                            </group>
+                            <group>
+                                <separator string="Cadena SAT" colspan="4" />
+                                <pre><code>
+                                    <field name="cadena_sat" readonly="1" nolabel="1"/>
+                                </code></pre>
+                            </group>
+                            <group>
+                                <separator string="Sello SAT" colspan="4" />
+                                <pre><code>
+                                    <field name="sello_sat" readonly="1" nolabel="1"/>
+                                </code></pre>
+                            </group>
+                            <hr />
+                        </group>
+                        <group name="timbre_cfdi_cancelar" attrs="{'invisible': [('mandada_cancelar','=',False)]}">
+                            <group colspan="4" attrs="{'invisible': [('mandada_cancelar','=',False)]}">
+                                <h1 class="mt0">Cancelar CFDI</h1>
+                            </group>
+                            <group colspan="4">
+                                <field name="mensaje_pac" readonly="1" nolabel="1"/>
+                            </group>
+                            <hr />
+                        </group>
+                        <group name="timbre_cfdi_pagos" attrs="{'invisible': [('pagos','=',False)]}">
+                            <group colspan="4">
+                                <h1 class="mt0">Pagos CFDI</h1>
+                            </group>
+                            <group colspan="4">
+                                <field name="payment_move_line_ids" nolabel="1" colspan="4" />
+                            </group>
+                        </group>
+                    </page>
+                </notebook>
+                <field name="fiscal_position_id" position="after">
+                    <field name="formapago_id"/>
+                    <field name="metodopago_id"/>
+                    <field name="cuentaBanco" attrs="{'invisible':[('cuentaBanco','=','')]}"/>
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="invoice_cfdi_tree">
+            <field name="name">invoice_cfdi_tree</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_tree"/>
+            <field name="arch" type="xml">
+                <field name="number" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="number" position="before">
+                    <field name="move_id" invisible="1" />
+                    <field name="internal_number" readonly="1" />
+                    <field name="type" readonly="1" />
+                </field>
+            </field>
+        </record>
+
+        <record id="view_account_invoice_cancel_filter" model="ir.ui.view">
+            <field name="name">view_account_invoice_cancel_filter</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+                <field name="number" position="attributes">
+                    <attribute name="filter_domain">['|','|','|','|', ('number','ilike',self), ('internal_number','ilike',self), ('origin','ilike',self), ('reference', 'ilike', self), ('partner_id', 'child_of', self)]</attribute>
+                </field>
+            </field>
+        </record>
+
+
+        <record id="invoice_aduana_form" model="ir.ui.view">
+            <field name="name">account.invoice.aduana.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='name']" position="after">
+                    <field name="numero_pedimento_sat" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="invoice_line_cfdi_aduana_form" model="ir.ui.view">
+            <field name="name">invoice.line.cfdi.aduana.form</field>
+            <field name="model">account.invoice.line</field>
+            <field name="inherit_id" ref="account.view_invoice_line_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/group[1]" position="after">
+                    <group>
+                        <separator string="CFDI 3.3" />
+                        <group>
+                            <group>
+                                <field name="numero_pedimento_sat" />
+                            </group>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

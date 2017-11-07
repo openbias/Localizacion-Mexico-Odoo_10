@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!--
+        Country
+        -->
+        <record id="view_country_alpha3_tree" model="ir.ui.view">
+            <field name="name">res.country.alpha3.tree</field>
+            <field name="model">res.country</field>
+            <field name="inherit_id" ref="base.view_country_tree"/>
+            <field name="arch" type="xml">
+                <field name="code" position="after">
+                    <field name="code_alpha3"/>
+                </field>
+            </field>
+        </record>
+        <record id="view_country_alpha3_form" model="ir.ui.view">
+            <field name="name">res.country.alpha3.form</field>
+            <field name="model">res.country</field>
+            <field name="inherit_id" ref="base.view_country_form"/>
+            <field name="arch" type="xml">
+                <field name="code" position="after">
+                    <field name="code_alpha3"/>
+                </field>
+            </field>
+        </record>
+
+        <!-- CATALOGO CODIGO POSTAL -->
+        <record id="codigo_postal_view_tree" model="ir.ui.view">
+            <field name="name">codigo_postal_view_tree</field>
+            <field name="model">res.country.state.cp</field>
+            <field name="arch" type="xml">
+                <tree string="Catálogo Código Postal">
+                    <field name="name" string="C.P."/>
+                    <field name="state_id"/>
+                    <field name="ciudad_id"/>
+                    <field name="municipio_id"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_codigo_postal" model="ir.actions.act_window">
+            <field name="name">Catálogo Código Postal</field>
+            <field name="res_model">res.country.state.cp</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">tree</field>
+            <field name="view_mode">list,form</field>
+            <field name="target"></field>
+        </record>
+        <menuitem
+            action="action_codigo_postal"
+            id="menu_codigo_postal"
+            parent="bias_base_report.menu_localizacion_mexico_root"
+            groups="group_cfd_mx_user"            
+            sequence="96" />
+        <menuitem 
+            action="action_codigo_postal" 
+            id="menu_country_codigo_postal" 
+            parent="sales_team.menu_localisation"
+            groups="base.group_no_one"
+            sequence="3" />
+
+        <!-- CATALOGO MUNICIPIO -->
+        <record id="municipio_view_tree" model="ir.ui.view">
+            <field name="name">municipio_view_tree</field>
+            <field name="model">res.country.state.municipio</field>
+            <field name="arch" type="xml">
+                <tree string="Catálogo Municipios">
+                    <field name="clave_sat"/>
+                    <field name="name"/>
+                    <field name="state_id" />
+                </tree>
+            </field>
+        </record>
+        <record id="action_municipio" model="ir.actions.act_window">
+            <field name="name">Catálogo Municipios SAT</field>
+            <field name="res_model">res.country.state.municipio</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">tree</field>
+            <field name="view_mode">list,form</field>
+            <field name="target"></field>
+        </record>
+        <menuitem
+            action="action_municipio"
+            id="menu_municipio"
+            parent="bias_base_report.menu_localizacion_mexico_root"
+            groups="group_cfd_mx_user"
+            sequence="97" />
+        <menuitem 
+            action="action_municipio" 
+            id="menu_country_municipio" 
+            parent="sales_team.menu_localisation"
+            groups="base.group_no_one"
+            sequence="4" />
+
+        <!-- CATALOGO CIUDAD -->
+        <record id="ciudad_view_tree" model="ir.ui.view">
+            <field name="name">ciudad_view_tree</field>
+            <field name="model">res.country.state.ciudad</field>
+            <field name="arch" type="xml">
+                <tree string="Catálogo Ciudad SAT">
+                    <field name="clave_sat"/>
+                    <field name="name"/>
+                    <field name="state_id" />
+                </tree>
+            </field>
+        </record>
+        <record id="action_ciudad" model="ir.actions.act_window">
+            <field name="name">Catálogo Ciudades SAT</field>
+            <field name="res_model">res.country.state.ciudad</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">tree</field>
+            <field name="view_mode">list,form</field>
+            <field name="target"></field>
+        </record>
+        <menuitem
+            action="action_ciudad"
+            id="menu_ciudad"
+            parent="bias_base_report.menu_localizacion_mexico_root"
+            groups="group_cfd_mx_user"
+            sequence="98" />
+        <menuitem 
+            action="action_ciudad" 
+            id="menu_country_ciudad" 
+            parent="sales_team.menu_localisation"
+            groups="base.group_no_one"
+            sequence="5" />
+
+
+
+        <!-- Colonia -->
+<!--         <record id="view_country_state_municipio_colonia_tree" model="ir.ui.view">
+            <field name="name">res.country.state.municipio.colonia.tree</field>
+            <field name="model">res.country.state.municipio.colonia</field>
+            <field name="arch" type="xml">
+                <tree string="Colonia">
+                    <field name="name"/>                    
+                    <field name="municipio_id"/>
+                    <field name="cp" />
+                </tree>
+            </field>
+        </record>
+        <record id="view_country_state_municipio_colonia_form" model="ir.ui.view">
+            <field name="name">res.country.state.municipio.colonia.form</field>
+            <field name="model">res.country.state.municipio.colonia</field>
+            <field name="arch" type="xml">
+                <form string="Colonia">
+                    <header>
+                        <button name="get_import_datas_colonia" string="Importar Colonias" type="object" icon="fa-tasks" class="oe_inline"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="municipio_id" options='{"no_open": True}'/>
+                            <field name="cp" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_country_state_municipio_colonia" model="ir.actions.act_window">
+            <field name="name">Colonia</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.country.state.municipio.colonia</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_country_state_municipio_colonia_tree"/>
+        </record>
+        <menuitem action="action_country_state_municipio_colonia" 
+            id="menu_country_state_municipio_colonia_partner" 
+            parent="sales_team.menu_localisation"
+            groups="base.group_no_one"
+            sequence="4" /> -->
+
+    </data>
+</openerp>

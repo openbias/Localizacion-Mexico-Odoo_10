@@ -1,0 +1,10 @@
+id,code,name
+hr_mx_ext.tipojornada_1,01,Diurna
+hr_mx_ext.tipojornada_2,02,Nocturna
+hr_mx_ext.tipojornada_3,03,Mixta
+hr_mx_ext.tipojornada_4,04,Por hora
+hr_mx_ext.tipojornada_5,05,Reducida
+hr_mx_ext.tipojornada_6,06,Continuada
+hr_mx_ext.tipojornada_7,07,Partida
+hr_mx_ext.tipojornada_8,08,Por turnos
+hr_mx_ext.tipojornada_99,99,Otra Jornada

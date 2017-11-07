@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="view_partner_comercio_form">
+            <field name="name">view_partner_comercio_form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="website" position="before" >
+                        <label for="municipio_id" string="Comercio Exterior"/>
+                        <div class="o_address_format">
+
+                            <div id="municipio_id">
+                                <label for="municipio_id" string="Municipio: "/>
+                                <field name="municipio_id" placeholder="Municipio... " 
+                                    class="o_address_city" style="width:70%%" 
+                                    domain="[('state_id','=',state_id)]" />
+                            </div>
+                        </div>
+                    </field>
+                </data>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_invoice_form_add_comercio_exterior">
+            <field name="name">account_invoice_form_add_comercio_exterior</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="partner_id" position="after">
+                        <field name="comercio_exterior_activate" invisible="1"/>
+                    </field>
+                    <notebook position="inside">
+                        <page string="Complemento Comercio Exterior" attrs="{'invisible':[('comercio_exterior_activate','=',False)]}">
+                            <group col="4" colspan="4">
+                                <field name="comercio_exterior_tipo_operacion" attrs="{'required':[('comercio_exterior_activate','=',True)]}"/>
+                                <field name="comercio_exterior_clave_pedimento" attrs="{'required':[('comercio_exterior_tipo_operacion','=','2')]}"/>
+                                <field name="comercio_exterior_certificado_origen" attrs="{'required':[('comercio_exterior_tipo_operacion','=','2')]}"/>
+                                <field name="comercio_exterior_num_certificado_origen"/>
+                                <field name="comercio_exterior_num_exportador_confiable"/>
+                                <field name="comercio_exterior_incoterm" attrs="{'required':[('comercio_exterior_tipo_operacion','=','2')]}"/>
+                                <field name="comercio_exterior_subdivision" attrs="{'required':[('comercio_exterior_tipo_operacion','=','2')]}"/>
+                                <field name="comercio_exterior_observaciones"/>
+                                <field name="comercio_exterior_tipo_cambio_usd"/>
+                                <field name="comercio_exterior_total_usd" attrs="{'required':[('comercio_exterior_tipo_operacion','=','2')]}"/>
+                            </group>
+                            <group string="Emisor">
+                                <field name="comercio_exterior_curp_emisor"/>
+                            </group>
+                            <group string="Receptor" col="4" colspan="4">
+                                <field name="comercio_exterior_numregidtrib_receptor" attrs="{'required':[('comercio_exterior_activate','=',True)]}"/>
+                                <field name="comercio_exterior_curp_receptor"/>
+                            </group>
+                            <group string="Destinatario" col="4" colspan="4">
+                                <field name="comercio_exterior_numregidtrib_destinatario"/>
+                                <field name="comercio_exterior_rfc_destinatario"/>
+                                <field name="comercio_exterior_curp_destinatario"/>
+                                <field name="comercio_exterior_nombre_destinatario"/>
+                                <field name="comercio_exterior_domicilio_destinatario"/>
+                            </group>
+                            <separator string="Mercancías"/>
+                            <button name="update_comercio_exterior_lines" type="object" string="Actualizar"/>
+                            <field name="comercio_exterior_line_ids">
+                                <form string="Mercancías">
+                                    <group>
+                                        <field name="invoice_line_id" readonly="1"/>
+                                        <field name="comercio_exterior_no_identificacion" required="1"/>
+                                        <field name="comercio_exterior_fraccion_arancelaria"/>
+                                        <field name="comercio_exterior_cantidad_aduana"/>
+                                        <field name="comercio_exterior_unidad_aduana"/>
+                                        <field name="comercio_exterior_valor_aduana"/>
+                                        <field name="comercio_exterior_valor_dolares" required="1"/>
+                                        <field name="comercio_exterior_descripciones_especificas">
+                                            <tree string="Descripciones específicas" editable="bottom">
+                                                <field name="marca"/>
+                                                <field name="modelo"/>
+                                                <field name="submodelo"/>
+                                                <field name="numero_serie"/>
+                                            </tree>
+                                        </field>
+                                    </group>
+                                </form>
+                                <tree string="Mercancías">
+                                    <field name="invoice_line_id" readonly="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>   
+                </data>
+            </field>
+        </record>
+
+    </data>
+</odoo>

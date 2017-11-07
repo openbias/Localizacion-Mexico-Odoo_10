@@ -1,0 +1,329 @@
+<odoo>
+    <data>
+
+        <!-- EMPRESAS -->
+        <record model="ir.ui.view" id="view_partner_form_inherit_emp">
+            <field name="name">res.partner.form.inherit.emp</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="company_type" position="after">
+                    <div class="o_row" attrs="{'invisible': ['|', ('is_company','=',True), '|', ('customer','=',True), ('supplier','=',True)]}">
+                        <label for="is_employee" string="Is Empoyee?"/>
+                        <field name="is_employee"  attrs="{'invisible': ['|', ('is_company','=',True), '|', ('customer','=',True), ('supplier','=',True)]}"/>
+                    </div>
+                </field>
+            </field>
+        </record>
+
+        <!-- COMPANHIAS -->
+        <record id="view_company_form_inherit_hr" model="ir.ui.view">
+            <field name="name">view.company.form.inherit.hr</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Recursos humanos">
+                        <group>
+                            <field name="registro_patronal_id"/>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+        <!-- TIPO DESCUENTO INFONAVIT -->
+        <record id="view_hr_tipodescuento" model="ir.ui.view">
+            <field name="name">view.hr.tipodescuento</field>
+            <field name="model">hr_mx_ext.tipodescuento</field>
+            <field name="arch" type="xml">
+                <form string="Tipo Descuento Infonavit">
+                    <sheet>
+                        <group colspan="4" col="4">
+                            <field name="name" colspan="2" />
+                            <field name="code" colspan="2" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="act_open_tipodescuento" model="ir.actions.act_window">
+            <field name="name">Tipo Descuento Infonavit</field>
+            <field name="res_model">hr_mx_ext.tipodescuento</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- TIPO DE TRABAJADOR -->
+        <record id="view_hr_tipotrabajador" model="ir.ui.view">
+            <field name="name">view.hr.tipotrabajador</field>
+            <field name="model">hr_mx_ext.tipotrabajador</field>
+            <field name="arch" type="xml">
+                <form string="Tipo Trabajador">
+                    <sheet>
+                        <group colspan="4" col="4">
+                            <field name="name" colspan="2" />
+                            <field name="code" colspan="2" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="act_open_tipotrabajador" model="ir.actions.act_window">
+            <field name="name">Tipo Trabajador</field>
+            <field name="res_model">hr_mx_ext.tipotrabajador</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- TIPO DE JORNADA -->
+        <record id="view_hr_tipojornada" model="ir.ui.view">
+            <field name="name">view.hr.tipojornada</field>
+            <field name="model">hr_mx_ext.tipojornada</field>
+            <field name="arch" type="xml">
+                <form string="Tipo Jornada">
+                    <sheet>
+                        <group colspan="4" col="4">
+                            <field name="name" colspan="2" />
+                            <field name="code" colspan="2" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="act_open_tipojornada" model="ir.actions.act_window">
+            <field name="name">Tipo Jornada</field>
+            <field name="res_model">hr_mx_ext.tipojornada</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- TIPO DE SUELDO -->
+        <record id="view_hr_tiposueldo" model="ir.ui.view">
+            <field name="name">view.hr.tiposueldo</field>
+            <field name="model">hr_mx_ext.tiposueldo</field>
+            <field name="arch" type="xml">
+                <form string="Tipo de Sueldo">
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                            <field name="code" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="act_open_tiposueldo" model="ir.actions.act_window">
+            <field name="name">Tipo Sueldo</field>
+            <field name="res_model">hr_mx_ext.tiposueldo</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- ZONA SALARIO -->
+        <record id="view_hr_zonasalario" model="ir.ui.view">
+            <field name="name">view.hr.zonasalario</field>
+            <field name="model">hr_mx_ext.zonasalario</field>
+            <field name="arch" type="xml">
+                <form string="Zona Salario">
+                    <sheet>
+                        <group colspan="4" col="4">
+                            <field name="name" colspan="4" />
+                            <field name="code" colspan="2" />
+                            <field name="description" colspan="2" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="act_open_zonasalario" model="ir.actions.act_window">
+            <field name="name">Zona Salario</field>
+            <field name="res_model">hr_mx_ext.zonasalario</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- FORMA DE PAGO -->
+        <record id="view_hr_formapago" model="ir.ui.view">
+            <field name="name">view.hr.formapago</field>
+            <field name="model">hr_mx_ext.formapago</field>
+            <field name="arch" type="xml">
+                <form string="Forma de Pago">
+                    <sheet>
+                        <group colspan="4" col="4">
+                            <field name="name" colspan="4" />
+                            <field name="code" colspan="2" />
+                            <field name="description" colspan="2" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="act_open_formapago" model="ir.actions.act_window">
+            <field name="name">Forma de Pago</field>
+            <field name="res_model">hr_mx_ext.formapago</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- REGISTRO PATRONAL -->
+        <record id="view_hr_regpat" model="ir.ui.view">
+            <field name="name">view.hr.regpat</field>
+            <field name="model">hr_mx_ext.regpat</field>
+            <field name="arch" type="xml">
+                <form string="Registro Patronal">
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                            <field name="company_id" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="regpat_tree" model="ir.ui.view">
+            <field name="name">regpat_tree</field>
+            <field name="model">hr_mx_ext.regpat</field>
+            <field name="arch" type="xml">
+                <tree string="Registro patronal">
+                    <field name="name"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+        <record id="act_open_regpat" model="ir.actions.act_window">
+            <field name="name">Registro patronal</field>
+            <field name="res_model">hr_mx_ext.regpat</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- ESCOLARIDAD -->
+        <record id="view_hr_escolaridad" model="ir.ui.view">
+            <field name="name">view.hr.escolaridad</field>
+            <field name="model">hr_mx_ext.escolaridad</field>
+            <field name="arch" type="xml">
+                <form string="Escolaridad">
+                    <sheet>
+                        <group colspan="4" col="4">
+                            <field name="name" colspan="4" />
+                            <field name="code" colspan="2" />
+                            <field name="description" colspan="2" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="act_open_escolaridad" model="ir.actions.act_window">
+            <field name="name">Escolaridad</field>
+            <field name="res_model">hr_mx_ext.escolaridad</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem 
+            action="act_open_tipotrabajador"
+            id="menu_open_tipotrabajador"
+            parent="hr.menu_human_resources_configuration"
+            sequence="10" />
+        <menuitem 
+            action="act_open_tipojornada"
+            id="menu_open_tipojornada"
+            parent="hr.menu_human_resources_configuration"
+            sequence="11" />  
+        <menuitem 
+            action="act_open_tiposueldo"
+            id="menu_open_tiposueldo"
+            parent="hr.menu_human_resources_configuration"
+            sequence="20" />
+        <menuitem 
+            action="act_open_zonasalario"
+            id="menu_open_zonasalario"
+            parent="hr.menu_human_resources_configuration"
+            sequence="30" />
+        <menuitem 
+            action="act_open_formapago"
+            id="menu_open_formapago"
+            parent="hr.menu_human_resources_configuration" 
+            sequence="40"/>
+        <menuitem 
+            action="act_open_regpat"
+            id="menu_open_regpat"
+            parent="hr.menu_human_resources_configuration"
+            sequence="50"/>
+        <menuitem 
+            action="act_open_escolaridad"
+            id="menu_open_escolaridad"
+            parent="hr.menu_human_resources_configuration"
+            sequence="60" />
+        <menuitem 
+            action="act_open_tipodescuento"
+            id="menu_open_tipodescuento"
+            parent="hr.menu_human_resources_configuration"
+            sequence="70" />
+
+
+
+
+
+
+
+
+
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="hr_mx_ext.list">
+      <field name="name">hr_mx_ext list</field>
+      <field name="model">hr_mx_ext.hr_mx_ext</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="hr_mx_ext.action_window">
+      <field name="name">hr_mx_ext window</field>
+      <field name="res_model">hr_mx_ext.hr_mx_ext</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="hr_mx_ext.action_server">
+      <field name="name">hr_mx_ext server</field>
+      <field name="model_id" ref="model_hr_mx_ext_hr_mx_ext"/>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="hr_mx_ext" id="hr_mx_ext.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="hr_mx_ext.menu_1" parent="hr_mx_ext.menu_root"/>
+    <menuitem name="Menu 2" id="hr_mx_ext.menu_2" parent="hr_mx_ext.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="hr_mx_ext.menu_1_list" parent="hr_mx_ext.menu_1"
+              action="hr_mx_ext.action_window"/>
+    <menuitem name="Server to list" id="hr_mx_ext" parent="hr_mx_ext.menu_2"
+              action="hr_mx_ext.action_server"/>
+    -->
+    </data>
+</odoo>
