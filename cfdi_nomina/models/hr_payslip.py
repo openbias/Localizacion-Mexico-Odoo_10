@@ -17,7 +17,7 @@ import textwrap
 import logging
 import threading
 
-_logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
 
 CATALOGO_TIPONOMINA = [('O','Ordinaria'),('E','Extraordinaria')]
 
@@ -354,6 +354,8 @@ class HrPayslip(models.Model):
             return ''
         if rec.uuid:
             return ''
+        if not rec.journal_id.codigo_postal_id:
+            message += '<li>No se definio Lugar de Exception (C.P.)</li>'
         if not rec.tipo_nomina:
             message += '<li>El Atributo "Tipo Nomina" es requerido</li>'
         if not rec.date_from:

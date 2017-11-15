@@ -27,6 +27,7 @@
 
     # always loaded
     'data': [
+        'security/ir.model.access.csv',
         'data/cfdi_nomina.tipo.xml',
         'data/cfdi_nomina.regimen_contratacion.xml',
         'data/cfdi_nomina.riesgo_puesto.xml',
@@ -36,7 +37,7 @@
         'data/hr.contract.type.xml',
         "data/cfdi_nomina.codigo_agrupador.xml",
 
-        'security/ir.model.access.csv',
+        
         'views/res_company_view.xml',
         'views/cfdi_nomina_view.xml',
         'views/cfdi_nomina_hr_view.xml',        

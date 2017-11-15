@@ -86,6 +86,7 @@ class AccountCfdi(models.Model):
 
     def invoice_info_conceptos(self):
         obj = self.obj
+        tax_obj = obj.env['account.tax']
         dp = obj.env['decimal.precision']
         dp_account = dp.precision_get('Account')
         dp_product = dp.precision_get('Product Price')
@@ -111,23 +112,48 @@ class AccountCfdi(models.Model):
                 concepto_attribs['NumeroPedimento'] = line.numero_pedimento_sat
             if line.product_id.cuenta_predial:
                 concepto_attribs['CuentaPredial'] = line.product_id.cuenta_predial
-            for tax in line.invoice_line_tax_ids:
-                tax_group = tax.tax_group_id
-                price_unit = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
-                comp = tax.compute_all(price_unit, obj.currency_id, line.quantity, line.product_id, obj.partner_id)
-                importe = comp['total_included'] - comp['total_excluded']
-                TasaOCuota = '%.6f'%((round(abs(tax.amount), dp_account) / 100))
+
+            # Calculo de Impuestos.
+            price_unit = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
+            taxes = line.invoice_line_tax_ids.compute_all(price_unit, self.currency_id, line.quantity, line.product_id, self.partner_id)['taxes']
+            for tax in taxes:
+                tax_id = tax_obj.browse(tax.get('id'))
+                tax_group = tax_id.tax_group_id
+
+                importe = tax.get('amount')
+                TasaOCuota = '%.6f'%((round(abs(tax_id.amount), dp_account) / 100))
                 impuestos = {
-                    'Base': '%.2f'%(round( comp.get('base') , dp_account)),
+                    'Base': '%.2f'%(round( tax.get('base') , dp_account)),
                     'Impuesto': tax_group.cfdi_impuestos,
-                    'TipoFactor': '%s'%(tax.cfdi_tipofactor),
+                    'TipoFactor': '%s'%(tax_id.cfdi_tipofactor),
                     'TasaOCuota': '%s'%(TasaOCuota),
                     'Importe': '%.2f'%(round(importe, dp_account))
                 }
                 if tax_group.cfdi_retencion:
                     concepto_attribs['Impuestos']['Retenciones'].append(impuestos)
-                if tax_group.cfdi_traslado:
+                elif tax_group.cfdi_traslado:
                     concepto_attribs['Impuestos']['Traslado'].append(impuestos)
+            
+            # for tax in line.invoice_line_tax_ids:
+            #     tax_group = tax.tax_group_id
+            #     price_unit = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
+            #     print "price_unit", tax.name, price_unit
+            #     comp = tax.compute_all(price_unit, obj.currency_id, line.quantity, line.product_id, obj.partner_id)
+            #     importe = comp['total_included'] - comp['total_excluded']
+            #     TasaOCuota = '%.6f'%((round(abs(tax.amount), dp_account) / 100))
+            #     impuestos = {
+            #         'Base': '%.2f'%(round( comp.get('base') , dp_account)),
+            #         'Impuesto': tax_group.cfdi_impuestos,
+            #         'TipoFactor': '%s'%(tax.cfdi_tipofactor),
+            #         'TasaOCuota': '%s'%(TasaOCuota),
+            #         'Importe': '%.2f'%(round(importe, dp_account))
+            #     }
+            #     print "impuestos", impuestos
+            #     if tax_group.cfdi_retencion:
+            #         concepto_attribs['Impuestos']['Retenciones'].append(impuestos)
+            #     if tax_group.cfdi_traslado:
+            #         concepto_attribs['Impuestos']['Traslado'].append(impuestos)
+            print "concepto_attribs['Impuestos']", concepto_attribs.get("Impuestos")
             conceptos.append(concepto_attribs)
         cfdi_conceptos = conceptos
         return cfdi_conceptos

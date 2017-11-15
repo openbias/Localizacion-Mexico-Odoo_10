@@ -90,7 +90,7 @@ class AccountInvoice(models.Model):
 
     @api.one
     def _default_uso_cfdi_id(self):
-        public = self.env.ref('cfd_mx.cfd_mx_usocfdi_G01')
+        public = self.env.ref('cfd_mx.usocfdi_G01')
         return public
 
     @api.one
@@ -270,7 +270,7 @@ class AccountInvoice(models.Model):
         if not self.tipo_comprobante:
             message += '<li>No se definio Tipo Comprobante</li>'
         if not self.journal_id.codigo_postal_id:
-            message += '<li>No se definio Lugar de Exception (C.P.)</li>'
+            message += '<li>No se definio Lugar de Expedicion (C.P.)</li>'
         if not self.payment_term_id:
             message += '<li>No se definio Condiciones de Pago</li>'
         if not self.formapago_id:
@@ -379,8 +379,6 @@ class AccountInvoice(models.Model):
                     'type': 'binary'
                 }
                 attachment_obj.create(attachment_values)
-
-
         except ValueError, e:
             message = str(e)
         except Exception, e:

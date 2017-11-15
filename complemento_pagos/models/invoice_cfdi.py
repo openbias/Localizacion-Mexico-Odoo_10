@@ -129,7 +129,7 @@ class AccountCfdi(models.Model):
                     "ImpPagado": '%.2f'%ImpPagado,
                     'ImpSaldoInsoluto': '%.2f'%(abs(ImpSaldoInsoluto))
                 }
-                if TipoCambioDR:
+                if TipoCambioDR and (p_journal_id != "MXN" and inv.currency_id.name != "MXN"):
                     docto_attribs['TipoCambioDR'] = '%s'%(TipoCambioDR)
                 if inv.journal_id.serie:
                     docto_attribs['Serie'] = inv.journal_id.serie or ''
@@ -151,26 +151,3 @@ class AccountCfdi(models.Model):
                 tipocambio = model_obj.with_context(date=date_invoice).get_object('base', 'MXN').rate
                 tipocambio = round(tipocambio, 4)
         return tipocambio
-
-
-{
-    'pago_attribs': {
-        'MonedaP': u'USD', 
-        'FormaDePagoP': u'01', 
-        'Monto': '11.60', 
-        'FechaPago': '2017-11-01T12:00:00', 
-        'NumOperacion': u'INV/2017/0018', 
-        'TipoCambioP': '19.2188'
-    }, 
-    'docto_relacionados': [{
-        'ImpSaldoInsoluto': '0.00', 
-        'Serie': u'FE', 
-        'Folio': u'INV/2017/0018', 
-        'MetodoDePagoDR': 'PPD', 
-        'ImpPagado': '222.94', 
-        'IdDocumento': u'C38E6966-6057-42AE-8FD4-2BECDCB5A450', 
-        'NumParcialidad': u'1', 
-        'ImpSaldoAnt': '222.94', 
-        'MonedaDR': u'USD'
-    }]
-}

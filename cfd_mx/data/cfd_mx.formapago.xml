@@ -2,7 +2,7 @@
 <odoo>
     <!--Generated for OpenBIAS-->
     <data noupdate="1">
-        <record id="cfd_mx.cfd_mx_formapago_01" model="cfd_mx.formapago">
+        <record id="cfd_mx.formapago_01" model="cfd_mx.formapago">
             <field name="name">Efectivo</field>
             <field name="clave">01</field>
             <field name="banco">False</field>
@@ -15,7 +15,7 @@
             <field name="tipo_cadena">False</field>
             <field name="conta_elect">True</field>
         </record>
-        <record id="cfd_mx.cfd_mx_formapago_02" model="cfd_mx.formapago">
+        <record id="cfd_mx.formapago_02" model="cfd_mx.formapago">
             <field name="name">Cheque nominativo</field>
             <field name="clave">02</field>
             <field name="banco">True</field>
@@ -28,7 +28,7 @@
             <field name="tipo_cadena">False</field>
             <field name="conta_elect">True</field>
         </record>
-        <record id="cfd_mx.cfd_mx_formapago_03" model="cfd_mx.formapago">
+        <record id="cfd_mx.formapago_03" model="cfd_mx.formapago">
             <field name="name">Transferencia electrónica de fondos</field>
             <field name="clave">03</field>
             <field name="banco">True</field>
@@ -41,7 +41,7 @@
             <field name="tipo_cadena">False</field>
             <field name="conta_elect">True</field>
         </record>
-        <record id="cfd_mx.cfd_mx_formapago_04" model="cfd_mx.formapago">
+        <record id="cfd_mx.formapago_04" model="cfd_mx.formapago">
             <field name="name">Tarjeta de crédito</field>
             <field name="clave">04</field>
             <field name="banco">True</field>
@@ -54,7 +54,7 @@
             <field name="tipo_cadena">False</field>
             <field name="conta_elect">True</field>
         </record>
-        <record id="cfd_mx.cfd_mx_formapago_05" model="cfd_mx.formapago">
+        <record id="cfd_mx.formapago_05" model="cfd_mx.formapago">
             <field name="name">Monedero electrónico</field>
             <field name="clave">05</field>
             <field name="banco">True</field>
@@ -67,7 +67,7 @@
             <field name="tipo_cadena">False</field>
             <field name="conta_elect">True</field>
         </record>
-        <record id="cfd_mx.cfd_mx_formapago_06" model="cfd_mx.formapago">
+        <record id="cfd_mx.formapago_06" model="cfd_mx.formapago">
             <field name="name">Dinero electrónico</field>
             <field name="clave">06</field>
             <field name="banco">True</field>
@@ -80,7 +80,7 @@
             <field name="tipo_cadena">False</field>
             <field name="conta_elect">True</field>
         </record>
-        <record id="cfd_mx.cfd_mx_formapago_07" model="cfd_mx.formapago">
+        <record id="cfd_mx.formapago_07" model="cfd_mx.formapago">
             <field name="name">Tarjetas Digitales</field>
             <field name="clave">07</field>
             <field name="banco">False</field>
@@ -93,7 +93,7 @@
             <field name="tipo_cadena">False</field>
             <field name="conta_elect">True</field>
         </record>
-        <record id="cfd_mx.cfd_mx_formapago_08" model="cfd_mx.formapago">
+        <record id="cfd_mx.formapago_08" model="cfd_mx.formapago">
             <field name="name">Vales de despensa</field>
             <field name="clave">08</field>
             <field name="banco">False</field>
@@ -106,7 +106,7 @@
             <field name="tipo_cadena">False</field>
             <field name="conta_elect">True</field>
         </record>
-        <record id="cfd_mx.cfd_mx_formapago_09" model="cfd_mx.formapago">
+        <record id="cfd_mx.formapago_09" model="cfd_mx.formapago">
             <field name="name">Bienes</field>
             <field name="clave">09</field>
             <field name="banco">False</field>
@@ -119,7 +119,7 @@
             <field name="tipo_cadena">False</field>
             <field name="conta_elect">True</field>
         </record>
-        <record id="cfd_mx.cfd_mx_formapago_10" model="cfd_mx.formapago">
+        <record id="cfd_mx.formapago_10" model="cfd_mx.formapago">
             <field name="name">Servicios</field>
             <field name="clave">10</field>
             <field name="banco">False</field>
@@ -132,7 +132,7 @@
             <field name="tipo_cadena">False</field>
             <field name="conta_elect">True</field>
         </record>
-        <record id="cfd_mx.cfd_mx_formapago_11" model="cfd_mx.formapago">
+        <record id="cfd_mx.formapago_11" model="cfd_mx.formapago">
             <field name="name">Por Cuenta de Terceros</field>
             <field name="clave">11</field>
             <field name="banco">False</field>
@@ -145,7 +145,7 @@
             <field name="tipo_cadena">False</field>
             <field name="conta_elect">True</field>
         </record>
-        <record id="cfd_mx.cfd_mx_formapago_12" model="cfd_mx.formapago">
+        <record id="cfd_mx.formapago_12" model="cfd_mx.formapago">
             <field name="name">Dación en pago</field>
             <field name="clave">12</field>
             <field name="banco">False</field>
@@ -158,7 +158,7 @@
             <field name="tipo_cadena">False</field>
             <field name="conta_elect">False</field>
         </record>
-        <record id="cfd_mx.cfd_mx_formapago_13" model="cfd_mx.formapago">
+        <record id="cfd_mx.formapago_13" model="cfd_mx.formapago">
             <field name="name">Pago por subrogación</field>
             <field name="clave">13</field>
             <field name="banco">False</field>
@@ -171,7 +171,7 @@
             <field name="tipo_cadena">False</field>
             <field name="conta_elect">False</field>
         </record>
-        <record id="cfd_mx.cfd_mx_formapago_14" model="cfd_mx.formapago">
+        <record id="cfd_mx.formapago_14" model="cfd_mx.formapago">
             <field name="name">Pago por consignación</field>
             <field name="clave">14</field>
             <field name="banco">False</field>
@@ -184,7 +184,7 @@
             <field name="tipo_cadena">False</field>
             <field name="conta_elect">False</field>
         </record>
-        <record id="cfd_mx.cfd_mx_formapago_15" model="cfd_mx.formapago">
+        <record id="cfd_mx.formapago_15" model="cfd_mx.formapago">
             <field name="name">Condonación</field>
             <field name="clave">15</field>
             <field name="banco">False</field>
@@ -197,7 +197,7 @@
             <field name="tipo_cadena">False</field>
             <field name="conta_elect">False</field>
         </record>
-        <record id="cfd_mx.cfd_mx_formapago_17" model="cfd_mx.formapago">
+        <record id="cfd_mx.formapago_17" model="cfd_mx.formapago">
             <field name="name">Compensación</field>
             <field name="clave">17</field>
             <field name="banco">False</field>
@@ -210,7 +210,7 @@
             <field name="tipo_cadena">False</field>
             <field name="conta_elect">False</field>
         </record>
-        <record id="cfd_mx.cfd_mx_formapago_23" model="cfd_mx.formapago">
+        <record id="cfd_mx.formapago_23" model="cfd_mx.formapago">
             <field name="name">Novación</field>
             <field name="clave">23</field>
             <field name="banco">False</field>
@@ -223,7 +223,7 @@
             <field name="tipo_cadena">False</field>
             <field name="conta_elect">False</field>
         </record>
-        <record id="cfd_mx.cfd_mx_formapago_24" model="cfd_mx.formapago">
+        <record id="cfd_mx.formapago_24" model="cfd_mx.formapago">
             <field name="name">Confusión</field>
             <field name="clave">24</field>
             <field name="banco">False</field>
@@ -236,7 +236,7 @@
             <field name="tipo_cadena">False</field>
             <field name="conta_elect">False</field>
         </record>
-        <record id="cfd_mx.cfd_mx_formapago_25" model="cfd_mx.formapago">
+        <record id="cfd_mx.formapago_25" model="cfd_mx.formapago">
             <field name="name">Remisión de deuda</field>
             <field name="clave">25</field>
             <field name="banco">False</field>
@@ -249,7 +249,7 @@
             <field name="tipo_cadena">False</field>
             <field name="conta_elect">False</field>
         </record>
-        <record id="cfd_mx.cfd_mx_formapago_26" model="cfd_mx.formapago">
+        <record id="cfd_mx.formapago_26" model="cfd_mx.formapago">
             <field name="name">Prescripción o caducidad</field>
             <field name="clave">26</field>
             <field name="banco">False</field>
@@ -262,7 +262,7 @@
             <field name="tipo_cadena">False</field>
             <field name="conta_elect">False</field>
         </record>
-        <record id="cfd_mx.cfd_mx_formapago_27" model="cfd_mx.formapago">
+        <record id="cfd_mx.formapago_27" model="cfd_mx.formapago">
             <field name="name">A satisfacción del acreedor</field>
             <field name="clave">27</field>
             <field name="banco">False</field>
@@ -275,7 +275,7 @@
             <field name="tipo_cadena">False</field>
             <field name="conta_elect">False</field>
         </record>
-        <record id="cfd_mx.cfd_mx_formapago_28" model="cfd_mx.formapago">
+        <record id="cfd_mx.formapago_28" model="cfd_mx.formapago">
             <field name="name">Tarjeta de débito</field>
             <field name="clave">28</field>
             <field name="banco">True</field>
@@ -288,7 +288,7 @@
             <field name="tipo_cadena">False</field>
             <field name="conta_elect">False</field>
         </record>
-        <record id="cfd_mx.cfd_mx_formapago_29" model="cfd_mx.formapago">
+        <record id="cfd_mx.formapago_29" model="cfd_mx.formapago">
             <field name="name">Tarjeta de servicios</field>
             <field name="clave">29</field>
             <field name="banco">True</field>
@@ -301,7 +301,7 @@
             <field name="tipo_cadena">False</field>
             <field name="conta_elect">False</field>
         </record>
-        <record id="cfd_mx.cfd_mx_formapago_98" model="cfd_mx.formapago">
+        <record id="cfd_mx.formapago_98" model="cfd_mx.formapago">
             <field name="name">NA</field>
             <field name="clave">98</field>
             <field name="banco">True</field>
@@ -314,7 +314,7 @@
             <field name="tipo_cadena">False</field>
             <field name="conta_elect">True</field>
         </record>
-        <record id="cfd_mx.cfd_mx_formapago_99" model="cfd_mx.formapago">
+        <record id="cfd_mx.formapago_99" model="cfd_mx.formapago">
             <field name="name">Por definir</field>
             <field name="clave">99</field>
             <field name="banco">False</field>

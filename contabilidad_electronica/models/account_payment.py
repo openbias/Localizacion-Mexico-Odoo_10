@@ -207,7 +207,7 @@ class account_bank_statement_line(models.Model):
             if currency_id and self.currency_id.name != "MXN":
                 tipo_cambio = self._get_tipocambio(st_line.date)
                 vals.update({
-                    "moneda_id": currency_id.id,
+                    "moneda_id": self.currency_id.id,
                     "tipo_cambio":  tipo_cambio
                 })
             # if currency_id and currency_id.name != "MXN":

@@ -150,8 +150,6 @@ class AccountMoveLine(models.Model):
 #         res = super(AccountBankStatementLine, self).process_reconciliations(data)
 #         return res
 
-
-
 class AccountInvoice(models.Model):
     _name = "account.invoice"
     _inherit = "account.invoice"

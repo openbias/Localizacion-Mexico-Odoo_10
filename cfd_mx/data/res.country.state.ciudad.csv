@@ -1,665 +1,665 @@
 id,clave_sat,state_id/id,name
-__export__.res_country_state_ciudad_01AGU,01,AGU,Aguascalientes
-__export__.res_country_state_ciudad_01BCN,01,BCN,Ensenada
-__export__.res_country_state_ciudad_01BCS,01,BCS,Ciudad Constitución
-__export__.res_country_state_ciudad_01CAM,01,CAM,San Francisco de Campeche
-__export__.res_country_state_ciudad_01COA,01,COA,Ciudad Acuña
-__export__.res_country_state_ciudad_01COL,01,COL,Colima
-__export__.res_country_state_ciudad_01CHH,01,CHH,Santa Rosalía de Camargo
-__export__.res_country_state_ciudad_01CHP,01,CHP,Comitán de Domínguez
-__export__.res_country_state_ciudad_01DIF,01,DIF,Ciudad de México
-__export__.res_country_state_ciudad_01DUR,01,DUR,Victoria de Durango
-__export__.res_country_state_ciudad_01GRO,01,GRO,Acapulco de Juárez
-__export__.res_country_state_ciudad_01GUA,01,GUA,Acámbaro
-__export__.res_country_state_ciudad_01HID,01,HID,Actopan
-__export__.res_country_state_ciudad_01JAL,01,JAL,Ameca
-__export__.res_country_state_ciudad_01MEX,01,MEX,Ciudad Adolfo López Mateos
-__export__.res_country_state_ciudad_01MIC,01,MIC,Apatzingán de la Constitución
-__export__.res_country_state_ciudad_01MOR,01,MOR,Cuautla (Cuautla de Morelos)
-__export__.res_country_state_ciudad_01NAY,01,NAY,Santiago Ixcuintla
-__export__.res_country_state_ciudad_01NLE,01,NLE,Ciudad Apodaca
-__export__.res_country_state_ciudad_01OAX,01,OAX,Juchitán (Juchitán de Zaragoza)
-__export__.res_country_state_ciudad_01PUE,01,PUE,Atlixco
-__export__.res_country_state_ciudad_01QUE,01,QUE,Querétaro
-__export__.res_country_state_ciudad_01ROO,01,ROO,Cancún
-__export__.res_country_state_ciudad_01SIN,01,SIN,Los Mochis
-__export__.res_country_state_ciudad_01SLP,01,SLP,Ciudad Valles
-__export__.res_country_state_ciudad_01SON,01,SON,San Luis Río Colorado
-__export__.res_country_state_ciudad_01TAB,01,TAB,Cárdenas
-__export__.res_country_state_ciudad_01TAM,01,TAM,Altamira
-__export__.res_country_state_ciudad_01TLA,01,TLA,Apizaco
-__export__.res_country_state_ciudad_01VER,01,VER,Acayucan
-__export__.res_country_state_ciudad_01YUC,01,YUC,Mérida
-__export__.res_country_state_ciudad_01ZAC,01,ZAC,Fresnillo
-__export__.res_country_state_ciudad_02AGU,02,AGU,Calvillo
-__export__.res_country_state_ciudad_02BCN,02,BCN,Mexicali
-__export__.res_country_state_ciudad_02BCS,02,BCS,La Paz
-__export__.res_country_state_ciudad_02CAM,02,CAM,Ciudad del Carmen
-__export__.res_country_state_ciudad_02COA,02,COA,Frontera
-__export__.res_country_state_ciudad_02COL,02,COL,Manzanillo
-__export__.res_country_state_ciudad_02CHH,02,CHH,Chihuahua
-__export__.res_country_state_ciudad_02CHP,02,CHP,San Cristóbal de las Casas
-__export__.res_country_state_ciudad_02DIF,02,DIF,Ciudad de México
-__export__.res_country_state_ciudad_02DUR,02,DUR,Gómez Palacio
-__export__.res_country_state_ciudad_02GRO,02,GRO,Chilpancingo de los Bravo
-__export__.res_country_state_ciudad_02GUA,02,GUA,San miguel de Allende
-__export__.res_country_state_ciudad_02HID,02,HID,Apan
-__export__.res_country_state_ciudad_02JAL,02,JAL,Ciudad Guzmán
-__export__.res_country_state_ciudad_02MEX,02,MEX,Chimalhuacán
-__export__.res_country_state_ciudad_02MIC,02,MIC,Los Reyes de Salgado
-__export__.res_country_state_ciudad_02MOR,02,MOR,Cuernavaca
-__export__.res_country_state_ciudad_02NAY,02,NAY,Tepic
-__export__.res_country_state_ciudad_02NLE,02,NLE,San Pedro Garza García
-__export__.res_country_state_ciudad_02OAX,02,OAX,Oaxaca de Juárez
-__export__.res_country_state_ciudad_02PUE,02,PUE,Izúcar de Matamoros
-__export__.res_country_state_ciudad_02QUE,02,QUE,San Juan del Rio
-__export__.res_country_state_ciudad_02ROO,02,ROO,Cozumel
-__export__.res_country_state_ciudad_02SIN,02,SIN,Culiacán Rosales
-__export__.res_country_state_ciudad_02SLP,02,SLP,Ébano
-__export__.res_country_state_ciudad_02SON,02,SON,Agua Prieta
-__export__.res_country_state_ciudad_02TAB,02,TAB,Villahermosa
-__export__.res_country_state_ciudad_02TAM,02,TAM,Ciudad Camargo
-__export__.res_country_state_ciudad_02TLA,02,TLA,Villa Vicente Guerrero
-__export__.res_country_state_ciudad_02VER,02,VER,Naranjos
-__export__.res_country_state_ciudad_02YUC,02,YUC,Tizimín
-__export__.res_country_state_ciudad_02ZAC,02,ZAC,Jerez de García Salinas
-__export__.res_country_state_ciudad_03AGU,03,AGU,San Francisco de los Romo
-__export__.res_country_state_ciudad_03BCN,03,BCN,Tecate
-__export__.res_country_state_ciudad_03BCS,03,BCS,Cabo San Lucas
-__export__.res_country_state_ciudad_03CAM,03,CAM,Calkini
-__export__.res_country_state_ciudad_03COA,03,COA,Matamoros
-__export__.res_country_state_ciudad_03COL,03,COL,Tecoman
-__export__.res_country_state_ciudad_03CHH,03,CHH,Cuauhtémoc
-__export__.res_country_state_ciudad_03CHP,03,CHP,Tapachula de Córdova y Ordóñez
-__export__.res_country_state_ciudad_03DIF,03,DIF,Ciudad de México
-__export__.res_country_state_ciudad_03DUR,03,DUR,Ciudad Lerdo
-__export__.res_country_state_ciudad_03GRO,03,GRO,Iguala de la Independencia
-__export__.res_country_state_ciudad_03GUA,03,GUA,Celaya
-__export__.res_country_state_ciudad_03HID,03,HID,Pachuca de Soto
-__export__.res_country_state_ciudad_03JAL,03,JAL,Guadalajara
-__export__.res_country_state_ciudad_03MEX,03,MEX,Coacalco de Berriozabal
-__export__.res_country_state_ciudad_03MIC,03,MIC,Ciudad Hidalgo
-__export__.res_country_state_ciudad_03MOR,03,MOR,Galeana
-__export__.res_country_state_ciudad_03NAY,03,NAY,Tuxpan
-__export__.res_country_state_ciudad_03NLE,03,NLE,Ciudad General Escobedo
-__export__.res_country_state_ciudad_03OAX,03,OAX,Salina Cruz
-__export__.res_country_state_ciudad_03PUE,03,PUE,Puebla (Heroica Puebla)
-__export__.res_country_state_ciudad_03ROO,03,ROO,Felipe Carrillo Puerto
-__export__.res_country_state_ciudad_03SIN,03,SIN,Escuinapa de Hidalgo
-__export__.res_country_state_ciudad_03SLP,03,SLP,Matehuala
-__export__.res_country_state_ciudad_03SON,03,SON,Heroica Caborca
-__export__.res_country_state_ciudad_03TAB,03,TAB,Comalcalco
-__export__.res_country_state_ciudad_03TAM,03,TAM,Ciudad Madero
-__export__.res_country_state_ciudad_03TLA,03,TLA,Tlaxcala (Tlaxcala de Xicotencatl)
-__export__.res_country_state_ciudad_03VER,03,VER,Boca del RÍo
-__export__.res_country_state_ciudad_03YUC,03,YUC,Ticul
-__export__.res_country_state_ciudad_03ZAC,03,ZAC,Zacatecas
-__export__.res_country_state_ciudad_04AGU,04,AGU,Jesús María
-__export__.res_country_state_ciudad_04BCN,04,BCN,Tijuana
-__export__.res_country_state_ciudad_04BCS,04,BCS,San José del Cabo
-__export__.res_country_state_ciudad_04CAM,04,CAM,Candelaria
-__export__.res_country_state_ciudad_04COA,04,COA,Monclova
-__export__.res_country_state_ciudad_04COL,04,COL,Ciudad de Villa de Álvarez
-__export__.res_country_state_ciudad_04CHH,04,CHH,Delicias
-__export__.res_country_state_ciudad_04CHP,04,CHP,Tuxtla Gutiérrez
-__export__.res_country_state_ciudad_04DIF,04,DIF,Ciudad de México
-__export__.res_country_state_ciudad_04DUR,04,DUR,Santiago Papasquiaro
-__export__.res_country_state_ciudad_04GRO,04,GRO,Taxco de Alarcón
-__export__.res_country_state_ciudad_04GUA,04,GUA,Cortazar
-__export__.res_country_state_ciudad_04HID,04,HID,Cd. de Fray Bernardino de Sahagún
-__export__.res_country_state_ciudad_04JAL,04,JAL,Lagos de Moreno
-__export__.res_country_state_ciudad_04MEX,04,MEX,Cuautitlán Izcalli
-__export__.res_country_state_ciudad_04MIC,04,MIC,Jacona de Plancarte
-__export__.res_country_state_ciudad_04MOR,04,MOR,Jojutla
-__export__.res_country_state_ciudad_04NAY,04,NAY,Acaponeta
-__export__.res_country_state_ciudad_04NLE,04,NLE,Guadalupe
-__export__.res_country_state_ciudad_04OAX,04,OAX,San Juan Bautista Tuxtepec
-__export__.res_country_state_ciudad_04PUE,04,PUE,San Martín Texmelucan de Labastida
-__export__.res_country_state_ciudad_04QUE,04,QUE,El Pueblito
-__export__.res_country_state_ciudad_04ROO,04,ROO,Chetumal
-__export__.res_country_state_ciudad_04SIN,04,SIN,Guasave
-__export__.res_country_state_ciudad_04SLP,04,SLP,Rioverde
-__export__.res_country_state_ciudad_04SON,04,SON,Ciudad Obregón
-__export__.res_country_state_ciudad_04TAB,04,TAB,Emiliano Zapata
-__export__.res_country_state_ciudad_04TAM,04,TAM,Ciudad Mante
-__export__.res_country_state_ciudad_04TLA,04,TLA,Huamantla
-__export__.res_country_state_ciudad_04VER,04,VER,Coatepec
-__export__.res_country_state_ciudad_04YUC,04,YUC,Motul de Carrillo Puerto
-__export__.res_country_state_ciudad_04ZAC,04,ZAC,Guadalupe
-__export__.res_country_state_ciudad_05AGU,05,AGU,Pabellón de Arteaga
-__export__.res_country_state_ciudad_05BCN,05,BCN,Playas de Rosarito
-__export__.res_country_state_ciudad_05BCS,05,BCS,Loreto
-__export__.res_country_state_ciudad_05CAM,05,CAM,Escárcega
-__export__.res_country_state_ciudad_05COA,05,COA,Parras de la Fuente
-__export__.res_country_state_ciudad_05COL,05,COL,Ciudad de Armería
-__export__.res_country_state_ciudad_05CHH,05,CHH,Hidalgo del Parral
-__export__.res_country_state_ciudad_05CHP,05,CHP,Venustiano Carranza
-__export__.res_country_state_ciudad_05DIF,05,DIF,Ciudad de México
-__export__.res_country_state_ciudad_05DUR,05,DUR,Canatlán
-__export__.res_country_state_ciudad_05GRO,05,GRO,Arcelia
-__export__.res_country_state_ciudad_05GUA,05,GUA,Guanajuato
-__export__.res_country_state_ciudad_05HID,05,HID,Tula de Allende
-__export__.res_country_state_ciudad_05JAL,05,JAL,Ocotlán
-__export__.res_country_state_ciudad_05MEX,05,MEX,Ecatepec de Morelos
-__export__.res_country_state_ciudad_05MIC,05,MIC,La piedad de Cabadas
-__export__.res_country_state_ciudad_05MOR,05,MOR,Puente de Ixtla
-__export__.res_country_state_ciudad_05NAY,05,NAY,Tecuala
-__export__.res_country_state_ciudad_05NLE,05,NLE,Linares
-__export__.res_country_state_ciudad_05OAX,05,OAX,Matías Romero Avendaño
-__export__.res_country_state_ciudad_05PUE,05,PUE,Tehuacan
-__export__.res_country_state_ciudad_05ROO,05,ROO,Playa del Carmen
-__export__.res_country_state_ciudad_05SIN,05,SIN,Mazatlán
-__export__.res_country_state_ciudad_05SLP,05,SLP,San Luis Potosí
-__export__.res_country_state_ciudad_05SON,05,SON,Empalme
-__export__.res_country_state_ciudad_05TAB,05,TAB,Jalpa de Méndez
-__export__.res_country_state_ciudad_05TAM,05,TAM,Heroica Matamoros
-__export__.res_country_state_ciudad_05TLA,05,TLA,Calpulalpan
-__export__.res_country_state_ciudad_05VER,05,VER,Agua dulce
-__export__.res_country_state_ciudad_05YUC,05,YUC,Valladolid
-__export__.res_country_state_ciudad_05ZAC,05,ZAC,Río Grande
-__export__.res_country_state_ciudad_06AGU,06,AGU,Rincón de Romos
-__export__.res_country_state_ciudad_06BCN,06,BCN,Rodolfo Sánchez T. (Maneadero)
-__export__.res_country_state_ciudad_06BCS,06,BCS,Puerto Adolfo López Mateos
-__export__.res_country_state_ciudad_06CAM,06,CAM,Sabancuy
-__export__.res_country_state_ciudad_06COA,06,COA,Piedras Negras
-__export__.res_country_state_ciudad_06CHH,06,CHH,Juárez
-__export__.res_country_state_ciudad_06CHP,06,CHP,Jiquipilas
-__export__.res_country_state_ciudad_06DIF,06,DIF,Ciudad de México
-__export__.res_country_state_ciudad_06DUR,06,DUR,San Juan del Río del Centauro del Norte
-__export__.res_country_state_ciudad_06GRO,06,GRO,Ayutla de los Libres
-__export__.res_country_state_ciudad_06GUA,06,GUA,Irapuato
-__export__.res_country_state_ciudad_06HID,06,HID,Tulancingo
-__export__.res_country_state_ciudad_06JAL,06,JAL,Puerto Vallarta
-__export__.res_country_state_ciudad_06MEX,06,MEX,Huixquilucan de Degollado
-__export__.res_country_state_ciudad_06MIC,06,MIC,Morelia
-__export__.res_country_state_ciudad_06MOR,06,MOR,Santa Rosa Treinta
-__export__.res_country_state_ciudad_06NAY,06,NAY,Compostela
-__export__.res_country_state_ciudad_06NLE,06,NLE,Montemorelos
-__export__.res_country_state_ciudad_06OAX,06,OAX,Heroica Ciudad de Huajuapan de León
-__export__.res_country_state_ciudad_06PUE,06,PUE,Teziutlan
-__export__.res_country_state_ciudad_06ROO,06,ROO,Kantunilkín
-__export__.res_country_state_ciudad_06SIN,06,SIN,Guamúchil
-__export__.res_country_state_ciudad_06SLP,06,SLP,Soledad de Graciano Sánchez
-__export__.res_country_state_ciudad_06SON,06,SON,Heroica Guaymas
-__export__.res_country_state_ciudad_06TAM,06,TAM,Nuevo Laredo
-__export__.res_country_state_ciudad_06TLA,06,TLA,Chiautempan
-__export__.res_country_state_ciudad_06VER,06,VER,Coatzacoalcos
-__export__.res_country_state_ciudad_06YUC,06,YUC,Kanasín
-__export__.res_country_state_ciudad_06ZAC,06,ZAC,Ciudad Cuauhtémoc
-__export__.res_country_state_ciudad_07AGU,07,AGU,Asientos
-__export__.res_country_state_ciudad_07BCN,07,BCN,San Felipe
-__export__.res_country_state_ciudad_07BCS,07,BCS,Todos Santos
-__export__.res_country_state_ciudad_07CAM,07,CAM,Hopelchén
-__export__.res_country_state_ciudad_07COA,07,COA,Sabinas
-__export__.res_country_state_ciudad_07CHH,07,CHH,Nuevo Casas Grandes
-__export__.res_country_state_ciudad_07CHP,07,CHP,Villaflores
-__export__.res_country_state_ciudad_07DIF,07,DIF,Ciudad de México
-__export__.res_country_state_ciudad_07DUR,07,DUR,Peñón Blanco
-__export__.res_country_state_ciudad_07GRO,07,GRO,Atoyac de Álvarez
-__export__.res_country_state_ciudad_07GUA,07,GUA,León de los Aldama
-__export__.res_country_state_ciudad_07HID,07,HID,Zimapan
-__export__.res_country_state_ciudad_07JAL,07,JAL,San Juan de los Lagos
-__export__.res_country_state_ciudad_07MEX,07,MEX,Los Reyes Acaquilpan (La Paz)
-__export__.res_country_state_ciudad_07MIC,07,MIC,Pátzcuaro
-__export__.res_country_state_ciudad_07MOR,07,MOR,Zacatepec de Hidalgo
-__export__.res_country_state_ciudad_07NAY,07,NAY,Francisco I. Madero (Puga)
-__export__.res_country_state_ciudad_07NLE,07,NLE,Monterrey
-__export__.res_country_state_ciudad_07OAX,07,OAX,Loma Bonita
-__export__.res_country_state_ciudad_07PUE,07,PUE,San Andrés Cholula
-__export__.res_country_state_ciudad_07ROO,07,ROO,Isla Mujeres
-__export__.res_country_state_ciudad_07SIN,07,SIN,Navolato
-__export__.res_country_state_ciudad_07SLP,07,SLP,Charcas
-__export__.res_country_state_ciudad_07SON,07,SON,Hermosillo
-__export__.res_country_state_ciudad_07TAB,07,TAB,Macuspana
-__export__.res_country_state_ciudad_07TAM,07,TAM,Reynosa
-__export__.res_country_state_ciudad_07VER,07,VER,Córdoba
-__export__.res_country_state_ciudad_07ZAC,07,ZAC,Ojocaliente
-__export__.res_country_state_ciudad_08AGU,08,AGU,Tepezalá
-__export__.res_country_state_ciudad_08BCS,08,BCS,Heroica Mulegé
-__export__.res_country_state_ciudad_08CAM,08,CAM,Champotón
-__export__.res_country_state_ciudad_08COA,08,COA,Saltillo
-__export__.res_country_state_ciudad_08CHP,08,CHP,Las Margaritas
-__export__.res_country_state_ciudad_08DIF,08,DIF,Ciudad de México
-__export__.res_country_state_ciudad_08DUR,08,DUR,Francisco I. Madero
-__export__.res_country_state_ciudad_08GUA,08,GUA,Moroleón
-__export__.res_country_state_ciudad_08HID,08,HID,Huejutla de Reyes
-__export__.res_country_state_ciudad_08JAL,08,JAL,Tepatitlán de Morelos
-__export__.res_country_state_ciudad_08MEX,08,MEX,Metepec
-__export__.res_country_state_ciudad_08MIC,08,MIC,Sahuayo de Morelos
-__export__.res_country_state_ciudad_08MOR,08,MOR,Tlaquiltenango
-__export__.res_country_state_ciudad_08NAY,08,NAY,Villa Hidalgo (El Nuevo)
-__export__.res_country_state_ciudad_08NLE,08,NLE,Ciudad Sabinas Hidalgo
-__export__.res_country_state_ciudad_08OAX,08,OAX,Puerto Escondido
-__export__.res_country_state_ciudad_08PUE,08,PUE,San Pedro Cholula
-__export__.res_country_state_ciudad_08ROO,08,ROO,Bacalar
-__export__.res_country_state_ciudad_08SIN,08,SIN,Quila
-__export__.res_country_state_ciudad_08SLP,08,SLP,Salinas de Hidalgo
-__export__.res_country_state_ciudad_08SON,08,SON,Huatabampo
-__export__.res_country_state_ciudad_08TAB,08,TAB,Tenosique de Pino Suárez
-__export__.res_country_state_ciudad_08TAM,08,TAM,Ciudad Río Bravo
-__export__.res_country_state_ciudad_08VER,08,VER,Tres Valles
-__export__.res_country_state_ciudad_08ZAC,08,ZAC,Villa Hidalgo
-__export__.res_country_state_ciudad_09AGU,09,AGU,Cosío
-__export__.res_country_state_ciudad_09BCS,09,BCS,Villa Alberto Andrés Alvarado Arámburo
-__export__.res_country_state_ciudad_09CAM,09,CAM,Hecelchakán
-__export__.res_country_state_ciudad_09COA,09,COA,Nueva Rosita
-__export__.res_country_state_ciudad_09CHH,09,CHH,Madera
-__export__.res_country_state_ciudad_09CHP,09,CHP,Arriaga
-__export__.res_country_state_ciudad_09DIF,09,DIF,Ciudad de México
-__export__.res_country_state_ciudad_09DUR,09,DUR,Nombre de Dios
-__export__.res_country_state_ciudad_09GRO,09,GRO,San Jerónimo de Juárez
-__export__.res_country_state_ciudad_09GUA,09,GUA,Salamanca
-__export__.res_country_state_ciudad_09HID,09,HID,Tlaxcoapan
-__export__.res_country_state_ciudad_09JAL,09,JAL,Tlaquepaque
-__export__.res_country_state_ciudad_09MEX,09,MEX,Naucalpan de Juárez
-__export__.res_country_state_ciudad_09MIC,09,MIC,Uruapan
-__export__.res_country_state_ciudad_09NAY,09,NAY,Ruiz
-__export__.res_country_state_ciudad_09NLE,09,NLE,San Nicolás de los Garza
-__export__.res_country_state_ciudad_09OAX,09,OAX,Río Grande o Piedra Parada
-__export__.res_country_state_ciudad_09PUE,09,PUE,Huauchinango
-__export__.res_country_state_ciudad_09SIN,09,SIN,Ahome
-__export__.res_country_state_ciudad_09SLP,09,SLP,Cárdenas
-__export__.res_country_state_ciudad_09SON,09,SON,Navojoa
-__export__.res_country_state_ciudad_09TAB,09,TAB,Teapa
-__export__.res_country_state_ciudad_09TAM,09,TAM,San Fernando
-__export__.res_country_state_ciudad_09VER,09,VER,Jáltipan de Morelos
-__export__.res_country_state_ciudad_09ZAC,09,ZAC,Villanueva
-__export__.res_country_state_ciudad_10BCS,10,BCS,San Ignacio
-__export__.res_country_state_ciudad_10COA,10,COA,San Pedro
-__export__.res_country_state_ciudad_10CHH,10,CHH,Colonia Anáhuac
-__export__.res_country_state_ciudad_10CHP,10,CHP,Palenque
-__export__.res_country_state_ciudad_10DIF,10,DIF,Ciudad de México
-__export__.res_country_state_ciudad_10DUR,10,DUR,Vicente Guerrero
-__export__.res_country_state_ciudad_10GRO,10,GRO,Ciudad Apaxtla de Castrejón
-__export__.res_country_state_ciudad_10GUA,10,GUA,San Francisco del Rincón
-__export__.res_country_state_ciudad_10HID,10,HID,Tizayuca
-__export__.res_country_state_ciudad_10JAL,10,JAL,Zapopan
-__export__.res_country_state_ciudad_10MEX,10,MEX,Ciudad Nezahualcoyotl
-__export__.res_country_state_ciudad_10MIC,10,MIC,Zacapu
-__export__.res_country_state_ciudad_10NAY,10,NAY,San Blas
-__export__.res_country_state_ciudad_10NLE,10,NLE,Ciudad Santa Catarina
-__export__.res_country_state_ciudad_10PUE,10,PUE,Acatlán de Osorio
-__export__.res_country_state_ciudad_10SIN,10,SIN,Higuera de Zaragoza
-__export__.res_country_state_ciudad_10SLP,10,SLP,Cerritos
-__export__.res_country_state_ciudad_10SON,10,SON,Heroica Nogales
-__export__.res_country_state_ciudad_10TAB,10,TAB,Paraíso
-__export__.res_country_state_ciudad_10TAM,10,TAM,Tampico
-__export__.res_country_state_ciudad_10VER,10,VER,Xalapa-Enríquez
-__export__.res_country_state_ciudad_10ZAC,10,ZAC,Villa de Cos
-__export__.res_country_state_ciudad_11BCS,11,BCS,Guerrero Negro
-__export__.res_country_state_ciudad_11CAM,11,CAM,Pomuch
-__export__.res_country_state_ciudad_11COA,11,COA,Torreón
-__export__.res_country_state_ciudad_11CHH,11,CHH,Juan Aldama
-__export__.res_country_state_ciudad_11CHP,11,CHP,Ocosingo
-__export__.res_country_state_ciudad_11DIF,11,DIF,Ciudad de México
-__export__.res_country_state_ciudad_11DUR,11,DUR,El Salto
-__export__.res_country_state_ciudad_11GRO,11,GRO,Ciudad Altamirano
-__export__.res_country_state_ciudad_11GUA,11,GUA,Silao
-__export__.res_country_state_ciudad_11HID,11,HID,Santiago Tulantepec
-__export__.res_country_state_ciudad_11JAL,11,JAL,Tlajomulco de Zúñiga
-__export__.res_country_state_ciudad_11MEX,11,MEX,Villa Nicolás Romero
-__export__.res_country_state_ciudad_11MIC,11,MIC,Zamora de Hidalgo
-__export__.res_country_state_ciudad_11NAY,11,NAY,Ixtlán del Río
-__export__.res_country_state_ciudad_11NLE,11,NLE,Doctor Arroyo
-__export__.res_country_state_ciudad_11OAX,11,OAX,Santiago Suchilquitongo
-__export__.res_country_state_ciudad_11PUE,11,PUE,Cuautlancingo
-__export__.res_country_state_ciudad_11SIN,11,SIN,Choix
-__export__.res_country_state_ciudad_11SLP,11,SLP,Tamuin
-__export__.res_country_state_ciudad_11SON,11,SON,Puerto Peñasco
-__export__.res_country_state_ciudad_11TAB,11,TAB,Frontera
-__export__.res_country_state_ciudad_11TAM,11,TAM,Ciudad Victoria
-__export__.res_country_state_ciudad_11VER,11,VER,Minatitlán
-__export__.res_country_state_ciudad_11ZAC,11,ZAC,Nochistlán de Mejía
-__export__.res_country_state_ciudad_12BCS,12,BCS,Santa Rosalía
-__export__.res_country_state_ciudad_12COA,12,COA,Castaños
-__export__.res_country_state_ciudad_12CHH,12,CHH,José Mariano Jiménez
-__export__.res_country_state_ciudad_12CHP,12,CHP,Tonalá
-__export__.res_country_state_ciudad_12DIF,12,DIF,Ciudad de México
-__export__.res_country_state_ciudad_12DUR,12,DUR,Santa María del Oro
-__export__.res_country_state_ciudad_12GRO,12,GRO,Buenavista de Cuellar
-__export__.res_country_state_ciudad_12GUA,12,GUA,Jerécuaro
-__export__.res_country_state_ciudad_12HID,12,HID,Ixmiquilpan
-__export__.res_country_state_ciudad_12JAL,12,JAL,Tonalá
-__export__.res_country_state_ciudad_12MEX,12,MEX,Tecamac de Felipe Villanueva
-__export__.res_country_state_ciudad_12MIC,12,MIC,Heroica Zitácuaro
-__export__.res_country_state_ciudad_12NAY,12,NAY,Bucerías
-__export__.res_country_state_ciudad_12NLE,12,NLE,Ciénega de Flores
-__export__.res_country_state_ciudad_12OAX,12,OAX,San Felipe Jalapa de Díaz
-__export__.res_country_state_ciudad_12PUE,12,PUE,Tepeaca
-__export__.res_country_state_ciudad_12SIN,12,SIN,Villa Unión
-__export__.res_country_state_ciudad_12SLP,12,SLP,Tamasopo
-__export__.res_country_state_ciudad_12SON,12,SON,Heroica Ciudad de Cananea
-__export__.res_country_state_ciudad_12TAB,12,TAB,Cunduacán
-__export__.res_country_state_ciudad_12TAM,12,TAM,González
-__export__.res_country_state_ciudad_12VER,12,VER,Orizaba
-__export__.res_country_state_ciudad_12ZAC,12,ZAC,Víctor Rosales
-__export__.res_country_state_ciudad_13COA,13,COA,Francisco I. Madero (Chávez)
-__export__.res_country_state_ciudad_13CHH,13,CHH,Manuel Ojinaga
-__export__.res_country_state_ciudad_13CHP,13,CHP,Mapastepec
-__export__.res_country_state_ciudad_13DIF,13,DIF,Ciudad de México
-__export__.res_country_state_ciudad_13GRO,13,GRO,Cutzamala de Pinzón
-__export__.res_country_state_ciudad_13GUA,13,GUA,Santiago Maravatío
-__export__.res_country_state_ciudad_13HID,13,HID,Tepeji del Rio
-__export__.res_country_state_ciudad_13JAL,13,JAL,Tuxpan
-__export__.res_country_state_ciudad_13MEX,13,MEX,Tepotzotlán
-__export__.res_country_state_ciudad_13MIC,13,MIC,Paracho de Verduzco
-__export__.res_country_state_ciudad_13NAY,13,NAY,Las Varas
-__export__.res_country_state_ciudad_13NLE,13,NLE,Hualahuises
-__export__.res_country_state_ciudad_13OAX,13,OAX,Bahias de Huatulco
-__export__.res_country_state_ciudad_13PUE,13,PUE,Tecamachalco
-__export__.res_country_state_ciudad_13SIN,13,SIN,Sinaloa de Leyva
-__export__.res_country_state_ciudad_13SLP,13,SLP,Ciudad del Maíz
-__export__.res_country_state_ciudad_13SON,13,SON,Sonoita
-__export__.res_country_state_ciudad_13TAB,13,TAB,Huimanguillo
-__export__.res_country_state_ciudad_13TAM,13,TAM,Jaumave
-__export__.res_country_state_ciudad_13VER,13,VER,Papantla de Olarte
-__export__.res_country_state_ciudad_13ZAC,13,ZAC,Valparaíso
-__export__.res_country_state_ciudad_14COA,14,COA,Cuatro Ciénegas de Carranza
-__export__.res_country_state_ciudad_14CHH,14,CHH,Bachíniva
-__export__.res_country_state_ciudad_14CHP,14,CHP,Las Rosas
-__export__.res_country_state_ciudad_14DIF,14,DIF,Ciudad de México
-__export__.res_country_state_ciudad_14GRO,14,GRO,Coyuca de Catalán
-__export__.res_country_state_ciudad_14GUA,14,GUA,Romita
-__export__.res_country_state_ciudad_14HID,14,HID,Cruz Azul
-__export__.res_country_state_ciudad_14JAL,14,JAL,Tototlán
-__export__.res_country_state_ciudad_14MEX,14,MEX,Tlalnepantla de Baz
-__export__.res_country_state_ciudad_14MIC,14,MIC,Tangancícuaro de Arista
-__export__.res_country_state_ciudad_14NAY,14,NAY,Xalisco
-__export__.res_country_state_ciudad_14OAX,14,OAX,Putla Villa de Guerrero
-__export__.res_country_state_ciudad_14PUE,14,PUE,Zacatlán
-__export__.res_country_state_ciudad_14SIN,14,SIN,Mocorito
-__export__.res_country_state_ciudad_14SLP,14,SLP,Cedral
-__export__.res_country_state_ciudad_14SON,14,SON,Magdalena de Kino
-__export__.res_country_state_ciudad_14TAM,14,TAM,Ciudad Gustavo Díaz Ordaz
-__export__.res_country_state_ciudad_14VER,14,VER,Poza Rica de Hidalgo
-__export__.res_country_state_ciudad_14ZAC,14,ZAC,Luis Moya
-__export__.res_country_state_ciudad_15COA,15,COA,Nadadores
-__export__.res_country_state_ciudad_15CHH,15,CHH,Saucillo
-__export__.res_country_state_ciudad_15CHP,15,CHP,Chiapa de Corzo
-__export__.res_country_state_ciudad_15DIF,15,DIF,Ciudad de México
-__export__.res_country_state_ciudad_15GRO,15,GRO,Tierra Colorada
-__export__.res_country_state_ciudad_15GUA,15,GUA,Tarandacuao
-__export__.res_country_state_ciudad_15HID,15,HID,Tepeapulco
-__export__.res_country_state_ciudad_15JAL,15,JAL,San Diego de Alejandría
-__export__.res_country_state_ciudad_15MEX,15,MEX,Santa Maria Tultepec
-__export__.res_country_state_ciudad_15MIC,15,MIC,Maravatío de Ocampo
-__export__.res_country_state_ciudad_15NAY,15,NAY,San pedro Lagunillas
-__export__.res_country_state_ciudad_15NLE,15,NLE,Cadereyta Jiménez
-__export__.res_country_state_ciudad_15OAX,15,OAX,Cosolapa
-__export__.res_country_state_ciudad_15PUE,15,PUE,Xicotepec
-__export__.res_country_state_ciudad_15SIN,15,SIN,Angostura
-__export__.res_country_state_ciudad_15SLP,15,SLP,Tierra Nueva
-__export__.res_country_state_ciudad_15TAM,15,TAM,Estación Manuel (Úrsulo Galván)
-__export__.res_country_state_ciudad_15VER,15,VER,San Andrés Tuxtla
-__export__.res_country_state_ciudad_15ZAC,15,ZAC,Moyahua de Estrada
-__export__.res_country_state_ciudad_16COA,16,COA,Ramos Arizpe
-__export__.res_country_state_ciudad_16CHP,16,CHP,Cacahoatán
-__export__.res_country_state_ciudad_16DIF,16,DIF,Ciudad de México
-__export__.res_country_state_ciudad_16GRO,16,GRO,Coyuca de Benítez
-__export__.res_country_state_ciudad_16GUA,16,GUA,Huanímaro
-__export__.res_country_state_ciudad_16JAL,16,JAL,La Resolana
-__export__.res_country_state_ciudad_16MEX,16,MEX,Tultitlán de Mariano Escobedo
-__export__.res_country_state_ciudad_16MIC,16,MIC,Zinapécuaro de Figueroa
-__export__.res_country_state_ciudad_16NAY,16,NAY,La peñita de Jaltemba
-__export__.res_country_state_ciudad_16OAX,16,OAX,Tlacolula de Matamoros
-__export__.res_country_state_ciudad_16PUE,16,PUE,Ciudad Serdán
-__export__.res_country_state_ciudad_16SIN,16,SIN,San Blas
-__export__.res_country_state_ciudad_16SLP,16,SLP,Villa de Reyes
-__export__.res_country_state_ciudad_16TAM,16,TAM,Xicoténcatl
-__export__.res_country_state_ciudad_16VER,16,VER,Túxpam de Rodríguez Cano
-__export__.res_country_state_ciudad_16ZAC,16,ZAC,Sombrerete
-__export__.res_country_state_ciudad_17COA,17,COA,Nava
-__export__.res_country_state_ciudad_17CHP,17,CHP,Ocozocoautla de Espinosa
-__export__.res_country_state_ciudad_17GRO,17,GRO,Olinalá
-__export__.res_country_state_ciudad_17GUA,17,GUA,Comonfort
-__export__.res_country_state_ciudad_17JAL,17,JAL,Atotonilco el Alto
-__export__.res_country_state_ciudad_17MEX,17,MEX,Cuautitlán
-__export__.res_country_state_ciudad_17MIC,17,MIC,Puruándiro
-__export__.res_country_state_ciudad_17NAY,17,NAY,Jala
-__export__.res_country_state_ciudad_17NLE,17,NLE,Santiago
-__export__.res_country_state_ciudad_17OAX,17,OAX,San Pablo Villa de Mitla
-__export__.res_country_state_ciudad_17PUE,17,PUE,Amozoc
-__export__.res_country_state_ciudad_17SIN,17,SIN,La Cruz
-__export__.res_country_state_ciudad_17SLP,17,SLP,Fracción el Refugio
-__export__.res_country_state_ciudad_17TAM,17,TAM,Ciudad Miguel Alemán
-__export__.res_country_state_ciudad_17VER,17,VER,Veracruz
-__export__.res_country_state_ciudad_17ZAC,17,ZAC,Jalpa
-__export__.res_country_state_ciudad_18COA,18,COA,Zaragoza
-__export__.res_country_state_ciudad_18CHP,18,CHP,Cintalapa de Figueroa
-__export__.res_country_state_ciudad_18GRO,18,GRO,Marquelia
-__export__.res_country_state_ciudad_18GUA,18,GUA,Uriangato
-__export__.res_country_state_ciudad_18JAL,18,JAL,Jalostotitlán
-__export__.res_country_state_ciudad_18MEX,18,MEX,Ixtapaluca
-__export__.res_country_state_ciudad_18MIC,18,MIC,Yurécuaro
-__export__.res_country_state_ciudad_18NAY,18,NAY,Ahuacatlán
-__export__.res_country_state_ciudad_18NLE,18,NLE,El cercado
-__export__.res_country_state_ciudad_18OAX,18,OAX,Natividad
-__export__.res_country_state_ciudad_18SIN,18,SIN,El rosario
-__export__.res_country_state_ciudad_18SLP,18,SLP,Tamazunchale
-__export__.res_country_state_ciudad_18TAM,18,TAM,Soto la Marina
-__export__.res_country_state_ciudad_18VER,18,VER,Tierra Blanca
-__export__.res_country_state_ciudad_18ZAC,18,ZAC,Loreto
-__export__.res_country_state_ciudad_19COA,19,COA,San Buenaventura
-__export__.res_country_state_ciudad_19CHP,19,CHP,Pichucalco
-__export__.res_country_state_ciudad_19GRO,19,GRO,Zumpango del Río
-__export__.res_country_state_ciudad_19GUA,19,GUA,Pénjamo
-__export__.res_country_state_ciudad_19JAL,19,JAL,Poncitlán
-__export__.res_country_state_ciudad_19MEX,19,MEX,Texcoco de Mora
-__export__.res_country_state_ciudad_19MIC,19,MIC,Huetamo de Núñez
-__export__.res_country_state_ciudad_19OAX,19,OAX,Teotitlán de Flores Magón
-__export__.res_country_state_ciudad_19SIN,19,SIN,Estación Naranjo
-__export__.res_country_state_ciudad_19SLP,19,SLP,Santa María del Río
-__export__.res_country_state_ciudad_19TAM,19,TAM,Ciudad Tula
-__export__.res_country_state_ciudad_19VER,19,VER,Cosamaloapan
-__export__.res_country_state_ciudad_19ZAC,19,ZAC,Juan Aldama
-__export__.res_country_state_ciudad_20COA,20,COA,Ciudad Melchor Múzquiz
-__export__.res_country_state_ciudad_20CHP,20,CHP,Puerto Madero (San Benito)
-__export__.res_country_state_ciudad_20GRO,20,GRO,San Luis de la Loma
-__export__.res_country_state_ciudad_20GUA,20,GUA,Cuerámaro
-__export__.res_country_state_ciudad_20JAL,20,JAL,Arandas
-__export__.res_country_state_ciudad_20MEX,20,MEX,Toluca de Lerdo
-__export__.res_country_state_ciudad_20MIC,20,MIC,Tacámbaro de Codallos
-__export__.res_country_state_ciudad_20NLE,20,NLE,Anáhuac
-__export__.res_country_state_ciudad_20OAX,20,OAX,Santa María Huatulco
-__export__.res_country_state_ciudad_20SIN,20,SIN,Aguaruto
-__export__.res_country_state_ciudad_20SLP,20,SLP,El Naranjo
-__export__.res_country_state_ciudad_20TAM,20,TAM,Nueva Ciudad Guerrero
-__export__.res_country_state_ciudad_20VER,20,VER,Carlos A. Carrillo
-__export__.res_country_state_ciudad_21COA,21,COA,Viesca
-__export__.res_country_state_ciudad_21CHP,21,CHP,Pijijiapan
-__export__.res_country_state_ciudad_21GRO,21,GRO,Petatlán
-__export__.res_country_state_ciudad_21GUA,21,GUA,Empalme Escobedo (Escobedo)
-__export__.res_country_state_ciudad_21JAL,21,JAL,Talpa de Allende
-__export__.res_country_state_ciudad_21MEX,21,MEX,Valle de Chalco Solidaridad
-__export__.res_country_state_ciudad_21MIC,21,MIC,Ciudad Lázaro Cárdenas
-__export__.res_country_state_ciudad_21NLE,21,NLE,García
-__export__.res_country_state_ciudad_21OAX,21,OAX,San Juan Bautista Cuicatlán
-__export__.res_country_state_ciudad_21SIN,21,SIN,Cosalá
-__export__.res_country_state_ciudad_21TAM,21,TAM,Valle Hermoso
-__export__.res_country_state_ciudad_21VER,21,VER,Pánuco
-__export__.res_country_state_ciudad_22COA,22,COA,Morelos
-__export__.res_country_state_ciudad_22CHP,22,CHP,Reforma
-__export__.res_country_state_ciudad_22GRO,22,GRO,La Unión
-__export__.res_country_state_ciudad_22GUA,22,GUA,San Luis de la Paz
-__export__.res_country_state_ciudad_22JAL,22,JAL,Etzatlán
-__export__.res_country_state_ciudad_22MEX,22,MEX,Tejupilco de Hidalgo
-__export__.res_country_state_ciudad_22MIC,22,MIC,Las Guacamayas
-__export__.res_country_state_ciudad_22NLE,22,NLE,Ciudad Benito Juárez
-__export__.res_country_state_ciudad_22OAX,22,OAX,Villa Sola de Vega
-__export__.res_country_state_ciudad_22SIN,22,SIN,San Ignacio
-__export__.res_country_state_ciudad_22VER,22,VER,Tampico Alto
-__export__.res_country_state_ciudad_23COA,23,COA,Arteaga
-__export__.res_country_state_ciudad_23CHP,23,CHP,Huixtla
-__export__.res_country_state_ciudad_23GRO,23,GRO,San Luis San Pedro
-__export__.res_country_state_ciudad_23GUA,23,GUA,Valle de Santiago
-__export__.res_country_state_ciudad_23JAL,23,JAL,Sayula
-__export__.res_country_state_ciudad_23MEX,23,MEX,Chalco de Díaz Covarrubias
-__export__.res_country_state_ciudad_23MIC,23,MIC,Jiquilpan de Juárez
-__export__.res_country_state_ciudad_23OAX,23,OAX,Ocotlán de Morelos
-__export__.res_country_state_ciudad_23SIN,23,SIN,Topolobampo
-__export__.res_country_state_ciudad_23VER,23,VER,Tempoal de Sánchez
-__export__.res_country_state_ciudad_24COA,24,COA,Allende
-__export__.res_country_state_ciudad_24CHP,24,CHP,Motozintla de Mendoza
-__export__.res_country_state_ciudad_24GRO,24,GRO,Teloloapan
-__export__.res_country_state_ciudad_24GUA,24,GUA,Abasolo
-__export__.res_country_state_ciudad_24JAL,24,JAL,Ahualulco de Mercado
-__export__.res_country_state_ciudad_24MEX,24,MEX,Amatepec
-__export__.res_country_state_ciudad_24MIC,24,MIC,Tuxpan
-__export__.res_country_state_ciudad_24OAX,24,OAX,Villa de Zaachila
-__export__.res_country_state_ciudad_24SIN,24,SIN,Lic. Benito Juárez (Campo Gobierno)
-__export__.res_country_state_ciudad_24VER,24,VER,Tantoyuca
-__export__.res_country_state_ciudad_25CHP,25,CHP,Acala
-__export__.res_country_state_ciudad_25GRO,25,GRO,Técpan de Galeana
-__export__.res_country_state_ciudad_25GUA,25,GUA,Rincón de Tamayo
-__export__.res_country_state_ciudad_25JAL,25,JAL,Autlán de Navarro
-__export__.res_country_state_ciudad_25MIC,25,MIC,Cotija de la Paz
-__export__.res_country_state_ciudad_25OAX,25,OAX,Miahuatlán de Porfirio Díaz
-__export__.res_country_state_ciudad_25VER,25,VER,Gutiérrez Zamora
-__export__.res_country_state_ciudad_26GRO,26,GRO,Huitzuco
-__export__.res_country_state_ciudad_26GUA,26,GUA,Villagrán
-__export__.res_country_state_ciudad_26JAL,26,JAL,Magdalena
-__export__.res_country_state_ciudad_26MEX,26,MEX,Melchor Ocampo
-__export__.res_country_state_ciudad_26MIC,26,MIC,Nueva Italia de Ruiz
-__export__.res_country_state_ciudad_26OAX,26,OAX,Unión Hidalgo
-__export__.res_country_state_ciudad_26VER,26,VER,Platón Sánchez
-__export__.res_country_state_ciudad_27GRO,27,GRO,Tixtla de Guerrero
-__export__.res_country_state_ciudad_27GUA,27,GUA,Yuriria
-__export__.res_country_state_ciudad_27JAL,27,JAL,San Julián
-__export__.res_country_state_ciudad_27MEX,27,MEX,San Vicente Chicoloapan de Juárez
-__export__.res_country_state_ciudad_27MIC,27,MIC,Cuitzeo del Porvenir
-__export__.res_country_state_ciudad_27OAX,27,OAX,El Camarón
-__export__.res_country_state_ciudad_27VER,27,VER,Juan Rodríguez Clara
-__export__.res_country_state_ciudad_28GRO,28,GRO,Tepecoacuilco de Trujano
-__export__.res_country_state_ciudad_28GUA,28,GUA,Apaseo el Grande
-__export__.res_country_state_ciudad_28JAL,28,JAL,Cocula
-__export__.res_country_state_ciudad_28MEX,28,MEX,Capulhuac
-__export__.res_country_state_ciudad_28OAX,28,OAX,San Pedro Mixtepec -Dto. 22-
-__export__.res_country_state_ciudad_28VER,28,VER,Huatusco de Chicuellar
-__export__.res_country_state_ciudad_29GRO,29,GRO,San Marcos
-__export__.res_country_state_ciudad_29GUA,29,GUA,Purísima de Bustos
-__export__.res_country_state_ciudad_29JAL,29,JAL,El Grullo
-__export__.res_country_state_ciudad_29MEX,29,MEX,Juchitepec de Mariano Riva Palacio
-__export__.res_country_state_ciudad_29OAX,29,OAX,Santa Cruz Itundujia
-__export__.res_country_state_ciudad_29VER,29,VER,Ixtaczoquitlán
-__export__.res_country_state_ciudad_30GRO,30,GRO,Azoyú
-__export__.res_country_state_ciudad_30GUA,30,GUA,Salvatierra
-__export__.res_country_state_ciudad_30JAL,30,JAL,San Miguel el Alto
-__export__.res_country_state_ciudad_30MEX,30,MEX,Tequixquiac
-__export__.res_country_state_ciudad_30OAX,30,OAX,Chahuites
-__export__.res_country_state_ciudad_30VER,30,VER,Río Blanco
-__export__.res_country_state_ciudad_31GRO,31,GRO,Tlapehuala
-__export__.res_country_state_ciudad_31GUA,31,GUA,Marfil
-__export__.res_country_state_ciudad_31JAL,31,JAL,Tala
-__export__.res_country_state_ciudad_31MEX,31,MEX,Xonacatlán
-__export__.res_country_state_ciudad_31OAX,31,OAX,Heroica Ciudad de Ejutla de Crespo
-__export__.res_country_state_ciudad_31VER,31,VER,Isla
-__export__.res_country_state_ciudad_32GRO,32,GRO,San Luis Acatlán
-__export__.res_country_state_ciudad_32GUA,32,GUA,San José Iturbide
-__export__.res_country_state_ciudad_32JAL,32,JAL,La Barca
-__export__.res_country_state_ciudad_32MEX,32,MEX,San Mateo Atenco
-__export__.res_country_state_ciudad_32OAX,32,OAX,San Pedro Tapanatepec
-__export__.res_country_state_ciudad_32VER,32,VER,Cuitláhuac
-__export__.res_country_state_ciudad_33GRO,33,GRO,Chilapa de Álvarez
-__export__.res_country_state_ciudad_33GUA,33,GUA,Apaseo el Alto
-__export__.res_country_state_ciudad_33JAL,33,JAL,Jamay
-__export__.res_country_state_ciudad_33OAX,33,OAX,Vicente Camalote
-__export__.res_country_state_ciudad_33VER,33,VER,Fortín de las Flores
-__export__.res_country_state_ciudad_34GRO,34,GRO,Tlapa de Comonfort
-__export__.res_country_state_ciudad_34GUA,34,GUA,Ciudad Manuel Doblado
-__export__.res_country_state_ciudad_34JAL,34,JAL,Yahualica de González Gallo
-__export__.res_country_state_ciudad_34OAX,34,OAX,Villa de Tamazulápam del Progreso
-__export__.res_country_state_ciudad_34VER,34,VER,Alvarado
-__export__.res_country_state_ciudad_35GRO,35,GRO,Tlalixtaquilla
-__export__.res_country_state_ciudad_35GUA,35,GUA,Jaral del Progreso
-__export__.res_country_state_ciudad_35JAL,35,JAL,Colotlán
-__export__.res_country_state_ciudad_35OAX,35,OAX,San Juan Bautista lo de Soto
-__export__.res_country_state_ciudad_35VER,35,VER,José Cardel
-__export__.res_country_state_ciudad_36GRO,36,GRO,Cuajinicuilapa
-__export__.res_country_state_ciudad_36GUA,36,GUA,San Diego de la Unión
-__export__.res_country_state_ciudad_36JAL,36,JAL,Cihuatlán
-__export__.res_country_state_ciudad_36MEX,36,MEX,Chiconcuac
-__export__.res_country_state_ciudad_36OAX,36,OAX,San Juan Cacahuatepec
-__export__.res_country_state_ciudad_36VER,36,VER,Banderilla
-__export__.res_country_state_ciudad_37GRO,37,GRO,Huamuxtitlan
-__export__.res_country_state_ciudad_37GUA,37,GUA,Santa Cruz Juventino Rosas
-__export__.res_country_state_ciudad_37JAL,37,JAL,Zapotiltic
-__export__.res_country_state_ciudad_37OAX,37,OAX,San Pedro Totolapa
-__export__.res_country_state_ciudad_37VER,37,VER,Paraje Nuevo
-__export__.res_country_state_ciudad_38GRO,38,GRO,Cruz Grande
-__export__.res_country_state_ciudad_38GUA,38,GUA,Doctor Mora
-__export__.res_country_state_ciudad_38JAL,38,JAL,Villa Corona
-__export__.res_country_state_ciudad_38OAX,38,OAX,San Miguel el Grande
-__export__.res_country_state_ciudad_38VER,38,VER,Playa Vicente
-__export__.res_country_state_ciudad_39GRO,39,GRO,Ocotito
-__export__.res_country_state_ciudad_39GUA,39,GUA,Dolores Hgo. Cuna de la Indep. Nal.
-__export__.res_country_state_ciudad_39JAL,39,JAL,Teocaltiche
-__export__.res_country_state_ciudad_39MEX,39,MEX,Almoloya de Juárez
-__export__.res_country_state_ciudad_39OAX,39,OAX,Zimatlán de Álvarez
-__export__.res_country_state_ciudad_39VER,39,VER,Altotonga
-__export__.res_country_state_ciudad_40GRO,40,GRO,Copala
-__export__.res_country_state_ciudad_40MEX,40,MEX,Ocoyoacac
-__export__.res_country_state_ciudad_40OAX,40,OAX,San Pablo Huitzo
-__export__.res_country_state_ciudad_40VER,40,VER,Juan Díaz Covarrubias
-__export__.res_country_state_ciudad_41GRO,41,GRO,Zihuatanejo
-__export__.res_country_state_ciudad_41JAL,41,JAL,Tequila
-__export__.res_country_state_ciudad_41MEX,41,MEX,Zumpango
-__export__.res_country_state_ciudad_41OAX,41,OAX,San Francisco Telixtlahuaca
-__export__.res_country_state_ciudad_41VER,41,VER,Cuichapa
-__export__.res_country_state_ciudad_42JAL,42,JAL,El Quince (San José el Quince)
-__export__.res_country_state_ciudad_42OAX,42,OAX,Mariscala de Juárez
-__export__.res_country_state_ciudad_42VER,42,VER,Santiago Tuxtla
-__export__.res_country_state_ciudad_43JAL,43,JAL,San José el Verde (El Verde)
-__export__.res_country_state_ciudad_43OAX,43,OAX,Santiago Pinotepa Nacional
-__export__.res_country_state_ciudad_43VER,43,VER,Huayacocotla
-__export__.res_country_state_ciudad_44JAL,44,JAL,Jocotepec
-__export__.res_country_state_ciudad_44OAX,44,OAX,Santiago Jamiltepec
-__export__.res_country_state_ciudad_44VER,44,VER,Paso de Ovejas
-__export__.res_country_state_ciudad_45JAL,45,JAL,Tecalitlán
-__export__.res_country_state_ciudad_45OAX,45,OAX,San Pedro Pochutla
-__export__.res_country_state_ciudad_45VER,45,VER,Catemaco
-__export__.res_country_state_ciudad_46JAL,46,JAL,Chapala
-__export__.res_country_state_ciudad_46OAX,46,OAX,Heroica Ciudad de Tlaxiaco
-__export__.res_country_state_ciudad_46VER,46,VER,Nogales
-__export__.res_country_state_ciudad_47JAL,47,JAL,Ajijic
-__export__.res_country_state_ciudad_47OAX,47,OAX,San Juan Bautista Valle Nacional
-__export__.res_country_state_ciudad_47VER,47,VER,Las Choapas
-__export__.res_country_state_ciudad_48JAL,48,JAL,San Ignacio Cerro Gordo
-__export__.res_country_state_ciudad_48OAX,48,OAX,Lagunas
-__export__.res_country_state_ciudad_48VER,48,VER,General Miguel Alemán (Potrero Nuevo)
-__export__.res_country_state_ciudad_49JAL,49,JAL,Zacoalco de Torres
-__export__.res_country_state_ciudad_49OAX,49,OAX,Ciudad Ixtepec
-__export__.res_country_state_ciudad_49VER,49,VER,Coatzintla
-__export__.res_country_state_ciudad_50JAL,50,JAL,Huejuquilla el Alto
-__export__.res_country_state_ciudad_50OAX,50,OAX,Santiago Juxtlahuaca
-__export__.res_country_state_ciudad_50VER,50,VER,Ángel R. Cabada
-__export__.res_country_state_ciudad_51JAL,51,JAL,Villa Hidalgo
-__export__.res_country_state_ciudad_51OAX,51,OAX,San Sebastián Tecomaxtlahuaca
-__export__.res_country_state_ciudad_51VER,51,VER,San Rafael
-__export__.res_country_state_ciudad_52JAL,52,JAL,Unión de San Antonio
-__export__.res_country_state_ciudad_52OAX,52,OAX,Asunción Nochixtlán
-__export__.res_country_state_ciudad_52VER,52,VER,Tlacojalpan
-__export__.res_country_state_ciudad_53JAL,53,JAL,Las Pintitas
-__export__.res_country_state_ciudad_53OAX,53,OAX,San Francisco Ixhuatán
-__export__.res_country_state_ciudad_53VER,53,VER,Cosoleacaque
-__export__.res_country_state_ciudad_54JAL,54,JAL,Tamazula de Gordiano
-__export__.res_country_state_ciudad_54OAX,54,OAX,San Blas Atempa
-__export__.res_country_state_ciudad_54VER,54,VER,Lerdo de Tejada
-__export__.res_country_state_ciudad_55JAL,55,JAL,Acatlán de Juárez
-__export__.res_country_state_ciudad_55OAX,55,OAX,Santo Domingo Tehuantepec
-__export__.res_country_state_ciudad_55VER,55,VER,Tihuatlán
-__export__.res_country_state_ciudad_56JAL,56,JAL,Valle de Guadalupe
-__export__.res_country_state_ciudad_56OAX,56,OAX,Cuilápam de Guerrero
-__export__.res_country_state_ciudad_56VER,56,VER,Atoyac
-__export__.res_country_state_ciudad_57OAX,57,OAX,El Rosario
-__export__.res_country_state_ciudad_57VER,57,VER,Huiloapan de Cuauhtémoc
-__export__.res_country_state_ciudad_58OAX,58,OAX,Santa Lucia del Camino
-__export__.res_country_state_ciudad_58VER,58,VER,Cazones de Herrera
-__export__.res_country_state_ciudad_59OAX,59,OAX,San Antonio de la Cal
-__export__.res_country_state_ciudad_59VER,59,VER,Yecuatla
-__export__.res_country_state_ciudad_60VER,60,VER,Soledad de Doblado
-__export__.res_country_state_ciudad_61VER,61,VER,Cerro Azul
-__export__.res_country_state_ciudad_62VER,62,VER,Tezonapa
-__export__.res_country_state_ciudad_66VER,66,VER,Sihuapan
-__export__.res_country_state_ciudad_67VER,67,VER,El Higo
-__export__.res_country_state_ciudad_68VER,68,VER,Paso del Macho
-__export__.res_country_state_ciudad_69VER,69,VER,Tlapacoyan
+cfd_mx.res_country_state_ciudad_01AGU,01,AGU,Aguascalientes
+cfd_mx.res_country_state_ciudad_01BCN,01,BCN,Ensenada
+cfd_mx.res_country_state_ciudad_01BCS,01,BCS,Ciudad Constitución
+cfd_mx.res_country_state_ciudad_01CAM,01,CAM,San Francisco de Campeche
+cfd_mx.res_country_state_ciudad_01COA,01,COA,Ciudad Acuña
+cfd_mx.res_country_state_ciudad_01COL,01,COL,Colima
+cfd_mx.res_country_state_ciudad_01CHH,01,CHH,Santa Rosalía de Camargo
+cfd_mx.res_country_state_ciudad_01CHP,01,CHP,Comitán de Domínguez
+cfd_mx.res_country_state_ciudad_01DIF,01,DIF,Ciudad de México
+cfd_mx.res_country_state_ciudad_01DUR,01,DUR,Victoria de Durango
+cfd_mx.res_country_state_ciudad_01GRO,01,GRO,Acapulco de Juárez
+cfd_mx.res_country_state_ciudad_01GUA,01,GUA,Acámbaro
+cfd_mx.res_country_state_ciudad_01HID,01,HID,Actopan
+cfd_mx.res_country_state_ciudad_01JAL,01,JAL,Ameca
+cfd_mx.res_country_state_ciudad_01MEX,01,MEX,Ciudad Adolfo López Mateos
+cfd_mx.res_country_state_ciudad_01MIC,01,MIC,Apatzingán de la Constitución
+cfd_mx.res_country_state_ciudad_01MOR,01,MOR,Cuautla (Cuautla de Morelos)
+cfd_mx.res_country_state_ciudad_01NAY,01,NAY,Santiago Ixcuintla
+cfd_mx.res_country_state_ciudad_01NLE,01,NLE,Ciudad Apodaca
+cfd_mx.res_country_state_ciudad_01OAX,01,OAX,Juchitán (Juchitán de Zaragoza)
+cfd_mx.res_country_state_ciudad_01PUE,01,PUE,Atlixco
+cfd_mx.res_country_state_ciudad_01QUE,01,QUE,Querétaro
+cfd_mx.res_country_state_ciudad_01ROO,01,ROO,Cancún
+cfd_mx.res_country_state_ciudad_01SIN,01,SIN,Los Mochis
+cfd_mx.res_country_state_ciudad_01SLP,01,SLP,Ciudad Valles
+cfd_mx.res_country_state_ciudad_01SON,01,SON,San Luis Río Colorado
+cfd_mx.res_country_state_ciudad_01TAB,01,TAB,Cárdenas
+cfd_mx.res_country_state_ciudad_01TAM,01,TAM,Altamira
+cfd_mx.res_country_state_ciudad_01TLA,01,TLA,Apizaco
+cfd_mx.res_country_state_ciudad_01VER,01,VER,Acayucan
+cfd_mx.res_country_state_ciudad_01YUC,01,YUC,Mérida
+cfd_mx.res_country_state_ciudad_01ZAC,01,ZAC,Fresnillo
+cfd_mx.res_country_state_ciudad_02AGU,02,AGU,Calvillo
+cfd_mx.res_country_state_ciudad_02BCN,02,BCN,Mexicali
+cfd_mx.res_country_state_ciudad_02BCS,02,BCS,La Paz
+cfd_mx.res_country_state_ciudad_02CAM,02,CAM,Ciudad del Carmen
+cfd_mx.res_country_state_ciudad_02COA,02,COA,Frontera
+cfd_mx.res_country_state_ciudad_02COL,02,COL,Manzanillo
+cfd_mx.res_country_state_ciudad_02CHH,02,CHH,Chihuahua
+cfd_mx.res_country_state_ciudad_02CHP,02,CHP,San Cristóbal de las Casas
+cfd_mx.res_country_state_ciudad_02DIF,02,DIF,Ciudad de México
+cfd_mx.res_country_state_ciudad_02DUR,02,DUR,Gómez Palacio
+cfd_mx.res_country_state_ciudad_02GRO,02,GRO,Chilpancingo de los Bravo
+cfd_mx.res_country_state_ciudad_02GUA,02,GUA,San miguel de Allende
+cfd_mx.res_country_state_ciudad_02HID,02,HID,Apan
+cfd_mx.res_country_state_ciudad_02JAL,02,JAL,Ciudad Guzmán
+cfd_mx.res_country_state_ciudad_02MEX,02,MEX,Chimalhuacán
+cfd_mx.res_country_state_ciudad_02MIC,02,MIC,Los Reyes de Salgado
+cfd_mx.res_country_state_ciudad_02MOR,02,MOR,Cuernavaca
+cfd_mx.res_country_state_ciudad_02NAY,02,NAY,Tepic
+cfd_mx.res_country_state_ciudad_02NLE,02,NLE,San Pedro Garza García
+cfd_mx.res_country_state_ciudad_02OAX,02,OAX,Oaxaca de Juárez
+cfd_mx.res_country_state_ciudad_02PUE,02,PUE,Izúcar de Matamoros
+cfd_mx.res_country_state_ciudad_02QUE,02,QUE,San Juan del Rio
+cfd_mx.res_country_state_ciudad_02ROO,02,ROO,Cozumel
+cfd_mx.res_country_state_ciudad_02SIN,02,SIN,Culiacán Rosales
+cfd_mx.res_country_state_ciudad_02SLP,02,SLP,Ébano
+cfd_mx.res_country_state_ciudad_02SON,02,SON,Agua Prieta
+cfd_mx.res_country_state_ciudad_02TAB,02,TAB,Villahermosa
+cfd_mx.res_country_state_ciudad_02TAM,02,TAM,Ciudad Camargo
+cfd_mx.res_country_state_ciudad_02TLA,02,TLA,Villa Vicente Guerrero
+cfd_mx.res_country_state_ciudad_02VER,02,VER,Naranjos
+cfd_mx.res_country_state_ciudad_02YUC,02,YUC,Tizimín
+cfd_mx.res_country_state_ciudad_02ZAC,02,ZAC,Jerez de García Salinas
+cfd_mx.res_country_state_ciudad_03AGU,03,AGU,San Francisco de los Romo
+cfd_mx.res_country_state_ciudad_03BCN,03,BCN,Tecate
+cfd_mx.res_country_state_ciudad_03BCS,03,BCS,Cabo San Lucas
+cfd_mx.res_country_state_ciudad_03CAM,03,CAM,Calkini
+cfd_mx.res_country_state_ciudad_03COA,03,COA,Matamoros
+cfd_mx.res_country_state_ciudad_03COL,03,COL,Tecoman
+cfd_mx.res_country_state_ciudad_03CHH,03,CHH,Cuauhtémoc
+cfd_mx.res_country_state_ciudad_03CHP,03,CHP,Tapachula de Córdova y Ordóñez
+cfd_mx.res_country_state_ciudad_03DIF,03,DIF,Ciudad de México
+cfd_mx.res_country_state_ciudad_03DUR,03,DUR,Ciudad Lerdo
+cfd_mx.res_country_state_ciudad_03GRO,03,GRO,Iguala de la Independencia
+cfd_mx.res_country_state_ciudad_03GUA,03,GUA,Celaya
+cfd_mx.res_country_state_ciudad_03HID,03,HID,Pachuca de Soto
+cfd_mx.res_country_state_ciudad_03JAL,03,JAL,Guadalajara
+cfd_mx.res_country_state_ciudad_03MEX,03,MEX,Coacalco de Berriozabal
+cfd_mx.res_country_state_ciudad_03MIC,03,MIC,Ciudad Hidalgo
+cfd_mx.res_country_state_ciudad_03MOR,03,MOR,Galeana
+cfd_mx.res_country_state_ciudad_03NAY,03,NAY,Tuxpan
+cfd_mx.res_country_state_ciudad_03NLE,03,NLE,Ciudad General Escobedo
+cfd_mx.res_country_state_ciudad_03OAX,03,OAX,Salina Cruz
+cfd_mx.res_country_state_ciudad_03PUE,03,PUE,Puebla (Heroica Puebla)
+cfd_mx.res_country_state_ciudad_03ROO,03,ROO,Felipe Carrillo Puerto
+cfd_mx.res_country_state_ciudad_03SIN,03,SIN,Escuinapa de Hidalgo
+cfd_mx.res_country_state_ciudad_03SLP,03,SLP,Matehuala
+cfd_mx.res_country_state_ciudad_03SON,03,SON,Heroica Caborca
+cfd_mx.res_country_state_ciudad_03TAB,03,TAB,Comalcalco
+cfd_mx.res_country_state_ciudad_03TAM,03,TAM,Ciudad Madero
+cfd_mx.res_country_state_ciudad_03TLA,03,TLA,Tlaxcala (Tlaxcala de Xicotencatl)
+cfd_mx.res_country_state_ciudad_03VER,03,VER,Boca del RÍo
+cfd_mx.res_country_state_ciudad_03YUC,03,YUC,Ticul
+cfd_mx.res_country_state_ciudad_03ZAC,03,ZAC,Zacatecas
+cfd_mx.res_country_state_ciudad_04AGU,04,AGU,Jesús María
+cfd_mx.res_country_state_ciudad_04BCN,04,BCN,Tijuana
+cfd_mx.res_country_state_ciudad_04BCS,04,BCS,San José del Cabo
+cfd_mx.res_country_state_ciudad_04CAM,04,CAM,Candelaria
+cfd_mx.res_country_state_ciudad_04COA,04,COA,Monclova
+cfd_mx.res_country_state_ciudad_04COL,04,COL,Ciudad de Villa de Álvarez
+cfd_mx.res_country_state_ciudad_04CHH,04,CHH,Delicias
+cfd_mx.res_country_state_ciudad_04CHP,04,CHP,Tuxtla Gutiérrez
+cfd_mx.res_country_state_ciudad_04DIF,04,DIF,Ciudad de México
+cfd_mx.res_country_state_ciudad_04DUR,04,DUR,Santiago Papasquiaro
+cfd_mx.res_country_state_ciudad_04GRO,04,GRO,Taxco de Alarcón
+cfd_mx.res_country_state_ciudad_04GUA,04,GUA,Cortazar
+cfd_mx.res_country_state_ciudad_04HID,04,HID,Cd. de Fray Bernardino de Sahagún
+cfd_mx.res_country_state_ciudad_04JAL,04,JAL,Lagos de Moreno
+cfd_mx.res_country_state_ciudad_04MEX,04,MEX,Cuautitlán Izcalli
+cfd_mx.res_country_state_ciudad_04MIC,04,MIC,Jacona de Plancarte
+cfd_mx.res_country_state_ciudad_04MOR,04,MOR,Jojutla
+cfd_mx.res_country_state_ciudad_04NAY,04,NAY,Acaponeta
+cfd_mx.res_country_state_ciudad_04NLE,04,NLE,Guadalupe
+cfd_mx.res_country_state_ciudad_04OAX,04,OAX,San Juan Bautista Tuxtepec
+cfd_mx.res_country_state_ciudad_04PUE,04,PUE,San Martín Texmelucan de Labastida
+cfd_mx.res_country_state_ciudad_04QUE,04,QUE,El Pueblito
+cfd_mx.res_country_state_ciudad_04ROO,04,ROO,Chetumal
+cfd_mx.res_country_state_ciudad_04SIN,04,SIN,Guasave
+cfd_mx.res_country_state_ciudad_04SLP,04,SLP,Rioverde
+cfd_mx.res_country_state_ciudad_04SON,04,SON,Ciudad Obregón
+cfd_mx.res_country_state_ciudad_04TAB,04,TAB,Emiliano Zapata
+cfd_mx.res_country_state_ciudad_04TAM,04,TAM,Ciudad Mante
+cfd_mx.res_country_state_ciudad_04TLA,04,TLA,Huamantla
+cfd_mx.res_country_state_ciudad_04VER,04,VER,Coatepec
+cfd_mx.res_country_state_ciudad_04YUC,04,YUC,Motul de Carrillo Puerto
+cfd_mx.res_country_state_ciudad_04ZAC,04,ZAC,Guadalupe
+cfd_mx.res_country_state_ciudad_05AGU,05,AGU,Pabellón de Arteaga
+cfd_mx.res_country_state_ciudad_05BCN,05,BCN,Playas de Rosarito
+cfd_mx.res_country_state_ciudad_05BCS,05,BCS,Loreto
+cfd_mx.res_country_state_ciudad_05CAM,05,CAM,Escárcega
+cfd_mx.res_country_state_ciudad_05COA,05,COA,Parras de la Fuente
+cfd_mx.res_country_state_ciudad_05COL,05,COL,Ciudad de Armería
+cfd_mx.res_country_state_ciudad_05CHH,05,CHH,Hidalgo del Parral
+cfd_mx.res_country_state_ciudad_05CHP,05,CHP,Venustiano Carranza
+cfd_mx.res_country_state_ciudad_05DIF,05,DIF,Ciudad de México
+cfd_mx.res_country_state_ciudad_05DUR,05,DUR,Canatlán
+cfd_mx.res_country_state_ciudad_05GRO,05,GRO,Arcelia
+cfd_mx.res_country_state_ciudad_05GUA,05,GUA,Guanajuato
+cfd_mx.res_country_state_ciudad_05HID,05,HID,Tula de Allende
+cfd_mx.res_country_state_ciudad_05JAL,05,JAL,Ocotlán
+cfd_mx.res_country_state_ciudad_05MEX,05,MEX,Ecatepec de Morelos
+cfd_mx.res_country_state_ciudad_05MIC,05,MIC,La piedad de Cabadas
+cfd_mx.res_country_state_ciudad_05MOR,05,MOR,Puente de Ixtla
+cfd_mx.res_country_state_ciudad_05NAY,05,NAY,Tecuala
+cfd_mx.res_country_state_ciudad_05NLE,05,NLE,Linares
+cfd_mx.res_country_state_ciudad_05OAX,05,OAX,Matías Romero Avendaño
+cfd_mx.res_country_state_ciudad_05PUE,05,PUE,Tehuacan
+cfd_mx.res_country_state_ciudad_05ROO,05,ROO,Playa del Carmen
+cfd_mx.res_country_state_ciudad_05SIN,05,SIN,Mazatlán
+cfd_mx.res_country_state_ciudad_05SLP,05,SLP,San Luis Potosí
+cfd_mx.res_country_state_ciudad_05SON,05,SON,Empalme
+cfd_mx.res_country_state_ciudad_05TAB,05,TAB,Jalpa de Méndez
+cfd_mx.res_country_state_ciudad_05TAM,05,TAM,Heroica Matamoros
+cfd_mx.res_country_state_ciudad_05TLA,05,TLA,Calpulalpan
+cfd_mx.res_country_state_ciudad_05VER,05,VER,Agua dulce
+cfd_mx.res_country_state_ciudad_05YUC,05,YUC,Valladolid
+cfd_mx.res_country_state_ciudad_05ZAC,05,ZAC,Río Grande
+cfd_mx.res_country_state_ciudad_06AGU,06,AGU,Rincón de Romos
+cfd_mx.res_country_state_ciudad_06BCN,06,BCN,Rodolfo Sánchez T. (Maneadero)
+cfd_mx.res_country_state_ciudad_06BCS,06,BCS,Puerto Adolfo López Mateos
+cfd_mx.res_country_state_ciudad_06CAM,06,CAM,Sabancuy
+cfd_mx.res_country_state_ciudad_06COA,06,COA,Piedras Negras
+cfd_mx.res_country_state_ciudad_06CHH,06,CHH,Juárez
+cfd_mx.res_country_state_ciudad_06CHP,06,CHP,Jiquipilas
+cfd_mx.res_country_state_ciudad_06DIF,06,DIF,Ciudad de México
+cfd_mx.res_country_state_ciudad_06DUR,06,DUR,San Juan del Río del Centauro del Norte
+cfd_mx.res_country_state_ciudad_06GRO,06,GRO,Ayutla de los Libres
+cfd_mx.res_country_state_ciudad_06GUA,06,GUA,Irapuato
+cfd_mx.res_country_state_ciudad_06HID,06,HID,Tulancingo
+cfd_mx.res_country_state_ciudad_06JAL,06,JAL,Puerto Vallarta
+cfd_mx.res_country_state_ciudad_06MEX,06,MEX,Huixquilucan de Degollado
+cfd_mx.res_country_state_ciudad_06MIC,06,MIC,Morelia
+cfd_mx.res_country_state_ciudad_06MOR,06,MOR,Santa Rosa Treinta
+cfd_mx.res_country_state_ciudad_06NAY,06,NAY,Compostela
+cfd_mx.res_country_state_ciudad_06NLE,06,NLE,Montemorelos
+cfd_mx.res_country_state_ciudad_06OAX,06,OAX,Heroica Ciudad de Huajuapan de León
+cfd_mx.res_country_state_ciudad_06PUE,06,PUE,Teziutlan
+cfd_mx.res_country_state_ciudad_06ROO,06,ROO,Kantunilkín
+cfd_mx.res_country_state_ciudad_06SIN,06,SIN,Guamúchil
+cfd_mx.res_country_state_ciudad_06SLP,06,SLP,Soledad de Graciano Sánchez
+cfd_mx.res_country_state_ciudad_06SON,06,SON,Heroica Guaymas
+cfd_mx.res_country_state_ciudad_06TAM,06,TAM,Nuevo Laredo
+cfd_mx.res_country_state_ciudad_06TLA,06,TLA,Chiautempan
+cfd_mx.res_country_state_ciudad_06VER,06,VER,Coatzacoalcos
+cfd_mx.res_country_state_ciudad_06YUC,06,YUC,Kanasín
+cfd_mx.res_country_state_ciudad_06ZAC,06,ZAC,Ciudad Cuauhtémoc
+cfd_mx.res_country_state_ciudad_07AGU,07,AGU,Asientos
+cfd_mx.res_country_state_ciudad_07BCN,07,BCN,San Felipe
+cfd_mx.res_country_state_ciudad_07BCS,07,BCS,Todos Santos
+cfd_mx.res_country_state_ciudad_07CAM,07,CAM,Hopelchén
+cfd_mx.res_country_state_ciudad_07COA,07,COA,Sabinas
+cfd_mx.res_country_state_ciudad_07CHH,07,CHH,Nuevo Casas Grandes
+cfd_mx.res_country_state_ciudad_07CHP,07,CHP,Villaflores
+cfd_mx.res_country_state_ciudad_07DIF,07,DIF,Ciudad de México
+cfd_mx.res_country_state_ciudad_07DUR,07,DUR,Peñón Blanco
+cfd_mx.res_country_state_ciudad_07GRO,07,GRO,Atoyac de Álvarez
+cfd_mx.res_country_state_ciudad_07GUA,07,GUA,León de los Aldama
+cfd_mx.res_country_state_ciudad_07HID,07,HID,Zimapan
+cfd_mx.res_country_state_ciudad_07JAL,07,JAL,San Juan de los Lagos
+cfd_mx.res_country_state_ciudad_07MEX,07,MEX,Los Reyes Acaquilpan (La Paz)
+cfd_mx.res_country_state_ciudad_07MIC,07,MIC,Pátzcuaro
+cfd_mx.res_country_state_ciudad_07MOR,07,MOR,Zacatepec de Hidalgo
+cfd_mx.res_country_state_ciudad_07NAY,07,NAY,Francisco I. Madero (Puga)
+cfd_mx.res_country_state_ciudad_07NLE,07,NLE,Monterrey
+cfd_mx.res_country_state_ciudad_07OAX,07,OAX,Loma Bonita
+cfd_mx.res_country_state_ciudad_07PUE,07,PUE,San Andrés Cholula
+cfd_mx.res_country_state_ciudad_07ROO,07,ROO,Isla Mujeres
+cfd_mx.res_country_state_ciudad_07SIN,07,SIN,Navolato
+cfd_mx.res_country_state_ciudad_07SLP,07,SLP,Charcas
+cfd_mx.res_country_state_ciudad_07SON,07,SON,Hermosillo
+cfd_mx.res_country_state_ciudad_07TAB,07,TAB,Macuspana
+cfd_mx.res_country_state_ciudad_07TAM,07,TAM,Reynosa
+cfd_mx.res_country_state_ciudad_07VER,07,VER,Córdoba
+cfd_mx.res_country_state_ciudad_07ZAC,07,ZAC,Ojocaliente
+cfd_mx.res_country_state_ciudad_08AGU,08,AGU,Tepezalá
+cfd_mx.res_country_state_ciudad_08BCS,08,BCS,Heroica Mulegé
+cfd_mx.res_country_state_ciudad_08CAM,08,CAM,Champotón
+cfd_mx.res_country_state_ciudad_08COA,08,COA,Saltillo
+cfd_mx.res_country_state_ciudad_08CHP,08,CHP,Las Margaritas
+cfd_mx.res_country_state_ciudad_08DIF,08,DIF,Ciudad de México
+cfd_mx.res_country_state_ciudad_08DUR,08,DUR,Francisco I. Madero
+cfd_mx.res_country_state_ciudad_08GUA,08,GUA,Moroleón
+cfd_mx.res_country_state_ciudad_08HID,08,HID,Huejutla de Reyes
+cfd_mx.res_country_state_ciudad_08JAL,08,JAL,Tepatitlán de Morelos
+cfd_mx.res_country_state_ciudad_08MEX,08,MEX,Metepec
+cfd_mx.res_country_state_ciudad_08MIC,08,MIC,Sahuayo de Morelos
+cfd_mx.res_country_state_ciudad_08MOR,08,MOR,Tlaquiltenango
+cfd_mx.res_country_state_ciudad_08NAY,08,NAY,Villa Hidalgo (El Nuevo)
+cfd_mx.res_country_state_ciudad_08NLE,08,NLE,Ciudad Sabinas Hidalgo
+cfd_mx.res_country_state_ciudad_08OAX,08,OAX,Puerto Escondido
+cfd_mx.res_country_state_ciudad_08PUE,08,PUE,San Pedro Cholula
+cfd_mx.res_country_state_ciudad_08ROO,08,ROO,Bacalar
+cfd_mx.res_country_state_ciudad_08SIN,08,SIN,Quila
+cfd_mx.res_country_state_ciudad_08SLP,08,SLP,Salinas de Hidalgo
+cfd_mx.res_country_state_ciudad_08SON,08,SON,Huatabampo
+cfd_mx.res_country_state_ciudad_08TAB,08,TAB,Tenosique de Pino Suárez
+cfd_mx.res_country_state_ciudad_08TAM,08,TAM,Ciudad Río Bravo
+cfd_mx.res_country_state_ciudad_08VER,08,VER,Tres Valles
+cfd_mx.res_country_state_ciudad_08ZAC,08,ZAC,Villa Hidalgo
+cfd_mx.res_country_state_ciudad_09AGU,09,AGU,Cosío
+cfd_mx.res_country_state_ciudad_09BCS,09,BCS,Villa Alberto Andrés Alvarado Arámburo
+cfd_mx.res_country_state_ciudad_09CAM,09,CAM,Hecelchakán
+cfd_mx.res_country_state_ciudad_09COA,09,COA,Nueva Rosita
+cfd_mx.res_country_state_ciudad_09CHH,09,CHH,Madera
+cfd_mx.res_country_state_ciudad_09CHP,09,CHP,Arriaga
+cfd_mx.res_country_state_ciudad_09DIF,09,DIF,Ciudad de México
+cfd_mx.res_country_state_ciudad_09DUR,09,DUR,Nombre de Dios
+cfd_mx.res_country_state_ciudad_09GRO,09,GRO,San Jerónimo de Juárez
+cfd_mx.res_country_state_ciudad_09GUA,09,GUA,Salamanca
+cfd_mx.res_country_state_ciudad_09HID,09,HID,Tlaxcoapan
+cfd_mx.res_country_state_ciudad_09JAL,09,JAL,Tlaquepaque
+cfd_mx.res_country_state_ciudad_09MEX,09,MEX,Naucalpan de Juárez
+cfd_mx.res_country_state_ciudad_09MIC,09,MIC,Uruapan
+cfd_mx.res_country_state_ciudad_09NAY,09,NAY,Ruiz
+cfd_mx.res_country_state_ciudad_09NLE,09,NLE,San Nicolás de los Garza
+cfd_mx.res_country_state_ciudad_09OAX,09,OAX,Río Grande o Piedra Parada
+cfd_mx.res_country_state_ciudad_09PUE,09,PUE,Huauchinango
+cfd_mx.res_country_state_ciudad_09SIN,09,SIN,Ahome
+cfd_mx.res_country_state_ciudad_09SLP,09,SLP,Cárdenas
+cfd_mx.res_country_state_ciudad_09SON,09,SON,Navojoa
+cfd_mx.res_country_state_ciudad_09TAB,09,TAB,Teapa
+cfd_mx.res_country_state_ciudad_09TAM,09,TAM,San Fernando
+cfd_mx.res_country_state_ciudad_09VER,09,VER,Jáltipan de Morelos
+cfd_mx.res_country_state_ciudad_09ZAC,09,ZAC,Villanueva
+cfd_mx.res_country_state_ciudad_10BCS,10,BCS,San Ignacio
+cfd_mx.res_country_state_ciudad_10COA,10,COA,San Pedro
+cfd_mx.res_country_state_ciudad_10CHH,10,CHH,Colonia Anáhuac
+cfd_mx.res_country_state_ciudad_10CHP,10,CHP,Palenque
+cfd_mx.res_country_state_ciudad_10DIF,10,DIF,Ciudad de México
+cfd_mx.res_country_state_ciudad_10DUR,10,DUR,Vicente Guerrero
+cfd_mx.res_country_state_ciudad_10GRO,10,GRO,Ciudad Apaxtla de Castrejón
+cfd_mx.res_country_state_ciudad_10GUA,10,GUA,San Francisco del Rincón
+cfd_mx.res_country_state_ciudad_10HID,10,HID,Tizayuca
+cfd_mx.res_country_state_ciudad_10JAL,10,JAL,Zapopan
+cfd_mx.res_country_state_ciudad_10MEX,10,MEX,Ciudad Nezahualcoyotl
+cfd_mx.res_country_state_ciudad_10MIC,10,MIC,Zacapu
+cfd_mx.res_country_state_ciudad_10NAY,10,NAY,San Blas
+cfd_mx.res_country_state_ciudad_10NLE,10,NLE,Ciudad Santa Catarina
+cfd_mx.res_country_state_ciudad_10PUE,10,PUE,Acatlán de Osorio
+cfd_mx.res_country_state_ciudad_10SIN,10,SIN,Higuera de Zaragoza
+cfd_mx.res_country_state_ciudad_10SLP,10,SLP,Cerritos
+cfd_mx.res_country_state_ciudad_10SON,10,SON,Heroica Nogales
+cfd_mx.res_country_state_ciudad_10TAB,10,TAB,Paraíso
+cfd_mx.res_country_state_ciudad_10TAM,10,TAM,Tampico
+cfd_mx.res_country_state_ciudad_10VER,10,VER,Xalapa-Enríquez
+cfd_mx.res_country_state_ciudad_10ZAC,10,ZAC,Villa de Cos
+cfd_mx.res_country_state_ciudad_11BCS,11,BCS,Guerrero Negro
+cfd_mx.res_country_state_ciudad_11CAM,11,CAM,Pomuch
+cfd_mx.res_country_state_ciudad_11COA,11,COA,Torreón
+cfd_mx.res_country_state_ciudad_11CHH,11,CHH,Juan Aldama
+cfd_mx.res_country_state_ciudad_11CHP,11,CHP,Ocosingo
+cfd_mx.res_country_state_ciudad_11DIF,11,DIF,Ciudad de México
+cfd_mx.res_country_state_ciudad_11DUR,11,DUR,El Salto
+cfd_mx.res_country_state_ciudad_11GRO,11,GRO,Ciudad Altamirano
+cfd_mx.res_country_state_ciudad_11GUA,11,GUA,Silao
+cfd_mx.res_country_state_ciudad_11HID,11,HID,Santiago Tulantepec
+cfd_mx.res_country_state_ciudad_11JAL,11,JAL,Tlajomulco de Zúñiga
+cfd_mx.res_country_state_ciudad_11MEX,11,MEX,Villa Nicolás Romero
+cfd_mx.res_country_state_ciudad_11MIC,11,MIC,Zamora de Hidalgo
+cfd_mx.res_country_state_ciudad_11NAY,11,NAY,Ixtlán del Río
+cfd_mx.res_country_state_ciudad_11NLE,11,NLE,Doctor Arroyo
+cfd_mx.res_country_state_ciudad_11OAX,11,OAX,Santiago Suchilquitongo
+cfd_mx.res_country_state_ciudad_11PUE,11,PUE,Cuautlancingo
+cfd_mx.res_country_state_ciudad_11SIN,11,SIN,Choix
+cfd_mx.res_country_state_ciudad_11SLP,11,SLP,Tamuin
+cfd_mx.res_country_state_ciudad_11SON,11,SON,Puerto Peñasco
+cfd_mx.res_country_state_ciudad_11TAB,11,TAB,Frontera
+cfd_mx.res_country_state_ciudad_11TAM,11,TAM,Ciudad Victoria
+cfd_mx.res_country_state_ciudad_11VER,11,VER,Minatitlán
+cfd_mx.res_country_state_ciudad_11ZAC,11,ZAC,Nochistlán de Mejía
+cfd_mx.res_country_state_ciudad_12BCS,12,BCS,Santa Rosalía
+cfd_mx.res_country_state_ciudad_12COA,12,COA,Castaños
+cfd_mx.res_country_state_ciudad_12CHH,12,CHH,José Mariano Jiménez
+cfd_mx.res_country_state_ciudad_12CHP,12,CHP,Tonalá
+cfd_mx.res_country_state_ciudad_12DIF,12,DIF,Ciudad de México
+cfd_mx.res_country_state_ciudad_12DUR,12,DUR,Santa María del Oro
+cfd_mx.res_country_state_ciudad_12GRO,12,GRO,Buenavista de Cuellar
+cfd_mx.res_country_state_ciudad_12GUA,12,GUA,Jerécuaro
+cfd_mx.res_country_state_ciudad_12HID,12,HID,Ixmiquilpan
+cfd_mx.res_country_state_ciudad_12JAL,12,JAL,Tonalá
+cfd_mx.res_country_state_ciudad_12MEX,12,MEX,Tecamac de Felipe Villanueva
+cfd_mx.res_country_state_ciudad_12MIC,12,MIC,Heroica Zitácuaro
+cfd_mx.res_country_state_ciudad_12NAY,12,NAY,Bucerías
+cfd_mx.res_country_state_ciudad_12NLE,12,NLE,Ciénega de Flores
+cfd_mx.res_country_state_ciudad_12OAX,12,OAX,San Felipe Jalapa de Díaz
+cfd_mx.res_country_state_ciudad_12PUE,12,PUE,Tepeaca
+cfd_mx.res_country_state_ciudad_12SIN,12,SIN,Villa Unión
+cfd_mx.res_country_state_ciudad_12SLP,12,SLP,Tamasopo
+cfd_mx.res_country_state_ciudad_12SON,12,SON,Heroica Ciudad de Cananea
+cfd_mx.res_country_state_ciudad_12TAB,12,TAB,Cunduacán
+cfd_mx.res_country_state_ciudad_12TAM,12,TAM,González
+cfd_mx.res_country_state_ciudad_12VER,12,VER,Orizaba
+cfd_mx.res_country_state_ciudad_12ZAC,12,ZAC,Víctor Rosales
+cfd_mx.res_country_state_ciudad_13COA,13,COA,Francisco I. Madero (Chávez)
+cfd_mx.res_country_state_ciudad_13CHH,13,CHH,Manuel Ojinaga
+cfd_mx.res_country_state_ciudad_13CHP,13,CHP,Mapastepec
+cfd_mx.res_country_state_ciudad_13DIF,13,DIF,Ciudad de México
+cfd_mx.res_country_state_ciudad_13GRO,13,GRO,Cutzamala de Pinzón
+cfd_mx.res_country_state_ciudad_13GUA,13,GUA,Santiago Maravatío
+cfd_mx.res_country_state_ciudad_13HID,13,HID,Tepeji del Rio
+cfd_mx.res_country_state_ciudad_13JAL,13,JAL,Tuxpan
+cfd_mx.res_country_state_ciudad_13MEX,13,MEX,Tepotzotlán
+cfd_mx.res_country_state_ciudad_13MIC,13,MIC,Paracho de Verduzco
+cfd_mx.res_country_state_ciudad_13NAY,13,NAY,Las Varas
+cfd_mx.res_country_state_ciudad_13NLE,13,NLE,Hualahuises
+cfd_mx.res_country_state_ciudad_13OAX,13,OAX,Bahias de Huatulco
+cfd_mx.res_country_state_ciudad_13PUE,13,PUE,Tecamachalco
+cfd_mx.res_country_state_ciudad_13SIN,13,SIN,Sinaloa de Leyva
+cfd_mx.res_country_state_ciudad_13SLP,13,SLP,Ciudad del Maíz
+cfd_mx.res_country_state_ciudad_13SON,13,SON,Sonoita
+cfd_mx.res_country_state_ciudad_13TAB,13,TAB,Huimanguillo
+cfd_mx.res_country_state_ciudad_13TAM,13,TAM,Jaumave
+cfd_mx.res_country_state_ciudad_13VER,13,VER,Papantla de Olarte
+cfd_mx.res_country_state_ciudad_13ZAC,13,ZAC,Valparaíso
+cfd_mx.res_country_state_ciudad_14COA,14,COA,Cuatro Ciénegas de Carranza
+cfd_mx.res_country_state_ciudad_14CHH,14,CHH,Bachíniva
+cfd_mx.res_country_state_ciudad_14CHP,14,CHP,Las Rosas
+cfd_mx.res_country_state_ciudad_14DIF,14,DIF,Ciudad de México
+cfd_mx.res_country_state_ciudad_14GRO,14,GRO,Coyuca de Catalán
+cfd_mx.res_country_state_ciudad_14GUA,14,GUA,Romita
+cfd_mx.res_country_state_ciudad_14HID,14,HID,Cruz Azul
+cfd_mx.res_country_state_ciudad_14JAL,14,JAL,Tototlán
+cfd_mx.res_country_state_ciudad_14MEX,14,MEX,Tlalnepantla de Baz
+cfd_mx.res_country_state_ciudad_14MIC,14,MIC,Tangancícuaro de Arista
+cfd_mx.res_country_state_ciudad_14NAY,14,NAY,Xalisco
+cfd_mx.res_country_state_ciudad_14OAX,14,OAX,Putla Villa de Guerrero
+cfd_mx.res_country_state_ciudad_14PUE,14,PUE,Zacatlán
+cfd_mx.res_country_state_ciudad_14SIN,14,SIN,Mocorito
+cfd_mx.res_country_state_ciudad_14SLP,14,SLP,Cedral
+cfd_mx.res_country_state_ciudad_14SON,14,SON,Magdalena de Kino
+cfd_mx.res_country_state_ciudad_14TAM,14,TAM,Ciudad Gustavo Díaz Ordaz
+cfd_mx.res_country_state_ciudad_14VER,14,VER,Poza Rica de Hidalgo
+cfd_mx.res_country_state_ciudad_14ZAC,14,ZAC,Luis Moya
+cfd_mx.res_country_state_ciudad_15COA,15,COA,Nadadores
+cfd_mx.res_country_state_ciudad_15CHH,15,CHH,Saucillo
+cfd_mx.res_country_state_ciudad_15CHP,15,CHP,Chiapa de Corzo
+cfd_mx.res_country_state_ciudad_15DIF,15,DIF,Ciudad de México
+cfd_mx.res_country_state_ciudad_15GRO,15,GRO,Tierra Colorada
+cfd_mx.res_country_state_ciudad_15GUA,15,GUA,Tarandacuao
+cfd_mx.res_country_state_ciudad_15HID,15,HID,Tepeapulco
+cfd_mx.res_country_state_ciudad_15JAL,15,JAL,San Diego de Alejandría
+cfd_mx.res_country_state_ciudad_15MEX,15,MEX,Santa Maria Tultepec
+cfd_mx.res_country_state_ciudad_15MIC,15,MIC,Maravatío de Ocampo
+cfd_mx.res_country_state_ciudad_15NAY,15,NAY,San pedro Lagunillas
+cfd_mx.res_country_state_ciudad_15NLE,15,NLE,Cadereyta Jiménez
+cfd_mx.res_country_state_ciudad_15OAX,15,OAX,Cosolapa
+cfd_mx.res_country_state_ciudad_15PUE,15,PUE,Xicotepec
+cfd_mx.res_country_state_ciudad_15SIN,15,SIN,Angostura
+cfd_mx.res_country_state_ciudad_15SLP,15,SLP,Tierra Nueva
+cfd_mx.res_country_state_ciudad_15TAM,15,TAM,Estación Manuel (Úrsulo Galván)
+cfd_mx.res_country_state_ciudad_15VER,15,VER,San Andrés Tuxtla
+cfd_mx.res_country_state_ciudad_15ZAC,15,ZAC,Moyahua de Estrada
+cfd_mx.res_country_state_ciudad_16COA,16,COA,Ramos Arizpe
+cfd_mx.res_country_state_ciudad_16CHP,16,CHP,Cacahoatán
+cfd_mx.res_country_state_ciudad_16DIF,16,DIF,Ciudad de México
+cfd_mx.res_country_state_ciudad_16GRO,16,GRO,Coyuca de Benítez
+cfd_mx.res_country_state_ciudad_16GUA,16,GUA,Huanímaro
+cfd_mx.res_country_state_ciudad_16JAL,16,JAL,La Resolana
+cfd_mx.res_country_state_ciudad_16MEX,16,MEX,Tultitlán de Mariano Escobedo
+cfd_mx.res_country_state_ciudad_16MIC,16,MIC,Zinapécuaro de Figueroa
+cfd_mx.res_country_state_ciudad_16NAY,16,NAY,La peñita de Jaltemba
+cfd_mx.res_country_state_ciudad_16OAX,16,OAX,Tlacolula de Matamoros
+cfd_mx.res_country_state_ciudad_16PUE,16,PUE,Ciudad Serdán
+cfd_mx.res_country_state_ciudad_16SIN,16,SIN,San Blas
+cfd_mx.res_country_state_ciudad_16SLP,16,SLP,Villa de Reyes
+cfd_mx.res_country_state_ciudad_16TAM,16,TAM,Xicoténcatl
+cfd_mx.res_country_state_ciudad_16VER,16,VER,Túxpam de Rodríguez Cano
+cfd_mx.res_country_state_ciudad_16ZAC,16,ZAC,Sombrerete
+cfd_mx.res_country_state_ciudad_17COA,17,COA,Nava
+cfd_mx.res_country_state_ciudad_17CHP,17,CHP,Ocozocoautla de Espinosa
+cfd_mx.res_country_state_ciudad_17GRO,17,GRO,Olinalá
+cfd_mx.res_country_state_ciudad_17GUA,17,GUA,Comonfort
+cfd_mx.res_country_state_ciudad_17JAL,17,JAL,Atotonilco el Alto
+cfd_mx.res_country_state_ciudad_17MEX,17,MEX,Cuautitlán
+cfd_mx.res_country_state_ciudad_17MIC,17,MIC,Puruándiro
+cfd_mx.res_country_state_ciudad_17NAY,17,NAY,Jala
+cfd_mx.res_country_state_ciudad_17NLE,17,NLE,Santiago
+cfd_mx.res_country_state_ciudad_17OAX,17,OAX,San Pablo Villa de Mitla
+cfd_mx.res_country_state_ciudad_17PUE,17,PUE,Amozoc
+cfd_mx.res_country_state_ciudad_17SIN,17,SIN,La Cruz
+cfd_mx.res_country_state_ciudad_17SLP,17,SLP,Fracción el Refugio
+cfd_mx.res_country_state_ciudad_17TAM,17,TAM,Ciudad Miguel Alemán
+cfd_mx.res_country_state_ciudad_17VER,17,VER,Veracruz
+cfd_mx.res_country_state_ciudad_17ZAC,17,ZAC,Jalpa
+cfd_mx.res_country_state_ciudad_18COA,18,COA,Zaragoza
+cfd_mx.res_country_state_ciudad_18CHP,18,CHP,Cintalapa de Figueroa
+cfd_mx.res_country_state_ciudad_18GRO,18,GRO,Marquelia
+cfd_mx.res_country_state_ciudad_18GUA,18,GUA,Uriangato
+cfd_mx.res_country_state_ciudad_18JAL,18,JAL,Jalostotitlán
+cfd_mx.res_country_state_ciudad_18MEX,18,MEX,Ixtapaluca
+cfd_mx.res_country_state_ciudad_18MIC,18,MIC,Yurécuaro
+cfd_mx.res_country_state_ciudad_18NAY,18,NAY,Ahuacatlán
+cfd_mx.res_country_state_ciudad_18NLE,18,NLE,El cercado
+cfd_mx.res_country_state_ciudad_18OAX,18,OAX,Natividad
+cfd_mx.res_country_state_ciudad_18SIN,18,SIN,El rosario
+cfd_mx.res_country_state_ciudad_18SLP,18,SLP,Tamazunchale
+cfd_mx.res_country_state_ciudad_18TAM,18,TAM,Soto la Marina
+cfd_mx.res_country_state_ciudad_18VER,18,VER,Tierra Blanca
+cfd_mx.res_country_state_ciudad_18ZAC,18,ZAC,Loreto
+cfd_mx.res_country_state_ciudad_19COA,19,COA,San Buenaventura
+cfd_mx.res_country_state_ciudad_19CHP,19,CHP,Pichucalco
+cfd_mx.res_country_state_ciudad_19GRO,19,GRO,Zumpango del Río
+cfd_mx.res_country_state_ciudad_19GUA,19,GUA,Pénjamo
+cfd_mx.res_country_state_ciudad_19JAL,19,JAL,Poncitlán
+cfd_mx.res_country_state_ciudad_19MEX,19,MEX,Texcoco de Mora
+cfd_mx.res_country_state_ciudad_19MIC,19,MIC,Huetamo de Núñez
+cfd_mx.res_country_state_ciudad_19OAX,19,OAX,Teotitlán de Flores Magón
+cfd_mx.res_country_state_ciudad_19SIN,19,SIN,Estación Naranjo
+cfd_mx.res_country_state_ciudad_19SLP,19,SLP,Santa María del Río
+cfd_mx.res_country_state_ciudad_19TAM,19,TAM,Ciudad Tula
+cfd_mx.res_country_state_ciudad_19VER,19,VER,Cosamaloapan
+cfd_mx.res_country_state_ciudad_19ZAC,19,ZAC,Juan Aldama
+cfd_mx.res_country_state_ciudad_20COA,20,COA,Ciudad Melchor Múzquiz
+cfd_mx.res_country_state_ciudad_20CHP,20,CHP,Puerto Madero (San Benito)
+cfd_mx.res_country_state_ciudad_20GRO,20,GRO,San Luis de la Loma
+cfd_mx.res_country_state_ciudad_20GUA,20,GUA,Cuerámaro
+cfd_mx.res_country_state_ciudad_20JAL,20,JAL,Arandas
+cfd_mx.res_country_state_ciudad_20MEX,20,MEX,Toluca de Lerdo
+cfd_mx.res_country_state_ciudad_20MIC,20,MIC,Tacámbaro de Codallos
+cfd_mx.res_country_state_ciudad_20NLE,20,NLE,Anáhuac
+cfd_mx.res_country_state_ciudad_20OAX,20,OAX,Santa María Huatulco
+cfd_mx.res_country_state_ciudad_20SIN,20,SIN,Aguaruto
+cfd_mx.res_country_state_ciudad_20SLP,20,SLP,El Naranjo
+cfd_mx.res_country_state_ciudad_20TAM,20,TAM,Nueva Ciudad Guerrero
+cfd_mx.res_country_state_ciudad_20VER,20,VER,Carlos A. Carrillo
+cfd_mx.res_country_state_ciudad_21COA,21,COA,Viesca
+cfd_mx.res_country_state_ciudad_21CHP,21,CHP,Pijijiapan
+cfd_mx.res_country_state_ciudad_21GRO,21,GRO,Petatlán
+cfd_mx.res_country_state_ciudad_21GUA,21,GUA,Empalme Escobedo (Escobedo)
+cfd_mx.res_country_state_ciudad_21JAL,21,JAL,Talpa de Allende
+cfd_mx.res_country_state_ciudad_21MEX,21,MEX,Valle de Chalco Solidaridad
+cfd_mx.res_country_state_ciudad_21MIC,21,MIC,Ciudad Lázaro Cárdenas
+cfd_mx.res_country_state_ciudad_21NLE,21,NLE,García
+cfd_mx.res_country_state_ciudad_21OAX,21,OAX,San Juan Bautista Cuicatlán
+cfd_mx.res_country_state_ciudad_21SIN,21,SIN,Cosalá
+cfd_mx.res_country_state_ciudad_21TAM,21,TAM,Valle Hermoso
+cfd_mx.res_country_state_ciudad_21VER,21,VER,Pánuco
+cfd_mx.res_country_state_ciudad_22COA,22,COA,Morelos
+cfd_mx.res_country_state_ciudad_22CHP,22,CHP,Reforma
+cfd_mx.res_country_state_ciudad_22GRO,22,GRO,La Unión
+cfd_mx.res_country_state_ciudad_22GUA,22,GUA,San Luis de la Paz
+cfd_mx.res_country_state_ciudad_22JAL,22,JAL,Etzatlán
+cfd_mx.res_country_state_ciudad_22MEX,22,MEX,Tejupilco de Hidalgo
+cfd_mx.res_country_state_ciudad_22MIC,22,MIC,Las Guacamayas
+cfd_mx.res_country_state_ciudad_22NLE,22,NLE,Ciudad Benito Juárez
+cfd_mx.res_country_state_ciudad_22OAX,22,OAX,Villa Sola de Vega
+cfd_mx.res_country_state_ciudad_22SIN,22,SIN,San Ignacio
+cfd_mx.res_country_state_ciudad_22VER,22,VER,Tampico Alto
+cfd_mx.res_country_state_ciudad_23COA,23,COA,Arteaga
+cfd_mx.res_country_state_ciudad_23CHP,23,CHP,Huixtla
+cfd_mx.res_country_state_ciudad_23GRO,23,GRO,San Luis San Pedro
+cfd_mx.res_country_state_ciudad_23GUA,23,GUA,Valle de Santiago
+cfd_mx.res_country_state_ciudad_23JAL,23,JAL,Sayula
+cfd_mx.res_country_state_ciudad_23MEX,23,MEX,Chalco de Díaz Covarrubias
+cfd_mx.res_country_state_ciudad_23MIC,23,MIC,Jiquilpan de Juárez
+cfd_mx.res_country_state_ciudad_23OAX,23,OAX,Ocotlán de Morelos
+cfd_mx.res_country_state_ciudad_23SIN,23,SIN,Topolobampo
+cfd_mx.res_country_state_ciudad_23VER,23,VER,Tempoal de Sánchez
+cfd_mx.res_country_state_ciudad_24COA,24,COA,Allende
+cfd_mx.res_country_state_ciudad_24CHP,24,CHP,Motozintla de Mendoza
+cfd_mx.res_country_state_ciudad_24GRO,24,GRO,Teloloapan
+cfd_mx.res_country_state_ciudad_24GUA,24,GUA,Abasolo
+cfd_mx.res_country_state_ciudad_24JAL,24,JAL,Ahualulco de Mercado
+cfd_mx.res_country_state_ciudad_24MEX,24,MEX,Amatepec
+cfd_mx.res_country_state_ciudad_24MIC,24,MIC,Tuxpan
+cfd_mx.res_country_state_ciudad_24OAX,24,OAX,Villa de Zaachila
+cfd_mx.res_country_state_ciudad_24SIN,24,SIN,Lic. Benito Juárez (Campo Gobierno)
+cfd_mx.res_country_state_ciudad_24VER,24,VER,Tantoyuca
+cfd_mx.res_country_state_ciudad_25CHP,25,CHP,Acala
+cfd_mx.res_country_state_ciudad_25GRO,25,GRO,Técpan de Galeana
+cfd_mx.res_country_state_ciudad_25GUA,25,GUA,Rincón de Tamayo
+cfd_mx.res_country_state_ciudad_25JAL,25,JAL,Autlán de Navarro
+cfd_mx.res_country_state_ciudad_25MIC,25,MIC,Cotija de la Paz
+cfd_mx.res_country_state_ciudad_25OAX,25,OAX,Miahuatlán de Porfirio Díaz
+cfd_mx.res_country_state_ciudad_25VER,25,VER,Gutiérrez Zamora
+cfd_mx.res_country_state_ciudad_26GRO,26,GRO,Huitzuco
+cfd_mx.res_country_state_ciudad_26GUA,26,GUA,Villagrán
+cfd_mx.res_country_state_ciudad_26JAL,26,JAL,Magdalena
+cfd_mx.res_country_state_ciudad_26MEX,26,MEX,Melchor Ocampo
+cfd_mx.res_country_state_ciudad_26MIC,26,MIC,Nueva Italia de Ruiz
+cfd_mx.res_country_state_ciudad_26OAX,26,OAX,Unión Hidalgo
+cfd_mx.res_country_state_ciudad_26VER,26,VER,Platón Sánchez
+cfd_mx.res_country_state_ciudad_27GRO,27,GRO,Tixtla de Guerrero
+cfd_mx.res_country_state_ciudad_27GUA,27,GUA,Yuriria
+cfd_mx.res_country_state_ciudad_27JAL,27,JAL,San Julián
+cfd_mx.res_country_state_ciudad_27MEX,27,MEX,San Vicente Chicoloapan de Juárez
+cfd_mx.res_country_state_ciudad_27MIC,27,MIC,Cuitzeo del Porvenir
+cfd_mx.res_country_state_ciudad_27OAX,27,OAX,El Camarón
+cfd_mx.res_country_state_ciudad_27VER,27,VER,Juan Rodríguez Clara
+cfd_mx.res_country_state_ciudad_28GRO,28,GRO,Tepecoacuilco de Trujano
+cfd_mx.res_country_state_ciudad_28GUA,28,GUA,Apaseo el Grande
+cfd_mx.res_country_state_ciudad_28JAL,28,JAL,Cocula
+cfd_mx.res_country_state_ciudad_28MEX,28,MEX,Capulhuac
+cfd_mx.res_country_state_ciudad_28OAX,28,OAX,San Pedro Mixtepec -Dto. 22-
+cfd_mx.res_country_state_ciudad_28VER,28,VER,Huatusco de Chicuellar
+cfd_mx.res_country_state_ciudad_29GRO,29,GRO,San Marcos
+cfd_mx.res_country_state_ciudad_29GUA,29,GUA,Purísima de Bustos
+cfd_mx.res_country_state_ciudad_29JAL,29,JAL,El Grullo
+cfd_mx.res_country_state_ciudad_29MEX,29,MEX,Juchitepec de Mariano Riva Palacio
+cfd_mx.res_country_state_ciudad_29OAX,29,OAX,Santa Cruz Itundujia
+cfd_mx.res_country_state_ciudad_29VER,29,VER,Ixtaczoquitlán
+cfd_mx.res_country_state_ciudad_30GRO,30,GRO,Azoyú
+cfd_mx.res_country_state_ciudad_30GUA,30,GUA,Salvatierra
+cfd_mx.res_country_state_ciudad_30JAL,30,JAL,San Miguel el Alto
+cfd_mx.res_country_state_ciudad_30MEX,30,MEX,Tequixquiac
+cfd_mx.res_country_state_ciudad_30OAX,30,OAX,Chahuites
+cfd_mx.res_country_state_ciudad_30VER,30,VER,Río Blanco
+cfd_mx.res_country_state_ciudad_31GRO,31,GRO,Tlapehuala
+cfd_mx.res_country_state_ciudad_31GUA,31,GUA,Marfil
+cfd_mx.res_country_state_ciudad_31JAL,31,JAL,Tala
+cfd_mx.res_country_state_ciudad_31MEX,31,MEX,Xonacatlán
+cfd_mx.res_country_state_ciudad_31OAX,31,OAX,Heroica Ciudad de Ejutla de Crespo
+cfd_mx.res_country_state_ciudad_31VER,31,VER,Isla
+cfd_mx.res_country_state_ciudad_32GRO,32,GRO,San Luis Acatlán
+cfd_mx.res_country_state_ciudad_32GUA,32,GUA,San José Iturbide
+cfd_mx.res_country_state_ciudad_32JAL,32,JAL,La Barca
+cfd_mx.res_country_state_ciudad_32MEX,32,MEX,San Mateo Atenco
+cfd_mx.res_country_state_ciudad_32OAX,32,OAX,San Pedro Tapanatepec
+cfd_mx.res_country_state_ciudad_32VER,32,VER,Cuitláhuac
+cfd_mx.res_country_state_ciudad_33GRO,33,GRO,Chilapa de Álvarez
+cfd_mx.res_country_state_ciudad_33GUA,33,GUA,Apaseo el Alto
+cfd_mx.res_country_state_ciudad_33JAL,33,JAL,Jamay
+cfd_mx.res_country_state_ciudad_33OAX,33,OAX,Vicente Camalote
+cfd_mx.res_country_state_ciudad_33VER,33,VER,Fortín de las Flores
+cfd_mx.res_country_state_ciudad_34GRO,34,GRO,Tlapa de Comonfort
+cfd_mx.res_country_state_ciudad_34GUA,34,GUA,Ciudad Manuel Doblado
+cfd_mx.res_country_state_ciudad_34JAL,34,JAL,Yahualica de González Gallo
+cfd_mx.res_country_state_ciudad_34OAX,34,OAX,Villa de Tamazulápam del Progreso
+cfd_mx.res_country_state_ciudad_34VER,34,VER,Alvarado
+cfd_mx.res_country_state_ciudad_35GRO,35,GRO,Tlalixtaquilla
+cfd_mx.res_country_state_ciudad_35GUA,35,GUA,Jaral del Progreso
+cfd_mx.res_country_state_ciudad_35JAL,35,JAL,Colotlán
+cfd_mx.res_country_state_ciudad_35OAX,35,OAX,San Juan Bautista lo de Soto
+cfd_mx.res_country_state_ciudad_35VER,35,VER,José Cardel
+cfd_mx.res_country_state_ciudad_36GRO,36,GRO,Cuajinicuilapa
+cfd_mx.res_country_state_ciudad_36GUA,36,GUA,San Diego de la Unión
+cfd_mx.res_country_state_ciudad_36JAL,36,JAL,Cihuatlán
+cfd_mx.res_country_state_ciudad_36MEX,36,MEX,Chiconcuac
+cfd_mx.res_country_state_ciudad_36OAX,36,OAX,San Juan Cacahuatepec
+cfd_mx.res_country_state_ciudad_36VER,36,VER,Banderilla
+cfd_mx.res_country_state_ciudad_37GRO,37,GRO,Huamuxtitlan
+cfd_mx.res_country_state_ciudad_37GUA,37,GUA,Santa Cruz Juventino Rosas
+cfd_mx.res_country_state_ciudad_37JAL,37,JAL,Zapotiltic
+cfd_mx.res_country_state_ciudad_37OAX,37,OAX,San Pedro Totolapa
+cfd_mx.res_country_state_ciudad_37VER,37,VER,Paraje Nuevo
+cfd_mx.res_country_state_ciudad_38GRO,38,GRO,Cruz Grande
+cfd_mx.res_country_state_ciudad_38GUA,38,GUA,Doctor Mora
+cfd_mx.res_country_state_ciudad_38JAL,38,JAL,Villa Corona
+cfd_mx.res_country_state_ciudad_38OAX,38,OAX,San Miguel el Grande
+cfd_mx.res_country_state_ciudad_38VER,38,VER,Playa Vicente
+cfd_mx.res_country_state_ciudad_39GRO,39,GRO,Ocotito
+cfd_mx.res_country_state_ciudad_39GUA,39,GUA,Dolores Hgo. Cuna de la Indep. Nal.
+cfd_mx.res_country_state_ciudad_39JAL,39,JAL,Teocaltiche
+cfd_mx.res_country_state_ciudad_39MEX,39,MEX,Almoloya de Juárez
+cfd_mx.res_country_state_ciudad_39OAX,39,OAX,Zimatlán de Álvarez
+cfd_mx.res_country_state_ciudad_39VER,39,VER,Altotonga
+cfd_mx.res_country_state_ciudad_40GRO,40,GRO,Copala
+cfd_mx.res_country_state_ciudad_40MEX,40,MEX,Ocoyoacac
+cfd_mx.res_country_state_ciudad_40OAX,40,OAX,San Pablo Huitzo
+cfd_mx.res_country_state_ciudad_40VER,40,VER,Juan Díaz Covarrubias
+cfd_mx.res_country_state_ciudad_41GRO,41,GRO,Zihuatanejo
+cfd_mx.res_country_state_ciudad_41JAL,41,JAL,Tequila
+cfd_mx.res_country_state_ciudad_41MEX,41,MEX,Zumpango
+cfd_mx.res_country_state_ciudad_41OAX,41,OAX,San Francisco Telixtlahuaca
+cfd_mx.res_country_state_ciudad_41VER,41,VER,Cuichapa
+cfd_mx.res_country_state_ciudad_42JAL,42,JAL,El Quince (San José el Quince)
+cfd_mx.res_country_state_ciudad_42OAX,42,OAX,Mariscala de Juárez
+cfd_mx.res_country_state_ciudad_42VER,42,VER,Santiago Tuxtla
+cfd_mx.res_country_state_ciudad_43JAL,43,JAL,San José el Verde (El Verde)
+cfd_mx.res_country_state_ciudad_43OAX,43,OAX,Santiago Pinotepa Nacional
+cfd_mx.res_country_state_ciudad_43VER,43,VER,Huayacocotla
+cfd_mx.res_country_state_ciudad_44JAL,44,JAL,Jocotepec
+cfd_mx.res_country_state_ciudad_44OAX,44,OAX,Santiago Jamiltepec
+cfd_mx.res_country_state_ciudad_44VER,44,VER,Paso de Ovejas
+cfd_mx.res_country_state_ciudad_45JAL,45,JAL,Tecalitlán
+cfd_mx.res_country_state_ciudad_45OAX,45,OAX,San Pedro Pochutla
+cfd_mx.res_country_state_ciudad_45VER,45,VER,Catemaco
+cfd_mx.res_country_state_ciudad_46JAL,46,JAL,Chapala
+cfd_mx.res_country_state_ciudad_46OAX,46,OAX,Heroica Ciudad de Tlaxiaco
+cfd_mx.res_country_state_ciudad_46VER,46,VER,Nogales
+cfd_mx.res_country_state_ciudad_47JAL,47,JAL,Ajijic
+cfd_mx.res_country_state_ciudad_47OAX,47,OAX,San Juan Bautista Valle Nacional
+cfd_mx.res_country_state_ciudad_47VER,47,VER,Las Choapas
+cfd_mx.res_country_state_ciudad_48JAL,48,JAL,San Ignacio Cerro Gordo
+cfd_mx.res_country_state_ciudad_48OAX,48,OAX,Lagunas
+cfd_mx.res_country_state_ciudad_48VER,48,VER,General Miguel Alemán (Potrero Nuevo)
+cfd_mx.res_country_state_ciudad_49JAL,49,JAL,Zacoalco de Torres
+cfd_mx.res_country_state_ciudad_49OAX,49,OAX,Ciudad Ixtepec
+cfd_mx.res_country_state_ciudad_49VER,49,VER,Coatzintla
+cfd_mx.res_country_state_ciudad_50JAL,50,JAL,Huejuquilla el Alto
+cfd_mx.res_country_state_ciudad_50OAX,50,OAX,Santiago Juxtlahuaca
+cfd_mx.res_country_state_ciudad_50VER,50,VER,Ángel R. Cabada
+cfd_mx.res_country_state_ciudad_51JAL,51,JAL,Villa Hidalgo
+cfd_mx.res_country_state_ciudad_51OAX,51,OAX,San Sebastián Tecomaxtlahuaca
+cfd_mx.res_country_state_ciudad_51VER,51,VER,San Rafael
+cfd_mx.res_country_state_ciudad_52JAL,52,JAL,Unión de San Antonio
+cfd_mx.res_country_state_ciudad_52OAX,52,OAX,Asunción Nochixtlán
+cfd_mx.res_country_state_ciudad_52VER,52,VER,Tlacojalpan
+cfd_mx.res_country_state_ciudad_53JAL,53,JAL,Las Pintitas
+cfd_mx.res_country_state_ciudad_53OAX,53,OAX,San Francisco Ixhuatán
+cfd_mx.res_country_state_ciudad_53VER,53,VER,Cosoleacaque
+cfd_mx.res_country_state_ciudad_54JAL,54,JAL,Tamazula de Gordiano
+cfd_mx.res_country_state_ciudad_54OAX,54,OAX,San Blas Atempa
+cfd_mx.res_country_state_ciudad_54VER,54,VER,Lerdo de Tejada
+cfd_mx.res_country_state_ciudad_55JAL,55,JAL,Acatlán de Juárez
+cfd_mx.res_country_state_ciudad_55OAX,55,OAX,Santo Domingo Tehuantepec
+cfd_mx.res_country_state_ciudad_55VER,55,VER,Tihuatlán
+cfd_mx.res_country_state_ciudad_56JAL,56,JAL,Valle de Guadalupe
+cfd_mx.res_country_state_ciudad_56OAX,56,OAX,Cuilápam de Guerrero
+cfd_mx.res_country_state_ciudad_56VER,56,VER,Atoyac
+cfd_mx.res_country_state_ciudad_57OAX,57,OAX,El Rosario
+cfd_mx.res_country_state_ciudad_57VER,57,VER,Huiloapan de Cuauhtémoc
+cfd_mx.res_country_state_ciudad_58OAX,58,OAX,Santa Lucia del Camino
+cfd_mx.res_country_state_ciudad_58VER,58,VER,Cazones de Herrera
+cfd_mx.res_country_state_ciudad_59OAX,59,OAX,San Antonio de la Cal
+cfd_mx.res_country_state_ciudad_59VER,59,VER,Yecuatla
+cfd_mx.res_country_state_ciudad_60VER,60,VER,Soledad de Doblado
+cfd_mx.res_country_state_ciudad_61VER,61,VER,Cerro Azul
+cfd_mx.res_country_state_ciudad_62VER,62,VER,Tezonapa
+cfd_mx.res_country_state_ciudad_66VER,66,VER,Sihuapan
+cfd_mx.res_country_state_ciudad_67VER,67,VER,El Higo
+cfd_mx.res_country_state_ciudad_68VER,68,VER,Paso del Macho
+cfd_mx.res_country_state_ciudad_69VER,69,VER,Tlapacoyan

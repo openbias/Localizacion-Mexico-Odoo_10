@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
     'name' : 'Factura Electronica Mexico',
-    'version' : '10.0.2.0.11',
+    'version' : '10.0.3.0.1',
     'summary': 'Factura Electronica Mexico 3.3',
     'sequence': 100,
     'description': """

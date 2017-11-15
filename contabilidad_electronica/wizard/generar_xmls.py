@@ -245,7 +245,7 @@ class GenerarXmls(models.TransientModel):
                 for cheque in move_line.cheques_ids:
                     vals = {
                         "num": cheque.num,
-                        "banco": cheque.cta_ori.bank_id.code_sat,
+                        "banco": cheque.cta_ori.bank_id.bic,
                         "cta_ori": cheque.cta_ori.acc_number,
                         "fecha": cheque.fecha,
                         "monto": cheque.monto,
@@ -264,10 +264,10 @@ class GenerarXmls(models.TransientModel):
                 for trans in move_line.transferencias_ids:
                     vals = {                        
                         "cta_ori": trans.cta_ori.acc_number,
-                        "banco_ori": trans.cta_ori.bank_id.code_sat,
+                        "banco_ori": trans.cta_ori.bank_id.bic,
                         "monto": trans.monto,
                         "cta_dest": trans.cta_dest.acc_number,
-                        "banco_dest": trans.cta_dest.bank_id.code_sat,
+                        "banco_dest": trans.cta_dest.bank_id.bic,
                         "fecha": trans.fecha,
                         "benef": trans.cta_dest.partner_id.name,
                         "rfc": trans.cta_ori.partner_id.vat if trans.move_line_id.move_id.tipo_poliza == '1' else trans.cta_dest.partner_id.vat

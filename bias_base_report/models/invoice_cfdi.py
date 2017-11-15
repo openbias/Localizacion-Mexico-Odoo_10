@@ -14,6 +14,9 @@ from pytz import timezone, utc
 import textwrap
 import json
 
+import logging
+logging.basicConfig(level=logging.INFO)
+
 catcfdi = {
     'formaPago': ['01','02','03','04','05','06','08','12','13','14','15','17','23','24','25','26','27','28','29','30','99'],
     'metodoPago': ['PUE', 'PPD'],
@@ -158,6 +161,7 @@ class AccountCfdi(models.Model):
         if ctx['type'] in ['pagos', 'nomina']:
             self.cfdi_datas['complemento'] = getattr(self, '%s_info_complemento' % ctx['type'])()
         datas = json.dumps(self.cfdi_datas, sort_keys=True, indent=4, separators=(',', ': '))
+        logging.info(datas)
         url = '%s/stamp%s/'%(self.host, ctx['type'])
         if self.port:
             url = '%s:%s/stamp%s/'%(self.host, self.port, ctx['type'])

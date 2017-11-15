@@ -4,6 +4,13 @@ import odoo
 from odoo import api, fields, models, _
 
 
+class banco(models.Model):
+    _inherit = "res.bank"
+    
+    code_sat = fields.Char(u"Código SAT", required=True)
+    razon_social = fields.Char(u"Razón social")
+    extranjero = fields.Boolean("Banco extranjero")
+
 class ResCountry(models.Model):
     _inherit = "res.country" 
 

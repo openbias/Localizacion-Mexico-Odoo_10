@@ -40,6 +40,7 @@ class validar_facturas(models.TransientModel):
     @api.multi
     def action_validar_facturas(self):
         self.ensure_one()
+        context = dict(self._context)
         cfdi = self.env['account.cfdi']
         message = ""
         # res = cfdi.validate(self)
@@ -47,7 +48,6 @@ class validar_facturas(models.TransientModel):
         #     message = res['message']
         # else:
         #     return self.get_process_data(res.get('result'))
-        context = dict(self._context)
         try:
             res = cfdi.validate(self)
             if res.get('message'):
@@ -121,15 +121,17 @@ class validar_facturas(models.TransientModel):
         receptor = d.get("%sReceptor"%ns)
         timbre = d.get("%sComplemento"%ns) and d["%sComplemento"%ns].get("%sTimbreFiscalDigital"%ns1)
         uuid = timbre.get("@UUID") or ""
+        nombre_emisor = emisor.get("@Nombre", "").encode('utf-8').decode('utf-8') or emisor.get("@nombre", "").encode('utf-8').decode('utf-8') or ""
+        nombre_receptor = receptor.get("@Nombre", "").encode('utf-8').decode('utf-8') or receptor.get("@nombre", "").encode('utf-8').decode('utf-8') or ""
         res = {
             'importe_total': d.get("@Total") or d.get("@total"),
             'version': d.get("@Version") or d.get("@version"),
             'tipo_comprobante': d.get("@TipoDeComprobante") or d.get("@tipoDeComprobante") or "",
             'certificado_emisor': d.get("@NoCertificado") or d.get("@noCertificado") or "",
             'fecha_emision': d.get("@Fecha") or d.get("@fecha"),
-            'nombre_emisor': u"%s"%(emisor.get("@Nombre", "").encode('utf-8') or emisor.get("@nombre", "").encode('utf-8') or ""),
+            'nombre_emisor': nombre_emisor,
             'rfc_emisor': u"%s"%(emisor.get("@Rfc") or emisor.get("@rfc") or ""),
-            'nombre_receptor': u"%s"%(receptor.get("@Nombre", "").encode('utf-8').decode('utf-8') or receptor.get("@nombre", "").encode('utf-8').decode('utf-8') or ""),
+            'nombre_receptor': nombre_receptor,
             'rfc_receptor': u"%s"%(receptor.get("@Rfc") or receptor.get("@rfc") or ""),
             'certificado_sat': timbre.get("@noCertificadoSAT") or "",
             'fecha_certificacion': timbre.get("@FechaTimbrado") or "",

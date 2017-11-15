@@ -2,11 +2,11 @@
 <odoo>
     <!--Generated for OpenBIAS-->
     <data noupdate="1">
-        <record id="cfd_mx.cfd_mx_metodopago_PUE" model="cfd_mx.metodopago">
+        <record id="cfd_mx.metodopago_PUE" model="cfd_mx.metodopago">
             <field name="name">Pago en una sola exhibición</field>
             <field name="clave">PUE</field>
         </record>
-        <record id="cfd_mx.cfd_mx_metodopago_PPD" model="cfd_mx.metodopago">
+        <record id="cfd_mx.metodopago_PPD" model="cfd_mx.metodopago">
             <field name="name">Pago en parcialidades o diferido</field>
             <field name="clave">PPD</field>
         </record>
