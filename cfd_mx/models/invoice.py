@@ -53,10 +53,42 @@ class AccountInvoiceLine(models.Model):
         self.price_subtotal_sat = self.price_unit * self.quantity
         self.price_discount_sat = discount * self.quantity
 
-    price_subtotal_sat = fields.Monetary(string='Amount (SAT)', store=True, readonly=True, compute='_compute_price_sat', default=0.00)
-    price_tax_sat = fields.Monetary(string='Tax (SAT)', store=True, readonly=True, compute='_compute_price_sat', default=0.00)
-    price_discount_sat = fields.Monetary(string='Discount (SAT)', store=True, readonly=True, compute='_compute_price_sat', default=0.00)
+    price_subtotal_sat = fields.Monetary(string='Amount (SAT)', readonly=True, compute='_compute_price_sat', default=0.00)
+    price_tax_sat = fields.Monetary(string='Tax (SAT)', readonly=True, compute='_compute_price_sat', default=0.00)
+    price_discount_sat = fields.Monetary(string='Discount (SAT)', readonly=True, compute='_compute_price_sat', default=0.00)
     numero_pedimento_sat = fields.Char(string='Numero de Pedimento', help="Informacion Aduanera. Numero de Pedimento")
+
+    @api.one
+    def get_impuestos_sat(self):
+        line = self
+        tax_obj = self.env['account.tax']
+        dp = self.env['decimal.precision']
+        dp_account = dp.precision_get('Account')
+        dp_product = dp.precision_get('Product Price')
+
+        res = []
+        price_unit = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
+        taxes = line.invoice_line_tax_ids.compute_all(price_unit, line.currency_id, line.quantity, line.product_id, line.invoice_id.partner_id)['taxes']
+        for tax in taxes:
+            tax_id = tax_obj.browse(tax.get('id'))
+            tax_group = tax_id.tax_group_id
+            importe = tax.get('amount')
+            TasaOCuota = '%.6f'%((round(abs(tax_id.amount), dp_account) / 100))
+            impuestos = {
+                'Name': tax_id.name,
+                'Base': round( tax.get('base') , dp_account),
+                'Impuesto': tax_group.cfdi_impuestos,
+                'TipoFactor': '%s'%(tax_id.cfdi_tipofactor),
+                'TasaOCuota': '%s'%(TasaOCuota),
+                'Importe': round(importe, dp_account)
+            }
+            if tax_group.cfdi_retencion:
+                impuestos["tipo"] = "ret"
+            if tax_group.cfdi_traslado:
+                impuestos["tipo"] = "tras"
+
+            res.append(impuestos)
+        return res
 
 class AccountInvoice(models.Model):
     _name = 'account.invoice'
@@ -105,9 +137,9 @@ class AccountInvoice(models.Model):
     uuid_relacionado_id = fields.Many2one('account.invoice', string=u'UUID Relacionado', domainf=[("type", "in", ("out_invoice", "out_refund") ), ("timbrada", "=", True), ("uuid", "!=", None)])
     tiporelacion_id = fields.Many2one('cfd_mx.tiporelacion', string=u'Tipo de Relacion', copy="False")
 
-    price_subtotal_sat = fields.Monetary(string='Amount (SAT)', store=True, readonly=True, compute='_compute_price_sat')
-    price_tax_sat = fields.Monetary(string='Tax (SAT)', store=True, readonly=True, compute='_compute_price_sat')
-    price_discount_sat = fields.Monetary(string='Discount (SAT)', store=True, readonly=True, compute='_compute_price_sat')
+    price_subtotal_sat = fields.Monetary(string='Amount (SAT)', readonly=True, compute='_compute_price_sat')
+    price_tax_sat = fields.Monetary(string='Tax (SAT)', readonly=True, compute='_compute_price_sat')
+    price_discount_sat = fields.Monetary(string='Discount (SAT)', readonly=True, compute='_compute_price_sat')
     xml_cfdi_sinacento = fields.Boolean(related="partner_id.xml_cfdi_sinacento", string='XML CFDI sin acentos')
     internal_number = fields.Char(string='Invoice Number', size=32, readonly=True, copy=False, help="Unique number of the invoice, computed automatically when the invoice is created.")
     usocfdi_id = fields.Many2one('cfd_mx.usocfdi', string="Uso de Comprobante CFDI", required=False)

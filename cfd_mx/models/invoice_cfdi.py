@@ -119,7 +119,6 @@ class AccountCfdi(models.Model):
             for tax in taxes:
                 tax_id = tax_obj.browse(tax.get('id'))
                 tax_group = tax_id.tax_group_id
-
                 importe = tax.get('amount')
                 TasaOCuota = '%.6f'%((round(abs(tax_id.amount), dp_account) / 100))
                 impuestos = {
@@ -153,7 +152,6 @@ class AccountCfdi(models.Model):
             #         concepto_attribs['Impuestos']['Retenciones'].append(impuestos)
             #     if tax_group.cfdi_traslado:
             #         concepto_attribs['Impuestos']['Traslado'].append(impuestos)
-            print "concepto_attribs['Impuestos']", concepto_attribs.get("Impuestos")
             conceptos.append(concepto_attribs)
         cfdi_conceptos = conceptos
         return cfdi_conceptos
