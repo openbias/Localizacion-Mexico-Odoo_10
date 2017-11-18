@@ -67,10 +67,35 @@ class AccountMoveLine(models.Model):
     _name = "account.move.line"
     _inherit = ['mail.thread', 'account.move.line', 'account.cfdi']
 
+    @api.one
+    def _showxml(self):
+        url_id = self.env["ir.config_parameter"].search([('key', '=', "web.base.url")])
+        xml_id = self.env["ir.attachment"].search([('res_model', '=', "account.move.line"), ("res_id", "=", self.id)])
+        url = '%s/web/content/%s?download=true'%(url_id.value, xml_id.id)
+        self.url_xml = url
+
+    url_xml = fields.Char(string="XML",compute="_showxml", default="")
+    uuid = fields.Char(string='Timbre fiscal', copy=False)
     number = fields.Char(string='Number')
     date_invoice = fields.Datetime(string='Invoice Date',
         readonly=True, states={'draft': [('readonly', False)]}, index=True,
         help="Keep empty to use the current date", copy=False)
+
+
+    @api.multi
+    def get_xml(self):
+        url_id = self.env["ir.config_parameter"].search([('key', '=', "web.base.url")])
+        xml_id = self.env["ir.attachment"].search([('res_model', '=', "account.move.line"), ("res_id", "=", self.id)])
+        url = '%s/web/content/%s?download=true'%(url_id.value, xml_id.id)
+        return {
+            'type': 'ir.actions.act_url',
+            'url':url,
+            'nodestroy': True
+        }
+
+    @api.multi
+    def get_pdf(self):
+        return {}
 
     def action_write_date_invoice_cfdi(self, inv_id):
         dtz = False

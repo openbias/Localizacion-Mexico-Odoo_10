@@ -21,6 +21,7 @@
         'account', 
         'base',
         'bias_base_report',
+        'cfd_mx'
     ],
 
     # always loaded

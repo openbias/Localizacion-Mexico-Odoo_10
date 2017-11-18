@@ -126,32 +126,12 @@ class AccountCfdi(models.Model):
                     'Impuesto': tax_group.cfdi_impuestos,
                     'TipoFactor': '%s'%(tax_id.cfdi_tipofactor),
                     'TasaOCuota': '%s'%(TasaOCuota),
-                    'Importe': '%.2f'%(round(importe, dp_account))
+                    'Importe': '%.2f'%(round(abs(importe), dp_account))
                 }
                 if tax_group.cfdi_retencion:
                     concepto_attribs['Impuestos']['Retenciones'].append(impuestos)
                 elif tax_group.cfdi_traslado:
                     concepto_attribs['Impuestos']['Traslado'].append(impuestos)
-            
-            # for tax in line.invoice_line_tax_ids:
-            #     tax_group = tax.tax_group_id
-            #     price_unit = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
-            #     print "price_unit", tax.name, price_unit
-            #     comp = tax.compute_all(price_unit, obj.currency_id, line.quantity, line.product_id, obj.partner_id)
-            #     importe = comp['total_included'] - comp['total_excluded']
-            #     TasaOCuota = '%.6f'%((round(abs(tax.amount), dp_account) / 100))
-            #     impuestos = {
-            #         'Base': '%.2f'%(round( comp.get('base') , dp_account)),
-            #         'Impuesto': tax_group.cfdi_impuestos,
-            #         'TipoFactor': '%s'%(tax.cfdi_tipofactor),
-            #         'TasaOCuota': '%s'%(TasaOCuota),
-            #         'Importe': '%.2f'%(round(importe, dp_account))
-            #     }
-            #     print "impuestos", impuestos
-            #     if tax_group.cfdi_retencion:
-            #         concepto_attribs['Impuestos']['Retenciones'].append(impuestos)
-            #     if tax_group.cfdi_traslado:
-            #         concepto_attribs['Impuestos']['Traslado'].append(impuestos)
             conceptos.append(concepto_attribs)
         cfdi_conceptos = conceptos
         return cfdi_conceptos
@@ -160,31 +140,34 @@ class AccountCfdi(models.Model):
         TotalImpuestosRetenidos = 0.00
         TotalImpuestosTrasladados = 0.00
         traslado_attribs = {}
+        retenciones_attribs = {}
         for concepto in conceptos:
             for impuesto in concepto['Impuestos']:
                 if impuesto == 'Retenciones':
                     for ret in concepto['Impuestos'][impuesto]:
-                        TotalImpuestosRetenidos += ret['Importe']
-                        if not ret['Impuesto'] in traslado_attribs.keys():
-                            traslado_attribs[ ret['Impuesto'] ] = {
+                        ret_key = "%s_%s"%(ret['Impuesto'], ret['TasaOCuota'].replace(".", "") )
+                        TotalImpuestosRetenidos += float(ret['Importe'])
+                        if not ret_key in retenciones_attribs.keys():
+                            retenciones_attribs[ ret_key ] = {
                                 'Importe': '%s'%(0.0)
                             }
-                        importe = traslado_attribs[ ret['Impuesto'] ]['Importe'] + ret['Importe']
-                        traslado_attribs[ ret['Impuesto'] ] = {
+                        importe = float(retenciones_attribs[ret_key]['Importe']) + float(ret['Importe'])
+                        retenciones_attribs[ ret_key ] = {
                             'Impuesto': ret['Impuesto'],
                             'TipoFactor': ret['TipoFactor'],
                             'TasaOCuota': ret['TasaOCuota'],
-                            'Importe': '%s'%(importe)
+                            'Importe': '%.2f'%(importe)
                         }
                 if impuesto == 'Traslado':
                     for tras in concepto['Impuestos'][impuesto]:
+                        tras_key = "%s_%s"%(tras['Impuesto'], tras['TasaOCuota'].replace(".", "") )
                         TotalImpuestosTrasladados += float(tras['Importe'])
-                        if not tras['Impuesto'] in traslado_attribs.keys():
-                            traslado_attribs[ tras['Impuesto'] ] = {
+                        if not tras_key in traslado_attribs.keys():
+                            traslado_attribs[ tras_key ] = {
                                 'Importe': '%s'%(0.0)
                             }
-                        importe = float(traslado_attribs[tras['Impuesto']]['Importe']) + float(tras['Importe'])
-                        traslado_attribs[ tras['Impuesto'] ] = {
+                        importe = float(traslado_attribs[tras_key]['Importe']) + float(tras['Importe'])
+                        traslado_attribs[ tras_key ] = {
                             'Impuesto': tras['Impuesto'],
                             'TipoFactor': tras['TipoFactor'],
                             'TasaOCuota': tras['TasaOCuota'],
@@ -193,6 +176,7 @@ class AccountCfdi(models.Model):
         cfdi_impuestos = {
             'TotalImpuestosRetenidos': '%.2f'%(TotalImpuestosRetenidos),
             'TotalImpuestosTrasladados': '%.2f'%(TotalImpuestosTrasladados),
-            'traslado_attribs': traslado_attribs
+            'traslado_attribs': traslado_attribs,
+            'retenciones_attribs': retenciones_attribs
         }
         return cfdi_impuestos

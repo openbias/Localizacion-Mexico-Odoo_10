@@ -82,12 +82,24 @@
                             <hr />
                         </group>
                         <group name="timbre_cfdi_pagos" attrs="{'invisible': [('pagos','=',False)]}">
-                            <group colspan="4">
+<!--                             <group colspan="4">
                                 <h1 class="mt0">Pagos CFDI</h1>
                             </group>
                             <group colspan="4">
-                                <field name="payment_move_line_ids" nolabel="1" colspan="4" />
-                            </group>
+                                <field name="payment_move_line_ids" nolabel="1" colspan="4">
+                                    <tree string="Payments">
+                                        <field name="date"/>
+                                        <field name="move_id"/>
+                                        <field name="ref"/>
+                                        <field name="name"/>
+                                        <field name="journal_id" groups="base.group_user"/>
+                                        <field name="debit"/>
+                                        <field name="credit"/>
+                                        <field name="amount_currency" groups="base.group_multi_currency"/>
+                                        <field name="currency_id" groups="base.group_multi_currency"/>
+                                    </tree>
+                                </field>
+                            </group> -->
                         </group>
                     </page>
                 </notebook>
