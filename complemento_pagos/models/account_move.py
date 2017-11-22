@@ -38,11 +38,12 @@ class AccountPayment(models.Model):
             if aml.credit > 0:
                 for r in aml.matched_debit_ids:
                     if r.debit_move_id.invoice_id:
-                        invoice_ids.append(r.debit_move_id.invoice_id)
+                        if r.debit_move_id.invoice_id.uuid and r.debit_move_id.invoice_id.tipo_comprobante in ['I', 'E']:
+                            invoice_ids.append(r.debit_move_id.invoice_id)
             else:
                 for r in aml.matched_credit_ids:
                     if r.credit_move_id.invoice_id:
-                        if r.credit_move_id.invoice_id.uuid:
+                        if r.credit_move_id.invoice_id.uuid and r.credit_move_id.invoice_id.tipo_comprobante in ['I', 'E']:
                             invoice_ids.append(r.credit_move_id.invoice_id)
             if len(invoice_ids):
                 ctx['invoice_ids'] = invoice_ids

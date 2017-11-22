@@ -18,6 +18,17 @@ class PeriodicidadPago(models.Model):
             result.append((rec.id, "[%s] %s" % (rec.code, rec.name or '')))
         return result
 
+    @api.model
+    def name_search(self, name, args=None, operator='ilike', limit=100):
+        recs = super(PeriodicidadPago, self).name_search(name, args=args, operator=operator, limit=limit)
+        args = args or []
+        recs = self.browse()
+        if name:
+            recs = self.search([('code', operator, name)] + args, limit=limit)
+        if not recs:
+            recs = self.search([('name', operator, name)] + args, limit=limit)
+        return recs.name_get()
+
 
 class OrigenRecurso(models.Model):
     _name = "cfdi_nomina.origen_recurso"
@@ -32,6 +43,18 @@ class OrigenRecurso(models.Model):
         for rec in self:
             result.append((rec.id, "[%s] %s" % (rec.code, rec.name or '')))
         return result
+
+    @api.model
+    def name_search(self, name, args=None, operator='ilike', limit=100):
+        recs = super(OrigenRecurso, self).name_search(name, args=args, operator=operator, limit=limit)
+        args = args or []
+        recs = self.browse()
+        if name:
+            recs = self.search([('code', operator, name)] + args, limit=limit)
+        if not recs:
+            recs = self.search([('name', operator, name)] + args, limit=limit)
+        return recs.name_get()
+
 
 
 class RegimenContratacion(models.Model):
@@ -48,6 +71,18 @@ class RegimenContratacion(models.Model):
             result.append((rec.id, "[%s] %s" % (rec.code, rec.name or '')))
         return result
 
+    @api.model
+    def name_search(self, name, args=None, operator='ilike', limit=100):
+        recs = super(RegimenContratacion, self).name_search(name, args=args, operator=operator, limit=limit)
+        args = args or []
+        recs = self.browse()
+        if name:
+            recs = self.search([('code', operator, name)] + args, limit=limit)
+        if not recs:
+            recs = self.search([('name', operator, name)] + args, limit=limit)
+        return recs.name_get()
+
+
 class ClaseRiesgo(models.Model):
     _name = "cfdi_nomina.riesgo_puesto"
     
@@ -60,6 +95,17 @@ class ClaseRiesgo(models.Model):
         for rec in self:
             result.append((rec.id, "[%s] %s" % (rec.code, rec.name or '')))
         return result
+
+    @api.model
+    def name_search(self, name, args=None, operator='ilike', limit=100):
+        recs = super(ClaseRiesgo, self).name_search(name, args=args, operator=operator, limit=limit)
+        args = args or []
+        recs = self.browse()
+        if name:
+            recs = self.search([('code', operator, name)] + args, limit=limit)
+        if not recs:
+            recs = self.search([('name', operator, name)] + args, limit=limit)
+        return recs.name_get()
 
 class TipoRegla(models.Model):
     _name = "cfdi_nomina.tipo"
@@ -80,6 +126,17 @@ class CodigoAgrupador(models.Model):
         for rec in self:
             result.append((rec.id, "[%s] %s" % (rec.code, rec.name or '')))
         return result
+
+    @api.model
+    def name_search(self, name, args=None, operator='ilike', limit=100):
+        recs = super(CodigoAgrupador, self).name_search(name, args=args, operator=operator, limit=limit)
+        args = args or []
+        recs = self.browse()
+        if name:
+            recs = self.search([('code', operator, name)] + args, limit=limit)
+        if not recs:
+            recs = self.search([('name', operator, name)] + args, limit=limit)
+        return recs.name_get()
     
 
 class TipoHoras(models.Model):
@@ -96,6 +153,17 @@ class TipoHoras(models.Model):
             result.append((rec.id, "[%s] %s" % (rec.code, rec.name or '')))
         return result
 
+    @api.model
+    def name_search(self, TipoHoras, args=None, operator='ilike', limit=100):
+        recs = super(TipoHoras, self).name_search(name, args=args, operator=operator, limit=limit)
+        args = args or []
+        recs = self.browse()
+        if name:
+            recs = self.search([('code', operator, name)] + args, limit=limit)
+        if not recs:
+            recs = self.search([('name', operator, name)] + args, limit=limit)
+        return recs.name_get()
+
 
 class TipoIncapacidad(models.Model):
     _name = "cfdi_nomina.tipo_incapacidad"
@@ -111,6 +179,17 @@ class TipoIncapacidad(models.Model):
             result.append((rec.id, "[%s] %s" % (rec.code, rec.name or '')))
         return result
 
+    @api.model
+    def name_search(self, name, args=None, operator='ilike', limit=100):
+        recs = super(TipoIncapacidad, self).name_search(name, args=args, operator=operator, limit=limit)
+        args = args or []
+        recs = self.browse()
+        if name:
+            recs = self.search([('code', operator, name)] + args, limit=limit)
+        if not recs:
+            recs = self.search([('name', operator, name)] + args, limit=limit)
+        return recs.name_get()
+
 class TipoDeduccion(models.Model):
     _name = "cfdi_nomina.tipo_deduccion"
     _description = "Tipo deduccion"
@@ -124,6 +203,17 @@ class TipoDeduccion(models.Model):
         for rec in self:
             result.append((rec.id, "[%s] %s" % (rec.code, rec.name or '')))
         return result
+
+    @api.model
+    def name_search(self, name, args=None, operator='ilike', limit=100):
+        recs = super(TipoDeduccion, self).name_search(name, args=args, operator=operator, limit=limit)
+        args = args or []
+        recs = self.browse()
+        if name:
+            recs = self.search([('code', operator, name)] + args, limit=limit)
+        if not recs:
+            recs = self.search([('name', operator, name)] + args, limit=limit)
+        return recs.name_get()
 
 
 class TipoJornada(models.Model):
@@ -140,6 +230,17 @@ class TipoJornada(models.Model):
             result.append((rec.id, "[%s] %s" % (rec.code, rec.name or '')))
         return result
 
+    @api.model
+    def name_search(self, name, args=None, operator='ilike', limit=100):
+        recs = super(TipoJornada, self).name_search(name, args=args, operator=operator, limit=limit)
+        args = args or []
+        recs = self.browse()
+        if name:
+            recs = self.search([('code', operator, name)] + args, limit=limit)
+        if not recs:
+            recs = self.search([('name', operator, name)] + args, limit=limit)
+        return recs.name_get()
+
 class TipoOtroPago(models.Model):
     _name = "cfdi_nomina.tipo_otro_pago"
     _description = "Tipo Otro Pago"
@@ -154,6 +255,17 @@ class TipoOtroPago(models.Model):
             result.append((rec.id, "[%s] %s" % (rec.code, rec.name or '')))
         return result
 
+    @api.model
+    def name_search(self, name, args=None, operator='ilike', limit=100):
+        recs = super(TipoOtroPago, self).name_search(name, args=args, operator=operator, limit=limit)
+        args = args or []
+        recs = self.browse()
+        if name:
+            recs = self.search([('code', operator, name)] + args, limit=limit)
+        if not recs:
+            recs = self.search([('name', operator, name)] + args, limit=limit)
+        return recs.name_get()
+
 class TipoPercepcion(models.Model):
     _name = "cfdi_nomina.tipo_percepcion"
     _description = "Tipo Percepcion"
@@ -167,6 +279,17 @@ class TipoPercepcion(models.Model):
         for rec in self:
             result.append((rec.id, "[%s] %s" % (rec.code, rec.name or '')))
         return result
+
+    @api.model
+    def name_search(self, name, args=None, operator='ilike', limit=100):
+        recs = super(TipoPercepcion, self).name_search(name, args=args, operator=operator, limit=limit)
+        args = args or []
+        recs = self.browse()
+        if name:
+            recs = self.search([('code', operator, name)] + args, limit=limit)
+        if not recs:
+            recs = self.search([('name', operator, name)] + args, limit=limit)
+        return recs.name_get()
 
 
 class TablaSubsidio(models.Model):

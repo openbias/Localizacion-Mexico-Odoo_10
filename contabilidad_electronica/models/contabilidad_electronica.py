@@ -20,6 +20,17 @@ class ContabilidadElectronicaNaturaleza(models.Model):
             result.append((rec.id, "[%s] %s" % (rec.code, rec.name or '')))
         return result
 
+    @api.model
+    def name_search(self, name, args=None, operator='ilike', limit=100):
+        recs = super(ContabilidadElectronicaNaturaleza, self).name_search(name, args=args, operator=operator, limit=limit)
+        args = args or []
+        recs = self.browse()
+        if name:
+            recs = self.search([('code', operator, name)] + args, limit=limit)
+        if not recs:
+            recs = self.search([('name', operator, name)] + args, limit=limit)
+        return recs.name_get()
+
 class ContabilidadElectronicaMetodoPago(models.Model):
     _name = "contabilidad_electronica.metodo.pago"
     _description = "Metodo de pago (catalogo anexo 24)"
@@ -33,6 +44,17 @@ class ContabilidadElectronicaMetodoPago(models.Model):
         for rec in self:
             result.append((rec.id, "[%s] %s" % (rec.code, rec.name or '')))
         return result
+
+    @api.model
+    def name_search(self, name, args=None, operator='ilike', limit=100):
+        recs = super(ContabilidadElectronicaMetodoPago, self).name_search(name, args=args, operator=operator, limit=limit)
+        args = args or []
+        recs = self.browse()
+        if name:
+            recs = self.search([('code', operator, name)] + args, limit=limit)
+        if not recs:
+            recs = self.search([('name', operator, name)] + args, limit=limit)
+        return recs.name_get()
 
 
 class ContabilidadElectronicaCodigoAgrupador(models.Model):
@@ -68,6 +90,17 @@ class ContabilidadElectronicaCodigoAgrupador(models.Model):
             name = "[%s] %s"%(rec.name, rec.description)
             result.append((rec.id, name))
         return result
+
+    @api.model
+    def name_search(self, name, args=None, operator='ilike', limit=100):
+        recs = super(ContabilidadElectronicaCodigoAgrupador, self).name_search(name, args=args, operator=operator, limit=limit)
+        args = args or []
+        recs = self.browse()
+        if name:
+            recs = self.search([('description', operator, name)] + args, limit=limit)
+        if not recs:
+            recs = self.search([('name', operator, name)] + args, limit=limit)
+        return recs.name_get()
 
     
     @api.multi

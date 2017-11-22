@@ -114,7 +114,7 @@ class HrPayslipRun(models.Model):
             Slip = self.sudo().env['hr.payslip']
             for run in Payslip.browse(ids):
                 for slip_id in run.slip_ids:
-                    _logger.info("Confirm Sheet Run Payslip %s 00 ---- "%(slip_id.id,))
+                    logging.info("Confirm Sheet Run Payslip %s 00 ---- "%(slip_id.id,))
                     Slip.with_context(batch=True)._calculation_confirm_sheet([slip_id.id], use_new_cursor=new_cr.dbname)
             new_cr.close()
         return {}
@@ -122,7 +122,7 @@ class HrPayslipRun(models.Model):
     @api.multi
     def confirm_sheet_run(self):
         ids = self.ids
-        _logger.info("Confirm Sheet Run Payslip %s "%(ids,))
+        logging.info("Confirm Sheet Run Payslip %s "%(ids,))
         threaded_calculation = threading.Thread(target=self._calculation_confirm_sheet_run, args=(), name=ids)
         threaded_calculation.start()
         threaded_calculation.join()
@@ -268,7 +268,7 @@ class HrPayslip(models.Model):
 
         N = len(self.ids)
         for indx, rec in enumerate(self):
-            _logger.info("Nomina %s - %s "%( indx+1, N ) )
+            logging.info("Nomina %s - %s "%( indx+1, N ) )
             if rec.move_id and rec.uuid:
                 uuid = rec.uuid
                 for move_line in rec.move_id.line_ids:
@@ -417,16 +417,7 @@ class HrPayslip(models.Model):
         if not self.journal_id.id in self.company_id.cfd_mx_journal_ids.ids:
             return True        
         message = self.action_validate_cfdi()
-        ctx['type'] = 'nomina'
-        
-        # res = self.with_context(**ctx).stamp(self)
-        # if res.get('message'):
-        #     message = res['message']
-        # else:
-        #     self.get_process_data(self, res.get('result'))
-
-
-        
+        ctx['type'] = 'nomina'     
         try:
             res = self.with_context(**ctx).stamp(self)
             if res.get('message'):
