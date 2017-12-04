@@ -1,0 +1,292 @@
+<?xml version='1.0' encoding='utf-8'?>
+<openerp>
+    <!--Generated for OpenBIAS-->
+    <data noupdate="1">
+        <record id="cfd_mx.formapago_01" model="cfd_mx.formapago">
+            <field eval="False" name="cuenta_ordenante" />
+            <field eval="False" name="rfc_beneficiario" />
+            <field name="name">Efectivo</field>
+            <field eval="False" name="rfc_ordenante" />
+            <field eval="False" name="tipo_cadena" />
+            <field eval="False" name="cuenta_beneficiario" />
+            <field name="patron_beneficiario">No</field>
+            <field eval="True" name="no_operacion" />
+            <field name="clave">01</field>
+            <field name="patron_ordenante">No</field>
+            <field eval="False" name="banco" />
+        </record>
+        <record id="cfd_mx.formapago_02" model="cfd_mx.formapago">
+            <field eval="True" name="cuenta_ordenante" />
+            <field eval="True" name="rfc_beneficiario" />
+            <field name="name">Cheque nominativo</field>
+            <field eval="True" name="rfc_ordenante" />
+            <field eval="False" name="tipo_cadena" />
+            <field eval="True" name="cuenta_beneficiario" />
+            <field name="patron_beneficiario">[0-9]{10,11}|[0-9]{15,16}|[0-9]{18}|[A-Z0-9_]{10,50}</field>
+            <field eval="True" name="no_operacion" />
+            <field name="clave">02</field>
+            <field name="patron_ordenante">[0-9]{11}|[0-9]{18}</field>
+            <field eval="True" name="banco" />
+        </record>
+        <record id="cfd_mx.formapago_03" model="cfd_mx.formapago">
+            <field eval="True" name="cuenta_ordenante" />
+            <field eval="True" name="rfc_beneficiario" />
+            <field name="name">Transferencia electrónica de fondos</field>
+            <field eval="True" name="rfc_ordenante" />
+            <field eval="True" name="tipo_cadena" />
+            <field eval="True" name="cuenta_beneficiario" />
+            <field name="patron_beneficiario">[0-9]{10}|[0-9]{18}</field>
+            <field eval="True" name="no_operacion" />
+            <field name="clave">03</field>
+            <field name="patron_ordenante">[0-9]{10}|[0-9]{16}|[0-9]{18}</field>
+            <field eval="True" name="banco" />
+        </record>
+        <record id="cfd_mx.formapago_04" model="cfd_mx.formapago">
+            <field eval="True" name="cuenta_ordenante" />
+            <field eval="True" name="rfc_beneficiario" />
+            <field name="name">Tarjeta de crédito</field>
+            <field eval="True" name="rfc_ordenante" />
+            <field eval="False" name="tipo_cadena" />
+            <field eval="True" name="cuenta_beneficiario" />
+            <field name="patron_beneficiario">[0-9]{10,11}|[0-9]{15,16}|[0-9]{18}|[A-Z0-9_]{10,50}</field>
+            <field eval="True" name="no_operacion" />
+            <field name="clave">04</field>
+            <field name="patron_ordenante">[0-9]{16}</field>
+            <field eval="True" name="banco" />
+        </record>
+        <record id="cfd_mx.formapago_05" model="cfd_mx.formapago">
+            <field eval="True" name="cuenta_ordenante" />
+            <field eval="True" name="rfc_beneficiario" />
+            <field name="name">Monedero electrónico</field>
+            <field eval="True" name="rfc_ordenante" />
+            <field eval="False" name="tipo_cadena" />
+            <field eval="True" name="cuenta_beneficiario" />
+            <field name="patron_beneficiario">[0-9]{10,11}|[0-9]{15,16}|[0-9]{18}|[A-Z0-9_]{10,50}</field>
+            <field eval="True" name="no_operacion" />
+            <field name="clave">05</field>
+            <field name="patron_ordenante">[0-9]{10,11}|[0-9]{15,16}|[0-9]{18}|[A-Z0-9_]{10,50}</field>
+            <field eval="True" name="banco" />
+        </record>
+        <record id="cfd_mx.formapago_06" model="cfd_mx.formapago">
+            <field eval="True" name="cuenta_ordenante" />
+            <field eval="False" name="rfc_beneficiario" />
+            <field name="name">Dinero electrónico</field>
+            <field eval="True" name="rfc_ordenante" />
+            <field eval="False" name="tipo_cadena" />
+            <field eval="False" name="cuenta_beneficiario" />
+            <field name="patron_beneficiario">No</field>
+            <field eval="True" name="no_operacion" />
+            <field name="clave">06</field>
+            <field name="patron_ordenante">[0-9]{10}</field>
+            <field eval="True" name="banco" />
+        </record>
+        <record id="cfd_mx.formapago_08" model="cfd_mx.formapago">
+            <field eval="False" name="cuenta_ordenante" />
+            <field eval="False" name="rfc_beneficiario" />
+            <field name="name">Vales de despensa</field>
+            <field eval="False" name="rfc_ordenante" />
+            <field eval="False" name="tipo_cadena" />
+            <field eval="False" name="cuenta_beneficiario" />
+            <field name="patron_beneficiario">No</field>
+            <field eval="True" name="no_operacion" />
+            <field name="clave">08</field>
+            <field name="patron_ordenante">No</field>
+            <field eval="False" name="banco" />
+        </record>
+        <record id="cfd_mx.formapago_12" model="cfd_mx.formapago">
+            <field eval="False" name="cuenta_ordenante" />
+            <field eval="False" name="rfc_beneficiario" />
+            <field name="name">Dación en pago</field>
+            <field eval="False" name="rfc_ordenante" />
+            <field eval="False" name="tipo_cadena" />
+            <field eval="False" name="cuenta_beneficiario" />
+            <field name="patron_beneficiario">No</field>
+            <field eval="True" name="no_operacion" />
+            <field name="clave">12</field>
+            <field name="patron_ordenante">No</field>
+            <field eval="False" name="banco" />
+        </record>
+        <record id="cfd_mx.formapago_13" model="cfd_mx.formapago">
+            <field eval="False" name="cuenta_ordenante" />
+            <field eval="False" name="rfc_beneficiario" />
+            <field name="name">Pago por subrogación</field>
+            <field eval="False" name="rfc_ordenante" />
+            <field eval="False" name="tipo_cadena" />
+            <field eval="False" name="cuenta_beneficiario" />
+            <field name="patron_beneficiario">No</field>
+            <field eval="True" name="no_operacion" />
+            <field name="clave">13</field>
+            <field name="patron_ordenante">No</field>
+            <field eval="False" name="banco" />
+        </record>
+        <record id="cfd_mx.formapago_14" model="cfd_mx.formapago">
+            <field eval="False" name="cuenta_ordenante" />
+            <field eval="False" name="rfc_beneficiario" />
+            <field name="name">Pago por consignación</field>
+            <field eval="False" name="rfc_ordenante" />
+            <field eval="False" name="tipo_cadena" />
+            <field eval="False" name="cuenta_beneficiario" />
+            <field name="patron_beneficiario">No</field>
+            <field eval="True" name="no_operacion" />
+            <field name="clave">14</field>
+            <field name="patron_ordenante">No</field>
+            <field eval="False" name="banco" />
+        </record>
+        <record id="cfd_mx.formapago_15" model="cfd_mx.formapago">
+            <field eval="False" name="cuenta_ordenante" />
+            <field eval="False" name="rfc_beneficiario" />
+            <field name="name">Condonación</field>
+            <field eval="False" name="rfc_ordenante" />
+            <field eval="False" name="tipo_cadena" />
+            <field eval="False" name="cuenta_beneficiario" />
+            <field name="patron_beneficiario">No</field>
+            <field eval="True" name="no_operacion" />
+            <field name="clave">15</field>
+            <field name="patron_ordenante">No</field>
+            <field eval="False" name="banco" />
+        </record>
+        <record id="cfd_mx.formapago_17" model="cfd_mx.formapago">
+            <field eval="False" name="cuenta_ordenante" />
+            <field eval="False" name="rfc_beneficiario" />
+            <field name="name">Compensación</field>
+            <field eval="False" name="rfc_ordenante" />
+            <field eval="False" name="tipo_cadena" />
+            <field eval="False" name="cuenta_beneficiario" />
+            <field name="patron_beneficiario">No</field>
+            <field eval="True" name="no_operacion" />
+            <field name="clave">17</field>
+            <field name="patron_ordenante">No</field>
+            <field eval="False" name="banco" />
+        </record>
+        <record id="cfd_mx.formapago_23" model="cfd_mx.formapago">
+            <field eval="False" name="cuenta_ordenante" />
+            <field eval="False" name="rfc_beneficiario" />
+            <field name="name">Novación</field>
+            <field eval="False" name="rfc_ordenante" />
+            <field eval="False" name="tipo_cadena" />
+            <field eval="False" name="cuenta_beneficiario" />
+            <field name="patron_beneficiario">No</field>
+            <field eval="True" name="no_operacion" />
+            <field name="clave">23</field>
+            <field name="patron_ordenante">No</field>
+            <field eval="False" name="banco" />
+        </record>
+        <record id="cfd_mx.formapago_24" model="cfd_mx.formapago">
+            <field eval="False" name="cuenta_ordenante" />
+            <field eval="False" name="rfc_beneficiario" />
+            <field name="name">Confusión</field>
+            <field eval="False" name="rfc_ordenante" />
+            <field eval="False" name="tipo_cadena" />
+            <field eval="False" name="cuenta_beneficiario" />
+            <field name="patron_beneficiario">No</field>
+            <field eval="True" name="no_operacion" />
+            <field name="clave">24</field>
+            <field name="patron_ordenante">No</field>
+            <field eval="False" name="banco" />
+        </record>
+        <record id="cfd_mx.formapago_25" model="cfd_mx.formapago">
+            <field eval="False" name="cuenta_ordenante" />
+            <field eval="False" name="rfc_beneficiario" />
+            <field name="name">Remisión de deuda</field>
+            <field eval="False" name="rfc_ordenante" />
+            <field eval="False" name="tipo_cadena" />
+            <field eval="False" name="cuenta_beneficiario" />
+            <field name="patron_beneficiario">No</field>
+            <field eval="True" name="no_operacion" />
+            <field name="clave">25</field>
+            <field name="patron_ordenante">No</field>
+            <field eval="False" name="banco" />
+        </record>
+        <record id="cfd_mx.formapago_26" model="cfd_mx.formapago">
+            <field eval="False" name="cuenta_ordenante" />
+            <field eval="False" name="rfc_beneficiario" />
+            <field name="name">Prescripción o caducidad</field>
+            <field eval="False" name="rfc_ordenante" />
+            <field eval="False" name="tipo_cadena" />
+            <field eval="False" name="cuenta_beneficiario" />
+            <field name="patron_beneficiario">No</field>
+            <field eval="True" name="no_operacion" />
+            <field name="clave">26</field>
+            <field name="patron_ordenante">No</field>
+            <field eval="False" name="banco" />
+        </record>
+        <record id="cfd_mx.formapago_27" model="cfd_mx.formapago">
+            <field eval="False" name="cuenta_ordenante" />
+            <field eval="False" name="rfc_beneficiario" />
+            <field name="name">A satisfacción del acreedor</field>
+            <field eval="False" name="rfc_ordenante" />
+            <field eval="False" name="tipo_cadena" />
+            <field eval="False" name="cuenta_beneficiario" />
+            <field name="patron_beneficiario">No</field>
+            <field eval="True" name="no_operacion" />
+            <field name="clave">27</field>
+            <field name="patron_ordenante">No</field>
+            <field eval="False" name="banco" />
+        </record>
+        <record id="cfd_mx.formapago_28" model="cfd_mx.formapago">
+            <field eval="True" name="cuenta_ordenante" />
+            <field eval="True" name="rfc_beneficiario" />
+            <field name="name">Tarjeta de débito</field>
+            <field eval="True" name="rfc_ordenante" />
+            <field eval="False" name="tipo_cadena" />
+            <field eval="True" name="cuenta_beneficiario" />
+            <field name="patron_beneficiario">[0-9]{10,11}|[0-9]{15,16}|[0-9]{18}|[A-Z0-9_]{10,50}</field>
+            <field eval="True" name="no_operacion" />
+            <field name="clave">28</field>
+            <field name="patron_ordenante">[0-9]{16}</field>
+            <field eval="True" name="banco" />
+        </record>
+        <record id="cfd_mx.formapago_29" model="cfd_mx.formapago">
+            <field eval="True" name="cuenta_ordenante" />
+            <field eval="True" name="rfc_beneficiario" />
+            <field name="name">Tarjeta de servicios</field>
+            <field eval="True" name="rfc_ordenante" />
+            <field eval="False" name="tipo_cadena" />
+            <field eval="True" name="cuenta_beneficiario" />
+            <field name="patron_beneficiario">[0-9]{10,11}|[0-9]{15,16}|[0-9]{18}|[A-Z0-9_]{10,50}</field>
+            <field eval="True" name="no_operacion" />
+            <field name="clave">29</field>
+            <field name="patron_ordenante">[0-9]{15,16}</field>
+            <field eval="True" name="banco" />
+        </record>
+        <record id="cfd_mx.formapago_30" model="cfd_mx.formapago">
+            <field eval="False" name="cuenta_ordenante" />
+            <field eval="False" name="rfc_beneficiario" />
+            <field name="name">Aplicación de anticipos</field>
+            <field eval="False" name="rfc_ordenante" />
+            <field eval="False" name="tipo_cadena" />
+            <field eval="False" name="cuenta_beneficiario" />
+            <field name="patron_beneficiario">No</field>
+            <field eval="True" name="no_operacion" />
+            <field name="clave">30</field>
+            <field name="patron_ordenante">No</field>
+            <field eval="False" name="banco" />
+        </record>
+        <record id="cfd_mx.formapago_31" model="cfd_mx.formapago">
+            <field eval="False" name="cuenta_ordenante" />
+            <field eval="False" name="rfc_beneficiario" />
+            <field name="name">Intermediario pagos</field>
+            <field eval="False" name="rfc_ordenante" />
+            <field eval="False" name="tipo_cadena" />
+            <field eval="False" name="cuenta_beneficiario" />
+            <field name="patron_beneficiario">No</field>
+            <field eval="True" name="no_operacion" />
+            <field name="clave">31</field>
+            <field name="patron_ordenante">No</field>
+            <field eval="False" name="banco" />
+        </record>
+        <record id="cfd_mx.formapago_99" model="cfd_mx.formapago">
+            <field eval="True" name="cuenta_ordenante" />
+            <field eval="True" name="rfc_beneficiario" />
+            <field name="name">Por definir</field>
+            <field eval="True" name="rfc_ordenante" />
+            <field eval="True" name="tipo_cadena" />
+            <field eval="True" name="cuenta_beneficiario" />
+            <field name="patron_beneficiario">Opcional</field>
+            <field eval="True" name="no_operacion" />
+            <field name="clave">99</field>
+            <field name="patron_ordenante">Opcional</field>
+            <field eval="True" name="banco" />
+        </record>
+    </data>
+</openerp>

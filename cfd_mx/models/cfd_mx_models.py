@@ -3,166 +3,47 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError, RedirectWarning, ValidationError
 
+import json
 import csv
 import os
 import inspect
 
 import logging
-_logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
 
 class AltaCatalogosCFDI(models.TransientModel):
     _name = 'cf.mx.alta.catalogos.wizard'
     _description = 'Alta Catalogos CFDI'
 
-    def get_external_id(self, Data, model, state_id, Obj, obj_code, row):
-        obj_id = Obj.search([('clave_sat', '=', obj_code), ('state_id', '=', state_id.id )])
-        datas = Data.search([('model', '=', model), ('res_id', '=', obj_id.id), ('module', '=', '__export__')])
-        for data in datas:
-            return '%s.%s'%(data.module, data.name)
-        return None
-
-    def get_states_ids(self):
-        dict_states = {}
-        Data = self.env['ir.model.data']
-        Country = self.env.ref('base.mx')
-        States = self.env['res.country.state'].search([('country_id', '=', Country.id)])
-        for state in States :
-            datas = Data.search([('model', '=', 'res.country.state'), ('res_id', '=', state.id), ('module', '=', 'base')])
-            for data in datas:
-                dict_states[state.code] = '%s.%s'%(data.module, data.name)
-        return dict_states
-
-    def get_csv_datas(self, model):
-        fname = '/../data/%s.csv' % model
-        current_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))        
-        path =  current_path+fname
-        ifile  = open(path)
-        reader = csv.reader(ifile, delimiter=',', quotechar='"')
-        return reader
-
-    def action_load_municipio_ciudad(self, model):
-        dict_states = self.get_states_ids()
-        reader = self.get_csv_datas(model)
-        header = []
-        body = []
-        model_obj = self.env[model]
-        for indx, row in enumerate(reader):
-            if indx == 0:
-                header = row
-            else:
-                if row[2] in dict_states.keys():
-                    row[2] = dict_states.get(row[2])
-                body.append(row)
-        model_obj.with_context(noupdate=True).load(header, body)
-        cr = self._cr
-        cr.commit()
-        return True
-
-    def action_load_cp(self, model,reader):
-        dict_states = self.get_states_ids()
-        Data = self.env['ir.model.data']
-        Municipio = self.env['res.country.state.municipio']
-        Ciudad = self.env['res.country.state.ciudad']
-
-        header = []
-        body = []
-        model_obj = self.env[model]
-        for indx, row in enumerate(reader):
-            if indx == 0:
-                header = row
-            else:
-                state_id = self.env.ref(dict_states.get(row[2]))
-                row[2] = dict_states.get(row[2])
-                if row[3] and row[4]:
-                    municipio_id = self.get_external_id(Data, 'res.country.state.municipio', state_id, Municipio, row[3], row)
-                    ciudad_id = self.get_external_id(Data, 'res.country.state.ciudad', state_id, Ciudad, row[4], row)
-                    row[3] = municipio_id
-                    row[4] = ciudad_id
-                else:
-                    row[3] = None
-                    row[4] = None
-                body.append(row)
-        model_obj.with_context(noupdate=True).load(header, body)
-        cr = self._cr
-        cr.commit()
-        return True
-
-    def action_res_country_state_municipio(self, model):
-        self.action_load_municipio_ciudad(model)
-        return True
-
-    def action_res_country_state_ciudad(self, model):
-        self.action_load_municipio_ciudad(model)
-        return True
-
-    def action_res_country_state_cp_1(self, model_1):
-        model = model_1.replace('cp_1', 'cp')
-        reader = self.get_csv_datas(model_1)
-        self.action_load_cp(model,reader)
-        return True
-
-    def action_res_country_state_cp_2(self, model_1):
-        model = model_1.replace('cp_2', 'cp')
-        reader = self.get_csv_datas(model_1)
-        self.action_load_cp(model,reader)
-        return True
-
-    def action_res_country_state_cp_3(self, model_1):
-        model = model_1.replace('cp_3', 'cp')
-        reader = self.get_csv_datas(model_1)
-        self.action_load_cp(model,reader)
-        return True
-
-    def action_res_country_state_cp_4(self, model_1):
-        model = model_1.replace('cp_4', 'cp')
-        reader = self.get_csv_datas(model_1)
-        self.action_load_cp(model,reader)
-        return True
-
-    def action_load_data_path(self, model):
-        reader = self.get_csv_datas(model)
-        header = []
-        body = []
-        model_obj = self.env[model]
-        for indx, row in enumerate(reader):
-            if indx == 0:
-                header = row
-            else:
-                body.append(row)
-        r = model_obj.with_context(noupdate=True).load(header, body)
-        cr = self._cr
-        cr.commit()
-        return True
-
     @api.multi
     def action_alta_catalogos(self):
-        _logger.info(' Inicia Alta Catalogos')
+        logging.info(' Inicia Alta Catalogos')
         models = [
-            # 'res.bank',
-            # 'cfd_mx.formapago',
-            # 'cfd_mx.metodopago',
-            # 'cfd_mx.regimen',
-            # 'cfd_mx.usocfdi',
-            # 'cfd_mx.aduana',
-            # 'res.country',
-            'res.country.state.municipio',
-            'res.country.state.ciudad',
             'cfd_mx.unidadesmedida',
             'cfd_mx.prodserv',
-            'res.country.state.cp_1',
-            'res.country.state.cp_2',
-            'res.country.state.cp_3',
-            'res.country.state.cp_4'
+            'res.country.state.municipio',
+            'res.country.state.ciudad',
+            'res.country.state.cp'
         ]
         for model in models:
             model_name = model.replace('.', '_')
-            _logger.info(' Model: -- %s'%model_name )
-            if hasattr(self, 'action_%s' % model_name):
-                getattr(self, 'action_%s' % model_name)(model)
-            else:
-                self.action_load_data_path(model)
-        _logger.info(' Fin Alta Catalogos')
+            logging.info(' Model: -- %s'%model_name )
+
+            model_obj = self.env[model]
+            fname = '/../data/json/%s.json' % model
+            current_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))        
+            path =  current_path+fname
+            jdatas = json.load(open(path))
+            for indx, data in enumerate(jdatas):
+                header = data.keys()
+                body = data.values()
+                r = model_obj.with_context(noupdate=True).load(header, [body])
+                logging.info(' Model: -- %s, Res: %s - %s'%(model_name, indx, r) )
+                if r.get("messages"):
+                    logging.info(' Model: -- %s, Res: %s - %s'%(model_name, indx, r) )
+                self._cr.commit()
         return True
+
 
 class TipoRelacion(models.Model):
     _name = "cfd_mx.tiporelacion"
@@ -212,115 +93,10 @@ class UsoCfdi(models.Model):
             recs = self.search([('name', operator, name)] + args, limit=limit)
         return recs.name_get()
 
-class ClaveProdServ(models.Model):
-    _name = 'cfd_mx.prodserv'
-    _description = 'Clave del Producto o Servicio'
-
-    name = fields.Char("Descripcion", size=264, required=True, default="")
-    clave = fields.Char(string="Clave", help="Clave del Catálogo del SAT")
-
-    @api.multi
-    def name_get(self):
-        result = []
-        for rec in self:
-            result.append((rec.id, "[%s] %s" % (rec.clave, rec.name or '')))
-        return result
-
-    @api.model
-    def name_search(self, name, args=None, operator='ilike', limit=100):
-        args = args or []
-        recs = self.browse()
-        if name:
-            cod_prod_ids = self.search([('clave', 'ilike', name)] + args, limit=limit)
-            if cod_prod_ids: recs += cod_prod_ids
-
-            search_domain = [('name', operator, name)]
-            if recs.ids:
-                search_domain.append(('id', 'not in', recs.ids))
-            name_ids = self.search(search_domain + args, limit=limit)
-            if name_ids: recs += name_ids
-
-        if not recs:
-            recs = self.search([('name', operator, name)] + args, limit=limit)
-        return recs.name_get()
 
 
-class UnidadesMedida(models.Model):
-    _name = 'cfd_mx.unidadesmedida'
-    _description = u"Catalogo de unidades de medida para los conceptos en el CFDI."
 
-    name = fields.Char("Nombre", size=264, required=True, default="")
-    clave = fields.Char(string="Clave", help="Clave del Catálogo del SAT")
-    descripcion = fields.Char("Descripcion", required=False, default="")
-    simbolo = fields.Char("Simbolo", required=False, default="")
 
-    @api.multi
-    def name_get(self):
-        result = []
-        for rec in self:
-            result.append((rec.id, "[%s] %s" % (rec.clave, rec.name or '')))
-        return result
-
-    @api.model
-    def name_search(self, name, args=None, operator='ilike', limit=100):
-        args = args or []
-        recs = self.browse()
-        if name:
-            cod_prod_ids = self.search([('clave', 'ilike', name)] + args, limit=limit)
-            if cod_prod_ids: recs += cod_prod_ids
-
-            search_domain = [('name', operator, name)]
-            if recs.ids:
-                search_domain.append(('id', 'not in', recs.ids))
-            name_ids = self.search(search_domain + args, limit=limit)
-            if name_ids: recs += name_ids
-
-        if not recs:
-            recs = self.search([('name', operator, name)] + args, limit=limit)
-        return recs.name_get()
-
-class FormaPago(models.Model):
-    _name = 'cfd_mx.formapago'
-
-    name = fields.Char(string="Descripcion", size=64, required=True, default="")
-    clave = fields.Char(string="Clave", help="Clave del Catálogo del SAT")
-    banco = fields.Boolean(string="Banco", help="Activar este checkbox para que pregunte número de cuenta")
-    no_operacion = fields.Boolean(string="Num. Operacion", default=False)
-    rfc_ordenante = fields.Boolean(string="RFC Ordenante", default=False)
-    cuenta_ordenante = fields.Boolean(string="Cuenta Ordenante", default=False)
-    patron_ordenante = fields.Char(string="Patron Ordenante", default='')
-    rfc_beneficiario = fields.Boolean(string="RFC Beneficiario", default=False)
-    cuenta_beneficiario = fields.Boolean(string="Cuenta Beneficiario", default=False)
-    patron_beneficiario = fields.Char(string="Patron Beneficiario", default='')
-    tipo_cadena = fields.Boolean(string="Tipo Cadena", default=False)
-    pos_metodo = fields.Many2one('account.journal', domain=[('journal_user', '=', 1)],
-            string="Metodo de pago del TPV")
-    conta_elect = fields.Boolean("Es Contabilidad Electronica?", default=False)
-
-    @api.multi
-    def name_get(self):
-        result = []
-        for rec in self:
-            result.append((rec.id, "[%s] %s" % (rec.clave, rec.name or '')))
-        return result
-
-    @api.model
-    def name_search(self, name, args=None, operator='ilike', limit=100):
-        args = args or []
-        recs = self.browse()
-        if name:
-            cod_prod_ids = self.search([('clave', 'ilike', name)] + args, limit=limit)
-            if cod_prod_ids: recs += cod_prod_ids
-
-            search_domain = [('name', operator, name)]
-            if recs.ids:
-                search_domain.append(('id', 'not in', recs.ids))
-            name_ids = self.search(search_domain + args, limit=limit)
-            if name_ids: recs += name_ids
-
-        if not recs:
-            recs = self.search([('name', operator, name)] + args, limit=limit)
-        return recs.name_get()
 
 class MetodoPago(models.Model):
     _name = "cfd_mx.metodopago"
@@ -372,11 +148,144 @@ class Regimen(models.Model):
             recs = self.search([('name', operator, name)] + args, limit=limit)
         return recs.name_get()
 
+
+
+
+
+
+
+
+class FormaPago(models.Model):
+    _name = 'cfd_mx.formapago'
+
+    name = fields.Char(string="Descripcion", size=64, required=True, default="")
+    clave = fields.Char(string="Clave", help="Clave del Catálogo del SAT")
+    nombre_banco_ext = fields.Boolean(string="Nombre Banco", help="Nombre del Banco emisor de la cuenta ordenante en caso de extranjero")
+    banco = fields.Boolean(string="Banco", help="Activar este checkbox para que pregunte número de cuenta")
+    no_operacion = fields.Boolean(string="Num. Operacion", default=False)
+    rfc_ordenante = fields.Boolean(string="RFC Ordenante", default=False)
+    cuenta_ordenante = fields.Boolean(string="Cuenta Ordenante", default=False)
+    patron_ordenante = fields.Char(string="Patron Ordenante", default='')
+    rfc_beneficiario = fields.Boolean(string="RFC Beneficiario", default=False)
+    cuenta_beneficiario = fields.Boolean(string="Cuenta Beneficiario", default=False)
+    patron_beneficiario = fields.Char(string="Patron Beneficiario", default='')
+    tipo_cadena = fields.Boolean(string="Tipo Cadena", default=False)
+    from_date = fields.Date(string='Fecha Inicial')
+    to_date = fields.Date(string='Fecha Inicial')
+    pos_metodo = fields.Many2one('account.journal', domain=[('journal_user', '=', 1)],
+            string="Metodo de pago del TPV")
+    conta_elect = fields.Boolean("Es Contabilidad Electronica?", default=False)
+
+
+    @api.multi
+    def name_get(self):
+        result = []
+        for rec in self:
+            result.append((rec.id, "[%s] %s" % (rec.clave, rec.name or '')))
+        return result
+
+    @api.model
+    def name_search(self, name, args=None, operator='ilike', limit=100):
+        args = args or []
+        recs = self.browse()
+        if name:
+            cod_prod_ids = self.search([('clave', 'ilike', name)] + args, limit=limit)
+            if cod_prod_ids: recs += cod_prod_ids
+
+            search_domain = [('name', operator, name)]
+            if recs.ids:
+                search_domain.append(('id', 'not in', recs.ids))
+            name_ids = self.search(search_domain + args, limit=limit)
+            if name_ids: recs += name_ids
+
+        if not recs:
+            recs = self.search([('name', operator, name)] + args, limit=limit)
+        return recs.name_get()
+
+
+class ClaveProdServ(models.Model):
+    _name = 'cfd_mx.prodserv'
+    _description = 'Clave del Producto o Servicio'
+
+    clave = fields.Char(string="Clave", help="Clave del Catálogo del SAT")
+    name = fields.Char("Descripcion", size=264, required=True, default="")
+    incluir_iva = fields.Char(string='Incluir IVA trasladado')
+    incluir_ieps = fields.Char(string='Incluir IVA trasladado')
+    complemento = fields.Char("Complemento Incluir", required=False, default="")
+    from_date = fields.Date(string='Fecha Inicial')
+    to_date = fields.Date(string='Fecha Inicial')
+    similares = fields.Char("Palabras Similares", required=False, default="")
+
+    @api.multi
+    def name_get(self):
+        result = []
+        for rec in self:
+            result.append((rec.id, "[%s] %s" % (rec.clave, rec.name or '')))
+        return result
+
+    @api.model
+    def name_search(self, name, args=None, operator='ilike', limit=100):
+        args = args or []
+        recs = self.browse()
+        if name:
+            cod_prod_ids = self.search([('clave', 'ilike', name)] + args, limit=limit)
+            if cod_prod_ids: recs += cod_prod_ids
+
+            search_domain = [('name', operator, name)]
+            if recs.ids:
+                search_domain.append(('id', 'not in', recs.ids))
+            name_ids = self.search(search_domain + args, limit=limit)
+            if name_ids: recs += name_ids
+
+        if not recs:
+            recs = self.search([('name', operator, name)] + args, limit=limit)
+        return recs.name_get()
+
+
+class UnidadesMedida(models.Model):
+    _name = 'cfd_mx.unidadesmedida'
+    _description = u"Catalogo de unidades de medida para los conceptos en el CFDI."
+
+    clave = fields.Char(string="Clave", help="Clave del Catálogo del SAT")
+    name = fields.Char(string="Nombre", size=264, required=True, default="")
+    descripcion = fields.Char("Descripcion", required=False, default="")
+    nota = fields.Char("Nota", required=False, default="")
+    from_date = fields.Date(string='Fecha Inicial')
+    to_date = fields.Date(string='Fecha Inicial')
+    simbolo = fields.Char("Simbolo", required=False, default="")
+
+    @api.multi
+    def name_get(self):
+        result = []
+        for rec in self:
+            result.append((rec.id, "[%s] %s" % (rec.clave, rec.name or '')))
+        return result
+
+    @api.model
+    def name_search(self, name, args=None, operator='ilike', limit=100):
+        args = args or []
+        recs = self.browse()
+        if name:
+            cod_prod_ids = self.search([('clave', 'ilike', name)] + args, limit=limit)
+            if cod_prod_ids: recs += cod_prod_ids
+
+            search_domain = [('name', operator, name)]
+            if recs.ids:
+                search_domain.append(('id', 'not in', recs.ids))
+            name_ids = self.search(search_domain + args, limit=limit)
+            if name_ids: recs += name_ids
+
+        if not recs:
+            recs = self.search([('name', operator, name)] + args, limit=limit)
+        return recs.name_get()
+
 class Aduana(models.Model):
     _name = "cfd_mx.aduana"
 
     name = fields.Char("Regimen Fiscal", size=128)
     clave = fields.Char(string="Clave", help="Clave del Catálogo del SAT")
+    from_date = fields.Date(string='Fecha Inicial')
+    to_date = fields.Date(string='Fecha Inicial')
 
     @api.multi
     def name_get(self):

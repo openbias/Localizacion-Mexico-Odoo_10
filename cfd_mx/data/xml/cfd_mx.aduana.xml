@@ -1,0 +1,202 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <!--Generated for OpenBIAS-->
+    <data noupdate="1">
+        <record id="cfd_mx.aduana_01" model="cfd_mx.aduana">
+            <field name="clave">01</field>
+            <field name="name">ACAPULCO, ACAPULCO DE JUAREZ, GUERRERO.</field>
+        </record>
+        <record id="cfd_mx.aduana_02" model="cfd_mx.aduana">
+            <field name="clave">02</field>
+            <field name="name">AGUA PRIETA, AGUA PRIETA, SONORA.</field>
+        </record>
+        <record id="cfd_mx.aduana_05" model="cfd_mx.aduana">
+            <field name="clave">05</field>
+            <field name="name">SUBTENIENTE LOPEZ, SUBTENIENTE LOPEZ, QUINTANA ROO.</field>
+        </record>
+        <record id="cfd_mx.aduana_06" model="cfd_mx.aduana">
+            <field name="clave">06</field>
+            <field name="name">CIUDAD DEL CARMEN, CIUDAD DEL CARMEN, CAMPECHE.</field>
+        </record>
+        <record id="cfd_mx.aduana_07" model="cfd_mx.aduana">
+            <field name="clave">07</field>
+            <field name="name">CIUDAD JUAREZ, CIUDAD JUAREZ, CHIHUAHUA.</field>
+        </record>
+        <record id="cfd_mx.aduana_08" model="cfd_mx.aduana">
+            <field name="clave">08</field>
+            <field name="name">COATZACOALCOS, COATZACOALCOS, VERACRUZ.</field>
+        </record>
+        <record id="cfd_mx.aduana_11" model="cfd_mx.aduana">
+            <field name="clave">11</field>
+            <field name="name">ENSENADA, ENSENADA, BAJA CALIFORNIA.</field>
+        </record>
+        <record id="cfd_mx.aduana_12" model="cfd_mx.aduana">
+            <field name="clave">12</field>
+            <field name="name">GUAYMAS, GUAYMAS, SONORA.</field>
+        </record>
+        <record id="cfd_mx.aduana_14" model="cfd_mx.aduana">
+            <field name="clave">14</field>
+            <field name="name">LA PAZ, LA PAZ, BAJA CALIFORNIA SUR.</field>
+        </record>
+        <record id="cfd_mx.aduana_16" model="cfd_mx.aduana">
+            <field name="clave">16</field>
+            <field name="name">MANZANILLO, MANZANILLO, COLIMA.</field>
+        </record>
+        <record id="cfd_mx.aduana_17" model="cfd_mx.aduana">
+            <field name="clave">17</field>
+            <field name="name">MATAMOROS, MATAMOROS, TAMAULIPAS.</field>
+        </record>
+        <record id="cfd_mx.aduana_18" model="cfd_mx.aduana">
+            <field name="clave">18</field>
+            <field name="name">MAZATLAN, MAZATLAN, SINALOA.</field>
+        </record>
+        <record id="cfd_mx.aduana_19" model="cfd_mx.aduana">
+            <field name="clave">19</field>
+            <field name="name">MEXICALI, MEXICALI, BAJA CALIFORNIA.</field>
+        </record>
+        <record id="cfd_mx.aduana_20" model="cfd_mx.aduana">
+            <field name="clave">20</field>
+            <field name="name">MEXICO, DISTRITO FEDERAL.</field>
+        </record>
+        <record id="cfd_mx.aduana_22" model="cfd_mx.aduana">
+            <field name="clave">22</field>
+            <field name="name">NACO, NACO, SONORA.</field>
+        </record>
+        <record id="cfd_mx.aduana_23" model="cfd_mx.aduana">
+            <field name="clave">23</field>
+            <field name="name">NOGALES, NOGALES, SONORA.</field>
+        </record>
+        <record id="cfd_mx.aduana_24" model="cfd_mx.aduana">
+            <field name="clave">24</field>
+            <field name="name">NUEVO LAREDO, NUEVO LAREDO, TAMAULIPAS.</field>
+        </record>
+        <record id="cfd_mx.aduana_25" model="cfd_mx.aduana">
+            <field name="clave">25</field>
+            <field name="name">OJINAGA, OJINAGA, CHIHUAHUA.</field>
+        </record>
+        <record id="cfd_mx.aduana_26" model="cfd_mx.aduana">
+            <field name="clave">26</field>
+            <field name="name">PUERTO PALOMAS, PUERTO PALOMAS, CHIHUAHUA.</field>
+        </record>
+        <record id="cfd_mx.aduana_27" model="cfd_mx.aduana">
+            <field name="clave">27</field>
+            <field name="name">PIEDRAS NEGRAS, PIEDRAS NEGRAS, COAHUILA.</field>
+        </record>
+        <record id="cfd_mx.aduana_28" model="cfd_mx.aduana">
+            <field name="clave">28</field>
+            <field name="name">PROGRESO, PROGRESO, YUCATAN.</field>
+        </record>
+        <record id="cfd_mx.aduana_30" model="cfd_mx.aduana">
+            <field name="clave">30</field>
+            <field name="name">CIUDAD REYNOSA, CIUDAD REYNOSA, TAMAULIPAS.</field>
+        </record>
+        <record id="cfd_mx.aduana_31" model="cfd_mx.aduana">
+            <field name="clave">31</field>
+            <field name="name">SALINA CRUZ, SALINA CRUZ, OAXACA.</field>
+        </record>
+        <record id="cfd_mx.aduana_33" model="cfd_mx.aduana">
+            <field name="clave">33</field>
+            <field name="name">SAN LUIS RIO COLORADO, SAN LUIS RIO COLORADO, SONORA.</field>
+        </record>
+        <record id="cfd_mx.aduana_34" model="cfd_mx.aduana">
+            <field name="clave">34</field>
+            <field name="name">CIUDAD MIGUEL ALEMAN, CIUDAD MIGUEL ALEMAN, TAMAULIPAS.</field>
+        </record>
+        <record id="cfd_mx.aduana_37" model="cfd_mx.aduana">
+            <field name="clave">37</field>
+            <field name="name">CIUDAD HIDALGO, CIUDAD HIDALGO, CHIAPAS.</field>
+        </record>
+        <record id="cfd_mx.aduana_38" model="cfd_mx.aduana">
+            <field name="clave">38</field>
+            <field name="name">TAMPICO, TAMPICO, TAMAULIPAS.</field>
+        </record>
+        <record id="cfd_mx.aduana_39" model="cfd_mx.aduana">
+            <field name="clave">39</field>
+            <field name="name">TECATE, TECATE, BAJA CALIFORNIA.</field>
+        </record>
+        <record id="cfd_mx.aduana_40" model="cfd_mx.aduana">
+            <field name="clave">40</field>
+            <field name="name">TIJUANA, TIJUANA, BAJA CALIFORNIA.</field>
+        </record>
+        <record id="cfd_mx.aduana_42" model="cfd_mx.aduana">
+            <field name="clave">42</field>
+            <field name="name">TUXPAN, TUXPAN DE RODRIGUEZ CANO, VERACRUZ.</field>
+        </record>
+        <record id="cfd_mx.aduana_43" model="cfd_mx.aduana">
+            <field name="clave">43</field>
+            <field name="name">VERACRUZ, VERACRUZ, VERACRUZ.</field>
+        </record>
+        <record id="cfd_mx.aduana_44" model="cfd_mx.aduana">
+            <field name="clave">44</field>
+            <field name="name">CIUDAD ACUÑA, CIUDAD ACUÑA, COAHUILA.</field>
+        </record>
+        <record id="cfd_mx.aduana_46" model="cfd_mx.aduana">
+            <field name="clave">46</field>
+            <field name="name">TORREON, TORREON, COAHUILA.</field>
+        </record>
+        <record id="cfd_mx.aduana_47" model="cfd_mx.aduana">
+            <field name="clave">47</field>
+            <field name="name">AEROPUERTO INTERNACIONAL DE LA CIUDAD DE MEXICO,</field>
+        </record>
+        <record id="cfd_mx.aduana_48" model="cfd_mx.aduana">
+            <field name="clave">48</field>
+            <field name="name">GUADALAJARA, TLACOMULCO DE ZUÑIGA, JALISCO.</field>
+        </record>
+        <record id="cfd_mx.aduana_50" model="cfd_mx.aduana">
+            <field name="clave">50</field>
+            <field name="name">SONOYTA, SONOYTA, SONORA.</field>
+        </record>
+        <record id="cfd_mx.aduana_51" model="cfd_mx.aduana">
+            <field name="clave">51</field>
+            <field name="name">LAZARO CARDENAS, LAZARO CARDENAS, MICHOACAN.</field>
+        </record>
+        <record id="cfd_mx.aduana_52" model="cfd_mx.aduana">
+            <field name="clave">52</field>
+            <field name="name">MONTERREY, GENERAL MARIANO ESCOBEDO, NUEVO LEON.</field>
+        </record>
+        <record id="cfd_mx.aduana_53" model="cfd_mx.aduana">
+            <field name="clave">53</field>
+            <field name="name">CANCUN, CANCUN, QUINTANA ROO.</field>
+        </record>
+        <record id="cfd_mx.aduana_64" model="cfd_mx.aduana">
+            <field name="clave">64</field>
+            <field name="name">QUERÉTARO, EL MARQUÉS Y COLON, QUERÉTARO.</field>
+        </record>
+        <record id="cfd_mx.aduana_65" model="cfd_mx.aduana">
+            <field name="clave">65</field>
+            <field name="name">TOLUCA, TOLUCA, ESTADO DE MEXICO.</field>
+        </record>
+        <record id="cfd_mx.aduana_67" model="cfd_mx.aduana">
+            <field name="clave">67</field>
+            <field name="name">CHIHUAHUA, CHIHUAHUA, CHIHUAHUA.</field>
+        </record>
+        <record id="cfd_mx.aduana_73" model="cfd_mx.aduana">
+            <field name="clave">73</field>
+            <field name="name">AGUASCALIENTES, AGUASCALIENTES, AGUASCALIENTES.</field>
+        </record>
+        <record id="cfd_mx.aduana_75" model="cfd_mx.aduana">
+            <field name="clave">75</field>
+            <field name="name">PUEBLA, HEROICA PUEBLA DE ZARAGOZA, PUEBLA.</field>
+        </record>
+        <record id="cfd_mx.aduana_80" model="cfd_mx.aduana">
+            <field name="clave">80</field>
+            <field name="name">COLOMBIA, COLOMBIA, NUEVO LEON.</field>
+        </record>
+        <record id="cfd_mx.aduana_81" model="cfd_mx.aduana">
+            <field name="clave">81</field>
+            <field name="name">ALTAMIRA, ALTAMIRA, TAMAULIPAS.</field>
+        </record>
+        <record id="cfd_mx.aduana_82" model="cfd_mx.aduana">
+            <field name="clave">82</field>
+            <field name="name">CIUDAD CAMARGO, CIUDAD CAMARGO, TAMAULIPAS.</field>
+        </record>
+        <record id="cfd_mx.aduana_83" model="cfd_mx.aduana">
+            <field name="clave">83</field>
+            <field name="name">DOS BOCAS, PARAISO, TABASCO.</field>
+        </record>
+        <record id="cfd_mx.aduana_84" model="cfd_mx.aduana">
+            <field name="clave">84</field>
+            <field name="name">GUANAJUATO, SILAO, GUANAJUATO.</field>
+        </record>
+    </data>
+</odoo>

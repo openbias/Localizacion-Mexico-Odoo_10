@@ -169,9 +169,8 @@
                         </div>
                         <table class="table table-bordered table-sm event-table">
                             <tr>
-                                <td class="bg_theme_color"><strong>C. Producto:</strong></td>
-                                <td class="bg_theme_color"><strong>Descripción</strong></td>
-                                <td class="bg_theme_color"><strong>C. Unidad</strong></td>
+                                <td class="bg_theme_color" style="width: 50%;"><strong>Descripción</strong></td>
+                                <td class="bg_theme_color"><strong>Cantidad</strong></td>
                                 <td class="bg_theme_color"><strong>Unidad</strong></td>
                                 <td class="bg_theme_color"><strong>V. Unitario</strong></td>
                                 <td class="bg_theme_color"><strong>Importe</strong></td>
@@ -179,11 +178,10 @@
                             </tr>
                             <t t-foreach="o.invoice_line_ids" t-as="l">
                                 <tr> 
-                                    <td class="border_top"><span t-field="l.product_id.clave_prodser_id.clave" /> </td>
-                                    <td class="border_top"><span t-esc="l.name" /></td>
-                                    <td class="border_top"><span t-field="l.uom_id.clave_unidadesmedida_id.clave" /></td>
+                                    <td class="border_top" style="width: 50%;"><span t-esc="l.name" /></td>
+                                    <td class="border_top"><span t-field="l.quantity" /> </td>
                                     <td class="border_top"><span t-field="l.uom_id.name" /> </td>
-                                    <td class="border_top"><span t-field="l.price_unit" /> </td>
+                                    <td class="border_top">$ <span t-field="l.price_unit" /> </td>
                                     <td class="border_top"><span t-field="l.price_subtotal" /> </td>
                                     <td class="border_top"><span t-field="l.price_discount_sat" /> </td>
                                 </tr>
@@ -193,14 +191,17 @@
                                         <tr class="rowB2">
                                             <td colspan="7">
                                                 <div class="row font_inv">
-                                                    <div class="col-xs-4 text-left">Impuestos</div>
+                                                    <div class="col-xs-4 text-left">
+                                                        <span><strong>Clave Producto SAT: </strong></span> <span t-esc="l.product_id.clave_prodser_id.clave or '01010101' "></span><br />
+                                                        <span><strong>Clave Unidad SAT: </strong></span> <span t-field="l.uom_id.clave_unidadesmedida_id.clave"></span>
+                                                    </div>
                                                     <div class="col-xs-8 text-left">
                                                         <table style="width:100%">
                                                             <tr>
                                                                 <td><strong>Nombre</strong></td>
                                                                 <td><strong>Impuesto</strong></td>
                                                                 <td><strong>Tipo Factor</strong></td>
-                                                                <td><strong>Tasa o Couta</strong></td>
+                                                                <td><strong>Tasa o Cuota</strong></td>
                                                                 <td><strong>Importe</strong></td>
                                                             </tr>
                                                             <t t-foreach="tax" t-as="t">
@@ -213,11 +214,11 @@
                                                                     <t t-set="tras" t-value="tras + importe" />
                                                                 </t>
                                                                 <tr>
-                                                                    <td><span t-esc="t.get('Name')" /></td>
-                                                                    <td><span t-esc="t.get('Impuesto')" /></td>
-                                                                    <td><span t-esc="t.get('TipoFactor')" /></td>
-                                                                    <td><span t-esc="t.get('TasaOCuota')" /></td>
-                                                                    <td>$ <span t-esc="t.get('Importe')" /></td>
+                                                                    <td class="border_top"><span t-esc="t.get('Name')" /></td>
+                                                                    <td class="border_top"><span t-esc="t.get('Impuesto')" /></td>
+                                                                    <td class="border_top"><span t-esc="t.get('TipoFactor')" /></td>
+                                                                    <td class="border_top"><span t-esc="t.get('TasaOCuota')" /></td>
+                                                                    <td class="border_top">$ <span t-esc="t.get('Importe')" /></td>
                                                                 </tr>
                                                             </t>
                                                         </table>
@@ -242,25 +243,38 @@
                             </tr>
                             <tr>
                                 <td class="text-right" style="width:20%"><span t-field="o.price_subtotal_sat" /> </td>
-                                <td class="text-right" style="width:20%"><span t-esc="tras" /></td>
-                                <td class="text-right" style="width:20%"><span t-esc="ret" /></td>
+                                <td class="text-right" style="width:20%">$ <span t-esc="tras" /></td>
+                                <td class="text-right" style="width:20%">$ <span t-esc="ret" /></td>
                                 <td class="text-right" style="width:20%"><span t-field="o.price_discount_sat" /> </td>
                                 <td class="text-right" style="width:20%">$ <span t-esc="o.price_subtotal_sat - o.price_discount_sat + o.price_tax_sat" /> </td>
                             </tr>
                         </table>
                     </div>
+                    <t t-if="o.uuid_relacionado_id">
+                        <br />
+                        <div class="row font_inv">
+                            <div class="col-xs-12 bg_theme_color text-left">
+                                <strong>DOCUMENTO RELACIONADO</strong>
+                            </div>
+                            <div class="col-xs-6 bg_theme_color text-left"><strong>Tipo Relación</strong></div>
+                            <div class="col-xs-6 bg_theme_color text-left"><strong>UUID Relacionado</strong></div>
+
+                            <div class="col-xs-6 text-left"><span t-field="o.tiporelacion_id" /> </div>
+                            <div class="col-xs-6 text-left"><span t-field="o.uuid_egreso" /> </div>
+                        </div>
+                    </t>
                     <br />
                     <div class="row font_inv">
                         <div class="col-xs-12 bg_theme_color text-left">
                             <strong>TIMBRE FISCAL</strong>
                         </div>
-                        <div class="col-xs-3 bg_theme_color text-left"><strong>PAC</strong></div>
-                        <div class="col-xs-3 bg_theme_color text-left"><strong>Folios Fiscal</strong></div>
+                        <div class="col-xs-2 bg_theme_color text-left"><strong>PAC</strong></div>
+                        <div class="col-xs-4 bg_theme_color text-left"><strong>Folios Fiscal</strong></div>
                         <div class="col-xs-3 bg_theme_color text-left"><strong>No. Certificado SAT</strong></div>
                         <div class="col-xs-3 bg_theme_color text-left"><strong>Fecha y Hora de Certificación</strong></div>
                         
-                        <div class="col-xs-3 text-left"><span t-field="o.company_id.cfd_mx_pac" /> </div>
-                        <div class="col-xs-3 text-left"><span t-field="o.uuid" /> </div>
+                        <div class="col-xs-2 text-left"><span t-field="o.company_id.cfd_mx_pac" /> </div>
+                        <div class="col-xs-4 text-left"><span t-field="o.uuid" /> </div>
                         <div class="col-xs-3 text-left"><span t-field="o.certificado_sat" /></div>
                         <div class="col-xs-3 text-left"><span t-field="o.fecha_timbrado"  /></div>
                     </div>
@@ -275,7 +289,7 @@
                                     <span>Sello Digital del Emisor</span>
                                 </div>
                                 <div class="col-xs-12 text-left">
-                                    <code style="font-size: 6px:"><span style="font-size: 6px:" t-field="o.sello" /></code>
+                                    <pre style="font-size:6px; overflow-x: hidden !important; display: inline-flex;" t-field="o.sello" ></pre>
                                 </div>
                             </div>
                         </div>
@@ -285,7 +299,7 @@
                                     <span>Sello Digital del SAT</span>
                                 </div>
                                 <div class="col-xs-12 text-left">
-                                    <code style="font-size: 6px:" ><span style="font-size: 6px:" t-field="o.sello_sat" /></code>
+                                    <pre style="font-size:6px; overflow-x: hidden !important; display: inline-flex;" t-field="o.sello_sat" ></pre>
                                 </div>
                             </div>
                         </div>
@@ -295,239 +309,11 @@
                                     <span>Cadena Original</span>
                                 </div>
                                 <div class="col-xs-12 text-left">
-                                    <code style="font-size: 6px:" ><span style="font-size: 6px:" t-field="o.cadena_sat" /></code>
+                                    <pre style="font-size:6px; overflow-x: hidden !important; display: inline-flex;" t-field="o.cadena_sat" ></pre>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
-
-                    <!--
-                    <div class="row">
-                        <div class="col-xs-4">
-                            <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" class="img img-responsive" style="max-height:104px;"  />
-                        </div>
-                        <div class="col-xs-2">
-                        </div>
-                        <div class="col-xs-6">
-                            <div class="bg_theme_color text-left">
-                                <span class="fa fa-building-o"></span>
-                                <strong t-field="o.company_id.partner_id.name" />
-                            </div>
-                            <div class="text-left" name="company_address">
-                                <div t-field="o.company_id.partner_id" 
-                                    t-field-options='{
-                                        "widget": "contact", 
-                                        "fields": ["address", "phone", "email", "vat", "website"], 
-                                        "no_marker": false, "phone_icons": true}'
-                                    class="company_address" />
-                                <p t-if="o.company_id.partner_id.vat" class="company_address">RFC: <span t-field="o.company_id.partner_id.vat"/></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <div class="bg_theme_color text-left">
-                                <span class="fa fa-building-o"></span>
-                                <strong t-field="o.partner_id.name" />
-                            </div>
-                            <div class="text-left" name="company_address">
-                                <div t-field="o.partner_id" 
-                                    t-field-options='{
-                                        "widget": "contact", 
-                                        "fields": ["address", "phone", "email", "vat", "website"], 
-                                        "no_marker": false, "phone_icons": true}'
-                                    class="company_address" />
-                                <p t-if="o.partner_id.vat" class="company_address">RFC: <span t-field="o.partner_id.vat"/></p>
-                                <p t-if="o.partner_id.ref" class="company_address">Numero de Cliente: <span t-field="o.partner_id.ref"/></p>
-                            </div>
-                        </div>
-                        <div class="col-xs-6">
-                            <div class="bg_theme_color text-left">
-                                <span class="fa fa-building-o"></span>
-                                <strong >Comprobante de : </strong>
-                                <strong t-if="o.type == 'out_invoice' ">Ingreso</strong>
-                                <strong t-if="o.type == 'out_refund'">Egreso</strong>
-                            </div>
-                            <div class="text-left" name="company_address">
-                                <p style="text-align:left; font-size:12px; font-weight:bold; color:#333 !important; ">
-                                    <spam> Folio : </spam><spam t-field="o.number" />
-                                </p>
-                                <p style="font-size:12px ">
-                                    <strong>Fecha:</strong> <spam t-field="o.date_invoice"/>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <table class="table table-condensed table-bordered" style="font-size:10px;">
-                        <tr>
-                            <td><strong>Origen:</strong></td>
-                            <td><spam t-field="o.origin"/></td>
-                            <td><strong>Descripcion:</strong></td>
-                            <td><spam t-field="o.name"/></td>
-                            <td><strong>Vendedor:</strong></td>
-                            <td><spam t-field="o.user_id.name"/></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Lugar de Expedición:</strong></td>
-                            <td><spam t-field="o.journal_id.codigo_postal_id.name"/> - <spam t-field="o.journal_id.codigo_postal_id.municipio_id.name"/></td>
-                            <td><strong>Moneda:</strong></td>
-                            <td><spam t-field="o.currency_id.name"/></td>
-                            <td><strong>Tipo de Cambio:</strong></td>
-                            <td><span t-esc="o.tipo_cambio" /></td>
-                        </tr>
-                    </table>
-                    <table class="table table-condensed" style="font-size:10px;" id="cfdi_conceptos">
-                        <thead>
-                            <tr>
-                                <th><strong>Concepto:</strong></th>
-                                <th style="width:15%;"><strong>Cantidad:</strong></th>
-                                <th style="width:15%;"><strong>Valor Unitario:</strong></th>
-                                <th style="width:15%;"><strong>Importe:</strong></th>
-                            </tr>
-                        </thead>
-                        <tbody >
-                            <tr t-foreach="o.invoice_line_ids" t-as="l">
-                                <td class="text-left">
-                                    <span t-field="l.name"/>
-                                </td>
-                                <td class="text-right">
-                                    <span t-field="l.quantity"/>
-                                    <span t-field="l.uom_id"  groups="product.group_uom"/>
-                                </td>
-                                <td class="text-right">
-                                    <span t-field="l.price_unit"/>
-                                </td>
-                                <td class="text-right">
-                                    <span t-field="l.price_subtotal" 
-                                        t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-left"><br /> </td>
-                                <td class="text-left"></td>
-                                <td class="text-left"></td>
-                                <td class="text-left"></td>
-                            </tr>
-                            <tr>
-                                <td class="text-left"><br /> </td>
-                                <td class="text-left"></td>
-                                <td class="text-left"></td>
-                                <td class="text-left"></td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="2">
-                                    <strong>Cantidad con Letra:</strong> <br />
-                                    <span t-field="o.cantLetra"/>
-                                </td>
-                                <td class="text-right">
-                                    <table style="width:100%">
-                                        <tr>
-                                            <td class="text-right"> <strong>Sub-total: </strong> </td>
-                                        </tr>
-                                        <t t-foreach="o._get_tax_amount_by_group()" t-as="amount_by_group">
-                                            <tr>
-                                                <td class="text-right"> <strong t-esc="amount_by_group[0]" />: </td>
-                                            </tr>
-                                        </t>
-                                        <tr>
-                                            <td class="text-right"> <strong>Total: </strong> </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td class="text-right">
-                                    <table style="width:100%">
-                                        <tr>
-                                            <td class="text-right"> <span t-field="o.amount_untaxed" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/> </td>
-                                        </tr>
-                                        <t t-foreach="o._get_tax_amount_by_group()" t-as="amount_by_group">
-                                            <tr>
-                                                <td class="text-right"> <span t-esc="amount_by_group[1]"/></td>
-                                            </tr>
-                                        </t>
-                                        <tr>
-                                            <td class="text-right"> <span t-field="o.amount_total" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/> </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                    <t t-if="o.comment">
-                        <table class="table table-condensed" style="width: 100%;" id="info">
-                            <thead>
-                                <tr>
-                                    <th colspan="2"><span>NOTAS:</span> </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr><td><p style="font-size:11px "><spam t-field="o.comment"/></p></td></tr>
-                            </tbody>
-                        </table>
-                    </t>
-                    <table class="table table-condensed" style="font-size:10px;" id="info">
-                        <thead>
-                            <tr>
-                                <th colspan="5"><span>Este documento es una representación impresa de un CFDI</span> </th>
-                            </tr><tr>
-                                <td colspan="5"><strong>Pago en Una Sola Exhibición</strong></td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Emisor: </strong></td>
-                                <td><span t-esc="o.company_id.partner_id.name"/></td>
-                                <td style="width: 5%;"></td>
-                                <td><strong>Régimen Fiscal: </strong></td>
-                                <td>[<span t-esc="o.company_id.partner_id.regimen_id.clave"/>] <span t-esc="o.company_id.partner_id.regimen_id.name"/></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Folio Fiscal UUID: </strong></td>
-                                <td><span t-esc="o.uuid"/></td>
-                                <td style="width: 5%;"></td>
-                                <td><strong>Número de Certificado: </strong></td>
-                                <td><span t-esc="o.noCertificado"/></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Terminos de Pagos: </strong></td>
-                                <td><span t-esc="o.payment_term_id.name"/></td>
-                                <td style="width: 5%;"></td>
-                                <td><strong>Forma de Pago: </strong></td>
-                                <td>[<span t-esc="o.formapago_id.clave"/>] <span t-esc="o.formapago_id.name"/></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Metodo de Pago: </strong></td>
-                                <td>[<span t-esc="o.metodopago_id.clave"/>] <span t-esc="o.metodopago_id.name"/></td>
-                                <td style="width: 5%;"></td>
-                                <td><strong>Número de Cuenta de Pago: </strong></td>
-                                <td><span t-esc="o.cuentaBanco"/></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Número de Serie del Certificado del Emisor: </strong></td>
-                                <td><span t-esc="o.noCertificado"/></td>
-                                <td style="width: 5%;"></td>
-                                <td><strong>CDFI Timbrado por: </strong></td>
-                                <td><span t-esc="o.company_id.cfd_mx_pac"/></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table style="font-size:10px;" id="info">
-                        <tr>
-                            <td colspan="1">
-                                <img t-if="o.qrcode" t-att-src="'data:image/png;base64,%s' % o.qrcode" style="vertical-align: text-top; width:140px!important;height:140px!important;"/>
-                            </td>
-                            <td colspan="4" >
-                                <strong>Cadena Original:</strong><spam t-if="o.cadena" t-esc="o.get_info_sat(o.cadena, 40)"/> <br />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="5" ><strong>Sello Digital Del SAT:</strong> <spam t-if="o.sello" t-esc="o.get_info_sat(o.sello, 100)"/> <br /></td>
-                        </tr>
-                    </table>
-                    -->
                 </div>
             </t>
         </template>

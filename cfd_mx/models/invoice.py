@@ -32,7 +32,6 @@ class AccountInvoiceRefund(models.TransientModel):
         return res
 
 
-
 class AccountInvoiceLine(models.Model):
     _inherit = 'account.invoice.line'
 
@@ -134,7 +133,7 @@ class AccountInvoice(models.Model):
 
     pagos = fields.Boolean(string="Pagos", default=False, copy=False, compute='_get_parcialidad_pago')
     parcialidad_pago = fields.Integer(string="No. Parcialidad Pago", compute='_get_parcialidad_pago')
-    uuid_relacionado_id = fields.Many2one('account.invoice', string=u'UUID Relacionado', domainf=[("type", "in", ("out_invoice", "out_refund") ), ("timbrada", "=", True), ("uuid", "!=", None)])
+    uuid_relacionado_id = fields.Many2one('account.invoice', string=u'UUID Relacionado', domain=[("type", "in", ("out_invoice", "out_refund") ), ("timbrada", "=", True), ("uuid", "!=", None)])
     tiporelacion_id = fields.Many2one('cfd_mx.tiporelacion', string=u'Tipo de Relacion', copy="False")
 
     price_subtotal_sat = fields.Monetary(string='Amount (SAT)', readonly=True, compute='_compute_price_sat')

@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <!--Generated for OpenBIAS-->
+    <data noupdate="1">
+        <record id="cfd_mx.tiporelacion_01" model="cfd_mx.tiporelacion">
+            <field name="name">Nota de crédito de los documentos relacionados</field>
+            <field name="clave">01</field>
+        </record>
+        <record id="cfd_mx.tiporelacion_02" model="cfd_mx.tiporelacion">
+            <field name="name">Nota de débito de los documentos relacionados</field>
+            <field name="clave">02</field>
+        </record>
+        <record id="cfd_mx.tiporelacion_03" model="cfd_mx.tiporelacion">
+            <field name="name">Devolución de mercancía sobre facturas o traslados previos</field>
+            <field name="clave">03</field>
+        </record>
+        <record id="cfd_mx.tiporelacion_04" model="cfd_mx.tiporelacion">
+            <field name="name">Sustitución de los CFDI previos</field>
+            <field name="clave">04</field>
+        </record>
+        <record id="cfd_mx.tiporelacion_05" model="cfd_mx.tiporelacion">
+            <field name="name">Traslados de mercancias facturados previamente</field>
+            <field name="clave">05</field>
+        </record>
+        <record id="cfd_mx.tiporelacion_06" model="cfd_mx.tiporelacion">
+            <field name="name">Factura generada por los traslados previos</field>
+            <field name="clave">06</field>
+        </record>
+        <record id="cfd_mx.tiporelacion_07" model="cfd_mx.tiporelacion">
+            <field name="name">CFDI por aplicación de anticipo</field>
+            <field name="clave">07</field>
+        </record>
+    </data>
+</odoo>

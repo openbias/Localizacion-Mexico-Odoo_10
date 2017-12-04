@@ -6,14 +6,14 @@
             <field name="name">uso_cfdi_view_tree</field>
             <field name="model">cfd_mx.usocfdi</field>
             <field name="arch" type="xml">
-                <tree string="Catálogo Uso CFDI">
+                <tree string="Uso CFDI">
                     <field name="clave"/>
                     <field name="name"/>
                 </tree>
             </field>
         </record>
         <record id="action_uso_cfdi" model="ir.actions.act_window">
-            <field name="name">Catálogo Uso CFDI</field>
+            <field name="name">Uso CFDI</field>
             <field name="res_model">cfd_mx.usocfdi</field>
             <field name="type">ir.actions.act_window</field>
             <field name="view_type">tree</field>
@@ -22,7 +22,7 @@
         </record>
         <menuitem 
             action="action_uso_cfdi" 
-            parent="bias_base_report.menu_localizacion_mexico_root"
+            parent="bias_base_report.menu_catalogo_cfdi"
             groups="group_cfd_mx_user"
             id="menu_uso_cfdi" sequence="90" />
 
@@ -31,7 +31,7 @@
             <field name="name">clave.prodserv.view.tree</field>
             <field name="model">cfd_mx.prodserv</field>
             <field name="arch" type="xml">
-                <tree string="Catálogo Productos y Servicios">
+                <tree string="Productos y Servicios">
                     <field name="clave"/>
                     <field name="name"/>
                 </tree>
@@ -41,13 +41,13 @@
             <field name="name">clave.prodserv.view.search</field>
             <field name="model">cfd_mx.prodserv</field>
             <field name="arch" type="xml">
-                <search string="Catálogo Productos y Servicios">
+                <search string="Productos y Servicios">
                     <field name="name" string="Name" filter_domain="['|',('clave','ilike',self),('name','ilike',self)]"/>
                 </search>
             </field>
         </record>
         <record id="action_clave_prodserv" model="ir.actions.act_window">
-            <field name="name">Catálogo Productos y Servicios</field>
+            <field name="name">Productos y Servicios</field>
             <field name="res_model">cfd_mx.prodserv</field>
             <field name="type">ir.actions.act_window</field>
             <field name="view_type">tree</field>
@@ -56,7 +56,7 @@
         </record>
         <menuitem
             action="action_clave_prodserv" 
-            parent="bias_base_report.menu_localizacion_mexico_root"
+            parent="bias_base_report.menu_catalogo_cfdi"
             groups="group_cfd_mx_user"
             id="menu_clave_prodserv"
             sequence="91" />
@@ -66,7 +66,7 @@
             <field name="name">unidades_medida_view_tree</field>
             <field name="model">cfd_mx.unidadesmedida</field>
             <field name="arch" type="xml">
-                <tree string="Catálogo Unidades de Medida CFDI">
+                <tree string="Unidades de Medida CFDI">
                     <field name="clave"/>
                     <field name="name"/>
                     <field name="descripcion" />
@@ -78,13 +78,13 @@
             <field name="name">unidades_medida_view.search</field>
             <field name="model">cfd_mx.unidadesmedida</field>
             <field name="arch" type="xml">
-                <search string="Catálogo Unidades de Medida CFDI">
+                <search string="Unidades de Medida CFDI">
                     <field name="name" string="Name" filter_domain="['|',('clave','ilike',self),('name','ilike',self)]"/>
                 </search>
             </field>
         </record>
         <record id="action_unidades_medida" model="ir.actions.act_window">
-            <field name="name">Catálogo Unidades de Medida CFDI</field>
+            <field name="name">Unidades de Medida CFDI</field>
             <field name="res_model">cfd_mx.unidadesmedida</field>
             <field name="type">ir.actions.act_window</field>
             <field name="view_type">tree</field>
@@ -93,7 +93,7 @@
         </record>
         <menuitem
             action="action_unidades_medida" 
-            parent="bias_base_report.menu_localizacion_mexico_root"
+            parent="bias_base_report.menu_catalogo_cfdi"
             groups="group_cfd_mx_user"
             id="menu_unidades_medida"
             sequence="92" />
@@ -103,7 +103,7 @@
             <field name="name">formapago_view_tree</field>
             <field name="model">cfd_mx.formapago</field>
             <field name="arch" type="xml">
-                <tree string="Catálogo Formas de Pago">
+                <tree string="Formas de Pago">
                     <field name="clave"/>
                     <field name="name"/>
                     <field name="banco"/>
@@ -114,13 +114,13 @@
             <field name="name">formapago_view.search</field>
             <field name="model">cfd_mx.formapago</field>
             <field name="arch" type="xml">
-                <search string="Catálogo Formas de Pago">
+                <search string="Formas de Pago">
                     <field name="name" string="Name" filter_domain="['|',('clave','ilike',self),('name','ilike',self)]"/>
                 </search>
             </field>
         </record>
         <record id="action_formapago" model="ir.actions.act_window">
-            <field name="name">Catálogo Formas de Pago</field>
+            <field name="name">Formas de Pago</field>
             <field name="res_model">cfd_mx.formapago</field>
             <field name="type">ir.actions.act_window</field>
             <field name="view_type">tree</field>
@@ -129,7 +129,7 @@
         </record>
         <menuitem
             action="action_formapago" 
-            parent="bias_base_report.menu_localizacion_mexico_root"
+            parent="bias_base_report.menu_catalogo_cfdi"
             groups="group_cfd_mx_user"
             id="menu_formapago"
             sequence="93" />
@@ -139,7 +139,7 @@
             <field name="name">metodopago_view_tree</field>
             <field name="model">cfd_mx.metodopago</field>
             <field name="arch" type="xml">
-                <tree string="Catálogo Metodo de Pago">
+                <tree string="Metodo de Pago">
                     <field name="clave"/>
                     <field name="name"/>
                 </tree>
@@ -149,13 +149,13 @@
             <field name="name">metodopago_view.search</field>
             <field name="model">cfd_mx.metodopago</field>
             <field name="arch" type="xml">
-                <search string="Catálogo Metodo de Pago">
+                <search string="Metodo de Pago">
                     <field name="name" string="Name" filter_domain="['|',('clave','ilike',self),('name','ilike',self)]"/>
                 </search>
             </field>
         </record>
         <record id="action_metodopago" model="ir.actions.act_window">
-            <field name="name">Catálogo Metodo de Pago</field>
+            <field name="name">Metodo de Pago</field>
             <field name="res_model">cfd_mx.metodopago</field>
             <field name="type">ir.actions.act_window</field>
             <field name="view_type">tree</field>
@@ -164,7 +164,7 @@
         </record>
         <menuitem
             action="action_metodopago" 
-            parent="bias_base_report.menu_localizacion_mexico_root"
+            parent="bias_base_report.menu_catalogo_cfdi"
             groups="group_cfd_mx_user"
             id="menu_metodopago"
             sequence="94" />
@@ -174,7 +174,7 @@
             <field name="name">regimen_view_tree</field>
             <field name="model">cfd_mx.regimen</field>
             <field name="arch" type="xml">
-                <tree string="Catálogo Regimen Fiscal">
+                <tree string="Regimen Fiscal">
                     <field name="clave"/>
                     <field name="name"/>
                     <field name="persona_fisica"/>
@@ -186,13 +186,13 @@
             <field name="name">regimen_view.search</field>
             <field name="model">cfd_mx.regimen</field>
             <field name="arch" type="xml">
-                <search string="Catálogo Regimen Fiscal">
+                <search string="Regimen Fiscal">
                     <field name="name" string="Name" filter_domain="['|',('clave','ilike',self),('name','ilike',self)]"/>
                 </search>
             </field>
         </record>
         <record id="action_regimen" model="ir.actions.act_window">
-            <field name="name">Catálogo Regimen Fiscal</field>
+            <field name="name">Regimen Fiscal</field>
             <field name="res_model">cfd_mx.regimen</field>
             <field name="type">ir.actions.act_window</field>
             <field name="view_type">tree</field>
@@ -201,7 +201,7 @@
         </record>
         <menuitem
             action="action_regimen" 
-            parent="bias_base_report.menu_localizacion_mexico_root"
+            parent="bias_base_report.menu_catalogo_cfdi"
             groups="group_cfd_mx_user"
             id="menu_regimen"
             sequence="95" />
@@ -231,7 +231,7 @@
         </record>
         <menuitem
             action="action_alta_catalogos_wizard" 
-            parent="bias_base_report.menu_localizacion_mexico_root"
+            parent="bias_base_report.menu_catalogo_cfdi"
             groups="group_cfd_mx_user"
             id="menu_alta_catalogos_wizard"
             sequence="99" />
@@ -242,7 +242,7 @@
             <field name="name">aduana_view_tree</field>
             <field name="model">cfd_mx.aduana</field>
             <field name="arch" type="xml">
-                <tree string="Catálogo Aduanas">
+                <tree string="Aduanas">
                     <field name="clave"/>
                     <field name="name"/>
                 </tree>
@@ -252,13 +252,13 @@
             <field name="name">aduana_view.search</field>
             <field name="model">cfd_mx.aduana</field>
             <field name="arch" type="xml">
-                <search string="Catálogo Aduanas">
+                <search string="Aduanas">
                     <field name="name" string="Name" filter_domain="['|',('clave','ilike',self),('name','ilike',self)]"/>
                 </search>
             </field>
         </record>
         <record id="action_aduana" model="ir.actions.act_window">
-            <field name="name">Catálogo Aduanas</field>
+            <field name="name">Aduanas</field>
             <field name="res_model">cfd_mx.aduana</field>
             <field name="type">ir.actions.act_window</field>
             <field name="view_type">tree</field>
@@ -267,7 +267,7 @@
         </record>
         <menuitem
             action="action_aduana" 
-            parent="bias_base_report.menu_localizacion_mexico_root"
+            parent="bias_base_report.menu_catalogo_cfdi"
             groups="group_cfd_mx_user"
             id="menu_aduana"
             sequence="100" />
@@ -306,7 +306,7 @@
         </record>    
         <menuitem action="action_conf_addenda"
             id="menu_conf_addenda" 
-            parent="bias_base_report.menu_localizacion_mexico_root"
+            parent="bias_base_report.menu_catalogo_cfdi"
             groups="group_cfd_mx_user"
             sequence="120"  />
 

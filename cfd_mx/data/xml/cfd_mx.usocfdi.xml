@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <!--Generated for OpenBIAS-->
+    <data noupdate="1">
+        <record id="cfd_mx.usocfdi_G01" model="cfd_mx.usocfdi">
+            <field name="name">Adquisición de mercancias</field>
+            <field name="clave">G01</field>
+        </record>
+        <record id="cfd_mx.usocfdi_G02" model="cfd_mx.usocfdi">
+            <field name="name">Devoluciones, descuentos o bonificaciones</field>
+            <field name="clave">G02</field>
+        </record>
+        <record id="cfd_mx.usocfdi_G03" model="cfd_mx.usocfdi">
+            <field name="name">Gastos en general</field>
+            <field name="clave">G03</field>
+        </record>
+        <record id="cfd_mx.usocfdi_I01" model="cfd_mx.usocfdi">
+            <field name="name">Construcciones</field>
+            <field name="clave">I01</field>
+        </record>
+        <record id="cfd_mx.usocfdi_I02" model="cfd_mx.usocfdi">
+            <field name="name">Mobilario y equipo de oficina por inversiones</field>
+            <field name="clave">I02</field>
+        </record>
+        <record id="cfd_mx.usocfdi_I03" model="cfd_mx.usocfdi">
+            <field name="name">Equipo de transporte</field>
+            <field name="clave">I03</field>
+        </record>
+        <record id="cfd_mx.usocfdi_I04" model="cfd_mx.usocfdi">
+            <field name="name">Equipo de computo y accesorios</field>
+            <field name="clave">I04</field>
+        </record>
+        <record id="cfd_mx.usocfdi_I05" model="cfd_mx.usocfdi">
+            <field name="name">Dados, troqueles, moldes, matrices y herramental</field>
+            <field name="clave">I05</field>
+        </record>
+        <record id="cfd_mx.usocfdi_I06" model="cfd_mx.usocfdi">
+            <field name="name">Comunicaciones telefónicas</field>
+            <field name="clave">I06</field>
+        </record>
+        <record id="cfd_mx.usocfdi_I07" model="cfd_mx.usocfdi">
+            <field name="name">Comunicaciones satelitales</field>
+            <field name="clave">I07</field>
+        </record>
+        <record id="cfd_mx.usocfdi_I08" model="cfd_mx.usocfdi">
+            <field name="name">Otra maquinaria y equipo</field>
+            <field name="clave">I08</field>
+        </record>
+        <record id="cfd_mx.usocfdi_D01" model="cfd_mx.usocfdi">
+            <field name="name">Honorarios médicos, dentales y gastos hospitalarios.</field>
+            <field name="clave">D01</field>
+        </record>
+        <record id="cfd_mx.usocfdi_D02" model="cfd_mx.usocfdi">
+            <field name="name">Gastos médicos por incapacidad o discapacidad</field>
+            <field name="clave">D02</field>
+        </record>
+        <record id="cfd_mx.usocfdi_D03" model="cfd_mx.usocfdi">
+            <field name="name">Gastos funerales.</field>
+            <field name="clave">D03</field>
+        </record>
+        <record id="cfd_mx.usocfdi_D04" model="cfd_mx.usocfdi">
+            <field name="name">Donativos.</field>
+            <field name="clave">D04</field>
+        </record>
+        <record id="cfd_mx.usocfdi_D05" model="cfd_mx.usocfdi">
+            <field name="name">Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación).</field>
+            <field name="clave">D05</field>
+        </record>
+        <record id="cfd_mx.usocfdi_D06" model="cfd_mx.usocfdi">
+            <field name="name">Aportaciones voluntarias al SAR.</field>
+            <field name="clave">D06</field>
+        </record>
+        <record id="cfd_mx.usocfdi_D07" model="cfd_mx.usocfdi">
+            <field name="name">Primas por seguros de gastos médicos.</field>
+            <field name="clave">D07</field>
+        </record>
+        <record id="cfd_mx.usocfdi_D08" model="cfd_mx.usocfdi">
+            <field name="name">Gastos de transportación escolar obligatoria.</field>
+            <field name="clave">D08</field>
+        </record>
+        <record id="cfd_mx.usocfdi_D09" model="cfd_mx.usocfdi">
+            <field name="name">Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones.</field>
+            <field name="clave">D09</field>
+        </record>
+        <record id="cfd_mx.usocfdi_D10" model="cfd_mx.usocfdi">
+            <field name="name">Pagos por servicios educativos (colegiaturas)</field>
+            <field name="clave">D10</field>
+        </record>
+        <record id="cfd_mx.usocfdi_P01" model="cfd_mx.usocfdi">
+            <field name="name">Por definir</field>
+            <field name="clave">P01</field>
+        </record>
+    </data>
+</odoo>

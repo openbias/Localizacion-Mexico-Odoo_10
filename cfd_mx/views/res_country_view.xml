@@ -30,7 +30,7 @@
             <field name="name">codigo_postal_view_tree</field>
             <field name="model">res.country.state.cp</field>
             <field name="arch" type="xml">
-                <tree string="Catálogo Código Postal">
+                <tree string="Código Postal">
                     <field name="name" string="C.P."/>
                     <field name="state_id"/>
                     <field name="ciudad_id"/>
@@ -39,7 +39,7 @@
             </field>
         </record>
         <record id="action_codigo_postal" model="ir.actions.act_window">
-            <field name="name">Catálogo Código Postal</field>
+            <field name="name">Código Postal</field>
             <field name="res_model">res.country.state.cp</field>
             <field name="type">ir.actions.act_window</field>
             <field name="view_type">tree</field>
@@ -49,7 +49,7 @@
         <menuitem
             action="action_codigo_postal"
             id="menu_codigo_postal"
-            parent="bias_base_report.menu_localizacion_mexico_root"
+            parent="bias_base_report.menu_catalogo_cfdi"
             groups="group_cfd_mx_user"            
             sequence="96" />
         <menuitem 
@@ -64,7 +64,7 @@
             <field name="name">municipio_view_tree</field>
             <field name="model">res.country.state.municipio</field>
             <field name="arch" type="xml">
-                <tree string="Catálogo Municipios">
+                <tree string="Municipios">
                     <field name="clave_sat"/>
                     <field name="name"/>
                     <field name="state_id" />
@@ -72,7 +72,7 @@
             </field>
         </record>
         <record id="action_municipio" model="ir.actions.act_window">
-            <field name="name">Catálogo Municipios SAT</field>
+            <field name="name">Municipios SAT</field>
             <field name="res_model">res.country.state.municipio</field>
             <field name="type">ir.actions.act_window</field>
             <field name="view_type">tree</field>
@@ -82,7 +82,7 @@
         <menuitem
             action="action_municipio"
             id="menu_municipio"
-            parent="bias_base_report.menu_localizacion_mexico_root"
+            parent="bias_base_report.menu_catalogo_cfdi"
             groups="group_cfd_mx_user"
             sequence="97" />
         <menuitem 
@@ -97,7 +97,7 @@
             <field name="name">ciudad_view_tree</field>
             <field name="model">res.country.state.ciudad</field>
             <field name="arch" type="xml">
-                <tree string="Catálogo Ciudad SAT">
+                <tree string="Ciudad SAT">
                     <field name="clave_sat"/>
                     <field name="name"/>
                     <field name="state_id" />
@@ -105,7 +105,7 @@
             </field>
         </record>
         <record id="action_ciudad" model="ir.actions.act_window">
-            <field name="name">Catálogo Ciudades SAT</field>
+            <field name="name">Ciudades SAT</field>
             <field name="res_model">res.country.state.ciudad</field>
             <field name="type">ir.actions.act_window</field>
             <field name="view_type">tree</field>
@@ -115,7 +115,7 @@
         <menuitem
             action="action_ciudad"
             id="menu_ciudad"
-            parent="bias_base_report.menu_localizacion_mexico_root"
+            parent="bias_base_report.menu_catalogo_cfdi"
             groups="group_cfd_mx_user"
             sequence="98" />
         <menuitem 

@@ -1,0 +1,3986 @@
+[
+    {
+        "id": "cfd_mx.res_country_state_ciudad_01AGU",
+        "clave_sat": "01",
+        "name": "Aguascalientes",
+        "state_id/id": "base.state_mx_ags"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_01BCN",
+        "clave_sat": "01",
+        "name": "Ensenada",
+        "state_id/id": "base.state_mx_bc"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_01BCS",
+        "clave_sat": "01",
+        "name": "Ciudad Constituci\u00f3n",
+        "state_id/id": "base.state_mx_bcs"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_01CAM",
+        "clave_sat": "01",
+        "name": "San Francisco de Campeche",
+        "state_id/id": "base.state_mx_camp"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_01COA",
+        "clave_sat": "01",
+        "name": "Ciudad Acu\u00f1a",
+        "state_id/id": "base.state_mx_coah"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_01COL",
+        "clave_sat": "01",
+        "name": "Colima",
+        "state_id/id": "base.state_mx_col"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_01CHH",
+        "clave_sat": "01",
+        "name": "Santa Rosal\u00eda de Camargo",
+        "state_id/id": "base.state_mx_chih"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_01CHP",
+        "clave_sat": "01",
+        "name": "Comit\u00e1n de Dom\u00ednguez",
+        "state_id/id": "base.state_mx_chis"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_01DIF",
+        "clave_sat": "01",
+        "name": "Ciudad de M\u00e9xico",
+        "state_id/id": "base.state_mx_df"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_01DUR",
+        "clave_sat": "01",
+        "name": "Victoria de Durango",
+        "state_id/id": "base.state_mx_dgo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_01GRO",
+        "clave_sat": "01",
+        "name": "Acapulco de Ju\u00e1rez",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_01GUA",
+        "clave_sat": "01",
+        "name": "Ac\u00e1mbaro",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_01HID",
+        "clave_sat": "01",
+        "name": "Actopan",
+        "state_id/id": "base.state_mx_hgo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_01JAL",
+        "clave_sat": "01",
+        "name": "Ameca",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_01MEX",
+        "clave_sat": "01",
+        "name": "Ciudad Adolfo L\u00f3pez Mateos",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_01MIC",
+        "clave_sat": "01",
+        "name": "Apatzing\u00e1n de la Constituci\u00f3n",
+        "state_id/id": "base.state_mx_mich"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_01MOR",
+        "clave_sat": "01",
+        "name": "Cuautla (Cuautla de Morelos)",
+        "state_id/id": "base.state_mx_mor"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_01NAY",
+        "clave_sat": "01",
+        "name": "Santiago Ixcuintla",
+        "state_id/id": "base.state_mx_nay"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_01NLE",
+        "clave_sat": "01",
+        "name": "Ciudad Apodaca",
+        "state_id/id": "base.state_mx_nl"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_01OAX",
+        "clave_sat": "01",
+        "name": "Juchit\u00e1n (Juchit\u00e1n de Zaragoza)",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_01PUE",
+        "clave_sat": "01",
+        "name": "Atlixco",
+        "state_id/id": "base.state_mx_pue"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_01QUE",
+        "clave_sat": "01",
+        "name": "Quer\u00e9taro",
+        "state_id/id": "base.state_mx_qro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_01ROO",
+        "clave_sat": "01",
+        "name": "Canc\u00fan",
+        "state_id/id": "base.state_mx_q roo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_01SIN",
+        "clave_sat": "01",
+        "name": "Los Mochis",
+        "state_id/id": "base.state_mx_sin"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_01SLP",
+        "clave_sat": "01",
+        "name": "Ciudad Valles",
+        "state_id/id": "base.state_mx_slp"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_01SON",
+        "clave_sat": "01",
+        "name": "San Luis R\u00edo Colorado",
+        "state_id/id": "base.state_mx_son"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_01TAB",
+        "clave_sat": "01",
+        "name": "C\u00e1rdenas",
+        "state_id/id": "base.state_mx_tab"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_01TAM",
+        "clave_sat": "01",
+        "name": "Altamira",
+        "state_id/id": "base.state_mx_tamps"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_01TLA",
+        "clave_sat": "01",
+        "name": "Apizaco",
+        "state_id/id": "base.state_mx_tlax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_01VER",
+        "clave_sat": "01",
+        "name": "Acayucan",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_01YUC",
+        "clave_sat": "01",
+        "name": "M\u00e9rida",
+        "state_id/id": "base.state_mx_yuc"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_01ZAC",
+        "clave_sat": "01",
+        "name": "Fresnillo",
+        "state_id/id": "base.state_mx_zac"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_02AGU",
+        "clave_sat": "02",
+        "name": "Calvillo",
+        "state_id/id": "base.state_mx_ags"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_02BCN",
+        "clave_sat": "02",
+        "name": "Mexicali",
+        "state_id/id": "base.state_mx_bc"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_02BCS",
+        "clave_sat": "02",
+        "name": "La Paz",
+        "state_id/id": "base.state_mx_bcs"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_02CAM",
+        "clave_sat": "02",
+        "name": "Ciudad del Carmen",
+        "state_id/id": "base.state_mx_camp"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_02COA",
+        "clave_sat": "02",
+        "name": "Frontera",
+        "state_id/id": "base.state_mx_coah"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_02COL",
+        "clave_sat": "02",
+        "name": "Manzanillo",
+        "state_id/id": "base.state_mx_col"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_02CHH",
+        "clave_sat": "02",
+        "name": "Chihuahua",
+        "state_id/id": "base.state_mx_chih"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_02CHP",
+        "clave_sat": "02",
+        "name": "San Crist\u00f3bal de las Casas",
+        "state_id/id": "base.state_mx_chis"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_02DIF",
+        "clave_sat": "02",
+        "name": "Ciudad de M\u00e9xico",
+        "state_id/id": "base.state_mx_df"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_02DUR",
+        "clave_sat": "02",
+        "name": "G\u00f3mez Palacio",
+        "state_id/id": "base.state_mx_dgo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_02GRO",
+        "clave_sat": "02",
+        "name": "Chilpancingo de los Bravo",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_02GUA",
+        "clave_sat": "02",
+        "name": "San miguel de Allende",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_02HID",
+        "clave_sat": "02",
+        "name": "Apan",
+        "state_id/id": "base.state_mx_hgo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_02JAL",
+        "clave_sat": "02",
+        "name": "Ciudad Guzm\u00e1n",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_02MEX",
+        "clave_sat": "02",
+        "name": "Chimalhuac\u00e1n",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_02MIC",
+        "clave_sat": "02",
+        "name": "Los Reyes de Salgado",
+        "state_id/id": "base.state_mx_mich"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_02MOR",
+        "clave_sat": "02",
+        "name": "Cuernavaca",
+        "state_id/id": "base.state_mx_mor"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_02NAY",
+        "clave_sat": "02",
+        "name": "Tepic",
+        "state_id/id": "base.state_mx_nay"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_02NLE",
+        "clave_sat": "02",
+        "name": "San Pedro Garza Garc\u00eda",
+        "state_id/id": "base.state_mx_nl"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_02OAX",
+        "clave_sat": "02",
+        "name": "Oaxaca de Ju\u00e1rez",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_02PUE",
+        "clave_sat": "02",
+        "name": "Iz\u00facar de Matamoros",
+        "state_id/id": "base.state_mx_pue"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_02QUE",
+        "clave_sat": "02",
+        "name": "San Juan del Rio",
+        "state_id/id": "base.state_mx_qro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_02ROO",
+        "clave_sat": "02",
+        "name": "Cozumel",
+        "state_id/id": "base.state_mx_q roo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_02SIN",
+        "clave_sat": "02",
+        "name": "Culiac\u00e1n Rosales",
+        "state_id/id": "base.state_mx_sin"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_02SLP",
+        "clave_sat": "02",
+        "name": "\u00c9bano",
+        "state_id/id": "base.state_mx_slp"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_02SON",
+        "clave_sat": "02",
+        "name": "Agua Prieta",
+        "state_id/id": "base.state_mx_son"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_02TAB",
+        "clave_sat": "02",
+        "name": "Villahermosa",
+        "state_id/id": "base.state_mx_tab"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_02TAM",
+        "clave_sat": "02",
+        "name": "Ciudad Camargo",
+        "state_id/id": "base.state_mx_tamps"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_02TLA",
+        "clave_sat": "02",
+        "name": "Villa Vicente Guerrero",
+        "state_id/id": "base.state_mx_tlax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_02VER",
+        "clave_sat": "02",
+        "name": "Naranjos",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_02YUC",
+        "clave_sat": "02",
+        "name": "Tizim\u00edn",
+        "state_id/id": "base.state_mx_yuc"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_02ZAC",
+        "clave_sat": "02",
+        "name": "Jerez de Garc\u00eda Salinas",
+        "state_id/id": "base.state_mx_zac"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_03AGU",
+        "clave_sat": "03",
+        "name": "San Francisco de los Romo",
+        "state_id/id": "base.state_mx_ags"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_03BCN",
+        "clave_sat": "03",
+        "name": "Tecate",
+        "state_id/id": "base.state_mx_bc"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_03BCS",
+        "clave_sat": "03",
+        "name": "Cabo San Lucas",
+        "state_id/id": "base.state_mx_bcs"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_03CAM",
+        "clave_sat": "03",
+        "name": "Calkini",
+        "state_id/id": "base.state_mx_camp"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_03COA",
+        "clave_sat": "03",
+        "name": "Matamoros",
+        "state_id/id": "base.state_mx_coah"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_03COL",
+        "clave_sat": "03",
+        "name": "Tecoman",
+        "state_id/id": "base.state_mx_col"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_03CHH",
+        "clave_sat": "03",
+        "name": "Cuauht\u00e9moc",
+        "state_id/id": "base.state_mx_chih"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_03CHP",
+        "clave_sat": "03",
+        "name": "Tapachula de C\u00f3rdova y Ord\u00f3\u00f1ez",
+        "state_id/id": "base.state_mx_chis"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_03DIF",
+        "clave_sat": "03",
+        "name": "Ciudad de M\u00e9xico",
+        "state_id/id": "base.state_mx_df"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_03DUR",
+        "clave_sat": "03",
+        "name": "Ciudad Lerdo",
+        "state_id/id": "base.state_mx_dgo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_03GRO",
+        "clave_sat": "03",
+        "name": "Iguala de la Independencia",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_03GUA",
+        "clave_sat": "03",
+        "name": "Celaya",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_03HID",
+        "clave_sat": "03",
+        "name": "Pachuca de Soto",
+        "state_id/id": "base.state_mx_hgo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_03JAL",
+        "clave_sat": "03",
+        "name": "Guadalajara",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_03MEX",
+        "clave_sat": "03",
+        "name": "Coacalco de Berriozabal",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_03MIC",
+        "clave_sat": "03",
+        "name": "Ciudad Hidalgo",
+        "state_id/id": "base.state_mx_mich"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_03MOR",
+        "clave_sat": "03",
+        "name": "Galeana",
+        "state_id/id": "base.state_mx_mor"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_03NAY",
+        "clave_sat": "03",
+        "name": "Tuxpan",
+        "state_id/id": "base.state_mx_nay"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_03NLE",
+        "clave_sat": "03",
+        "name": "Ciudad General Escobedo",
+        "state_id/id": "base.state_mx_nl"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_03OAX",
+        "clave_sat": "03",
+        "name": "Salina Cruz",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_03PUE",
+        "clave_sat": "03",
+        "name": "Puebla (Heroica Puebla)",
+        "state_id/id": "base.state_mx_pue"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_03ROO",
+        "clave_sat": "03",
+        "name": "Felipe Carrillo Puerto",
+        "state_id/id": "base.state_mx_q roo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_03SIN",
+        "clave_sat": "03",
+        "name": "Escuinapa de Hidalgo",
+        "state_id/id": "base.state_mx_sin"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_03SLP",
+        "clave_sat": "03",
+        "name": "Matehuala",
+        "state_id/id": "base.state_mx_slp"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_03SON",
+        "clave_sat": "03",
+        "name": "Heroica Caborca",
+        "state_id/id": "base.state_mx_son"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_03TAB",
+        "clave_sat": "03",
+        "name": "Comalcalco",
+        "state_id/id": "base.state_mx_tab"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_03TAM",
+        "clave_sat": "03",
+        "name": "Ciudad Madero",
+        "state_id/id": "base.state_mx_tamps"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_03TLA",
+        "clave_sat": "03",
+        "name": "Tlaxcala (Tlaxcala de Xicotencatl)",
+        "state_id/id": "base.state_mx_tlax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_03VER",
+        "clave_sat": "03",
+        "name": "Boca del R\u00cdo",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_03YUC",
+        "clave_sat": "03",
+        "name": "Ticul",
+        "state_id/id": "base.state_mx_yuc"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_03ZAC",
+        "clave_sat": "03",
+        "name": "Zacatecas",
+        "state_id/id": "base.state_mx_zac"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_04AGU",
+        "clave_sat": "04",
+        "name": "Jes\u00fas Mar\u00eda",
+        "state_id/id": "base.state_mx_ags"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_04BCN",
+        "clave_sat": "04",
+        "name": "Tijuana",
+        "state_id/id": "base.state_mx_bc"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_04BCS",
+        "clave_sat": "04",
+        "name": "San Jos\u00e9 del Cabo",
+        "state_id/id": "base.state_mx_bcs"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_04CAM",
+        "clave_sat": "04",
+        "name": "Candelaria",
+        "state_id/id": "base.state_mx_camp"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_04COA",
+        "clave_sat": "04",
+        "name": "Monclova",
+        "state_id/id": "base.state_mx_coah"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_04COL",
+        "clave_sat": "04",
+        "name": "Ciudad de Villa de \u00c1lvarez",
+        "state_id/id": "base.state_mx_col"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_04CHH",
+        "clave_sat": "04",
+        "name": "Delicias",
+        "state_id/id": "base.state_mx_chih"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_04CHP",
+        "clave_sat": "04",
+        "name": "Tuxtla Guti\u00e9rrez",
+        "state_id/id": "base.state_mx_chis"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_04DIF",
+        "clave_sat": "04",
+        "name": "Ciudad de M\u00e9xico",
+        "state_id/id": "base.state_mx_df"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_04DUR",
+        "clave_sat": "04",
+        "name": "Santiago Papasquiaro",
+        "state_id/id": "base.state_mx_dgo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_04GRO",
+        "clave_sat": "04",
+        "name": "Taxco de Alarc\u00f3n",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_04GUA",
+        "clave_sat": "04",
+        "name": "Cortazar",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_04HID",
+        "clave_sat": "04",
+        "name": "Cd. de Fray Bernardino de Sahag\u00fan",
+        "state_id/id": "base.state_mx_hgo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_04JAL",
+        "clave_sat": "04",
+        "name": "Lagos de Moreno",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_04MEX",
+        "clave_sat": "04",
+        "name": "Cuautitl\u00e1n Izcalli",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_04MIC",
+        "clave_sat": "04",
+        "name": "Jacona de Plancarte",
+        "state_id/id": "base.state_mx_mich"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_04MOR",
+        "clave_sat": "04",
+        "name": "Jojutla",
+        "state_id/id": "base.state_mx_mor"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_04NAY",
+        "clave_sat": "04",
+        "name": "Acaponeta",
+        "state_id/id": "base.state_mx_nay"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_04NLE",
+        "clave_sat": "04",
+        "name": "Guadalupe",
+        "state_id/id": "base.state_mx_nl"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_04OAX",
+        "clave_sat": "04",
+        "name": "San Juan Bautista Tuxtepec",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_04PUE",
+        "clave_sat": "04",
+        "name": "San Mart\u00edn Texmelucan de Labastida",
+        "state_id/id": "base.state_mx_pue"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_04QUE",
+        "clave_sat": "04",
+        "name": "El Pueblito",
+        "state_id/id": "base.state_mx_qro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_04ROO",
+        "clave_sat": "04",
+        "name": "Chetumal",
+        "state_id/id": "base.state_mx_q roo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_04SIN",
+        "clave_sat": "04",
+        "name": "Guasave",
+        "state_id/id": "base.state_mx_sin"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_04SLP",
+        "clave_sat": "04",
+        "name": "Rioverde",
+        "state_id/id": "base.state_mx_slp"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_04SON",
+        "clave_sat": "04",
+        "name": "Ciudad Obreg\u00f3n",
+        "state_id/id": "base.state_mx_son"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_04TAB",
+        "clave_sat": "04",
+        "name": "Emiliano Zapata",
+        "state_id/id": "base.state_mx_tab"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_04TAM",
+        "clave_sat": "04",
+        "name": "Ciudad Mante",
+        "state_id/id": "base.state_mx_tamps"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_04TLA",
+        "clave_sat": "04",
+        "name": "Huamantla",
+        "state_id/id": "base.state_mx_tlax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_04VER",
+        "clave_sat": "04",
+        "name": "Coatepec",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_04YUC",
+        "clave_sat": "04",
+        "name": "Motul de Carrillo Puerto",
+        "state_id/id": "base.state_mx_yuc"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_04ZAC",
+        "clave_sat": "04",
+        "name": "Guadalupe",
+        "state_id/id": "base.state_mx_zac"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_05AGU",
+        "clave_sat": "05",
+        "name": "Pabell\u00f3n de Arteaga",
+        "state_id/id": "base.state_mx_ags"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_05BCN",
+        "clave_sat": "05",
+        "name": "Playas de Rosarito",
+        "state_id/id": "base.state_mx_bc"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_05BCS",
+        "clave_sat": "05",
+        "name": "Loreto",
+        "state_id/id": "base.state_mx_bcs"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_05CAM",
+        "clave_sat": "05",
+        "name": "Esc\u00e1rcega",
+        "state_id/id": "base.state_mx_camp"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_05COA",
+        "clave_sat": "05",
+        "name": "Parras de la Fuente",
+        "state_id/id": "base.state_mx_coah"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_05COL",
+        "clave_sat": "05",
+        "name": "Ciudad de Armer\u00eda",
+        "state_id/id": "base.state_mx_col"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_05CHH",
+        "clave_sat": "05",
+        "name": "Hidalgo del Parral",
+        "state_id/id": "base.state_mx_chih"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_05CHP",
+        "clave_sat": "05",
+        "name": "Venustiano Carranza",
+        "state_id/id": "base.state_mx_chis"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_05DIF",
+        "clave_sat": "05",
+        "name": "Ciudad de M\u00e9xico",
+        "state_id/id": "base.state_mx_df"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_05DUR",
+        "clave_sat": "05",
+        "name": "Canatl\u00e1n",
+        "state_id/id": "base.state_mx_dgo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_05GRO",
+        "clave_sat": "05",
+        "name": "Arcelia",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_05GUA",
+        "clave_sat": "05",
+        "name": "Guanajuato",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_05HID",
+        "clave_sat": "05",
+        "name": "Tula de Allende",
+        "state_id/id": "base.state_mx_hgo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_05JAL",
+        "clave_sat": "05",
+        "name": "Ocotl\u00e1n",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_05MEX",
+        "clave_sat": "05",
+        "name": "Ecatepec de Morelos",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_05MIC",
+        "clave_sat": "05",
+        "name": "La piedad de Cabadas",
+        "state_id/id": "base.state_mx_mich"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_05MOR",
+        "clave_sat": "05",
+        "name": "Puente de Ixtla",
+        "state_id/id": "base.state_mx_mor"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_05NAY",
+        "clave_sat": "05",
+        "name": "Tecuala",
+        "state_id/id": "base.state_mx_nay"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_05NLE",
+        "clave_sat": "05",
+        "name": "Linares",
+        "state_id/id": "base.state_mx_nl"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_05OAX",
+        "clave_sat": "05",
+        "name": "Mat\u00edas Romero Avenda\u00f1o",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_05PUE",
+        "clave_sat": "05",
+        "name": "Tehuacan",
+        "state_id/id": "base.state_mx_pue"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_05ROO",
+        "clave_sat": "05",
+        "name": "Playa del Carmen",
+        "state_id/id": "base.state_mx_q roo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_05SIN",
+        "clave_sat": "05",
+        "name": "Mazatl\u00e1n",
+        "state_id/id": "base.state_mx_sin"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_05SLP",
+        "clave_sat": "05",
+        "name": "San Luis Potos\u00ed",
+        "state_id/id": "base.state_mx_slp"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_05SON",
+        "clave_sat": "05",
+        "name": "Empalme",
+        "state_id/id": "base.state_mx_son"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_05TAB",
+        "clave_sat": "05",
+        "name": "Jalpa de M\u00e9ndez",
+        "state_id/id": "base.state_mx_tab"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_05TAM",
+        "clave_sat": "05",
+        "name": "Heroica Matamoros",
+        "state_id/id": "base.state_mx_tamps"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_05TLA",
+        "clave_sat": "05",
+        "name": "Calpulalpan",
+        "state_id/id": "base.state_mx_tlax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_05VER",
+        "clave_sat": "05",
+        "name": "Agua dulce",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_05YUC",
+        "clave_sat": "05",
+        "name": "Valladolid",
+        "state_id/id": "base.state_mx_yuc"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_05ZAC",
+        "clave_sat": "05",
+        "name": "R\u00edo Grande",
+        "state_id/id": "base.state_mx_zac"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_06AGU",
+        "clave_sat": "06",
+        "name": "Rinc\u00f3n de Romos",
+        "state_id/id": "base.state_mx_ags"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_06BCN",
+        "clave_sat": "06",
+        "name": "Rodolfo S\u00e1nchez T. (Maneadero)",
+        "state_id/id": "base.state_mx_bc"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_06BCS",
+        "clave_sat": "06",
+        "name": "Puerto Adolfo L\u00f3pez Mateos",
+        "state_id/id": "base.state_mx_bcs"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_06CAM",
+        "clave_sat": "06",
+        "name": "Sabancuy",
+        "state_id/id": "base.state_mx_camp"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_06COA",
+        "clave_sat": "06",
+        "name": "Piedras Negras",
+        "state_id/id": "base.state_mx_coah"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_06CHH",
+        "clave_sat": "06",
+        "name": "Ju\u00e1rez",
+        "state_id/id": "base.state_mx_chih"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_06CHP",
+        "clave_sat": "06",
+        "name": "Jiquipilas",
+        "state_id/id": "base.state_mx_chis"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_06DIF",
+        "clave_sat": "06",
+        "name": "Ciudad de M\u00e9xico",
+        "state_id/id": "base.state_mx_df"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_06DUR",
+        "clave_sat": "06",
+        "name": "San Juan del R\u00edo del Centauro del Norte",
+        "state_id/id": "base.state_mx_dgo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_06GRO",
+        "clave_sat": "06",
+        "name": "Ayutla de los Libres",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_06GUA",
+        "clave_sat": "06",
+        "name": "Irapuato",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_06HID",
+        "clave_sat": "06",
+        "name": "Tulancingo",
+        "state_id/id": "base.state_mx_hgo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_06JAL",
+        "clave_sat": "06",
+        "name": "Puerto Vallarta",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_06MEX",
+        "clave_sat": "06",
+        "name": "Huixquilucan de Degollado",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_06MIC",
+        "clave_sat": "06",
+        "name": "Morelia",
+        "state_id/id": "base.state_mx_mich"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_06MOR",
+        "clave_sat": "06",
+        "name": "Santa Rosa Treinta",
+        "state_id/id": "base.state_mx_mor"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_06NAY",
+        "clave_sat": "06",
+        "name": "Compostela",
+        "state_id/id": "base.state_mx_nay"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_06NLE",
+        "clave_sat": "06",
+        "name": "Montemorelos",
+        "state_id/id": "base.state_mx_nl"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_06OAX",
+        "clave_sat": "06",
+        "name": "Heroica Ciudad de Huajuapan de Le\u00f3n",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_06PUE",
+        "clave_sat": "06",
+        "name": "Teziutlan",
+        "state_id/id": "base.state_mx_pue"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_06ROO",
+        "clave_sat": "06",
+        "name": "Kantunilk\u00edn",
+        "state_id/id": "base.state_mx_q roo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_06SIN",
+        "clave_sat": "06",
+        "name": "Guam\u00fachil",
+        "state_id/id": "base.state_mx_sin"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_06SLP",
+        "clave_sat": "06",
+        "name": "Soledad de Graciano S\u00e1nchez",
+        "state_id/id": "base.state_mx_slp"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_06SON",
+        "clave_sat": "06",
+        "name": "Heroica Guaymas",
+        "state_id/id": "base.state_mx_son"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_06TAM",
+        "clave_sat": "06",
+        "name": "Nuevo Laredo",
+        "state_id/id": "base.state_mx_tamps"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_06TLA",
+        "clave_sat": "06",
+        "name": "Chiautempan",
+        "state_id/id": "base.state_mx_tlax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_06VER",
+        "clave_sat": "06",
+        "name": "Coatzacoalcos",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_06YUC",
+        "clave_sat": "06",
+        "name": "Kanas\u00edn",
+        "state_id/id": "base.state_mx_yuc"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_06ZAC",
+        "clave_sat": "06",
+        "name": "Ciudad Cuauht\u00e9moc",
+        "state_id/id": "base.state_mx_zac"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_07AGU",
+        "clave_sat": "07",
+        "name": "Asientos",
+        "state_id/id": "base.state_mx_ags"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_07BCN",
+        "clave_sat": "07",
+        "name": "San Felipe",
+        "state_id/id": "base.state_mx_bc"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_07BCS",
+        "clave_sat": "07",
+        "name": "Todos Santos",
+        "state_id/id": "base.state_mx_bcs"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_07CAM",
+        "clave_sat": "07",
+        "name": "Hopelch\u00e9n",
+        "state_id/id": "base.state_mx_camp"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_07COA",
+        "clave_sat": "07",
+        "name": "Sabinas",
+        "state_id/id": "base.state_mx_coah"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_07CHH",
+        "clave_sat": "07",
+        "name": "Nuevo Casas Grandes",
+        "state_id/id": "base.state_mx_chih"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_07CHP",
+        "clave_sat": "07",
+        "name": "Villaflores",
+        "state_id/id": "base.state_mx_chis"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_07DIF",
+        "clave_sat": "07",
+        "name": "Ciudad de M\u00e9xico",
+        "state_id/id": "base.state_mx_df"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_07DUR",
+        "clave_sat": "07",
+        "name": "Pe\u00f1\u00f3n Blanco",
+        "state_id/id": "base.state_mx_dgo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_07GRO",
+        "clave_sat": "07",
+        "name": "Atoyac de \u00c1lvarez",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_07GUA",
+        "clave_sat": "07",
+        "name": "Le\u00f3n de los Aldama",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_07HID",
+        "clave_sat": "07",
+        "name": "Zimapan",
+        "state_id/id": "base.state_mx_hgo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_07JAL",
+        "clave_sat": "07",
+        "name": "San Juan de los Lagos",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_07MEX",
+        "clave_sat": "07",
+        "name": "Los Reyes Acaquilpan (La Paz)",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_07MIC",
+        "clave_sat": "07",
+        "name": "P\u00e1tzcuaro",
+        "state_id/id": "base.state_mx_mich"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_07MOR",
+        "clave_sat": "07",
+        "name": "Zacatepec de Hidalgo",
+        "state_id/id": "base.state_mx_mor"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_07NAY",
+        "clave_sat": "07",
+        "name": "Francisco I. Madero (Puga)",
+        "state_id/id": "base.state_mx_nay"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_07NLE",
+        "clave_sat": "07",
+        "name": "Monterrey",
+        "state_id/id": "base.state_mx_nl"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_07OAX",
+        "clave_sat": "07",
+        "name": "Loma Bonita",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_07PUE",
+        "clave_sat": "07",
+        "name": "San Andr\u00e9s Cholula",
+        "state_id/id": "base.state_mx_pue"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_07ROO",
+        "clave_sat": "07",
+        "name": "Isla Mujeres",
+        "state_id/id": "base.state_mx_q roo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_07SIN",
+        "clave_sat": "07",
+        "name": "Navolato",
+        "state_id/id": "base.state_mx_sin"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_07SLP",
+        "clave_sat": "07",
+        "name": "Charcas",
+        "state_id/id": "base.state_mx_slp"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_07SON",
+        "clave_sat": "07",
+        "name": "Hermosillo",
+        "state_id/id": "base.state_mx_son"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_07TAB",
+        "clave_sat": "07",
+        "name": "Macuspana",
+        "state_id/id": "base.state_mx_tab"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_07TAM",
+        "clave_sat": "07",
+        "name": "Reynosa",
+        "state_id/id": "base.state_mx_tamps"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_07VER",
+        "clave_sat": "07",
+        "name": "C\u00f3rdoba",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_07ZAC",
+        "clave_sat": "07",
+        "name": "Ojocaliente",
+        "state_id/id": "base.state_mx_zac"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_08AGU",
+        "clave_sat": "08",
+        "name": "Tepezal\u00e1",
+        "state_id/id": "base.state_mx_ags"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_08BCS",
+        "clave_sat": "08",
+        "name": "Heroica Muleg\u00e9",
+        "state_id/id": "base.state_mx_bcs"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_08CAM",
+        "clave_sat": "08",
+        "name": "Champot\u00f3n",
+        "state_id/id": "base.state_mx_camp"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_08COA",
+        "clave_sat": "08",
+        "name": "Saltillo",
+        "state_id/id": "base.state_mx_coah"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_08CHP",
+        "clave_sat": "08",
+        "name": "Las Margaritas",
+        "state_id/id": "base.state_mx_chis"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_08DIF",
+        "clave_sat": "08",
+        "name": "Ciudad de M\u00e9xico",
+        "state_id/id": "base.state_mx_df"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_08DUR",
+        "clave_sat": "08",
+        "name": "Francisco I. Madero",
+        "state_id/id": "base.state_mx_dgo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_08GUA",
+        "clave_sat": "08",
+        "name": "Morole\u00f3n",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_08HID",
+        "clave_sat": "08",
+        "name": "Huejutla de Reyes",
+        "state_id/id": "base.state_mx_hgo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_08JAL",
+        "clave_sat": "08",
+        "name": "Tepatitl\u00e1n de Morelos",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_08MEX",
+        "clave_sat": "08",
+        "name": "Metepec",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_08MIC",
+        "clave_sat": "08",
+        "name": "Sahuayo de Morelos",
+        "state_id/id": "base.state_mx_mich"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_08MOR",
+        "clave_sat": "08",
+        "name": "Tlaquiltenango",
+        "state_id/id": "base.state_mx_mor"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_08NAY",
+        "clave_sat": "08",
+        "name": "Villa Hidalgo (El Nuevo)",
+        "state_id/id": "base.state_mx_nay"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_08NLE",
+        "clave_sat": "08",
+        "name": "Ciudad Sabinas Hidalgo",
+        "state_id/id": "base.state_mx_nl"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_08OAX",
+        "clave_sat": "08",
+        "name": "Puerto Escondido",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_08PUE",
+        "clave_sat": "08",
+        "name": "San Pedro Cholula",
+        "state_id/id": "base.state_mx_pue"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_08ROO",
+        "clave_sat": "08",
+        "name": "Bacalar",
+        "state_id/id": "base.state_mx_q roo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_08SIN",
+        "clave_sat": "08",
+        "name": "Quila",
+        "state_id/id": "base.state_mx_sin"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_08SLP",
+        "clave_sat": "08",
+        "name": "Salinas de Hidalgo",
+        "state_id/id": "base.state_mx_slp"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_08SON",
+        "clave_sat": "08",
+        "name": "Huatabampo",
+        "state_id/id": "base.state_mx_son"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_08TAB",
+        "clave_sat": "08",
+        "name": "Tenosique de Pino Su\u00e1rez",
+        "state_id/id": "base.state_mx_tab"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_08TAM",
+        "clave_sat": "08",
+        "name": "Ciudad R\u00edo Bravo",
+        "state_id/id": "base.state_mx_tamps"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_08VER",
+        "clave_sat": "08",
+        "name": "Tres Valles",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_08ZAC",
+        "clave_sat": "08",
+        "name": "Villa Hidalgo",
+        "state_id/id": "base.state_mx_zac"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_09AGU",
+        "clave_sat": "09",
+        "name": "Cos\u00edo",
+        "state_id/id": "base.state_mx_ags"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_09BCS",
+        "clave_sat": "09",
+        "name": "Villa Alberto Andr\u00e9s Alvarado Ar\u00e1mburo",
+        "state_id/id": "base.state_mx_bcs"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_09CAM",
+        "clave_sat": "09",
+        "name": "Hecelchak\u00e1n",
+        "state_id/id": "base.state_mx_camp"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_09COA",
+        "clave_sat": "09",
+        "name": "Nueva Rosita",
+        "state_id/id": "base.state_mx_coah"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_09CHH",
+        "clave_sat": "09",
+        "name": "Madera",
+        "state_id/id": "base.state_mx_chih"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_09CHP",
+        "clave_sat": "09",
+        "name": "Arriaga",
+        "state_id/id": "base.state_mx_chis"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_09DIF",
+        "clave_sat": "09",
+        "name": "Ciudad de M\u00e9xico",
+        "state_id/id": "base.state_mx_df"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_09DUR",
+        "clave_sat": "09",
+        "name": "Nombre de Dios",
+        "state_id/id": "base.state_mx_dgo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_09GRO",
+        "clave_sat": "09",
+        "name": "San Jer\u00f3nimo de Ju\u00e1rez",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_09GUA",
+        "clave_sat": "09",
+        "name": "Salamanca",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_09HID",
+        "clave_sat": "09",
+        "name": "Tlaxcoapan",
+        "state_id/id": "base.state_mx_hgo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_09JAL",
+        "clave_sat": "09",
+        "name": "Tlaquepaque",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_09MEX",
+        "clave_sat": "09",
+        "name": "Naucalpan de Ju\u00e1rez",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_09MIC",
+        "clave_sat": "09",
+        "name": "Uruapan",
+        "state_id/id": "base.state_mx_mich"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_09NAY",
+        "clave_sat": "09",
+        "name": "Ruiz",
+        "state_id/id": "base.state_mx_nay"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_09NLE",
+        "clave_sat": "09",
+        "name": "San Nicol\u00e1s de los Garza",
+        "state_id/id": "base.state_mx_nl"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_09OAX",
+        "clave_sat": "09",
+        "name": "R\u00edo Grande o Piedra Parada",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_09PUE",
+        "clave_sat": "09",
+        "name": "Huauchinango",
+        "state_id/id": "base.state_mx_pue"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_09SIN",
+        "clave_sat": "09",
+        "name": "Ahome",
+        "state_id/id": "base.state_mx_sin"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_09SLP",
+        "clave_sat": "09",
+        "name": "C\u00e1rdenas",
+        "state_id/id": "base.state_mx_slp"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_09SON",
+        "clave_sat": "09",
+        "name": "Navojoa",
+        "state_id/id": "base.state_mx_son"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_09TAB",
+        "clave_sat": "09",
+        "name": "Teapa",
+        "state_id/id": "base.state_mx_tab"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_09TAM",
+        "clave_sat": "09",
+        "name": "San Fernando",
+        "state_id/id": "base.state_mx_tamps"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_09VER",
+        "clave_sat": "09",
+        "name": "J\u00e1ltipan de Morelos",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_09ZAC",
+        "clave_sat": "09",
+        "name": "Villanueva",
+        "state_id/id": "base.state_mx_zac"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_10BCS",
+        "clave_sat": "10",
+        "name": "San Ignacio",
+        "state_id/id": "base.state_mx_bcs"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_10COA",
+        "clave_sat": "10",
+        "name": "San Pedro",
+        "state_id/id": "base.state_mx_coah"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_10CHH",
+        "clave_sat": "10",
+        "name": "Colonia An\u00e1huac",
+        "state_id/id": "base.state_mx_chih"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_10CHP",
+        "clave_sat": "10",
+        "name": "Palenque",
+        "state_id/id": "base.state_mx_chis"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_10DIF",
+        "clave_sat": "10",
+        "name": "Ciudad de M\u00e9xico",
+        "state_id/id": "base.state_mx_df"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_10DUR",
+        "clave_sat": "10",
+        "name": "Vicente Guerrero",
+        "state_id/id": "base.state_mx_dgo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_10GRO",
+        "clave_sat": "10",
+        "name": "Ciudad Apaxtla de Castrej\u00f3n",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_10GUA",
+        "clave_sat": "10",
+        "name": "San Francisco del Rinc\u00f3n",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_10HID",
+        "clave_sat": "10",
+        "name": "Tizayuca",
+        "state_id/id": "base.state_mx_hgo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_10JAL",
+        "clave_sat": "10",
+        "name": "Zapopan",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_10MEX",
+        "clave_sat": "10",
+        "name": "Ciudad Nezahualcoyotl",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_10MIC",
+        "clave_sat": "10",
+        "name": "Zacapu",
+        "state_id/id": "base.state_mx_mich"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_10NAY",
+        "clave_sat": "10",
+        "name": "San Blas",
+        "state_id/id": "base.state_mx_nay"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_10NLE",
+        "clave_sat": "10",
+        "name": "Ciudad Santa Catarina",
+        "state_id/id": "base.state_mx_nl"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_10PUE",
+        "clave_sat": "10",
+        "name": "Acatl\u00e1n de Osorio",
+        "state_id/id": "base.state_mx_pue"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_10SIN",
+        "clave_sat": "10",
+        "name": "Higuera de Zaragoza",
+        "state_id/id": "base.state_mx_sin"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_10SLP",
+        "clave_sat": "10",
+        "name": "Cerritos",
+        "state_id/id": "base.state_mx_slp"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_10SON",
+        "clave_sat": "10",
+        "name": "Heroica Nogales",
+        "state_id/id": "base.state_mx_son"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_10TAB",
+        "clave_sat": "10",
+        "name": "Para\u00edso",
+        "state_id/id": "base.state_mx_tab"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_10TAM",
+        "clave_sat": "10",
+        "name": "Tampico",
+        "state_id/id": "base.state_mx_tamps"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_10VER",
+        "clave_sat": "10",
+        "name": "Xalapa-Enr\u00edquez",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_10ZAC",
+        "clave_sat": "10",
+        "name": "Villa de Cos",
+        "state_id/id": "base.state_mx_zac"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_11BCS",
+        "clave_sat": "11",
+        "name": "Guerrero Negro",
+        "state_id/id": "base.state_mx_bcs"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_11CAM",
+        "clave_sat": "11",
+        "name": "Pomuch",
+        "state_id/id": "base.state_mx_camp"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_11COA",
+        "clave_sat": "11",
+        "name": "Torre\u00f3n",
+        "state_id/id": "base.state_mx_coah"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_11CHH",
+        "clave_sat": "11",
+        "name": "Juan Aldama",
+        "state_id/id": "base.state_mx_chih"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_11CHP",
+        "clave_sat": "11",
+        "name": "Ocosingo",
+        "state_id/id": "base.state_mx_chis"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_11DIF",
+        "clave_sat": "11",
+        "name": "Ciudad de M\u00e9xico",
+        "state_id/id": "base.state_mx_df"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_11DUR",
+        "clave_sat": "11",
+        "name": "El Salto",
+        "state_id/id": "base.state_mx_dgo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_11GRO",
+        "clave_sat": "11",
+        "name": "Ciudad Altamirano",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_11GUA",
+        "clave_sat": "11",
+        "name": "Silao",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_11HID",
+        "clave_sat": "11",
+        "name": "Santiago Tulantepec",
+        "state_id/id": "base.state_mx_hgo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_11JAL",
+        "clave_sat": "11",
+        "name": "Tlajomulco de Z\u00fa\u00f1iga",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_11MEX",
+        "clave_sat": "11",
+        "name": "Villa Nicol\u00e1s Romero",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_11MIC",
+        "clave_sat": "11",
+        "name": "Zamora de Hidalgo",
+        "state_id/id": "base.state_mx_mich"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_11NAY",
+        "clave_sat": "11",
+        "name": "Ixtl\u00e1n del R\u00edo",
+        "state_id/id": "base.state_mx_nay"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_11NLE",
+        "clave_sat": "11",
+        "name": "Doctor Arroyo",
+        "state_id/id": "base.state_mx_nl"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_11OAX",
+        "clave_sat": "11",
+        "name": "Santiago Suchilquitongo",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_11PUE",
+        "clave_sat": "11",
+        "name": "Cuautlancingo",
+        "state_id/id": "base.state_mx_pue"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_11SIN",
+        "clave_sat": "11",
+        "name": "Choix",
+        "state_id/id": "base.state_mx_sin"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_11SLP",
+        "clave_sat": "11",
+        "name": "Tamuin",
+        "state_id/id": "base.state_mx_slp"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_11SON",
+        "clave_sat": "11",
+        "name": "Puerto Pe\u00f1asco",
+        "state_id/id": "base.state_mx_son"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_11TAB",
+        "clave_sat": "11",
+        "name": "Frontera",
+        "state_id/id": "base.state_mx_tab"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_11TAM",
+        "clave_sat": "11",
+        "name": "Ciudad Victoria",
+        "state_id/id": "base.state_mx_tamps"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_11VER",
+        "clave_sat": "11",
+        "name": "Minatitl\u00e1n",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_11ZAC",
+        "clave_sat": "11",
+        "name": "Nochistl\u00e1n de Mej\u00eda",
+        "state_id/id": "base.state_mx_zac"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_12BCS",
+        "clave_sat": "12",
+        "name": "Santa Rosal\u00eda",
+        "state_id/id": "base.state_mx_bcs"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_12COA",
+        "clave_sat": "12",
+        "name": "Casta\u00f1os",
+        "state_id/id": "base.state_mx_coah"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_12CHH",
+        "clave_sat": "12",
+        "name": "Jos\u00e9 Mariano Jim\u00e9nez",
+        "state_id/id": "base.state_mx_chih"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_12CHP",
+        "clave_sat": "12",
+        "name": "Tonal\u00e1",
+        "state_id/id": "base.state_mx_chis"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_12DIF",
+        "clave_sat": "12",
+        "name": "Ciudad de M\u00e9xico",
+        "state_id/id": "base.state_mx_df"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_12DUR",
+        "clave_sat": "12",
+        "name": "Santa Mar\u00eda del Oro",
+        "state_id/id": "base.state_mx_dgo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_12GRO",
+        "clave_sat": "12",
+        "name": "Buenavista de Cuellar",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_12GUA",
+        "clave_sat": "12",
+        "name": "Jer\u00e9cuaro",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_12HID",
+        "clave_sat": "12",
+        "name": "Ixmiquilpan",
+        "state_id/id": "base.state_mx_hgo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_12JAL",
+        "clave_sat": "12",
+        "name": "Tonal\u00e1",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_12MEX",
+        "clave_sat": "12",
+        "name": "Tecamac de Felipe Villanueva",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_12MIC",
+        "clave_sat": "12",
+        "name": "Heroica Zit\u00e1cuaro",
+        "state_id/id": "base.state_mx_mich"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_12NAY",
+        "clave_sat": "12",
+        "name": "Bucer\u00edas",
+        "state_id/id": "base.state_mx_nay"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_12NLE",
+        "clave_sat": "12",
+        "name": "Ci\u00e9nega de Flores",
+        "state_id/id": "base.state_mx_nl"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_12OAX",
+        "clave_sat": "12",
+        "name": "San Felipe Jalapa de D\u00edaz",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_12PUE",
+        "clave_sat": "12",
+        "name": "Tepeaca",
+        "state_id/id": "base.state_mx_pue"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_12SIN",
+        "clave_sat": "12",
+        "name": "Villa Uni\u00f3n",
+        "state_id/id": "base.state_mx_sin"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_12SLP",
+        "clave_sat": "12",
+        "name": "Tamasopo",
+        "state_id/id": "base.state_mx_slp"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_12SON",
+        "clave_sat": "12",
+        "name": "Heroica Ciudad de Cananea",
+        "state_id/id": "base.state_mx_son"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_12TAB",
+        "clave_sat": "12",
+        "name": "Cunduac\u00e1n",
+        "state_id/id": "base.state_mx_tab"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_12TAM",
+        "clave_sat": "12",
+        "name": "Gonz\u00e1lez",
+        "state_id/id": "base.state_mx_tamps"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_12VER",
+        "clave_sat": "12",
+        "name": "Orizaba",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_12ZAC",
+        "clave_sat": "12",
+        "name": "V\u00edctor Rosales",
+        "state_id/id": "base.state_mx_zac"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_13COA",
+        "clave_sat": "13",
+        "name": "Francisco I. Madero (Ch\u00e1vez)",
+        "state_id/id": "base.state_mx_coah"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_13CHH",
+        "clave_sat": "13",
+        "name": "Manuel Ojinaga",
+        "state_id/id": "base.state_mx_chih"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_13CHP",
+        "clave_sat": "13",
+        "name": "Mapastepec",
+        "state_id/id": "base.state_mx_chis"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_13DIF",
+        "clave_sat": "13",
+        "name": "Ciudad de M\u00e9xico",
+        "state_id/id": "base.state_mx_df"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_13GRO",
+        "clave_sat": "13",
+        "name": "Cutzamala de Pinz\u00f3n",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_13GUA",
+        "clave_sat": "13",
+        "name": "Santiago Maravat\u00edo",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_13HID",
+        "clave_sat": "13",
+        "name": "Tepeji del Rio",
+        "state_id/id": "base.state_mx_hgo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_13JAL",
+        "clave_sat": "13",
+        "name": "Tuxpan",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_13MEX",
+        "clave_sat": "13",
+        "name": "Tepotzotl\u00e1n",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_13MIC",
+        "clave_sat": "13",
+        "name": "Paracho de Verduzco",
+        "state_id/id": "base.state_mx_mich"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_13NAY",
+        "clave_sat": "13",
+        "name": "Las Varas",
+        "state_id/id": "base.state_mx_nay"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_13NLE",
+        "clave_sat": "13",
+        "name": "Hualahuises",
+        "state_id/id": "base.state_mx_nl"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_13OAX",
+        "clave_sat": "13",
+        "name": "Bahias de Huatulco",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_13PUE",
+        "clave_sat": "13",
+        "name": "Tecamachalco",
+        "state_id/id": "base.state_mx_pue"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_13SIN",
+        "clave_sat": "13",
+        "name": "Sinaloa de Leyva",
+        "state_id/id": "base.state_mx_sin"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_13SLP",
+        "clave_sat": "13",
+        "name": "Ciudad del Ma\u00edz",
+        "state_id/id": "base.state_mx_slp"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_13SON",
+        "clave_sat": "13",
+        "name": "Sonoita",
+        "state_id/id": "base.state_mx_son"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_13TAB",
+        "clave_sat": "13",
+        "name": "Huimanguillo",
+        "state_id/id": "base.state_mx_tab"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_13TAM",
+        "clave_sat": "13",
+        "name": "Jaumave",
+        "state_id/id": "base.state_mx_tamps"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_13VER",
+        "clave_sat": "13",
+        "name": "Papantla de Olarte",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_13ZAC",
+        "clave_sat": "13",
+        "name": "Valpara\u00edso",
+        "state_id/id": "base.state_mx_zac"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_14COA",
+        "clave_sat": "14",
+        "name": "Cuatro Ci\u00e9negas de Carranza",
+        "state_id/id": "base.state_mx_coah"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_14CHH",
+        "clave_sat": "14",
+        "name": "Bach\u00edniva",
+        "state_id/id": "base.state_mx_chih"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_14CHP",
+        "clave_sat": "14",
+        "name": "Las Rosas",
+        "state_id/id": "base.state_mx_chis"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_14DIF",
+        "clave_sat": "14",
+        "name": "Ciudad de M\u00e9xico",
+        "state_id/id": "base.state_mx_df"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_14GRO",
+        "clave_sat": "14",
+        "name": "Coyuca de Catal\u00e1n",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_14GUA",
+        "clave_sat": "14",
+        "name": "Romita",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_14HID",
+        "clave_sat": "14",
+        "name": "Cruz Azul",
+        "state_id/id": "base.state_mx_hgo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_14JAL",
+        "clave_sat": "14",
+        "name": "Tototl\u00e1n",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_14MEX",
+        "clave_sat": "14",
+        "name": "Tlalnepantla de Baz",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_14MIC",
+        "clave_sat": "14",
+        "name": "Tanganc\u00edcuaro de Arista",
+        "state_id/id": "base.state_mx_mich"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_14NAY",
+        "clave_sat": "14",
+        "name": "Xalisco",
+        "state_id/id": "base.state_mx_nay"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_14OAX",
+        "clave_sat": "14",
+        "name": "Putla Villa de Guerrero",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_14PUE",
+        "clave_sat": "14",
+        "name": "Zacatl\u00e1n",
+        "state_id/id": "base.state_mx_pue"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_14SIN",
+        "clave_sat": "14",
+        "name": "Mocorito",
+        "state_id/id": "base.state_mx_sin"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_14SLP",
+        "clave_sat": "14",
+        "name": "Cedral",
+        "state_id/id": "base.state_mx_slp"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_14SON",
+        "clave_sat": "14",
+        "name": "Magdalena de Kino",
+        "state_id/id": "base.state_mx_son"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_14TAM",
+        "clave_sat": "14",
+        "name": "Ciudad Gustavo D\u00edaz Ordaz",
+        "state_id/id": "base.state_mx_tamps"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_14VER",
+        "clave_sat": "14",
+        "name": "Poza Rica de Hidalgo",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_14ZAC",
+        "clave_sat": "14",
+        "name": "Luis Moya",
+        "state_id/id": "base.state_mx_zac"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_15COA",
+        "clave_sat": "15",
+        "name": "Nadadores",
+        "state_id/id": "base.state_mx_coah"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_15CHH",
+        "clave_sat": "15",
+        "name": "Saucillo",
+        "state_id/id": "base.state_mx_chih"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_15CHP",
+        "clave_sat": "15",
+        "name": "Chiapa de Corzo",
+        "state_id/id": "base.state_mx_chis"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_15DIF",
+        "clave_sat": "15",
+        "name": "Ciudad de M\u00e9xico",
+        "state_id/id": "base.state_mx_df"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_15GRO",
+        "clave_sat": "15",
+        "name": "Tierra Colorada",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_15GUA",
+        "clave_sat": "15",
+        "name": "Tarandacuao",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_15HID",
+        "clave_sat": "15",
+        "name": "Tepeapulco",
+        "state_id/id": "base.state_mx_hgo"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_15JAL",
+        "clave_sat": "15",
+        "name": "San Diego de Alejandr\u00eda",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_15MEX",
+        "clave_sat": "15",
+        "name": "Santa Maria Tultepec",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_15MIC",
+        "clave_sat": "15",
+        "name": "Maravat\u00edo de Ocampo",
+        "state_id/id": "base.state_mx_mich"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_15NAY",
+        "clave_sat": "15",
+        "name": "San pedro Lagunillas",
+        "state_id/id": "base.state_mx_nay"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_15NLE",
+        "clave_sat": "15",
+        "name": "Cadereyta Jim\u00e9nez",
+        "state_id/id": "base.state_mx_nl"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_15OAX",
+        "clave_sat": "15",
+        "name": "Cosolapa",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_15PUE",
+        "clave_sat": "15",
+        "name": "Xicotepec",
+        "state_id/id": "base.state_mx_pue"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_15SIN",
+        "clave_sat": "15",
+        "name": "Angostura",
+        "state_id/id": "base.state_mx_sin"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_15SLP",
+        "clave_sat": "15",
+        "name": "Tierra Nueva",
+        "state_id/id": "base.state_mx_slp"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_15TAM",
+        "clave_sat": "15",
+        "name": "Estaci\u00f3n Manuel (\u00darsulo Galv\u00e1n)",
+        "state_id/id": "base.state_mx_tamps"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_15VER",
+        "clave_sat": "15",
+        "name": "San Andr\u00e9s Tuxtla",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_15ZAC",
+        "clave_sat": "15",
+        "name": "Moyahua de Estrada",
+        "state_id/id": "base.state_mx_zac"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_16COA",
+        "clave_sat": "16",
+        "name": "Ramos Arizpe",
+        "state_id/id": "base.state_mx_coah"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_16CHP",
+        "clave_sat": "16",
+        "name": "Cacahoat\u00e1n",
+        "state_id/id": "base.state_mx_chis"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_16DIF",
+        "clave_sat": "16",
+        "name": "Ciudad de M\u00e9xico",
+        "state_id/id": "base.state_mx_df"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_16GRO",
+        "clave_sat": "16",
+        "name": "Coyuca de Ben\u00edtez",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_16GUA",
+        "clave_sat": "16",
+        "name": "Huan\u00edmaro",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_16JAL",
+        "clave_sat": "16",
+        "name": "La Resolana",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_16MEX",
+        "clave_sat": "16",
+        "name": "Tultitl\u00e1n de Mariano Escobedo",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_16MIC",
+        "clave_sat": "16",
+        "name": "Zinap\u00e9cuaro de Figueroa",
+        "state_id/id": "base.state_mx_mich"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_16NAY",
+        "clave_sat": "16",
+        "name": "La pe\u00f1ita de Jaltemba",
+        "state_id/id": "base.state_mx_nay"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_16OAX",
+        "clave_sat": "16",
+        "name": "Tlacolula de Matamoros",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_16PUE",
+        "clave_sat": "16",
+        "name": "Ciudad Serd\u00e1n",
+        "state_id/id": "base.state_mx_pue"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_16SIN",
+        "clave_sat": "16",
+        "name": "San Blas",
+        "state_id/id": "base.state_mx_sin"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_16SLP",
+        "clave_sat": "16",
+        "name": "Villa de Reyes",
+        "state_id/id": "base.state_mx_slp"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_16TAM",
+        "clave_sat": "16",
+        "name": "Xicot\u00e9ncatl",
+        "state_id/id": "base.state_mx_tamps"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_16VER",
+        "clave_sat": "16",
+        "name": "T\u00faxpam de Rodr\u00edguez Cano",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_16ZAC",
+        "clave_sat": "16",
+        "name": "Sombrerete",
+        "state_id/id": "base.state_mx_zac"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_17COA",
+        "clave_sat": "17",
+        "name": "Nava",
+        "state_id/id": "base.state_mx_coah"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_17CHP",
+        "clave_sat": "17",
+        "name": "Ocozocoautla de Espinosa",
+        "state_id/id": "base.state_mx_chis"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_17GRO",
+        "clave_sat": "17",
+        "name": "Olinal\u00e1",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_17GUA",
+        "clave_sat": "17",
+        "name": "Comonfort",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_17JAL",
+        "clave_sat": "17",
+        "name": "Atotonilco el Alto",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_17MEX",
+        "clave_sat": "17",
+        "name": "Cuautitl\u00e1n",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_17MIC",
+        "clave_sat": "17",
+        "name": "Puru\u00e1ndiro",
+        "state_id/id": "base.state_mx_mich"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_17NAY",
+        "clave_sat": "17",
+        "name": "Jala",
+        "state_id/id": "base.state_mx_nay"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_17NLE",
+        "clave_sat": "17",
+        "name": "Santiago",
+        "state_id/id": "base.state_mx_nl"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_17OAX",
+        "clave_sat": "17",
+        "name": "San Pablo Villa de Mitla",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_17PUE",
+        "clave_sat": "17",
+        "name": "Amozoc",
+        "state_id/id": "base.state_mx_pue"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_17SIN",
+        "clave_sat": "17",
+        "name": "La Cruz",
+        "state_id/id": "base.state_mx_sin"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_17SLP",
+        "clave_sat": "17",
+        "name": "Fracci\u00f3n el Refugio",
+        "state_id/id": "base.state_mx_slp"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_17TAM",
+        "clave_sat": "17",
+        "name": "Ciudad Miguel Alem\u00e1n",
+        "state_id/id": "base.state_mx_tamps"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_17VER",
+        "clave_sat": "17",
+        "name": "Veracruz",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_17ZAC",
+        "clave_sat": "17",
+        "name": "Jalpa",
+        "state_id/id": "base.state_mx_zac"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_18COA",
+        "clave_sat": "18",
+        "name": "Zaragoza",
+        "state_id/id": "base.state_mx_coah"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_18CHP",
+        "clave_sat": "18",
+        "name": "Cintalapa de Figueroa",
+        "state_id/id": "base.state_mx_chis"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_18GRO",
+        "clave_sat": "18",
+        "name": "Marquelia",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_18GUA",
+        "clave_sat": "18",
+        "name": "Uriangato",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_18JAL",
+        "clave_sat": "18",
+        "name": "Jalostotitl\u00e1n",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_18MEX",
+        "clave_sat": "18",
+        "name": "Ixtapaluca",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_18MIC",
+        "clave_sat": "18",
+        "name": "Yur\u00e9cuaro",
+        "state_id/id": "base.state_mx_mich"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_18NAY",
+        "clave_sat": "18",
+        "name": "Ahuacatl\u00e1n",
+        "state_id/id": "base.state_mx_nay"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_18NLE",
+        "clave_sat": "18",
+        "name": "El cercado",
+        "state_id/id": "base.state_mx_nl"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_18OAX",
+        "clave_sat": "18",
+        "name": "Natividad",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_18SIN",
+        "clave_sat": "18",
+        "name": "El rosario",
+        "state_id/id": "base.state_mx_sin"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_18SLP",
+        "clave_sat": "18",
+        "name": "Tamazunchale",
+        "state_id/id": "base.state_mx_slp"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_18TAM",
+        "clave_sat": "18",
+        "name": "Soto la Marina",
+        "state_id/id": "base.state_mx_tamps"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_18VER",
+        "clave_sat": "18",
+        "name": "Tierra Blanca",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_18ZAC",
+        "clave_sat": "18",
+        "name": "Loreto",
+        "state_id/id": "base.state_mx_zac"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_19COA",
+        "clave_sat": "19",
+        "name": "San Buenaventura",
+        "state_id/id": "base.state_mx_coah"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_19CHP",
+        "clave_sat": "19",
+        "name": "Pichucalco",
+        "state_id/id": "base.state_mx_chis"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_19GRO",
+        "clave_sat": "19",
+        "name": "Zumpango del R\u00edo",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_19GUA",
+        "clave_sat": "19",
+        "name": "P\u00e9njamo",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_19JAL",
+        "clave_sat": "19",
+        "name": "Poncitl\u00e1n",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_19MEX",
+        "clave_sat": "19",
+        "name": "Texcoco de Mora",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_19MIC",
+        "clave_sat": "19",
+        "name": "Huetamo de N\u00fa\u00f1ez",
+        "state_id/id": "base.state_mx_mich"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_19OAX",
+        "clave_sat": "19",
+        "name": "Teotitl\u00e1n de Flores Mag\u00f3n",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_19SIN",
+        "clave_sat": "19",
+        "name": "Estaci\u00f3n Naranjo",
+        "state_id/id": "base.state_mx_sin"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_19SLP",
+        "clave_sat": "19",
+        "name": "Santa Mar\u00eda del R\u00edo",
+        "state_id/id": "base.state_mx_slp"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_19TAM",
+        "clave_sat": "19",
+        "name": "Ciudad Tula",
+        "state_id/id": "base.state_mx_tamps"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_19VER",
+        "clave_sat": "19",
+        "name": "Cosamaloapan",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_19ZAC",
+        "clave_sat": "19",
+        "name": "Juan Aldama",
+        "state_id/id": "base.state_mx_zac"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_20COA",
+        "clave_sat": "20",
+        "name": "Ciudad Melchor M\u00fazquiz",
+        "state_id/id": "base.state_mx_coah"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_20CHP",
+        "clave_sat": "20",
+        "name": "Puerto Madero (San Benito)",
+        "state_id/id": "base.state_mx_chis"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_20GRO",
+        "clave_sat": "20",
+        "name": "San Luis de la Loma",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_20GUA",
+        "clave_sat": "20",
+        "name": "Cuer\u00e1maro",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_20JAL",
+        "clave_sat": "20",
+        "name": "Arandas",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_20MEX",
+        "clave_sat": "20",
+        "name": "Toluca de Lerdo",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_20MIC",
+        "clave_sat": "20",
+        "name": "Tac\u00e1mbaro de Codallos",
+        "state_id/id": "base.state_mx_mich"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_20NLE",
+        "clave_sat": "20",
+        "name": "An\u00e1huac",
+        "state_id/id": "base.state_mx_nl"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_20OAX",
+        "clave_sat": "20",
+        "name": "Santa Mar\u00eda Huatulco",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_20SIN",
+        "clave_sat": "20",
+        "name": "Aguaruto",
+        "state_id/id": "base.state_mx_sin"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_20SLP",
+        "clave_sat": "20",
+        "name": "El Naranjo",
+        "state_id/id": "base.state_mx_slp"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_20TAM",
+        "clave_sat": "20",
+        "name": "Nueva Ciudad Guerrero",
+        "state_id/id": "base.state_mx_tamps"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_20VER",
+        "clave_sat": "20",
+        "name": "Carlos A. Carrillo",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_21COA",
+        "clave_sat": "21",
+        "name": "Viesca",
+        "state_id/id": "base.state_mx_coah"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_21CHP",
+        "clave_sat": "21",
+        "name": "Pijijiapan",
+        "state_id/id": "base.state_mx_chis"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_21GRO",
+        "clave_sat": "21",
+        "name": "Petatl\u00e1n",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_21GUA",
+        "clave_sat": "21",
+        "name": "Empalme Escobedo (Escobedo)",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_21JAL",
+        "clave_sat": "21",
+        "name": "Talpa de Allende",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_21MEX",
+        "clave_sat": "21",
+        "name": "Valle de Chalco Solidaridad",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_21MIC",
+        "clave_sat": "21",
+        "name": "Ciudad L\u00e1zaro C\u00e1rdenas",
+        "state_id/id": "base.state_mx_mich"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_21NLE",
+        "clave_sat": "21",
+        "name": "Garc\u00eda",
+        "state_id/id": "base.state_mx_nl"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_21OAX",
+        "clave_sat": "21",
+        "name": "San Juan Bautista Cuicatl\u00e1n",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_21SIN",
+        "clave_sat": "21",
+        "name": "Cosal\u00e1",
+        "state_id/id": "base.state_mx_sin"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_21TAM",
+        "clave_sat": "21",
+        "name": "Valle Hermoso",
+        "state_id/id": "base.state_mx_tamps"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_21VER",
+        "clave_sat": "21",
+        "name": "P\u00e1nuco",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_22COA",
+        "clave_sat": "22",
+        "name": "Morelos",
+        "state_id/id": "base.state_mx_coah"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_22CHP",
+        "clave_sat": "22",
+        "name": "Reforma",
+        "state_id/id": "base.state_mx_chis"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_22GRO",
+        "clave_sat": "22",
+        "name": "La Uni\u00f3n",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_22GUA",
+        "clave_sat": "22",
+        "name": "San Luis de la Paz",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_22JAL",
+        "clave_sat": "22",
+        "name": "Etzatl\u00e1n",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_22MEX",
+        "clave_sat": "22",
+        "name": "Tejupilco de Hidalgo",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_22MIC",
+        "clave_sat": "22",
+        "name": "Las Guacamayas",
+        "state_id/id": "base.state_mx_mich"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_22NLE",
+        "clave_sat": "22",
+        "name": "Ciudad Benito Ju\u00e1rez",
+        "state_id/id": "base.state_mx_nl"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_22OAX",
+        "clave_sat": "22",
+        "name": "Villa Sola de Vega",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_22SIN",
+        "clave_sat": "22",
+        "name": "San Ignacio",
+        "state_id/id": "base.state_mx_sin"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_22VER",
+        "clave_sat": "22",
+        "name": "Tampico Alto",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_23COA",
+        "clave_sat": "23",
+        "name": "Arteaga",
+        "state_id/id": "base.state_mx_coah"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_23CHP",
+        "clave_sat": "23",
+        "name": "Huixtla",
+        "state_id/id": "base.state_mx_chis"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_23GRO",
+        "clave_sat": "23",
+        "name": "San Luis San Pedro",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_23GUA",
+        "clave_sat": "23",
+        "name": "Valle de Santiago",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_23JAL",
+        "clave_sat": "23",
+        "name": "Sayula",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_23MEX",
+        "clave_sat": "23",
+        "name": "Chalco de D\u00edaz Covarrubias",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_23MIC",
+        "clave_sat": "23",
+        "name": "Jiquilpan de Ju\u00e1rez",
+        "state_id/id": "base.state_mx_mich"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_23OAX",
+        "clave_sat": "23",
+        "name": "Ocotl\u00e1n de Morelos",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_23SIN",
+        "clave_sat": "23",
+        "name": "Topolobampo",
+        "state_id/id": "base.state_mx_sin"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_23VER",
+        "clave_sat": "23",
+        "name": "Tempoal de S\u00e1nchez",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_24COA",
+        "clave_sat": "24",
+        "name": "Allende",
+        "state_id/id": "base.state_mx_coah"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_24CHP",
+        "clave_sat": "24",
+        "name": "Motozintla de Mendoza",
+        "state_id/id": "base.state_mx_chis"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_24GRO",
+        "clave_sat": "24",
+        "name": "Teloloapan",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_24GUA",
+        "clave_sat": "24",
+        "name": "Abasolo",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_24JAL",
+        "clave_sat": "24",
+        "name": "Ahualulco de Mercado",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_24MEX",
+        "clave_sat": "24",
+        "name": "Amatepec",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_24MIC",
+        "clave_sat": "24",
+        "name": "Tuxpan",
+        "state_id/id": "base.state_mx_mich"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_24OAX",
+        "clave_sat": "24",
+        "name": "Villa de Zaachila",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_24SIN",
+        "clave_sat": "24",
+        "name": "Lic. Benito Ju\u00e1rez (Campo Gobierno)",
+        "state_id/id": "base.state_mx_sin"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_24VER",
+        "clave_sat": "24",
+        "name": "Tantoyuca",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_25CHP",
+        "clave_sat": "25",
+        "name": "Acala",
+        "state_id/id": "base.state_mx_chis"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_25GRO",
+        "clave_sat": "25",
+        "name": "T\u00e9cpan de Galeana",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_25GUA",
+        "clave_sat": "25",
+        "name": "Rinc\u00f3n de Tamayo",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_25JAL",
+        "clave_sat": "25",
+        "name": "Autl\u00e1n de Navarro",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_25MIC",
+        "clave_sat": "25",
+        "name": "Cotija de la Paz",
+        "state_id/id": "base.state_mx_mich"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_25OAX",
+        "clave_sat": "25",
+        "name": "Miahuatl\u00e1n de Porfirio D\u00edaz",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_25VER",
+        "clave_sat": "25",
+        "name": "Guti\u00e9rrez Zamora",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_26GRO",
+        "clave_sat": "26",
+        "name": "Huitzuco",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_26GUA",
+        "clave_sat": "26",
+        "name": "Villagr\u00e1n",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_26JAL",
+        "clave_sat": "26",
+        "name": "Magdalena",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_26MEX",
+        "clave_sat": "26",
+        "name": "Melchor Ocampo",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_26MIC",
+        "clave_sat": "26",
+        "name": "Nueva Italia de Ruiz",
+        "state_id/id": "base.state_mx_mich"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_26OAX",
+        "clave_sat": "26",
+        "name": "Uni\u00f3n Hidalgo",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_26VER",
+        "clave_sat": "26",
+        "name": "Plat\u00f3n S\u00e1nchez",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_27GRO",
+        "clave_sat": "27",
+        "name": "Tixtla de Guerrero",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_27GUA",
+        "clave_sat": "27",
+        "name": "Yuriria",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_27JAL",
+        "clave_sat": "27",
+        "name": "San Juli\u00e1n",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_27MEX",
+        "clave_sat": "27",
+        "name": "San Vicente Chicoloapan de Ju\u00e1rez",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_27MIC",
+        "clave_sat": "27",
+        "name": "Cuitzeo del Porvenir",
+        "state_id/id": "base.state_mx_mich"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_27OAX",
+        "clave_sat": "27",
+        "name": "El Camar\u00f3n",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_27VER",
+        "clave_sat": "27",
+        "name": "Juan Rodr\u00edguez Clara",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_28GRO",
+        "clave_sat": "28",
+        "name": "Tepecoacuilco de Trujano",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_28GUA",
+        "clave_sat": "28",
+        "name": "Apaseo el Grande",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_28JAL",
+        "clave_sat": "28",
+        "name": "Cocula",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_28MEX",
+        "clave_sat": "28",
+        "name": "Capulhuac",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_28OAX",
+        "clave_sat": "28",
+        "name": "San Pedro Mixtepec -Dto. 22-",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_28VER",
+        "clave_sat": "28",
+        "name": "Huatusco de Chicuellar",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_29GRO",
+        "clave_sat": "29",
+        "name": "San Marcos",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_29GUA",
+        "clave_sat": "29",
+        "name": "Pur\u00edsima de Bustos",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_29JAL",
+        "clave_sat": "29",
+        "name": "El Grullo",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_29MEX",
+        "clave_sat": "29",
+        "name": "Juchitepec de Mariano Riva Palacio",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_29OAX",
+        "clave_sat": "29",
+        "name": "Santa Cruz Itundujia",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_29VER",
+        "clave_sat": "29",
+        "name": "Ixtaczoquitl\u00e1n",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_30GRO",
+        "clave_sat": "30",
+        "name": "Azoy\u00fa",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_30GUA",
+        "clave_sat": "30",
+        "name": "Salvatierra",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_30JAL",
+        "clave_sat": "30",
+        "name": "San Miguel el Alto",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_30MEX",
+        "clave_sat": "30",
+        "name": "Tequixquiac",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_30OAX",
+        "clave_sat": "30",
+        "name": "Chahuites",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_30VER",
+        "clave_sat": "30",
+        "name": "R\u00edo Blanco",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_31GRO",
+        "clave_sat": "31",
+        "name": "Tlapehuala",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_31GUA",
+        "clave_sat": "31",
+        "name": "Marfil",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_31JAL",
+        "clave_sat": "31",
+        "name": "Tala",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_31MEX",
+        "clave_sat": "31",
+        "name": "Xonacatl\u00e1n",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_31OAX",
+        "clave_sat": "31",
+        "name": "Heroica Ciudad de Ejutla de Crespo",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_31VER",
+        "clave_sat": "31",
+        "name": "Isla",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_32GRO",
+        "clave_sat": "32",
+        "name": "San Luis Acatl\u00e1n",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_32GUA",
+        "clave_sat": "32",
+        "name": "San Jos\u00e9 Iturbide",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_32JAL",
+        "clave_sat": "32",
+        "name": "La Barca",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_32MEX",
+        "clave_sat": "32",
+        "name": "San Mateo Atenco",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_32OAX",
+        "clave_sat": "32",
+        "name": "San Pedro Tapanatepec",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_32VER",
+        "clave_sat": "32",
+        "name": "Cuitl\u00e1huac",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_33GRO",
+        "clave_sat": "33",
+        "name": "Chilapa de \u00c1lvarez",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_33GUA",
+        "clave_sat": "33",
+        "name": "Apaseo el Alto",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_33JAL",
+        "clave_sat": "33",
+        "name": "Jamay",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_33OAX",
+        "clave_sat": "33",
+        "name": "Vicente Camalote",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_33VER",
+        "clave_sat": "33",
+        "name": "Fort\u00edn de las Flores",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_34GRO",
+        "clave_sat": "34",
+        "name": "Tlapa de Comonfort",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_34GUA",
+        "clave_sat": "34",
+        "name": "Ciudad Manuel Doblado",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_34JAL",
+        "clave_sat": "34",
+        "name": "Yahualica de Gonz\u00e1lez Gallo",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_34OAX",
+        "clave_sat": "34",
+        "name": "Villa de Tamazul\u00e1pam del Progreso",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_34VER",
+        "clave_sat": "34",
+        "name": "Alvarado",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_35GRO",
+        "clave_sat": "35",
+        "name": "Tlalixtaquilla",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_35GUA",
+        "clave_sat": "35",
+        "name": "Jaral del Progreso",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_35JAL",
+        "clave_sat": "35",
+        "name": "Colotl\u00e1n",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_35OAX",
+        "clave_sat": "35",
+        "name": "San Juan Bautista lo de Soto",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_35VER",
+        "clave_sat": "35",
+        "name": "Jos\u00e9 Cardel",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_36GRO",
+        "clave_sat": "36",
+        "name": "Cuajinicuilapa",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_36GUA",
+        "clave_sat": "36",
+        "name": "San Diego de la Uni\u00f3n",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_36JAL",
+        "clave_sat": "36",
+        "name": "Cihuatl\u00e1n",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_36MEX",
+        "clave_sat": "36",
+        "name": "Chiconcuac",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_36OAX",
+        "clave_sat": "36",
+        "name": "San Juan Cacahuatepec",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_36VER",
+        "clave_sat": "36",
+        "name": "Banderilla",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_37GRO",
+        "clave_sat": "37",
+        "name": "Huamuxtitlan",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_37GUA",
+        "clave_sat": "37",
+        "name": "Santa Cruz Juventino Rosas",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_37JAL",
+        "clave_sat": "37",
+        "name": "Zapotiltic",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_37OAX",
+        "clave_sat": "37",
+        "name": "San Pedro Totolapa",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_37VER",
+        "clave_sat": "37",
+        "name": "Paraje Nuevo",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_38GRO",
+        "clave_sat": "38",
+        "name": "Cruz Grande",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_38GUA",
+        "clave_sat": "38",
+        "name": "Doctor Mora",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_38JAL",
+        "clave_sat": "38",
+        "name": "Villa Corona",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_38OAX",
+        "clave_sat": "38",
+        "name": "San Miguel el Grande",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_38VER",
+        "clave_sat": "38",
+        "name": "Playa Vicente",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_39GRO",
+        "clave_sat": "39",
+        "name": "Ocotito",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_39GUA",
+        "clave_sat": "39",
+        "name": "Dolores Hgo. Cuna de la Indep. Nal.",
+        "state_id/id": "base.state_mx_gto"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_39JAL",
+        "clave_sat": "39",
+        "name": "Teocaltiche",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_39MEX",
+        "clave_sat": "39",
+        "name": "Almoloya de Ju\u00e1rez",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_39OAX",
+        "clave_sat": "39",
+        "name": "Zimatl\u00e1n de \u00c1lvarez",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_39VER",
+        "clave_sat": "39",
+        "name": "Altotonga",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_40GRO",
+        "clave_sat": "40",
+        "name": "Copala",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_40MEX",
+        "clave_sat": "40",
+        "name": "Ocoyoacac",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_40OAX",
+        "clave_sat": "40",
+        "name": "San Pablo Huitzo",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_40VER",
+        "clave_sat": "40",
+        "name": "Juan D\u00edaz Covarrubias",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_41GRO",
+        "clave_sat": "41",
+        "name": "Zihuatanejo",
+        "state_id/id": "base.state_mx_gro"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_41JAL",
+        "clave_sat": "41",
+        "name": "Tequila",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_41MEX",
+        "clave_sat": "41",
+        "name": "Zumpango",
+        "state_id/id": "base.state_mx_mex"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_41OAX",
+        "clave_sat": "41",
+        "name": "San Francisco Telixtlahuaca",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_41VER",
+        "clave_sat": "41",
+        "name": "Cuichapa",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_42JAL",
+        "clave_sat": "42",
+        "name": "El Quince (San Jos\u00e9 el Quince)",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_42OAX",
+        "clave_sat": "42",
+        "name": "Mariscala de Ju\u00e1rez",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_42VER",
+        "clave_sat": "42",
+        "name": "Santiago Tuxtla",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_43JAL",
+        "clave_sat": "43",
+        "name": "San Jos\u00e9 el Verde (El Verde)",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_43OAX",
+        "clave_sat": "43",
+        "name": "Santiago Pinotepa Nacional",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_43VER",
+        "clave_sat": "43",
+        "name": "Huayacocotla",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_44JAL",
+        "clave_sat": "44",
+        "name": "Jocotepec",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_44OAX",
+        "clave_sat": "44",
+        "name": "Santiago Jamiltepec",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_44VER",
+        "clave_sat": "44",
+        "name": "Paso de Ovejas",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_45JAL",
+        "clave_sat": "45",
+        "name": "Tecalitl\u00e1n",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_45OAX",
+        "clave_sat": "45",
+        "name": "San Pedro Pochutla",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_45VER",
+        "clave_sat": "45",
+        "name": "Catemaco",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_46JAL",
+        "clave_sat": "46",
+        "name": "Chapala",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_46OAX",
+        "clave_sat": "46",
+        "name": "Heroica Ciudad de Tlaxiaco",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_46VER",
+        "clave_sat": "46",
+        "name": "Nogales",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_47JAL",
+        "clave_sat": "47",
+        "name": "Ajijic",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_47OAX",
+        "clave_sat": "47",
+        "name": "San Juan Bautista Valle Nacional",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_47VER",
+        "clave_sat": "47",
+        "name": "Las Choapas",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_48JAL",
+        "clave_sat": "48",
+        "name": "San Ignacio Cerro Gordo",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_48OAX",
+        "clave_sat": "48",
+        "name": "Lagunas",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_48VER",
+        "clave_sat": "48",
+        "name": "General Miguel Alem\u00e1n (Potrero Nuevo)",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_49JAL",
+        "clave_sat": "49",
+        "name": "Zacoalco de Torres",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_49OAX",
+        "clave_sat": "49",
+        "name": "Ciudad Ixtepec",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_49VER",
+        "clave_sat": "49",
+        "name": "Coatzintla",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_50JAL",
+        "clave_sat": "50",
+        "name": "Huejuquilla el Alto",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_50OAX",
+        "clave_sat": "50",
+        "name": "Santiago Juxtlahuaca",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_50VER",
+        "clave_sat": "50",
+        "name": "\u00c1ngel R. Cabada",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_51JAL",
+        "clave_sat": "51",
+        "name": "Villa Hidalgo",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_51OAX",
+        "clave_sat": "51",
+        "name": "San Sebasti\u00e1n Tecomaxtlahuaca",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_51VER",
+        "clave_sat": "51",
+        "name": "San Rafael",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_52JAL",
+        "clave_sat": "52",
+        "name": "Uni\u00f3n de San Antonio",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_52OAX",
+        "clave_sat": "52",
+        "name": "Asunci\u00f3n Nochixtl\u00e1n",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_52VER",
+        "clave_sat": "52",
+        "name": "Tlacojalpan",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_53JAL",
+        "clave_sat": "53",
+        "name": "Las Pintitas",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_53OAX",
+        "clave_sat": "53",
+        "name": "San Francisco Ixhuat\u00e1n",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_53VER",
+        "clave_sat": "53",
+        "name": "Cosoleacaque",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_54JAL",
+        "clave_sat": "54",
+        "name": "Tamazula de Gordiano",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_54OAX",
+        "clave_sat": "54",
+        "name": "San Blas Atempa",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_54VER",
+        "clave_sat": "54",
+        "name": "Lerdo de Tejada",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_55JAL",
+        "clave_sat": "55",
+        "name": "Acatl\u00e1n de Ju\u00e1rez",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_55OAX",
+        "clave_sat": "55",
+        "name": "Santo Domingo Tehuantepec",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_55VER",
+        "clave_sat": "55",
+        "name": "Tihuatl\u00e1n",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_56JAL",
+        "clave_sat": "56",
+        "name": "Valle de Guadalupe",
+        "state_id/id": "base.state_mx_jal"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_56OAX",
+        "clave_sat": "56",
+        "name": "Cuil\u00e1pam de Guerrero",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_56VER",
+        "clave_sat": "56",
+        "name": "Atoyac",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_57OAX",
+        "clave_sat": "57",
+        "name": "El Rosario",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_57VER",
+        "clave_sat": "57",
+        "name": "Huiloapan de Cuauht\u00e9moc",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_58OAX",
+        "clave_sat": "58",
+        "name": "Santa Lucia del Camino",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_58VER",
+        "clave_sat": "58",
+        "name": "Cazones de Herrera",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_59OAX",
+        "clave_sat": "59",
+        "name": "San Antonio de la Cal",
+        "state_id/id": "base.state_mx_oax"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_59VER",
+        "clave_sat": "59",
+        "name": "Yecuatla",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_60VER",
+        "clave_sat": "60",
+        "name": "Soledad de Doblado",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_61VER",
+        "clave_sat": "61",
+        "name": "Cerro Azul",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_62VER",
+        "clave_sat": "62",
+        "name": "Tezonapa",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_66VER",
+        "clave_sat": "66",
+        "name": "Sihuapan",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_67VER",
+        "clave_sat": "67",
+        "name": "El Higo",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_68VER",
+        "clave_sat": "68",
+        "name": "Paso del Macho",
+        "state_id/id": "base.state_mx_ver"
+    },
+    {
+        "id": "cfd_mx.res_country_state_ciudad_69VER",
+        "clave_sat": "69",
+        "name": "Tlapacoyan",
+        "state_id/id": "base.state_mx_ver"
+    }
+]
