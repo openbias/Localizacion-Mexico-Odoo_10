@@ -89,6 +89,8 @@ class AccountChartMovesReportXlsx(ReportXlsx):
             Move = self.env['account.move']
             Line = self.env['account.move.line']
             where = [('account_id', 'in', acc_ids.ids), ('date', '<=', ctx['date_to']), ('date', '>=', ctx['date_from'])]
+            if ctx.get('state') and ctx.get('state').lower() != 'all':
+                where += [('move_id.state', '=', ctx.get('state'))]
             line_ids = Line.search(where)
             total_debit, total_credit = 0.0, 0.0
             for aml in line_ids:

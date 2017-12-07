@@ -16,6 +16,7 @@ import textwrap
 
 import logging
 import threading
+import base64
 
 logging.basicConfig(level=logging.INFO)
 
@@ -436,4 +437,46 @@ class HrPayslip(models.Model):
 
     @api.multi
     def send_mail(self):
+        return True
+
+
+    @api.multi
+    def action_payslip_cancel_nomina(self):
+        context = dict(self._context) or {}
+        if not self.uuid:
+            return True
+        if context.get('state') == 'draft':
+            return True
+        if self.journal_id.id not in self.company_id.cfd_mx_journal_ids.ids:
+            return True
+        message = ''        
+        res = self.cancel(self)
+        if res.get('message'):
+            message = res['message']
+            message = message.replace("(u'", "").replace("', '')", "")
+            self.action_raise_message("Error al Generar el XML \n\n %s "%( message.upper() ))
+            return False
+        else:
+            acuse = res["result"].get("Acuse")
+            self.write({
+                'mandada_cancelar': True, 
+                'mensaje_pac': """
+                <strong>Fecha: </strong> %s<br />
+                <strong>Folios</strong>%s<br />
+                <strong>XML Acuse</strong><pre lang="xml"><code>%s</code></pre>
+                """%(res["result"].get("Fecha"), res["result"].get("Folios"), acuse)
+            })
+
+            attachment_obj = self.env['ir.attachment']
+            fname = "cancelacion_cfd_%s.xml"%(self.number.replace('/', '') or "")
+            attachment_values = {
+                'name': fname,
+                'datas': base64.b64encode(acuse),
+                'datas_fname': fname,
+                'description': 'Cancelar Comprobante Fiscal Digital',
+                'res_model': self._name,
+                'res_id': self.id,
+                'type': 'binary'
+            }
+            attachment_obj.create(attachment_values)
         return True

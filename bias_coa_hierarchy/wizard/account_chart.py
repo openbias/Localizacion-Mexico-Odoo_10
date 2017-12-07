@@ -55,6 +55,7 @@ class AccountChart(models.TransientModel):
 
     def _build_contexts(self, data):
         context =  dict(self.env.context)
+        print "data.get('target_move')", data.get('target_move')
         result = {}        
         result['journal_ids'] = data.get('journal_ids')
         result['state'] = data.get('target_move')
@@ -127,7 +128,7 @@ class AccountChart(models.TransientModel):
         data = self.read([])[0]
         context =  dict(self.env.context)
         if not data.get('account_id', None):
-            raise UserError(_('Error de Configuración!\nPor favor seleccione una cuenta MDM'))
+            raise UserError(_('Error de Configuración!\nPor favor seleccione una cuenta'))
 
         ctx = self._build_contexts(data)
         context.update({'active_model': self._name, 'active_ids': [self.id], 'active_id': self.id })

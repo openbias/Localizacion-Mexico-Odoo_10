@@ -37,6 +37,8 @@ class AccountChartMovesReportPDF(models.AbstractModel):
         
         # Busca lineas de asientos
         where = [('account_id', 'in', acc_ids.ids), ('date', '<=', data['date_to']), ('date', '>=', data['date_from'])]
+        if data.get('state') and data.get('state').lower() != 'all':
+            where += [('move_id.state', '=', data.get('state'))]
         line_ids = Line.search(where)
         total_debit, total_credit = 0.0, 0.0
         for aml in line_ids:
