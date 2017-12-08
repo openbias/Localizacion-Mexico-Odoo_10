@@ -153,7 +153,7 @@ class account_account(models.Model):
             for account in account_res:
                 credit += account['credit']
                 debit += account['debit']
-            date_to = date_from # + relativedelta(days=-1)
+            date_to = date_from + relativedelta(days=-1)
             line_used_context = used_context.copy()
             line_used_context['date_to'] = str(date_to)
             line_used_context['date_from'] = '%s-01-01'%(date_to.year)
@@ -168,8 +168,8 @@ class account_account(models.Model):
             vals = self.with_context(line_used_context)._get_accounts(acc_brw, display_account)
             for val in vals:
                 bal = round(val['balance'], dp)
-                bal1 = (bal + account.get('debit', 0.0) - account.get('credit', 0.0))
                 initial += bal
+                bal1 = (bal + account.get('debit', 0.0) - account.get('credit', 0.0))
         balance =  initial + debit - credit
 
         self.initial = initial

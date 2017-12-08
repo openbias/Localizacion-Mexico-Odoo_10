@@ -458,7 +458,9 @@ class HrPayslip(models.Model):
             return False
         else:
             acuse = res["result"].get("Acuse")
+            self.move_id.reverse_moves()
             self.write({
+                'state': 'cancel',
                 'mandada_cancelar': True, 
                 'mensaje_pac': """
                 <strong>Fecha: </strong> %s<br />
