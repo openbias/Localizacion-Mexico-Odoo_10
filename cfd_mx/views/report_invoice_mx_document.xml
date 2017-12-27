@@ -189,7 +189,7 @@
                                 <t t-foreach="taxs" t-as="tax">
                                     <t t-if="len(tax)">
                                         <tr class="rowB2">
-                                            <td colspan="7">
+                                            <td colspan="6">
                                                 <div class="row font_inv">
                                                     <div class="col-xs-4 text-left">
                                                         <span><strong>Clave Producto SAT: </strong></span> <span t-esc="l.product_id.clave_prodser_id.clave or '01010101' "></span><br />
@@ -289,7 +289,7 @@
                                     <span>Sello Digital del Emisor</span>
                                 </div>
                                 <div class="col-xs-12 text-left">
-                                    <pre style="font-size:6px; overflow-x: hidden !important; display: inline-flex;" t-field="o.sello" ></pre>
+                                    <span style="font-size:6px; display:block; width:150px; word-wrap:break-word;" t-field="o.sello" />
                                 </div>
                             </div>
                         </div>
@@ -299,7 +299,7 @@
                                     <span>Sello Digital del SAT</span>
                                 </div>
                                 <div class="col-xs-12 text-left">
-                                    <pre style="font-size:6px; overflow-x: hidden !important; display: inline-flex;" t-field="o.sello_sat" ></pre>
+                                    <span style="font-size:6px; display:block; width:150px; word-wrap:break-word;" t-field="o.sello_sat" />
                                 </div>
                             </div>
                         </div>
@@ -309,7 +309,7 @@
                                     <span>Cadena Original</span>
                                 </div>
                                 <div class="col-xs-12 text-left">
-                                    <pre style="font-size:6px; overflow-x: hidden !important; display: inline-flex;" t-field="o.cadena_sat" ></pre>
+                                    <span style="font-size:6px; display:block; width:150px; word-break:break-all;" t-field="o.cadena_sat" />
                                 </div>
                             </div>
                         </div>

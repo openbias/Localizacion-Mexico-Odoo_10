@@ -37,7 +37,6 @@ class account_account(models.Model):
 
     @api.multi
     def _get_children_and_consol(self):
-        # this function search for all the children and all consolidated children (recursively) of the given account ids
         ids2 = self.search([('parent_id', 'child_of', self.ids)])
         return ids2
 
@@ -153,17 +152,17 @@ class account_account(models.Model):
             for account in account_res:
                 credit += account['credit']
                 debit += account['debit']
-            date_to = date_from + relativedelta(days=-1)
+
             line_used_context = used_context.copy()
-            line_used_context['date_to'] = str(date_to)
-            line_used_context['date_from'] = '%s-01-01'%(date_to.year)
-            
-            # print "acc_brw.user_type_id.es_resultado", acc_brw.user_type_id.es_resultado
-            # if acc_brw.user_type_id.es_resultado:
-            #     line_used_context['date_from'] = '%s-01-01'%(date_to.year)
-            
             if acc_brw.user_type_id.include_initial_balance == True:
-                line_used_context['strict_range'] = False
+                initial_date_from = date_from + relativedelta(days=-1)
+                line_used_context['date_from'] = dates['min']
+                line_used_context['date_to'] = initial_date_from
+                line_used_context.pop("strict_range")
+            else:
+                initial_date_from = date_from + relativedelta(days=-1)
+                line_used_context['date_to'] = initial_date_from
+                line_used_context['date_from'] = '%s-01-01'%(date_to.year)
 
             vals = self.with_context(line_used_context)._get_accounts(acc_brw, display_account)
             for val in vals:
