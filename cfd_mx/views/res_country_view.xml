@@ -1,29 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-        <!--
-        Country
-        -->
-        <record id="view_country_alpha3_tree" model="ir.ui.view">
-            <field name="name">res.country.alpha3.tree</field>
-            <field name="model">res.country</field>
-            <field name="inherit_id" ref="base.view_country_tree"/>
-            <field name="arch" type="xml">
-                <field name="code" position="after">
-                    <field name="code_alpha3"/>
-                </field>
-            </field>
-        </record>
-        <record id="view_country_alpha3_form" model="ir.ui.view">
-            <field name="name">res.country.alpha3.form</field>
-            <field name="model">res.country</field>
-            <field name="inherit_id" ref="base.view_country_form"/>
-            <field name="arch" type="xml">
-                <field name="code" position="after">
-                    <field name="code_alpha3"/>
-                </field>
-            </field>
-        </record>
 
         <!-- CATALOGO CODIGO POSTAL -->
         <record id="codigo_postal_view_tree" model="ir.ui.view">
@@ -59,6 +36,46 @@
             groups="base.group_no_one"
             sequence="3" />
 
+
+        <!--
+        Country
+        -->
+        <record id="view_country_alpha3_tree" model="ir.ui.view">
+            <field name="name">res.country.alpha3.tree</field>
+            <field name="model">res.country</field>
+            <field name="inherit_id" ref="base.view_country_tree"/>
+            <field name="arch" type="xml">
+                <field name="code" position="after">
+                    <field name="code_alpha3"/>
+                </field>
+            </field>
+        </record>
+        <record id="view_country_alpha3_form" model="ir.ui.view">
+            <field name="name">res.country.alpha3.form</field>
+            <field name="model">res.country</field>
+            <field name="inherit_id" ref="base.view_country_form"/>
+            <field name="arch" type="xml">
+                <field name="code" position="after">
+                    <field name="code_alpha3"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="action_country" model="ir.actions.act_window">
+            <field name="name">Countries</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.country</field>
+            <field name="view_type">form</field>
+            <field name="help">Display and manage the list of all countries that can be assigned to your partner records. You can create or delete countries to make sure the ones you are working on will be maintained.</field>
+        </record>
+        <menuitem
+            action="base.action_country"
+            id="menu_paises"
+            parent="bias_base_report.menu_catalogo_comercio"
+            groups="base.group_no_one"            
+            sequence="20" />
+
+
         <!-- CATALOGO MUNICIPIO -->
         <record id="municipio_view_tree" model="ir.ui.view">
             <field name="name">municipio_view_tree</field>
@@ -82,7 +99,7 @@
         <menuitem
             action="action_municipio"
             id="menu_municipio"
-            parent="bias_base_report.menu_catalogo_cfdi"
+            parent="bias_base_report.menu_catalogo_comercio"
             groups="group_cfd_mx_user"
             sequence="97" />
         <menuitem 
@@ -90,7 +107,7 @@
             id="menu_country_municipio" 
             parent="sales_team.menu_localisation"
             groups="base.group_no_one"
-            sequence="4" />
+            sequence="25" />
 
         <!-- CATALOGO CIUDAD -->
         <record id="ciudad_view_tree" model="ir.ui.view">
@@ -115,7 +132,7 @@
         <menuitem
             action="action_ciudad"
             id="menu_ciudad"
-            parent="bias_base_report.menu_catalogo_cfdi"
+            parent="bias_base_report.menu_catalogo_comercio"
             groups="group_cfd_mx_user"
             sequence="98" />
         <menuitem 
@@ -123,8 +140,7 @@
             id="menu_country_ciudad" 
             parent="sales_team.menu_localisation"
             groups="base.group_no_one"
-            sequence="5" />
-
+            sequence="30" />
 
 
         <!-- Colonia -->

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <record model="ir.ui.view" id="view_partner_comercio_form">
+            <field name="name">view_partner_comercio_form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="cfd_mx.view_partner_cfdi_categ_form"/>
+            <field name="arch" type="xml">
+                <page name="cfdi" position="inside">
+                    <field name="comercio_exterior_activate" invisible="1" />
+                    <field name="es_mex" invisible="1" />
+                    <group  attrs="{'invisible':[('comercio_exterior_activate','!=', True)]}" >
+                        <separator string="Complemento Comercio Exterior" colspan="4"/>
+                        <group>
+                            <field name="codigo_postal_id" domain="[('state_id', '=', state_id)]" />
+                            <field name="municipio_id" domain="[('state_id', '=', state_id)]" />
+                            <field name="colonia_id" domain="[('codigo_postal_id', '=', codigo_postal_id)]"  />
+                        </group>
+                        <group>
+                            <field name="ciudad_id" domain="[('codigo_postal_id', '=', codigo_postal_id)]" />
+                            <field name="comercio_exterior_referencia" />
+                        </group>
+                    </group>
+                </page>
+            </field>
+        </record>
+
+
+
+
+        <!-- Comercio Exterior -->
+        <record id="comercio_exterior_unidadaduana_form" model="ir.ui.view">
+            <field name="name">comercio_exterior_unidadaduana_form</field>
+            <field name="model">comercio_exterior.unidadaduana</field>
+            <field name="arch" type="xml">
+                <form string="Unidad de Medida Aduana">
+                    <group>
+                        <field name="clave" />
+                        <field name="name"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="comercio_exterior_unidadaduana_tree" model="ir.ui.view">
+            <field name="name">comercio_exterior_unidadaduana_tree</field>
+            <field name="model">comercio_exterior.unidadaduana</field>
+            <field name="arch" type="xml">
+                <tree string="Unidad de Medida Aduana">
+                    <field name="clave" />
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="comercio_exterior_unidadaduana_filter" model="ir.ui.view">
+            <field name="name">comercio_exterior_unidadaduana_filter</field>
+            <field name="model">comercio_exterior.unidadaduana</field>
+            <field name="arch" type="xml">
+                <search string="Unidad de Medida Aduana">
+                    <field name="name" string="Name" filter_domain="['|',('clave','ilike',self),('name','ilike',self)]"/>
+                </search>
+            </field>
+        </record>
+        <record id="action_comercio_exterior_unidadaduana" model="ir.actions.act_window">
+            <field name="name">Unidad de Medida Aduana</field>
+            <field name="res_model">comercio_exterior.unidadaduana</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">tree</field>
+            <field name="view_mode">list,form</field>
+            <field name="target"></field>
+        </record>    
+        <menuitem 
+            action="action_comercio_exterior_unidadaduana"
+            id="menu_comercio_exterior_unidadaduana"
+            parent="bias_base_report.menu_catalogo_comercio"
+            groups="cfd_mx.group_cfd_mx_user"
+            sequence="10"  />
+
+
+
+        <record id="comercio_exterior_fraccionarancelaria_form" model="ir.ui.view">
+            <field name="name">comercio_exterior_fraccionarancelaria_form</field>
+            <field name="model">comercio_exterior.fraccionarancelaria</field>
+            <field name="arch" type="xml">
+                <form string="Faccion Arancelaria">
+                    <group>
+                        <field name="clave" />
+                        <field name="name"/>
+                        <field name="from_date"/>
+                        <field name="to_date"/>
+                        <field name="unidadaduana_id"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="comercio_exterior_fraccionarancelaria_tree" model="ir.ui.view">
+            <field name="name">comercio_exterior_fraccionarancelaria_tree</field>
+            <field name="model">comercio_exterior.fraccionarancelaria</field>
+            <field name="arch" type="xml">
+                <tree string="Faccion Arancelaria">
+                    <field name="clave" />
+                    <field name="name"/>
+                    <field name="from_date"/>
+                    <field name="to_date"/>
+                    <field name="unidadaduana_id"/>
+                </tree>
+            </field>
+        </record>
+        <record id="comercio_exterior_fraccionarancelaria_filter" model="ir.ui.view">
+            <field name="name">comercio_exterior_fraccionarancelaria_filter</field>
+            <field name="model">comercio_exterior.fraccionarancelaria</field>
+            <field name="arch" type="xml">
+                <search string="Faccion Arancelaria">
+                    <field name="name" string="Name" filter_domain="['|',('clave','ilike',self),('name','ilike',self)]"/>
+                </search>
+            </field>
+        </record>
+        <record id="action_comercio_exterior_fraccionarancelaria" model="ir.actions.act_window">
+            <field name="name">Faccion Arancelaria</field>
+            <field name="res_model">comercio_exterior.fraccionarancelaria</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">tree</field>
+            <field name="view_mode">list,form</field>
+            <field name="target"></field>
+        </record>    
+        <menuitem 
+            action="action_comercio_exterior_fraccionarancelaria"
+            id="menu_comercio_exterior_fraccionarancelaria"
+            parent="bias_base_report.menu_catalogo_comercio"
+            groups="cfd_mx.group_cfd_mx_user"
+            sequence="10"  />
+
+
+
+        <record id="colonia_view_form" model="ir.ui.view">
+            <field name="name">colonia_view_form</field>
+            <field name="model">res.country.state.municipio.colonia</field>
+            <field name="arch" type="xml">
+                <form string="colonia SAT">
+                    <group>
+                        <field name="clave_sat"/>
+                        <field name="name"/>
+                        <field name="codigo_postal_id" />
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="colonia_view_tree" model="ir.ui.view">
+            <field name="name">colonia_view_tree</field>
+            <field name="model">res.country.state.municipio.colonia</field>
+            <field name="arch" type="xml">
+                <tree string="colonia SAT">
+                    <field name="clave_sat"/>
+                    <field name="name"/>
+                    <field name="codigo_postal_id" />
+                </tree>
+            </field>
+        </record>
+        <record id="action_colonia" model="ir.actions.act_window">
+            <field name="name">Colonias SAT</field>
+            <field name="res_model">res.country.state.municipio.colonia</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">tree</field>
+            <field name="view_mode">list,form</field>
+            <field name="target"></field>
+        </record>
+        <menuitem
+            action="action_colonia"
+            id="menu_colonia"
+            parent="bias_base_report.menu_catalogo_comercio"
+            groups="cfd_mx.group_cfd_mx_user"
+            sequence="100" />
+        <menuitem 
+            action="action_colonia" 
+            id="menu_country_colonia" 
+            parent="sales_team.menu_localisation"
+            groups="base.group_no_one"
+            sequence="40" />
+
+
+
+	</data>
+</odoo>

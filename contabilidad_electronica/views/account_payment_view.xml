@@ -15,27 +15,45 @@
                 <data>
                     <xpath expr="//sheet/group[1]" position="after">
                         <group>
-                            <group colspan="4">
-                                <separator string="Contabilidad Electronica SAT"/>
-                            </group>
-                            <group colspan="4">
+                            <separator string="Contabilidad Electronica SAT" colspan="4"/>
+                            <group>
                                 <field name="cta_origen_partner_id" invisible="1" />
-                                <field name="cta_destino_partner_id" invisible="1"  />
                                 <field name="tipo_pago" />
                                 <field name="cta_origen_id"
                                     domain="[('partner_id','=',cta_origen_partner_id)]"
-                                    attrs="{'invisible': ['|',('tipo_pago','=',False),('tipo_pago','=','otro')], 'required': [('tipo_pago','in',('cheque','trans'))]}"/>
+                                    attrs="{
+                                        'invisible': ['|',('tipo_pago','=',False),('tipo_pago','=','otro')], 
+                                        'required': [('tipo_pago','in',('cheque','trans'))]
+                                    }"/>
+                                <field name="benef_id"
+                                    attrs="{
+                                        'invisible': ['|',('tipo_pago','=',False),('tipo_pago','=','trans')], 
+                                        'required': [('tipo_pago', 'in', ('cheque','otro'))]
+                                    }"/>
+                            </group>
+                            <group>
+                                <field name="cta_destino_partner_id" invisible="1"  />
+                                <field name="fecha_trans"
+                                    attrs="{
+                                        'invisible': [('tipo_pago','=',False)], 
+                                        'required': [('tipo_pago','!=', False)]
+                                    }"/>
                                 <field name="cta_destino_id"
                                     domain="[('partner_id','=',cta_destino_partner_id)]"
-                                    attrs="{'invisible': ['|',('tipo_pago','=',False),('tipo_pago','!=','trans')], 'required': [('tipo_pago','=','trans')]}"/>
+                                    attrs="{
+                                        'invisible': ['|',('tipo_pago','=',False),('tipo_pago','!=','trans')], 
+                                        'required': [('tipo_pago','=','trans')]
+                                    }"/>
                                 <field name="num_cheque"
-                                    attrs="{'invisible': ['|',('tipo_pago','=',False),('tipo_pago','!=','cheque')],  'required': [('tipo_pago','=','cheque')]}"/>
-                                <field name="fecha_trans"
-                                    attrs="{'invisible': [('tipo_pago','=',False)], 'required': [('tipo_pago','!=', False)]}"/>
-                                <field name="benef_id"
-                                    attrs="{'invisible': ['|',('tipo_pago','=',False),('tipo_pago','=','trans')], 'required': [('tipo_pago', 'in', ('cheque','otro'))]}"/>
+                                    attrs="{
+                                        'invisible': ['|',('tipo_pago','=',False),('tipo_pago','!=','cheque')], 
+                                        'required': [('tipo_pago','=','cheque')]
+                                    }"/>
                                 <field name="metodo_pago_id" colspan="2"
-                                    attrs="{'invisible': ['|',('tipo_pago','=',False),('tipo_pago','!=','otro')], 'required': [('tipo_pago','=','otro')]}"/>
+                                    attrs="{
+                                        'invisible': ['|',('tipo_pago','=',False),('tipo_pago','!=','otro')], 
+                                        'required': [('tipo_pago','=','otro')]
+                                    }"/>
                             </group>
                             <div colspan="4">
                                 <span>NOTA</span> <br />
@@ -43,7 +61,6 @@
                                 <span>2.- La cuenta origen debe pertenecer al cliente y la de destino a la empresa, o viceversa en caso de pago a proveedor.</span>
                             </div>
                         </group>
-
                     </xpath>
                 </data>
             </field>
@@ -62,19 +79,47 @@
                         <notebook>
                             <page name="conta_elect" string="Contabilidad Electronica">
                                 <group>
-                                    <separator string="Contabilidad Electronica SAT" colspan="2" />
-                                    <field name="cta_origen_partner_id" invisible="1"/>
-                                    <field name="cta_destino_partner_id" invisible="1"/>
-                                    <field name="tipo_pago"/>
-                                    <field name="cta_origen_id" domain="[('partner_id','=',cta_origen_partner_id)]"
-                                        attrs="{'invisible': ['|',('tipo_pago','=',False),('tipo_pago','=','otro')], 'required': [('tipo_pago','in',('cheque','trans'))]}"/>
-                                    <field name="cta_destino_id" domain="[('partner_id','=',cta_destino_partner_id)]"
-                                        attrs="{'invisible': ['|',('tipo_pago','=',False),('tipo_pago','!=','trans')], 'required': [('tipo_pago','=','trans')]}"/>
-                                    <field name="num_cheque" attrs="{'invisible': ['|',('tipo_pago','=',False),('tipo_pago','!=','cheque')],  'required': [('tipo_pago','=','cheque')]}"/>
-                                    <field name="fecha_trans"  attrs="{'invisible': [('tipo_pago','=',False)], 'required': [('tipo_pago','!=', False)]}"/>
-                                    <field name="benef_id" attrs="{'invisible': ['|',('tipo_pago','=',False),('tipo_pago','=','trans')], 'required': [('tipo_pago', 'in', ('cheque','otro'))]}"/>
-                                    <field name="metodo_pago_id" attrs="{'invisible': ['|',('tipo_pago','=',False),('tipo_pago','!=','otro')], 'required': [('tipo_pago','=','otro')]}"/>
-                                    <div colspan="2">
+                                    <separator string="Contabilidad Electronica SAT" colspan="4"/>
+                                    <group>
+                                        <field name="cta_origen_partner_id" invisible="1" />
+                                        <field name="tipo_pago" />
+                                        <field name="cta_origen_id"
+                                            domain="[('partner_id','=',cta_origen_partner_id)]"
+                                            attrs="{
+                                                'invisible': ['|',('tipo_pago','=',False),('tipo_pago','=','otro')], 
+                                                'required': [('tipo_pago','in',('cheque','trans'))]
+                                            }"/>
+                                        <field name="benef_id"
+                                            attrs="{
+                                                'invisible': ['|',('tipo_pago','=',False),('tipo_pago','=','trans')], 
+                                                'required': [('tipo_pago', 'in', ('cheque','otro'))]
+                                            }"/>
+                                    </group>
+                                    <group>
+                                        <field name="cta_destino_partner_id" invisible="1"  />
+                                        <field name="fecha_trans"
+                                            attrs="{
+                                                'invisible': [('tipo_pago','=',False)], 
+                                                'required': [('tipo_pago','!=', False)]
+                                            }"/>
+                                        <field name="cta_destino_id"
+                                            domain="[('partner_id','=',cta_destino_partner_id)]"
+                                            attrs="{
+                                                'invisible': ['|',('tipo_pago','=',False),('tipo_pago','!=','trans')], 
+                                                'required': [('tipo_pago','=','trans')]
+                                            }"/>
+                                        <field name="num_cheque"
+                                            attrs="{
+                                                'invisible': ['|',('tipo_pago','=',False),('tipo_pago','!=','cheque')], 
+                                                'required': [('tipo_pago','=','cheque')]
+                                            }"/>
+                                        <field name="metodo_pago_id" colspan="2"
+                                            attrs="{
+                                                'invisible': ['|',('tipo_pago','=',False),('tipo_pago','!=','otro')], 
+                                                'required': [('tipo_pago','=','otro')]
+                                            }"/>
+                                    </group>
+                                    <div colspan="4">
                                         <span>NOTA</span> <br />
                                         <span>1.- Deben estar llenos los campos obligatorios.</span> <br />
                                         <span>2.- La cuenta origen debe pertenecer al cliente y la de destino a la empresa, o viceversa en caso de pago a proveedor.</span>

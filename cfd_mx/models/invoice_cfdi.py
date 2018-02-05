@@ -26,15 +26,10 @@ class AccountCfdi(models.Model):
     def invoice_info_comprobante(self):
         obj = self.obj
         dp = obj.env['decimal.precision'].precision_get('Account')
-        if obj.currency_id.name == 'MXN':
-            rate = 1.0
-            nombre = obj.currency_id.nombre_largo or 'pesos'
-        else:
-            model_data = obj.env["ir.model.data"]
-            mxn_rate = model_data.get_object('base', 'MXN').rate
-            rate = (1.0 / obj.currency_id.rate) * mxn_rate
-            nombre = obj.currency_id.nombre_largo or ''
+        
 
+        print "obj.tipo_cambio", obj.tipo_cambio
+        rate = obj.tipo_cambio
         date_invoice = obj.date_invoice_cfdi
         if not obj.date_invoice_cfdi:
             date_invoice = obj.action_write_date_invoice_cfdi(obj.id)
@@ -57,7 +52,7 @@ class AccountCfdi(models.Model):
         if obj.price_discount_sat:
             cfdi_comprobante['Descuento'] = '%.2f'%(round(obj.price_discount_sat, dp))
         if obj.currency_id.name != 'MXN':
-            cfdi_comprobante['TipoCambio'] = '%s'%(round(rate, 4))
+            cfdi_comprobante['TipoCambio'] = '%s'%(round(rate, 6))
         return cfdi_comprobante
 
     def invoice_info_emisor(self):
@@ -100,8 +95,10 @@ class AccountCfdi(models.Model):
                 'Cantidad': '%s'%(round(line.quantity, dp_account)),
                 'ClaveUnidad': line.uom_id and line.uom_id.clave_unidadesmedida_id and line.uom_id.clave_unidadesmedida_id.clave or '',
                 'Unidad': line.uom_id and line.uom_id.name or '',
-                'ValorUnitario': '%.2f'%(round(line.price_unit, dp_product)),
-                'Importe': '%.2f'%( line.price_subtotal_sat ),
+                # 'ValorUnitario': '%.2f'%(round(line.price_unit, dp_product)),
+                # 'Importe': '%.2f'%( line.price_subtotal_sat ),
+                'ValorUnitario': '%.2f'%( line.price_subtotal_sat / round(line.quantity, dp_account)),
+                'Importe': '%.2f'%( line.price_subtotal_sat ), # '%.2f'%( line.price_subtotal_sat * round(line.quantity, dp_account) ),
                 'Descuento': '%.2f'%( line.price_discount_sat ),
                 'Impuestos': {
                     'Traslado': [],

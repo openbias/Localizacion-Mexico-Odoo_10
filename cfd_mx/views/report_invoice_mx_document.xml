@@ -218,7 +218,7 @@
                                                                     <td class="border_top"><span t-esc="t.get('Impuesto')" /></td>
                                                                     <td class="border_top"><span t-esc="t.get('TipoFactor')" /></td>
                                                                     <td class="border_top"><span t-esc="t.get('TasaOCuota')" /></td>
-                                                                    <td class="border_top">$ <span t-esc="t.get('Importe')" /></td>
+                                                                    <td class="border_top"><span t-esc="t.get('Importe')" t-options='{"widget": "monetary", "display_currency": "o.currency_id"}' /></td>
                                                                 </tr>
                                                             </t>
                                                         </table>
@@ -243,10 +243,10 @@
                             </tr>
                             <tr>
                                 <td class="text-right" style="width:20%"><span t-field="o.price_subtotal_sat" /> </td>
-                                <td class="text-right" style="width:20%">$ <span t-esc="tras" /></td>
-                                <td class="text-right" style="width:20%">$ <span t-esc="ret" /></td>
+                                <td class="text-right" style="width:20%"><span t-esc="tras" t-options='{"widget": "monetary", "display_currency": "o.currency_id"}' /></td>
+                                <td class="text-right" style="width:20%"><span t-esc="ret" t-options='{"widget": "monetary", "display_currency": "o.currency_id"}' /></td>
                                 <td class="text-right" style="width:20%"><span t-field="o.price_discount_sat" /> </td>
-                                <td class="text-right" style="width:20%">$ <span t-esc="o.price_subtotal_sat - o.price_discount_sat + o.price_tax_sat" /> </td>
+                                <td class="text-right" style="width:20%"><span t-esc="o.price_subtotal_sat - o.price_discount_sat + o.price_tax_sat" t-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/> </td>
                             </tr>
                         </table>
                     </div>

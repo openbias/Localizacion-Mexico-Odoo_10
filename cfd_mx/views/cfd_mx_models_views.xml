@@ -208,35 +208,6 @@
 
 
 
-        <record id="alta_catalogos_wizard" model="ir.ui.view">
-            <field name="name">alta_catalogos_wizard</field>
-            <field name="model">cf.mx.alta.catalogos.wizard</field>
-            <field name="arch" type="xml">
-                <form>
-                    <separator string="Alta Catalogos CFDI" />
-                    <footer>
-                        <button string='Aceptar' name="action_alta_catalogos" type="object" class="btn-primary"/>
-                        <button string="Cancel" class="btn-default" special="cancel"/>
-                    </footer>
-                </form>                
-            </field>
-        </record>
-        <record id="action_alta_catalogos_wizard" model="ir.actions.act_window">
-            <field name="name">Alta Catalogos CFDI</field>
-            <field name="res_model">cf.mx.alta.catalogos.wizard</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-            <field name="target">new</field>
-        </record>
-        <menuitem
-            action="action_alta_catalogos_wizard" 
-            parent="bias_base_report.menu_catalogo_cfdi"
-            groups="group_cfd_mx_user"
-            id="menu_alta_catalogos_wizard"
-            sequence="99" />
-
-
         <!-- CATALOGO ADUANAS -->
         <record id="aduana_view_tree" model="ir.ui.view">
             <field name="name">aduana_view_tree</field>
@@ -309,6 +280,39 @@
             parent="bias_base_report.menu_catalogo_cfdi"
             groups="group_cfd_mx_user"
             sequence="120"  />
+
+
+
+
+
+
+        <record id="alta_catalogos_wizard" model="ir.ui.view">
+            <field name="name">alta_catalogos_wizard</field>
+            <field name="model">cf.mx.alta.catalogos.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <separator string="Alta Catalogos CFDI" />
+                    <footer>
+                        <button string='Aceptar' name="action_alta_catalogos" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_alta_catalogos_wizard" model="ir.actions.act_window">
+            <field name="name">Alta Catalogos CFDI</field>
+            <field name="res_model">cf.mx.alta.catalogos.wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <menuitem
+            action="action_alta_catalogos_wizard" 
+            parent="bias_base_report.menu_catalogo_cfdi"
+            groups="group_cfd_mx_user"
+            id="menu_alta_catalogos_wizard"
+            sequence="130" />
 
 
     </data>

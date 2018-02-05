@@ -29,7 +29,7 @@
                         attrs="{'invisible': [('move_id', '!=', False)]}"/>
                 </field>
                 <field name="date_invoice" position="after">
-                    <field name="date_invoice_cfdi" invisible="1" />
+                    <field name="date_invoice_cfdi" invisible="0" />
                     <field name="es_cfdi" invisible="1"/>
                     <field name="timbrada" invisible="1"/>
                     <field name="mandada_cancelar" invisible="1"/>
@@ -59,9 +59,9 @@
                                 <field name="certificado_sat" readonly="1"/>
                             </group>
                             <group>
-                                <separator string="Cadena SAT" colspan="4" />
+                                <separator string="Cadena Original" colspan="4" />
                                 <pre><code>
-                                    <field name="cadena_sat" readonly="1" nolabel="1"/>
+                                    <field name="cadena" readonly="1" nolabel="1"/>
                                 </code></pre>
                             </group>
                             <group>

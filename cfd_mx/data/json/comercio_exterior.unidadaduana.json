@@ -1,0 +1,112 @@
+[
+    {
+        "id": "comercio_exterior.unidadaduana_01",
+        "clave": "01",
+        "name": "KILO  "
+    },
+    {
+        "id": "comercio_exterior.unidadaduana_02",
+        "clave": "02",
+        "name": "GRAMO  "
+    },
+    {
+        "id": "comercio_exterior.unidadaduana_03",
+        "clave": "03",
+        "name": "METRO LINEAL  "
+    },
+    {
+        "id": "comercio_exterior.unidadaduana_04",
+        "clave": "04",
+        "name": "METRO CUADRADO  "
+    },
+    {
+        "id": "comercio_exterior.unidadaduana_05",
+        "clave": "05",
+        "name": "METRO CUBICO  "
+    },
+    {
+        "id": "comercio_exterior.unidadaduana_06",
+        "clave": "06",
+        "name": "PIEZA  "
+    },
+    {
+        "id": "comercio_exterior.unidadaduana_07",
+        "clave": "07",
+        "name": "CABEZA  "
+    },
+    {
+        "id": "comercio_exterior.unidadaduana_08",
+        "clave": "08",
+        "name": "LITRO  "
+    },
+    {
+        "id": "comercio_exterior.unidadaduana_09",
+        "clave": "09",
+        "name": "PAR  "
+    },
+    {
+        "id": "comercio_exterior.unidadaduana_10",
+        "clave": "10",
+        "name": "KILOWATT  "
+    },
+    {
+        "id": "comercio_exterior.unidadaduana_11",
+        "clave": "11",
+        "name": "MILLAR  "
+    },
+    {
+        "id": "comercio_exterior.unidadaduana_12",
+        "clave": "12",
+        "name": "JUEGO  "
+    },
+    {
+        "id": "comercio_exterior.unidadaduana_13",
+        "clave": "13",
+        "name": "KILOWATT/HORA  "
+    },
+    {
+        "id": "comercio_exterior.unidadaduana_14",
+        "clave": "14",
+        "name": "TONELADA"
+    },
+    {
+        "id": "comercio_exterior.unidadaduana_15",
+        "clave": "15",
+        "name": "BARRIL  "
+    },
+    {
+        "id": "comercio_exterior.unidadaduana_16",
+        "clave": "16",
+        "name": "GRAMO NETO  "
+    },
+    {
+        "id": "comercio_exterior.unidadaduana_17",
+        "clave": "17",
+        "name": "DECENAS  "
+    },
+    {
+        "id": "comercio_exterior.unidadaduana_18",
+        "clave": "18",
+        "name": "CIENTOS"
+    },
+    {
+        "id": "comercio_exterior.unidadaduana_19",
+        "clave": "19",
+        "name": "DOCENAS  "
+    },
+    {
+        "id": "comercio_exterior.unidadaduana_20",
+        "clave": "20",
+        "name": "CAJA  "
+    },
+    {
+        "id": "comercio_exterior.unidadaduana_21",
+        "clave": "21",
+        "name": "BOTELLA"
+    },
+    {
+        "id": "comercio_exterior.unidadaduana_99",
+        "clave": "99",
+        "name": "SERVICIO"
+    }
+]

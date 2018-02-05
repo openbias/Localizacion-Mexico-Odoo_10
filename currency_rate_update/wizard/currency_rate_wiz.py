@@ -77,11 +77,12 @@ class CurrencyWizard(models.TransientModel):
             for currency in currency_ids: 
                 for line in rate_retrieve:
                     rate_name = line['date']
-                    rate_ids = Rate.search([('name', 'like', rate_name ), ('currency_id', '=', currency.id)])
+                    rate_ids = Rate.search([('name', 'like', '%s 06:00:00'%(rate_name) ), ('currency_id', '=', currency.id)])
                     vals = {
-                        'name': rate_name,
+                        'name': '%s 06:00:00'%(rate_name),
                         'currency_id': currency.id,
-                        'rate': line['rate']
+                        'rate': line['rate'],
+                        'company_id': False
                     }
                     if not rate_ids:
                         Rate.create(vals)

@@ -44,9 +44,10 @@ class Municipio(models.Model):
 class Colonia(models.Model):
     _name = 'res.country.state.municipio.colonia'
     
-    municipio_id = fields.Many2one('res.country.state.municipio', string='Municipio', required=True)
+    codigo_postal_id = fields.Many2one('res.country.state.cp', string='Código Postal', required=True)
+    municipio_id = fields.Many2one('res.country.state.municipio', string='Municipio', required=False)
     name = fields.Char(string='Name', size=256, required=True)
-    cp = fields.Char(string='Código Postal', size=10)
+    clave_sat = fields.Char("Clave SAT")
 
 
 

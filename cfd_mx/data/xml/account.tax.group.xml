@@ -5,32 +5,32 @@
         <record id="tax_group_iva_ret" model="account.tax.group">
             <field name="name">IVA-RET</field>
             <field name="cfdi_impuestos">002</field>
-            <field name="cfdi_traslado" eval="FALSE"></field>
-            <field name="cfdi_retencion" eval="TRUE"></field>
+            <field name="cfdi_traslado" eval="False"></field>
+            <field name="cfdi_retencion" eval="True"></field>
         </record>
         <record id="tax_group_iva" model="account.tax.group">
             <field name="name">IVA</field>
             <field name="cfdi_impuestos">002</field>
-            <field name="cfdi_traslado" eval="TRUE"></field>
-            <field name="cfdi_retencion" eval="FALSE"></field>
+            <field name="cfdi_traslado" eval="True"></field>
+            <field name="cfdi_retencion" eval="False"></field>
         </record>
         <record id="tax_group_iva_exent" model="account.tax.group">
             <field name="name">IVA-EXENTO</field>
             <field name="cfdi_impuestos">002</field>
-            <field name="cfdi_traslado" eval="TRUE"></field>
-            <field name="cfdi_retencion" eval="FALSE"></field>
+            <field name="cfdi_traslado" eval="True"></field>
+            <field name="cfdi_retencion" eval="False"></field>
         </record>
         <record id="tax_group_isr" model="account.tax.group">
             <field name="name">ISR</field>
             <field name="cfdi_impuestos">001</field>
-            <field name="cfdi_traslado" eval="TRUE"></field>
-            <field name="cfdi_retencion" eval="FALSE"></field>
+            <field name="cfdi_traslado" eval="True"></field>
+            <field name="cfdi_retencion" eval="False"></field>
         </record>
         <record id="tax_group_isr_ret" model="account.tax.group">
             <field name="name">ISR-RET</field>
             <field name="cfdi_impuestos">001</field>
-            <field name="cfdi_traslado" eval="FALSE"></field>
-            <field name="cfdi_retencion" eval="TRUE"></field>
+            <field name="cfdi_traslado" eval="False"></field>
+            <field name="cfdi_retencion" eval="True"></field>
         </record>
         <record id="tax_group_ieps" model="account.tax.group">
             <field name="name">IEPS</field>

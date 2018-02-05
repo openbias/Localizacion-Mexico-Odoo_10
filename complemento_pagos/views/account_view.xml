@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_account_payment_invoice_cfdi_form" model="ir.ui.view">
+            <field name="name">account.payment.invoice.cfdi.form</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/group[1]" position="after">
+                    <group
+                        attrs="{'invisible': [('hide_formapago_id', '=', True)]}" >
+                        <separator string="Complemento Pagos CFDI 3.3" colspan="4"/>
+                        <group>
+                            <field name="hide_formapago_id" invisible="1" />
+                            <field name="formapago_id"
+                                attrs="{
+                                    'invisible': [('hide_formapago_id', '=', True)], 
+                                    'required': [('hide_formapago_id', '=', False)]
+                                }"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

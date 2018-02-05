@@ -19,6 +19,9 @@ class AltaCatalogosCFDI(models.TransientModel):
     def action_alta_catalogos(self):
         logging.info(' Inicia Alta Catalogos')
         models = [
+            'comercio_exterior.unidadaduana',
+            'comercio_exterior.fraccionarancelaria',
+            'res.country.state.municipio.colonia',
             'cfd_mx.unidadesmedida',
             'cfd_mx.prodserv',
             'res.country.state.municipio',
@@ -147,11 +150,6 @@ class Regimen(models.Model):
         if not recs:
             recs = self.search([('name', operator, name)] + args, limit=limit)
         return recs.name_get()
-
-
-
-
-
 
 
 
@@ -322,6 +320,69 @@ class Addendas(models.Model):
             return False
         return True
 
+
+#
+# Comercio Exterior
+#
+class UnidadAduana(models.Model):
+    _name = 'comercio_exterior.unidadaduana'
+
+    name = fields.Char(string='Descripcion')
+    clave = fields.Char(string='Clave SAT')
+
+    @api.multi
+    def name_get(self):
+        result = []
+        for rec in self:
+            result.append((rec.id, "[%s] %s" % (rec.clave, rec.name or '')))
+        return result
+
+    @api.model
+    def name_search(self, name, args=None, operator='ilike', limit=100):
+        args = args or []
+        recs = self.browse()
+        if name:
+            cod_prod_ids = self.search([('clave', 'ilike', name)] + args, limit=limit)
+            if cod_prod_ids: recs += cod_prod_ids
+
+            search_domain = [('name', operator, name)]
+            if recs.ids:
+                search_domain.append(('id', 'not in', recs.ids))
+            name_ids = self.search(search_domain + args, limit=limit)
+            if name_ids: recs += name_ids
+
+        if not recs:
+            recs = self.search([('name', operator, name)] + args, limit=limit)
+        return recs.name_get()
+
+
+class FraccionArancelaria(models.Model):
+    _name = 'comercio_exterior.fraccionarancelaria'
+
+    name = fields.Char(string='Descripcion')
+    clave = fields.Char(string='Clave SAT')
+    from_date = fields.Date(string='Fecha Inicial')
+    to_date = fields.Date(string='Fecha Inicial')
+    unidadaduana_id = fields.Many2one('comercio_exterior.unidadaduana', string='Unidad Aduana')
+
+
+    @api.multi
+    def name_get(self):
+        result = []
+        for rec in self:
+            result.append((rec.id, "[%s] %s" % (rec.clave, rec.name or '')))
+        return result
+
+    @api.model
+    def name_search(self, name, args=None, operator='ilike', limit=100):
+        recs = super(FraccionArancelaria, self).name_search(name, args=args, operator=operator, limit=limit)
+        args = args or []
+        recs = self.browse()
+        if name:
+            recs = self.search([('clave', operator, name)] + args, limit=limit)
+        if not recs:
+            recs = self.search([('name', operator, name)] + args, limit=limit)
+        return recs.name_get()
 
 
 ########################################

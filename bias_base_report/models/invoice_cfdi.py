@@ -39,11 +39,14 @@ class AccountCfdi(models.Model):
     def _get_tipo_cambio(self):
         model_obj = self.env['ir.model.data']
         tipocambio = 1.0
-        if self.date_invoice:
+        date_invoice = self.date_invoice or fields.Date.today()
+        if date_invoice:
             if self.currency_id.name=='MXN':
                 tipocambio = 1.0
             else:
-                tipocambio = model_obj.with_context(date=self.date_invoice).get_object('base', 'MXN').rate
+                mxn_rate = self.env["ir.model.data"].get_object('base', 'MXN').rate
+                tipocambio = (1.0 / self.currency_id.with_context(date='%s 06:00:00'%(date_invoice)).rate) * mxn_rate
+
         self.tipo_cambio = tipocambio
 
     @api.one
@@ -86,7 +89,7 @@ class AccountCfdi(models.Model):
     timbrada = fields.Boolean(string="Timbrado", default=False, copy=False, compute='_get_timbrado', store=False)
 
     serie = fields.Char(string="Serie", size=8, copy=False)
-    tipo_cambio = fields.Float(string="Tipo de cambio", compute='_get_tipo_cambio')
+    tipo_cambio = fields.Float(string="Tipo de cambio", digits=(12, 6),  compute='_get_tipo_cambio')
     cfd_mx_pac = fields.Char(string='PAC', compute='_get_cfd_mx_pac')
     test = fields.Boolean(string="Timbrado en modo de prueba", copy=False)
     date_invoice_cfdi = fields.Char(string="Invoice Date", copy=False)
@@ -177,6 +180,7 @@ class AccountCfdi(models.Model):
         }
         return cfdi_datas
 
+
     def action_server(self, url, host, db, params):
         s = Session()
         s.get('%s/web?db=%s'%(host, db))
@@ -197,6 +201,9 @@ class AccountCfdi(models.Model):
         }
         res = s.post(url, data=json.dumps(data), headers=headers)
         res_datas = res.json()
+        msg = res_datas.get('error') and res_datas['error'].get('data') and res_datas['error']['data'].get('message')
+        if msg:
+            return res_datas['error']['data']
         if res_datas.get('error'):
             return res_datas['error']
         if res_datas.get('result') and res_datas['result'].get('error'):

@@ -21,5 +21,11 @@
             id="menu_catalogo_cfdi"
             sequence="100" />
 
+        <menuitem
+            name="Catalogos Comercio Exterior"
+            parent="menu_localizacion_mexico_root"
+            id="menu_catalogo_comercio"
+            sequence="100" />
+
     </data>
 </odoo>

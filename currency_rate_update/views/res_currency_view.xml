@@ -8,7 +8,7 @@
             <field name="inherit_id" ref="base.view_currency_tree" />
             <field name="arch" type="xml">
                 <field name="active" position="before">
-                    <button name="update_currency_rate" type="object" icon="fa-cogs" attrs="{'invisible': [('active', '=', False)]}">Update</button>
+                    <button name="update_currency_rate_bias" type="object" icon="fa-cogs" attrs="{'invisible': [('active', '=', False)]}">Update</button>
                 </field>
             </field>
         </record>
@@ -19,7 +19,7 @@
             <field name="inherit_id" ref="base.view_currency_form" />
             <field name="arch" type="xml">
                 <header position="inside">
-                    <button name="update_currency_rate" type="object" string="Update" icon="fa-cogs" attrs="{'invisible': [('active', '=', False)]}" />
+                    <button name="update_currency_rate_bias" type="object" string="Update" icon="fa-cogs" attrs="{'invisible': [('active', '=', False)]}" />
                 </header>
             </field>
         </record>

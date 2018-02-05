@@ -10,7 +10,7 @@
             <field name="arch" type="xml">
                 <data>
                     <notebook position="inside">
-                        <page string="CFDI">
+                        <page string="CFDI" name="cfdi">
                             <group>
                                 <group>
                                     <field name="regimen_id" string="Régimen Fiscal" groups="cfd_mx.group_cfd_mx_manager"/>

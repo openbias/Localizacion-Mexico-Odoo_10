@@ -28,6 +28,13 @@ class AccountInvoiceRefund(models.TransientModel):
     def compute_refund(self, mode='refund'):
         ctx = dict(self.env.context)
         ctx["tiporelacion_id"] = self.tiporelacion_id.id
+        inv_obj = self.env['account.invoice']
+        for form in self:
+            for inv in inv_obj.browse(ctx.get('active_ids')):
+                if not form.tiporelacion_id:
+                    if inv.journal_id.id in inv.company_id.cfd_mx_journal_ids.ids:
+                        raise UserError(_('Por favor seleccione un tipo de Relacion CFDI.'))
+
         res = super(AccountInvoiceRefund, self.with_context(**ctx)).compute_refund(mode=mode)
         return res
 
@@ -41,16 +48,24 @@ class AccountInvoiceLine(models.Model):
         'invoice_id.date_invoice')
     def _compute_price_sat(self):
         currency = self.invoice_id and self.invoice_id.currency_id or None
-        price_subtotal_sat = self.price_unit # * self.quantity
+        # Calculo de Impuestos.
+        price_unit = self.price_unit * (1 - (self.discount or 0.0) / 100.0)
+        taxes = self.invoice_line_tax_ids.compute_all(price_unit, self.currency_id, self.quantity, self.product_id, self.partner_id)
+        price_subtotal_sat = taxes.get('total_excluded', 0.00) # * self.quantity
         discount =  ((self.discount or 0.0) / 100.0) * price_subtotal_sat
-        price = (price_subtotal_sat - discount)
-        taxes = {}
-        if self.invoice_line_tax_ids:
-            taxes = self.invoice_line_tax_ids.compute_all(price, self.currency_id, self.quantity, self.product_id, self.partner_id)
-        
         self.price_tax_sat = taxes.get('total_included', 0.00) - taxes.get('total_excluded', 0.00)
-        self.price_subtotal_sat = self.price_unit * self.quantity
-        self.price_discount_sat = discount * self.quantity
+        self.price_subtotal_sat = taxes.get('total_excluded', 0.00)
+        self.price_discount_sat = discount # * self.quantity
+        # price_subtotal_sat = self.price_unit # * self.quantity
+        # discount =  ((self.discount or 0.0) / 100.0) * price_subtotal_sat
+        # price = (price_subtotal_sat - discount)
+        # taxes = {}
+        # if self.invoice_line_tax_ids:
+        #     taxes = self.invoice_line_tax_ids.compute_all(price, self.currency_id, self.quantity, self.product_id, self.partner_id)
+        
+        # self.price_tax_sat = taxes.get('total_included', 0.00) - taxes.get('total_excluded', 0.00)
+        # self.price_subtotal_sat = self.price_unit * self.quantity
+        # self.price_discount_sat = discount * self.quantity
 
     price_subtotal_sat = fields.Monetary(string='Amount (SAT)', readonly=True, compute='_compute_price_sat', default=0.00)
     price_tax_sat = fields.Monetary(string='Tax (SAT)', readonly=True, compute='_compute_price_sat', default=0.00)
@@ -206,7 +221,7 @@ class AccountInvoice(models.Model):
                 getattr(invoice, onchange_method)()
                 for field in changed_fields:
                     if field not in vals and invoice[field]:
-                        vals[field] = invoice._fields[field].convert_to_write(invoice[field], invoice)
+                        vals[field] = invoice._fields[field].convert_to_write(invoice[field])
         invoice = super(AccountInvoice, self.with_context(mail_create_nolog=True)).create(vals)
         if invoice.type == 'out_invoice':
             invoice.tipo_comprobante = "I"
