@@ -44,5 +44,17 @@
             <field name="cfdi_traslado" />
             <field name="cfdi_retencion" />
         </record>
+        <record id="tax_group_tras_loc" model="account.tax.group">
+            <field name="name">Traslados Locales</field>
+            <field name="cfdi_impuestos"></field>
+            <field name="cfdi_traslado" />
+            <field name="cfdi_retencion" />
+        </record>
+        <record id="tax_group_ret_loc" model="account.tax.group">
+            <field name="name">Retenciones Locales</field>
+            <field name="cfdi_impuestos"></field>
+            <field name="cfdi_traslado" />
+            <field name="cfdi_retencion" />
+        </record>
     </data>
 </odoo>

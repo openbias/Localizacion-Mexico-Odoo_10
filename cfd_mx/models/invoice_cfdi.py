@@ -26,9 +26,6 @@ class AccountCfdi(models.Model):
     def invoice_info_comprobante(self):
         obj = self.obj
         dp = obj.env['decimal.precision'].precision_get('Account')
-        
-
-        print "obj.tipo_cambio", obj.tipo_cambio
         rate = obj.tipo_cambio
         date_invoice = obj.date_invoice_cfdi
         if not obj.date_invoice_cfdi:
@@ -41,7 +38,7 @@ class AccountCfdi(models.Model):
             "CondicionesDePago": obj.payment_term_id and obj.payment_term_id.name or 'CONDICIONES',
             "Moneda": obj.currency_id.name,
             "SubTotal": '%.2f'%(obj.price_subtotal_sat),
-            "Total": '%.2f'%(obj.price_subtotal_sat - obj.price_discount_sat + obj.price_tax_sat),
+            "Total": '%.2f'%(obj.amount_total),
             "TipoDeComprobante": obj.tipo_comprobante,
             "MetodoPago": obj.metodopago_id and obj.metodopago_id.clave or 'Pago en una sola exhibicion',
             "LugarExpedicion": obj.journal_id and obj.journal_id.codigo_postal_id and obj.journal_id.codigo_postal_id.name or '',

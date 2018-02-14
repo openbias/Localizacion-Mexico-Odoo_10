@@ -1,0 +1,18 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="account_invoice_form_add_imp_loc">
+            <field name="name">account_invoice_form_add_imp_loc</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="partner_id" position="after">
+                        <field name="imp_loc_activate" invisible="0"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -27,23 +27,23 @@ INCOTERM = [
 ]
 
 UNIDAD_MEDIDA = [
-    ('1', 'KILO'),  
-    ('2', 'GRAMO'),  
+    ('1', 'KILO'),
+    ('2', 'GRAMO'),
     ('3', 'METRO LINEAL'),
-    ('4', 'METRO CUADRADO'),  
-    ('5', 'METRO CUBICO'), 
-    ('6', 'PIEZA'),  
-    ('7', 'CABEZA'),  
-    ('8', 'LITRO'), 
-    ('9', 'PAR'),  
-    ('10', 'KILOWATT'),  
-    ('11', 'MILLAR'),  
-    ('12', 'JUEGO'), 
-    ('13', 'KILOWATT/HORA'),  
+    ('4', 'METRO CUADRADO'),
+    ('5', 'METRO CUBICO'),
+    ('6', 'PIEZA'),
+    ('7', 'CABEZA'),
+    ('8', 'LITRO'),
+    ('9', 'PAR'),
+    ('10', 'KILOWATT'),
+    ('11', 'MILLAR'),
+    ('12', 'JUEGO'),
+    ('13', 'KILOWATT/HORA'),
     ('14', 'TONELADA'),
-    ('15', 'BARRIL'),  
-    ('16', 'GRAMO NETO'),  
-    ('17', 'DECENAS'),  
+    ('15', 'BARRIL'),
+    ('16', 'GRAMO NETO'),
+    ('17', 'DECENAS'),
     ('18', 'CIENTOS'),
     ('19', 'DOCENAS'),
     ('20', 'CAJA'),
@@ -124,7 +124,6 @@ class addendas(models.Model):
 
         # Emisor
         partner_id = invoice.company_id.partner_id
-        print "partner_id.colonia_id.clave_sat", partner_id.colonia_id.clave_sat
         emisor_dom_attribs = {}
         emisor_dom_attribs['Calle']= '%s'%partner_id.street
         if partner_id.noExterior:
@@ -145,7 +144,7 @@ class addendas(models.Model):
             emisor_dom_attribs['Pais']= '%s'%partner_id.country_id.code_alpha3
         if partner_id.codigo_postal_id:
             emisor_dom_attribs['CodigoPostal']= '%s'%partner_id.codigo_postal_id.name
-        
+
         emisor_attribs = {}
         if invoice.partner_id.curp:
             emisor_attribs['Curp']= '%s'%invoice.partner_id.curp
@@ -181,7 +180,6 @@ class addendas(models.Model):
             receptor_dom_attribs['Estado']= '%s'%partner_id.state_id.code
         if partner_id.country_id:
             receptor_dom_attribs['Pais']= '%s'%partner_id.country_id.code_alpha3
-
 
         destinatario_attribs = {}
         destinatario_dom_attribs = {}
@@ -228,7 +226,6 @@ class addendas(models.Model):
                 'UnidadAduana': '%s'%line.comercio_exterior_unidad_aduana_id.clave,
                 'ValorUnitarioAduana': '%s'%line.comercio_exterior_valor_aduana,
                 'ValorDolares': '%.2f'%line.comercio_exterior_valor_dolares
-
             }
             desc_esp_attribs = []
             for dline in line.comercio_exterior_descripciones_especificas:
@@ -290,20 +287,15 @@ class AccountInvoice(models.Model):
     comercio_exterior_num_exportador_confiable = fields.Char(string=u"Número de exportador confiable", size=50, 
         help="""Atributo opcional que indica el número de exportador confiable, 
         conforme al artículo 22 del Anexo 1 del Tratado de Libre Comercio con la Asociación Europea y a la Decisión de la Comunidad Europea.""")
-    
     comercio_exterior_incoterm = fields.Selection(INCOTERM, string="INCOTERM")
-    
     comercio_exterior_subdivision = fields.Selection([
         ('0','[0] No'), ('1','[1] Sí')], string=u"La factura tiene subdivisión")
     comercio_exterior_observaciones = fields.Char(string="Observaciones", size=300)
     comercio_exterior_tipo_cambio_usd = fields.Float(string="Tipo cambio USD", digits=(12, 6))
     comercio_exterior_total_usd = fields.Float(string="Total USD")
-
     comercio_exterior_domicilio_destinatario = fields.Many2one('res.partner', string="Domicilio del destinatario")
-
     comercio_exterior_activate = fields.Boolean("Activar")
     comercio_exterior_line_ids = fields.One2many('comercio_exterior', 'invoice_id')
-
 
     @api.model
     def create(self, vals):
@@ -336,7 +328,6 @@ class AccountInvoice(models.Model):
             res = self.partner_id.id in conf_addenda_id.partner_ids.ids
             self.comercio_exterior_activate = res
 
-
     @api.multi
     def update_comercio_exterior_lines(self):
         comercio_exterior_obj = self.env['comercio_exterior']
@@ -352,12 +343,13 @@ class AccountInvoice(models.Model):
                 }
                 if fra_id:
                     vals['comercio_exterior_unidad_aduana_id'] = fra_id and fra_id.unidadaduana_id and fra_id.unidadaduana_id.id or False
-                if record.comercio_exterior_line_ids:
-                    for comercio_exterior_line in record.comercio_exterior_line_ids:
-                        if comercio_exterior_line.invoice_line_id.id == line.id:
-                            comercio_exterior_line.write(vals)
-                else:
+                if len(record.comercio_exterior_line_ids) == 0:
                     comercio_exterior_obj.create(vals)
+                for comercio_exterior_line in record.comercio_exterior_line_ids:
+                    if comercio_exterior_line.invoice_line_id.id == line.id:
+                            comercio_exterior_line.write(vals)
+                    else:
+                        comercio_exterior_obj.create(vals)
         return True
 
 
@@ -365,7 +357,7 @@ class AccountInvoice(models.Model):
 
 class DescripcionesEspecificas(models.Model):
     _name = "comercio_exterior.desc_esp"
-    
+
     marca = fields.Char(string='Marca', size=35, required=True)
     modelo = fields.Char(string='Modelo', size=80)
     submodelo = fields.Char(string='Submodelo', size=50)
@@ -375,7 +367,6 @@ class DescripcionesEspecificas(models.Model):
 
 class ComercioExterior(models.Model):
     _name = "comercio_exterior"
-    
 
     comercio_exterior_fraccion_arancelaria_id = fields.Many2one('comercio_exterior.fraccionarancelaria', string='Fraccion Arancelaria')
     comercio_exterior_unidad_aduana_id = fields.Many2one('comercio_exterior.unidadaduana', string='Unidad Aduana')

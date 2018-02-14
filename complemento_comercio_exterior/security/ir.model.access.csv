@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_comercio_exterior,access_comercio_exterior,model_comercio_exterior,,1,1,1,1
+access_comercio_exterior_desc_esp,access_comercio_exterior_desc_esp,model_comercio_exterior_desc_esp,,1,1,1,1

@@ -51,11 +51,51 @@ class AccountInvoiceLine(models.Model):
         # Calculo de Impuestos.
         price_unit = self.price_unit * (1 - (self.discount or 0.0) / 100.0)
         taxes = self.invoice_line_tax_ids.compute_all(price_unit, self.currency_id, self.quantity, self.product_id, self.partner_id)
-        price_subtotal_sat = taxes.get('total_excluded', 0.00) # * self.quantity
-        discount =  ((self.discount or 0.0) / 100.0) * price_subtotal_sat
+
+        base = taxes.get('base', 0.00)
+        price_subtotal_sat = taxes.get('total_excluded', 0.00)
+        discount =  ((self.discount or 0.0) / 100.0) * base
+
+
+        subtotal = taxes.get('total_excluded', 0.00) / (1 - (self.discount / 100) )
         self.price_tax_sat = taxes.get('total_included', 0.00) - taxes.get('total_excluded', 0.00)
-        self.price_subtotal_sat = taxes.get('total_excluded', 0.00)
-        self.price_discount_sat = discount # * self.quantity
+        self.price_discount_sat = subtotal * (self.discount / 100)
+        self.price_subtotal_sat = subtotal # taxes.get('total_excluded', 0.00)  # ( self.price_unit * self.quantity )
+        self.price_total_sat = subtotal + self.price_tax_sat - self.price_discount_sat
+        
+        
+        # self.price_tax_sat = taxes.get('total_included', 0.00) - taxes.get('total_excluded', 0.00)
+        # self.price_subtotal_sat = taxes.get('total_excluded', 0.00)
+        # self.price_discount_sat = discount # * self.quantity
+        # self.price_total_sat = (discount + self.price_tax_sat + (taxes.get('total_excluded', 0.00) - ((self.discount or 0.0) / 100.0) * base) ) # ( self.price_unit * self.quantity ) - discount + (taxes.get('total_included', 0.00) - taxes.get('total_excluded', 0.00))
+
+
+        {
+            'total_excluded': 10640.9, 
+            'base': 11492.17, 
+            'taxes': [{
+                'analytic': False, 'amount': 851.27, 
+                'base': 10640.9, 'name': u'IEPS', 'sequence': 1, 
+                'refund_account_id': 137, 'id': 15, 
+                'account_id': 137
+            }], 
+            'total_included': 11492.17
+        }
+
+        {
+            'total_excluded': 10640.9, 
+            'base': 10640.9,
+            'taxes': [{
+                'analytic': False, 'amount': 788.21, 'base': 9852.689999999999, 
+                'name': u'IEPS', 'sequence': 1, 'refund_account_id': 137, 
+                'id': 15, 'account_id': 137
+            }], 
+            'total_included': 11492.17
+        }
+
+
+        # self.price_subtotal_sat = taxes.get('total_excluded', 0.00)
+        # self.price_total_sat = (discount + self.price_tax_sat + (taxes.get('total_excluded', 0.00) - ((self.discount or 0.0) / 100.0) * base) )
         # price_subtotal_sat = self.price_unit # * self.quantity
         # discount =  ((self.discount or 0.0) / 100.0) * price_subtotal_sat
         # price = (price_subtotal_sat - discount)
@@ -67,7 +107,8 @@ class AccountInvoiceLine(models.Model):
         # self.price_subtotal_sat = self.price_unit * self.quantity
         # self.price_discount_sat = discount * self.quantity
 
-    price_subtotal_sat = fields.Monetary(string='Amount (SAT)', readonly=True, compute='_compute_price_sat', default=0.00)
+    price_total_sat = fields.Monetary(string='total (SAT)', readonly=True, compute='_compute_price_sat', default=0.00)
+    price_subtotal_sat = fields.Monetary(string='Subtotal (SAT)', readonly=True, compute='_compute_price_sat', default=0.00)
     price_tax_sat = fields.Monetary(string='Tax (SAT)', readonly=True, compute='_compute_price_sat', default=0.00)
     price_discount_sat = fields.Monetary(string='Discount (SAT)', readonly=True, compute='_compute_price_sat', default=0.00)
     numero_pedimento_sat = fields.Char(string='Numero de Pedimento', help="Informacion Aduanera. Numero de Pedimento")
@@ -123,15 +164,18 @@ class AccountInvoice(models.Model):
         descuento = 0.00
         impuestos = 0.00
         subtotal = 0.00
+        total = 0.0
         for line in self.invoice_line_ids:
             impuestos += line.price_tax_sat
             subtotal += line.price_subtotal_sat
+            total += line.price_total_sat
             if line.discount:
                 descuento += line.price_discount_sat
         
         self.price_subtotal_sat = subtotal
         self.price_tax_sat = impuestos
         self.price_discount_sat = descuento
+        self.price_total_sat = total
 
 
     @api.one
@@ -151,7 +195,8 @@ class AccountInvoice(models.Model):
     uuid_relacionado_id = fields.Many2one('account.invoice', string=u'UUID Relacionado', domain=[("type", "in", ("out_invoice", "out_refund") ), ("timbrada", "=", True), ("uuid", "!=", None)])
     tiporelacion_id = fields.Many2one('cfd_mx.tiporelacion', string=u'Tipo de Relacion', copy="False")
 
-    price_subtotal_sat = fields.Monetary(string='Amount (SAT)', readonly=True, compute='_compute_price_sat')
+    price_total_sat = fields.Monetary(string='Total (SAT)', readonly=True, compute='_compute_price_sat')
+    price_subtotal_sat = fields.Monetary(string='Subtotal (SAT)', readonly=True, compute='_compute_price_sat')
     price_tax_sat = fields.Monetary(string='Tax (SAT)', readonly=True, compute='_compute_price_sat')
     price_discount_sat = fields.Monetary(string='Discount (SAT)', readonly=True, compute='_compute_price_sat')
     xml_cfdi_sinacento = fields.Boolean(related="partner_id.xml_cfdi_sinacento", string='XML CFDI sin acentos')
@@ -221,7 +266,7 @@ class AccountInvoice(models.Model):
                 getattr(invoice, onchange_method)()
                 for field in changed_fields:
                     if field not in vals and invoice[field]:
-                        vals[field] = invoice._fields[field].convert_to_write(invoice[field])
+                        vals[field] = invoice._fields[field].convert_to_write(invoice[field], invoice)
         invoice = super(AccountInvoice, self.with_context(mail_create_nolog=True)).create(vals)
         if invoice.type == 'out_invoice':
             invoice.tipo_comprobante = "I"
@@ -345,9 +390,9 @@ class AccountInvoice(models.Model):
         for line in self.invoice_line_ids:
             if not line.uom_id.clave_unidadesmedida_id.clave:
                 message += '<li>Favor de Configurar la Clave Unidad SAT "%s"</li>'%(line.uom_id.name)
-            for tax in line.invoice_line_tax_ids:
-                if not tax.tax_group_id.cfdi_impuestos:
-                    message += '<li>El impuesto %s no tiene categoria CFD</li>'%()
+            # for tax in line.invoice_line_tax_ids:
+            #     if not tax.tax_group_id.cfdi_impuestos:
+            #         message += '<li>El impuesto %s no tiene categoria CFD</li>'%()
         cfdi.action_raise_message(message)
         return message
 
@@ -443,6 +488,7 @@ class AccountInvoice(models.Model):
         for conf_addenda in Addenda.search([('partner_ids', 'in', self.partner_id.ids)]):
             context.update({'model_selection': conf_addenda.model_selection})
             dict_addenda = conf_addenda.with_context(**context).create_addenda(self)
+
         return dict_addenda
 
 

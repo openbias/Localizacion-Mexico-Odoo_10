@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_complemento_impuestos_locales_complemento_impuestos_locales,complemento_impuestos_locales.complemento_impuestos_locales,model_complemento_impuestos_locales_complemento_impuestos_locales,,1,0,0,0
