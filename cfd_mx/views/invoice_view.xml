@@ -31,10 +31,10 @@
                 <field name="date_invoice" position="after">
                     <field name="date_invoice_cfdi" invisible="0" />
 
-                    <field name="price_total_sat" invisible="0" />
-                    <field name="price_subtotal_sat" invisible="0" />
-                    <field name="price_tax_sat" invisible="0" />
-                    <field name="price_discount_sat" invisible="0" />
+                    <field name="price_total_sat" invisible="1" />
+                    <field name="price_subtotal_sat" invisible="1" />
+                    <field name="price_tax_sat" invisible="1" />
+                    <field name="price_discount_sat" invisible="1" />
 
                     <field name="es_cfdi" invisible="1"/>
                     <field name="timbrada" invisible="1"/>
@@ -151,10 +151,10 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='name']" position="after">
                     <field name="numero_pedimento_sat" />
-                    <field name="price_total_sat" invisible="0" />
-                    <field name="price_subtotal_sat" invisible="0" />
-                    <field name="price_tax_sat" invisible="0" />
-                    <field name="price_discount_sat" invisible="0" />
+                    <field name="price_total_sat" invisible="1" />
+                    <field name="price_subtotal_sat" invisible="1" />
+                    <field name="price_tax_sat" invisible="1" />
+                    <field name="price_discount_sat" invisible="1" />
                 </xpath>
             </field>
         </record>

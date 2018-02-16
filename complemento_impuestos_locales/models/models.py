@@ -34,25 +34,27 @@ class AccountInvoice(models.Model):
                 if tax.tax_id.tax_group_id.id == imploc_ret_id.id:
                     t = {
                         'ImpLocRetenido': tax.tax_id.description,
-                        'TasadeRetencion': '%.2f'%tax.tax_id.amount,
-                        'Importe': '%.2f'%tax.amount
+                        'TasadeRetencion': '%.2f'%(abs(tax.tax_id.amount)),
+                        'Importe': '%.2f'%(abs(tax.amount))
                     }
                     imploc_ret_attribs.append(t)
-                    TotaldeRetenciones += tax.amount
+                    TotaldeRetenciones += abs(tax.amount)
                 if tax.tax_id.tax_group_id.id == imploc_tras_id.id:
                     t = {
                         'ImpLocTrasladado': tax.tax_id.description,
-                        'TasadeTraslado': '%.2f'%tax.tax_id.amount,
-                        'Importe': '%.2f'%tax.amount
+                        'TasadeTraslado': '%.2f'%(abs(tax.tax_id.amount)),
+                        'Importe': '%.2f'%(abs(tax.amount))
                     }
                     imploc_tras_attribs.append(t)
-                    TotaldeTraslados += tax.amount
+                    TotaldeTraslados += abs(tax.amount)
 
 
-            imploc_attribs = {
-                'TotaldeRetenciones': '%.2f'%TotaldeRetenciones,
-                'TotaldeTraslados': '%.2f'%TotaldeTraslados
-            }
+            imploc_attribs = {}
+            if TotaldeRetenciones != 0.0:
+                imploc_attribs['TotaldeRetenciones']= '%.2f'%TotaldeRetenciones
+            if TotaldeTraslados != 0.0:
+                imploc_attribs['TotaldeTraslados']= '%.2f'%TotaldeTraslados
+            
             dict_addenda = {
                 'type': 'Complemento',
                 'name': 'complemento_impuestos_locales',
@@ -62,21 +64,7 @@ class AccountInvoice(models.Model):
                     'imploc_tras_attribs': imploc_tras_attribs
                 }
             }
-            print 'dict_addenda', dict_addenda
             return dict_addenda
         else:
             return super(AccountInvoice, self).get_comprobante_addenda()
 
-
-
-# class complemento_impuestos_locales(models.Model):
-#     _name = 'complemento_impuestos_locales.complemento_impuestos_locales'
-
-#     name = fields.Char()
-#     value = fields.Integer()
-#     value2 = fields.Float(compute="_value_pc", store=True)
-#     description = fields.Text()
-#
-#     @api.depends('value')
-#     def _value_pc(self):
-#         self.value2 = float(self.value) / 100

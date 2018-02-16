@@ -51,11 +51,9 @@ class AccountInvoiceLine(models.Model):
         # Calculo de Impuestos.
         price_unit = self.price_unit * (1 - (self.discount or 0.0) / 100.0)
         taxes = self.invoice_line_tax_ids.compute_all(price_unit, self.currency_id, self.quantity, self.product_id, self.partner_id)
-
         base = taxes.get('base', 0.00)
         price_subtotal_sat = taxes.get('total_excluded', 0.00)
         discount =  ((self.discount or 0.0) / 100.0) * base
-
 
         subtotal = taxes.get('total_excluded', 0.00) / (1 - (self.discount / 100) )
         self.price_tax_sat = taxes.get('total_included', 0.00) - taxes.get('total_excluded', 0.00)
@@ -63,37 +61,6 @@ class AccountInvoiceLine(models.Model):
         self.price_subtotal_sat = subtotal # taxes.get('total_excluded', 0.00)  # ( self.price_unit * self.quantity )
         self.price_total_sat = subtotal + self.price_tax_sat - self.price_discount_sat
         
-        
-        # self.price_tax_sat = taxes.get('total_included', 0.00) - taxes.get('total_excluded', 0.00)
-        # self.price_subtotal_sat = taxes.get('total_excluded', 0.00)
-        # self.price_discount_sat = discount # * self.quantity
-        # self.price_total_sat = (discount + self.price_tax_sat + (taxes.get('total_excluded', 0.00) - ((self.discount or 0.0) / 100.0) * base) ) # ( self.price_unit * self.quantity ) - discount + (taxes.get('total_included', 0.00) - taxes.get('total_excluded', 0.00))
-
-
-        {
-            'total_excluded': 10640.9, 
-            'base': 11492.17, 
-            'taxes': [{
-                'analytic': False, 'amount': 851.27, 
-                'base': 10640.9, 'name': u'IEPS', 'sequence': 1, 
-                'refund_account_id': 137, 'id': 15, 
-                'account_id': 137
-            }], 
-            'total_included': 11492.17
-        }
-
-        {
-            'total_excluded': 10640.9, 
-            'base': 10640.9,
-            'taxes': [{
-                'analytic': False, 'amount': 788.21, 'base': 9852.689999999999, 
-                'name': u'IEPS', 'sequence': 1, 'refund_account_id': 137, 
-                'id': 15, 'account_id': 137
-            }], 
-            'total_included': 11492.17
-        }
-
-
         # self.price_subtotal_sat = taxes.get('total_excluded', 0.00)
         # self.price_total_sat = (discount + self.price_tax_sat + (taxes.get('total_excluded', 0.00) - ((self.discount or 0.0) / 100.0) * base) )
         # price_subtotal_sat = self.price_unit # * self.quantity
@@ -107,10 +74,10 @@ class AccountInvoiceLine(models.Model):
         # self.price_subtotal_sat = self.price_unit * self.quantity
         # self.price_discount_sat = discount * self.quantity
 
-    price_total_sat = fields.Monetary(string='total (SAT)', readonly=True, compute='_compute_price_sat', default=0.00)
-    price_subtotal_sat = fields.Monetary(string='Subtotal (SAT)', readonly=True, compute='_compute_price_sat', default=0.00)
-    price_tax_sat = fields.Monetary(string='Tax (SAT)', readonly=True, compute='_compute_price_sat', default=0.00)
-    price_discount_sat = fields.Monetary(string='Discount (SAT)', readonly=True, compute='_compute_price_sat', default=0.00)
+    price_total_sat = fields.Monetary(string='total (SAT)', readonly=True, compute='_compute_price_sat', default=0.00, digits=(12, 6))
+    price_subtotal_sat = fields.Monetary(string='Subtotal (SAT)', readonly=True, compute='_compute_price_sat', default=0.00, digits=(12, 6))
+    price_tax_sat = fields.Monetary(string='Tax (SAT)', readonly=True, compute='_compute_price_sat', default=0.00, digits=(12, 6))
+    price_discount_sat = fields.Monetary(string='Discount (SAT)', readonly=True, compute='_compute_price_sat', default=0.00, digits=(12, 6))
     numero_pedimento_sat = fields.Char(string='Numero de Pedimento', help="Informacion Aduanera. Numero de Pedimento")
 
     @api.one
@@ -195,10 +162,10 @@ class AccountInvoice(models.Model):
     uuid_relacionado_id = fields.Many2one('account.invoice', string=u'UUID Relacionado', domain=[("type", "in", ("out_invoice", "out_refund") ), ("timbrada", "=", True), ("uuid", "!=", None)])
     tiporelacion_id = fields.Many2one('cfd_mx.tiporelacion', string=u'Tipo de Relacion', copy="False")
 
-    price_total_sat = fields.Monetary(string='Total (SAT)', readonly=True, compute='_compute_price_sat')
-    price_subtotal_sat = fields.Monetary(string='Subtotal (SAT)', readonly=True, compute='_compute_price_sat')
-    price_tax_sat = fields.Monetary(string='Tax (SAT)', readonly=True, compute='_compute_price_sat')
-    price_discount_sat = fields.Monetary(string='Discount (SAT)', readonly=True, compute='_compute_price_sat')
+    price_total_sat = fields.Monetary(string='Total (SAT)', readonly=True, compute='_compute_price_sat', digits=(12, 6))
+    price_subtotal_sat = fields.Monetary(string='Subtotal (SAT)', readonly=True, compute='_compute_price_sat', digits=(12, 6))
+    price_tax_sat = fields.Monetary(string='Tax (SAT)', readonly=True, compute='_compute_price_sat', digits=(12, 6))
+    price_discount_sat = fields.Monetary(string='Discount (SAT)', readonly=True, compute='_compute_price_sat', digits=(12, 6))
     xml_cfdi_sinacento = fields.Boolean(related="partner_id.xml_cfdi_sinacento", string='XML CFDI sin acentos')
     internal_number = fields.Char(string='Invoice Number', size=32, readonly=True, copy=False, help="Unique number of the invoice, computed automatically when the invoice is created.")
     usocfdi_id = fields.Many2one('cfd_mx.usocfdi', string="Uso de Comprobante CFDI", required=False)

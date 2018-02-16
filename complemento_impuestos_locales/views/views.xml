@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <data>
                     <field name="partner_id" position="after">
-                        <field name="imp_loc_activate" invisible="0"/>
+                        <field name="imp_loc_activate" invisible="1"/>
                     </field>
                 </data>
             </field>
