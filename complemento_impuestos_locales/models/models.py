@@ -49,11 +49,10 @@ class AccountInvoice(models.Model):
                     TotaldeTraslados += abs(tax.amount)
 
 
-            imploc_attribs = {}
-            if TotaldeRetenciones != 0.0:
-                imploc_attribs['TotaldeRetenciones']= '%.2f'%TotaldeRetenciones
-            if TotaldeTraslados != 0.0:
-                imploc_attribs['TotaldeTraslados']= '%.2f'%TotaldeTraslados
+            imploc_attribs = {
+                'TotaldeRetenciones': '%.2f'%TotaldeRetenciones,
+                'TotaldeTraslados': '%.2f'%TotaldeTraslados
+            }
             
             dict_addenda = {
                 'type': 'Complemento',
