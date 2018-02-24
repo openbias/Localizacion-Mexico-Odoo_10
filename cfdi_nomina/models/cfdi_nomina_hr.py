@@ -57,18 +57,20 @@ class HrSalaryRule(models.Model):
         else:
             context = dict(self.env.context)
 
-            # localdict.update({'gravado': 0.0, 'exento': 0.0, 'this': self, "UserError": UserError})
-            # safe_eval(self.amount_python_compute, localdict, mode='exec', nocopy=True)
-            # cfdi_nomina = {'gravado': localdict['gravado'], 'exento': localdict['exento']}
-            # context.setdefault('cfdi_nomina', {})[self.id] = cfdi_nomina
-            # print localdict
-            # print 'result_qty' in localdict and localdict['result_qty'] or 1.0
-            # print 'result_rate' in localdict and localdict['result_rate'] or 100.0
+            """
+            localdict.update({'gravado': 0.0, 'exento': 0.0, 'this': self, "UserError": UserError, 'time': time, 'datetime': datetime, 'timedelta': timedelta, 'ValidationError': ValidationError })
+            safe_eval(self.amount_python_compute, localdict, mode='exec', nocopy=True)
+            cfdi_nomina = {'gravado': localdict['gravado'], 'exento': localdict['exento']}
+            context.setdefault('cfdi_nomina', {})[self.id] = cfdi_nomina
+            print localdict
+            print 'result_qty' in localdict and localdict['result_qty'] or 1.0
+            print 'result_rate' in localdict and localdict['result_rate'] or 100.0
+            """
 
+            localdict.update({'gravado': 0.0, 'exento': 0.0, 'this': self, "UserError": UserError, 'time': time, 'datetime': datetime, 'timedelta': timedelta, 'relativedelta': relativedelta, 'ValidationError': ValidationError })
+            safe_eval(self.amount_python_compute, localdict, mode='exec', nocopy=True)
             try:
-                localdict.update({'gravado': 0.0, 'exento': 0.0, 'this': self, "UserError": UserError, 'time': time, 'datetime': datetime, 'timedelta': timedelta })
-                safe_eval(self.amount_python_compute, localdict, mode='exec', nocopy=True)
-                cfdi_nomina = {'gravado': localdict['gravado'], 'exento': localdict['exento']}
+                cfdi_nomina = {'gravado': localdict.get("gravado"), 'exento': localdict.get("exento")}
                 context.setdefault('cfdi_nomina', {})[self.id] = cfdi_nomina
                 return float(localdict['result']), 'result_qty' in localdict and localdict['result_qty'] or 1.0, 'result_rate' in localdict and localdict['result_rate'] or 100.0
             except:
