@@ -88,48 +88,46 @@ class AccountCfdi(models.Model):
         obj = self.obj
         cfdi_pagos = []
         DoctoRelacionado = []
-        formapago_id = obj.payment_id.formapago_id
-        payment_id = obj.payment_id
+        
         tipocambio = None
-        p_journal_id = "MXN" if obj.journal_id.currency_id.name in [False, None] else obj.journal_id.currency_id.name
+        
         monto = '%.2f'%(abs(obj.credit))
-        if p_journal_id != "MXN":
-            monto = '%.2f'%(abs(obj.amount_currency))
-            tipocambio = self._get_tipocambio(payment_id.payment_date)
+        payment_id = obj.payment_id
+        p_moneda = "MXN" if obj.payment_id.currency_id.name in [False, None] else obj.payment_id.currency_id.name
         pago_attribs = {
             "FechaPago": '%sT12:00:00'%(payment_id.payment_date),
-            "FormaDePagoP": formapago_id.clave or "01",
-            "MonedaP": payment_id.currency_id.name,
+            "FormaDePagoP": payment_id.formapago_id.clave or "01",
+            "MonedaP": p_moneda,
             "Monto": monto,
         }
-        if tipocambio:
+        if p_moneda != "MXN":
+            tipocambio = self._get_tipocambio(obj.currency_id, payment_id.payment_date)
             pago_attribs['TipoCambioP'] = '%s'%(tipocambio)
         if obj.ref:
             pago_attribs['NumOperacion'] = obj.ref
+
         for inv in ctx.get("invoice_ids", []):
             if inv.uuid:
-                TipoCambioDR = self._get_tipocambio(payment_id.payment_date)
+                TipoCambioDR = self._get_tipocambio(inv.currency_id, payment_id.payment_date)
                 ImpPagos = inv.get_cfdi_imp_pagados()
                 ImpPagado =  (abs(obj.credit) / TipoCambioDR)
-                if p_journal_id != inv.currency_id.name:
+                if p_moneda != inv.currency_id.name:
                     ImpPagado = abs(obj.amount_currency)
-                if (p_journal_id == inv.currency_id.name or inv.currency_id.name == "MXN" ):
-                    TipoCambioDR = 1
                 ImpSaldoAnt = (inv.amount_total - (ImpPagos - ImpPagado))
                 if ImpSaldoAnt == 0.0:
                     ImpSaldoAnt = inv.amount_total
                 ImpSaldoInsoluto = inv.amount_total - ImpPagos
                 docto_attribs = {
-                    "IdDocumento": inv.uuid,
-                    "Folio": inv.number,
-                    "MonedaDR": inv.currency_id.name,
+                    "IdDocumento": "%s"%inv.uuid,
+                    "Folio": "%s"%inv.number,
+                    "MonedaDR": "%s"%inv.currency_id.name,
                     "MetodoDePagoDR": "PPD",
                     "NumParcialidad": u"%s"%(inv.parcialidad_pago or 1),
                     "ImpSaldoAnt": '%.2f'%ImpSaldoAnt,
                     "ImpPagado": '%.2f'%ImpPagado,
-                    'ImpSaldoInsoluto': '%.2f'%(abs(ImpSaldoInsoluto))
+                    "ImpSaldoInsoluto": '%.2f'%(abs(ImpSaldoInsoluto))
                 }
-                if TipoCambioDR and (p_journal_id != "MXN" and inv.currency_id.name != "MXN"):
+                if p_moneda != inv.currency_id.name:
                     docto_attribs['TipoCambioDR'] = '%s'%(TipoCambioDR)
                 if inv.journal_id.serie:
                     docto_attribs['Serie'] = inv.journal_id.serie or ''
@@ -141,13 +139,14 @@ class AccountCfdi(models.Model):
         return res
 
 
-    def _get_tipocambio(self, date_invoice):
+    def _get_tipocambio(self, currency_id, date_invoice):
         model_obj = self.env['ir.model.data']
         tipocambio = 1.0
         if date_invoice:
-            if self.currency_id.name=='MXN':
+            if currency_id.name=='MXN':
                 tipocambio = 1.0
             else:
-                tipocambio = model_obj.with_context(date=date_invoice).get_object('base', 'MXN').rate
+                mxn_rate = model_obj.get_object('base', 'MXN').rate
+                tipocambio = (1.0 / currency_id.with_context(date='%s 06:00:00'%(date_invoice)).rate) * mxn_rate
                 tipocambio = round(tipocambio, 4)
         return tipocambio

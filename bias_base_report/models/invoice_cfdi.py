@@ -164,7 +164,7 @@ class AccountCfdi(models.Model):
         if ctx['type'] in ['pagos', 'nomina']:
             self.cfdi_datas['complemento'] = getattr(self, '%s_info_complemento' % ctx['type'])()
         datas = json.dumps(self.cfdi_datas, sort_keys=True, indent=4, separators=(',', ': '))
-        logging.info(datas)
+        # logging.info(datas)
         url = '%s/stamp%s/'%(self.host, ctx['type'])
         if self.port:
             url = '%s:%s/stamp%s/'%(self.host, self.port, ctx['type'])
@@ -184,10 +184,6 @@ class AccountCfdi(models.Model):
     def action_server(self, url, host, db, params):
         s = Session()
         s.get('%s/web?db=%s'%(host, db))
-        # if self.port:
-        #     s.get('%s:%s/web?db=%s'%(self.host, self.port, self.db) )
-        # else:
-        #     s.get('%s/web?db=%s'%(self.host, self.db))
         headers = {
             'Content-Type':'application/json',
             'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:27.0) Gecko/20100101 Firefox/27.0',

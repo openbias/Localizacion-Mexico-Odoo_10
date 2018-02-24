@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+import time
+from datetime import datetime, timedelta
+from dateutil import relativedelta
 
 from odoo import api, fields, models, tools, _
 from odoo.exceptions import UserError, ValidationError
@@ -63,7 +66,7 @@ class HrSalaryRule(models.Model):
             # print 'result_rate' in localdict and localdict['result_rate'] or 100.0
 
             try:
-                localdict.update({'gravado': 0.0, 'exento': 0.0, 'this': self, "UserError": UserError})
+                localdict.update({'gravado': 0.0, 'exento': 0.0, 'this': self, "UserError": UserError, 'time': time, 'datetime': datetime, 'timedelta': timedelta })
                 safe_eval(self.amount_python_compute, localdict, mode='exec', nocopy=True)
                 cfdi_nomina = {'gravado': localdict['gravado'], 'exento': localdict['exento']}
                 context.setdefault('cfdi_nomina', {})[self.id] = cfdi_nomina

@@ -71,6 +71,12 @@
                                 </code></pre>
                             </group>
                             <group>
+                                <separator string="Cadena Original del Complemento de Certificación Digital del SAT" colspan="4" />
+                                <pre><code>
+                                    <field name="cadena_sat" readonly="1" nolabel="1"/>
+                                </code></pre>
+                            </group>
+                            <group>
                                 <separator string="Sello SAT" colspan="4" />
                                 <pre><code>
                                     <field name="sello_sat" readonly="1" nolabel="1"/>
@@ -88,7 +94,8 @@
                             <hr />
                         </group>
                         <group name="timbre_cfdi_pagos" attrs="{'invisible': [('pagos','=',False)]}">
-<!--                             <group colspan="4">
+<!--                             
+                            <group colspan="4">
                                 <h1 class="mt0">Pagos CFDI</h1>
                             </group>
                             <group colspan="4">

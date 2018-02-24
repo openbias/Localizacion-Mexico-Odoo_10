@@ -500,7 +500,10 @@ class report_invoice_mx(models.AbstractModel):
                 if invoice.currency_id.name=='MXN':
                     tipo_cambio[invoice.id] = 1.0
                 else:
-                    tipo_cambio[invoice.id] = model_obj.with_context(date=invoice.date_invoice).get_object('base', 'MXN').rate
+                    date_invoice = invoice.date_invoice or fields.Date.today()
+                    mxn_rate = self.env["ir.model.data"].get_object('base', 'MXN').rate
+                    tipocambio = (1.0 / invoice.currency_id.with_context(date='%s 06:00:00'%(date_invoice)).rate) * mxn_rate
+                    tipo_cambio[invoice.id] = tipocambio
 
         docargs = {
             'doc_ids': self._ids,
