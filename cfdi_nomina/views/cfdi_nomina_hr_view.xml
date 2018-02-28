@@ -172,22 +172,50 @@
                 </field>
                 <notebook position="inside">
                     <page string="Info. SAT">
-                        <group>
-                            <field name="date_invoice_cfdi" readonly="0" />
-                            <field name="uuid" readonly="1"/>
-                            <field name="test" readonly="1"/>
-                            <field name="noCertificado" readonly="1"/>
-                            <field name="sello_sat" readonly="1"/>
-                            <field name="certificado_sat" readonly="1"/>
-                            <field name="fecha_timbrado" readonly="1"/>
-                            <field name="cadena_sat" readonly="1"/>
+                        <group name="timbre_cfdi">
+                            <group colspan="4">
+                                <h1 class="mt0">Timbre Fiscal</h1>
+                            </group>
+                            <group>
+                                <field name="test" readonly="1"/>
+                                <field name="uuid" readonly="1"/>
+                                <field name="fecha_timbrado" readonly="1"/>
+                                <field name="date_invoice_cfdi" readonly="0" />
+                            </group>
+                            <group>
+                                <field name="noCertificado" readonly="1" />
+                                <field name="certificado_sat" readonly="1"/>
+                            </group>
+                            <group>
+                                <separator string="Cadena Original" colspan="4" />
+                                <pre><code>
+                                    <field name="cadena" readonly="1" nolabel="1"/>
+                                </code></pre>
+                            </group>
+                            <group>
+                                <separator string="Cadena Original del Complemento de Certificación Digital del SAT" colspan="4" />
+                                <pre><code>
+                                    <field name="cadena_sat" readonly="1" nolabel="1"/>
+                                </code></pre>
+                            </group>
+                            <group>
+                                <separator string="Sello SAT" colspan="4" />
+                                <pre><code>
+                                    <field name="sello_sat" readonly="1" nolabel="1"/>
+                                </code></pre>
+                            </group>
+                            <hr />
                         </group>
                     </page>
-                    <page string="Cancelación" attrs="{'invisible': [('mandada_cancelar','=',False)]}">
-                        <field name="mandada_cancelar" invisible="1"/>
-                        <label for="mensaje_pac"/>
-                        <field name="mensaje_pac" readonly="1"/>
-                    </page>
+                    <group name="timbre_cfdi_cancelar" attrs="{'invisible': [('mandada_cancelar','=',False)]}">
+                        <group colspan="4" attrs="{'invisible': [('mandada_cancelar','=',False)]}">
+                            <h1 class="mt0">Cancelar CFDI</h1>
+                        </group>
+                        <group colspan="4">
+                            <field name="mensaje_pac" readonly="1" nolabel="1"/>
+                        </group>
+                        <hr />
+                    </group>
                 </notebook>
                 <xpath expr="//field[@name='line_ids']/tree/field[@name='rate']" position="after">
                     <field name="gravado"/>

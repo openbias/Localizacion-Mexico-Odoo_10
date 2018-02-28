@@ -66,7 +66,6 @@ class HrSalaryRule(models.Model):
             print 'result_qty' in localdict and localdict['result_qty'] or 1.0
             print 'result_rate' in localdict and localdict['result_rate'] or 100.0
             """
-
             localdict.update({'gravado': 0.0, 'exento': 0.0, 'this': self, "UserError": UserError, 'time': time, 'datetime': datetime, 'timedelta': timedelta, 'relativedelta': relativedelta, 'ValidationError': ValidationError })
             safe_eval(self.amount_python_compute, localdict, mode='exec', nocopy=True)
             try:

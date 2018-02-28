@@ -119,12 +119,12 @@ class AccountCfdi(models.Model):
         riesgo_puesto = (empleado.job_id and empleado.job_id.riesgo_puesto_id and empleado.job_id.riesgo_puesto_id.code) or (company.riesgo_puesto_id and company.riesgo_puesto_id.code) or False
 
         receptor_attribs = {
-            "Curp": empleado.curp,
-            "TipoContrato": rec.contract_id.type_id and rec.contract_id.type_id.code,
-            "TipoRegimen": rec.contract_id.regimen_contratacion_id and rec.contract_id.regimen_contratacion_id.code,
-            "NumEmpleado": empleado.cod_emp,
-            "PeriodicidadPago": rec.contract_id.periodicidad_pago_id and rec.contract_id.periodicidad_pago_id.code,
-            "ClaveEntFed": empleado.address_home_id and empleado.address_home_id.state_id.code
+            "Curp": empleado.curp or "",
+            "TipoContrato": rec.contract_id.type_id and rec.contract_id.type_id.code or "",
+            "TipoRegimen": rec.contract_id.regimen_contratacion_id and rec.contract_id.regimen_contratacion_id.code or "",
+            "NumEmpleado": empleado.cod_emp or "",
+            "PeriodicidadPago": rec.contract_id.periodicidad_pago_id and rec.contract_id.periodicidad_pago_id.code or "",
+            "ClaveEntFed": empleado.address_home_id and empleado.address_home_id.state_id.code or ""
         }
         if empleado.imss:
             receptor_attribs['NumSeguridadSocial'] = empleado.imss

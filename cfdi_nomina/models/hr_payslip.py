@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models, tools, _, registry, _
+import odoo
+# import odoo.modules.registry as 
+from odoo.api import call_kw, Environment
+
+from odoo import api, fields, models, tools, _, registry
 from odoo.exceptions import UserError, RedirectWarning, ValidationError
 from odoo.tools.safe_eval import safe_eval
 from odoo.api import Environment
@@ -51,15 +55,14 @@ class HrPayslipRun(models.Model):
         eval_state = True if self.eval_state else False
         state = 'draft'
         if len(self.slip_ids) == 0:
-            self.state = 'draft'
+            state = 'draft'
         elif any(slip.state == 'draft' for slip in self.slip_ids):  # TDE FIXME: should be all ?
-            self.state = 'draft'
+            state = 'draft'
         elif all(slip.state in ['cancel', 'done'] for slip in self.slip_ids):
-            self.write({
-                'state': 'close'
-            })
+            state = 'close'
         else:
-            self.state = 'draft'
+            state = 'draft'
+        self.state = state
         return True
 
     @api.one
@@ -105,7 +108,31 @@ class HrPayslipRun(models.Model):
     fecha_pago = fields.Date(string="Fecha pago", required=True)
     concepto = fields.Char(string="Concepto", required=True)
 
-    def _calculation_confirm_sheet_run(self):
+    def _confirm_sheet_run_date(self):
+        ids = self.ids
+
+        with api.Environment.manage():
+            new_cr = self.pool.cursor()
+            self = self.with_env(self.env(cr=new_cr))
+
+            tz = self.env.user.tz or "UTC"
+            hora_factura_utc = datetime.now(timezone("UTC"))
+            dtz = hora_factura_utc.astimezone(timezone(tz)).strftime("%Y-%m-%d %H:%M:%S")
+            dtz = dtz.replace(" ", "T")
+
+            Payslip = self.sudo().env['hr.payslip.run']
+            Slip = self.sudo().env['hr.payslip']
+            for run in Payslip.browse(ids):
+                for slip_id in run.slip_ids:
+                    if not slip_id.date_invoice_cfdi:
+                        logging.info('---DATE %s '%(dtz) )
+                        slip_id.write({'date_invoice_cfdi': dtz})
+                        # new_cr.execute("UPDATE hr_payslip SET date_invoice_cfdi='%s' WHERE id=%s "%(dtz, slip_id.id) )
+                        new_cr.commit()
+            new_cr.close()
+        return {}
+
+    def _confirm_sheet_run_calculation(self):
         ids = self.ids
         with api.Environment.manage():
             new_cr = self.pool.cursor()
@@ -115,8 +142,38 @@ class HrPayslipRun(models.Model):
             Slip = self.sudo().env['hr.payslip']
             for run in Payslip.browse(ids):
                 for slip_id in run.slip_ids:
+                    if slip_id.uuid and slip_id.state not in ['draft']:
+                        pass
                     logging.info("Confirm Sheet Run Payslip %s 00 ---- "%(slip_id.id,))
+                    # slip_id.with_context(batch=True)._calculation_confirm_sheet([slip_id.id], use_new_cursor=new_cr.dbname)
                     Slip.with_context(batch=True)._calculation_confirm_sheet([slip_id.id], use_new_cursor=new_cr.dbname)
+                    new_cr.commit()
+            new_cr.close()
+        return {}
+
+
+    def _confirm_sheet_run_message(self):
+        ids = self.ids
+        with api.Environment.manage():
+            new_cr = self.pool.cursor()
+            self = self.with_env(self.env(cr=new_cr))
+            
+            msg = ''
+            Payslip = self.sudo().env['hr.payslip.run']
+            for run in Payslip.browse(ids):
+                for slip_id in run.slip_ids:
+                    if slip_id.mensaje_validar:
+                        msg += "<b>Error Nomina %s</b><br />"%(slip_id.number)
+                        msg += "<ol>%s</ol><br/>"%(slip_id.mensaje_validar)
+                    elif slip_id.mensaje_timbrado_pac:
+                        msg += "<b>Mensaje TIMBRAR PAC %s</b><br />"%(slip_id.number)
+                        msg += "<ul>%s</ul>"%(slip_id.mensaje_timbrado_pac)
+                    elif slip_id.mensaje_pac:
+                        msg += "<b>Mensaje CANCELAR PAC %s</b><br />"%(slip_id.number)
+                        msg += "<ul>%s</ul>"%(slip_id.mensaje_validar)
+                if len(msg) != 0:
+                    run.message_post(body=msg)
+            new_cr.commit()
             new_cr.close()
         return {}
 
@@ -124,9 +181,24 @@ class HrPayslipRun(models.Model):
     def confirm_sheet_run(self):
         ids = self.ids
         logging.info("Confirm Sheet Run Payslip %s "%(ids,))
-        threaded_calculation = threading.Thread(target=self._calculation_confirm_sheet_run, args=(), name=ids)
+
+        # Escribe fecha
+        threaded_calculation = threading.Thread(target=self._confirm_sheet_run_date, args=(), name=ids)
         threaded_calculation.start()
         threaded_calculation.join()
+
+        # Confirma la nomina
+        threaded_calculation = threading.Thread(target=self._confirm_sheet_run_calculation, args=(), name=ids)
+        threaded_calculation.start()
+        threaded_calculation.join()
+
+
+        # Escribe Mensajes
+        threaded_calculation = threading.Thread(target=self._confirm_sheet_run_message, args=(), name=ids)
+        threaded_calculation.start()
+        threaded_calculation.join()
+
+        """
         msg = ''
         Payslip = self.env['hr.payslip.run']
         for run in Payslip.browse(ids):
@@ -142,6 +214,7 @@ class HrPayslipRun(models.Model):
                     msg += "<ul>%s</ul>"%(slip_id.mensaje_validar)
             if len(msg) != 0:
                 run.message_post(body=msg)
+        """
         return {}
 
     @api.multi
@@ -393,31 +466,56 @@ class HrPayslip(models.Model):
 
     @api.multi
     def action_payslip_done(self):
-        self.action_write_date_invoice_cfdi(self.id)
+        res = False
+        for rec in self:
+            if rec.uuid and rec.state not in ['draft']:
+                return True
+            if rec.uuid:
+                return True
 
-        res = super(HrPayslip, self).action_payslip_done()
-        res = self.action_create_cfdi()
+            logging.info('Action 00 %s '%(rec.number) )
+
+            message = self.action_validate_cfdi()
+            try:
+                self.compute_sheet()
+            except ValueError, e:
+                message = str(e)
+            except Exception, e:
+                message = str(e)
+            if message:
+                self.action_raise_message("Error al Generar el XML \n\n %s "%( message.upper() ))
+                return False
+            if rec.total < 0:
+                return True
+
+            self.action_write_date_invoice_cfdi(rec.date_invoice_cfdi, self.id)
+            res = rec.action_create_cfdi()
+            if res == True:
+                logging.info('Action Done 01 %s '%(rec.number) )
+                rec.write({'state': 'done'})
         return res
 
-    def action_write_date_invoice_cfdi(self, inv_id):
-        if not self.date_invoice_cfdi:
-            tz = self.env.user.tz
-            cr = self._cr
-            hora_factura_utc = datetime.now(timezone("UTC"))
-            dtz = hora_factura_utc.astimezone(timezone(tz)).strftime("%Y-%m-%d %H:%M:%S")
-            dtz = dtz.replace(" ", "T")
-            cr.execute("UPDATE hr_payslip SET date_invoice_cfdi='%s' WHERE id=%s "%(dtz, inv_id) )
-            cr.commit()
-        return True
+
+    def action_write_date_invoice_cfdi(self, date_invoice_cfdi, inv_id):
+        dtz = False
+        if not date_invoice_cfdi:
+            dbname = self._cr.dbname
+            registry = odoo.modules.registry.Registry(dbname)
+            with registry.cursor() as cr:
+                tz = self.env.user.tz or "UTC"
+                hora_factura_utc = datetime.now(timezone("UTC"))
+                dtz = hora_factura_utc.astimezone(timezone(tz)).strftime("%Y-%m-%d %H:%M:%S")
+                dtz = dtz.replace(" ", "T")
+                cr.execute("UPDATE account_move_line SET date_invoice_cfdi='%s' WHERE id=%s "%(dtz, inv_id) )
+        logging.info("dtz 01 %s"%(dtz) )
+        return dtz
 
 
-
-    @api.one
     def action_create_cfdi(self):
         ctx = dict(self._context) or {}
         if not self.journal_id.id in self.company_id.cfd_mx_journal_ids.ids:
             return True        
-        message = self.action_validate_cfdi()
+        message = ""
         ctx['type'] = 'nomina'     
         try:
             res = self.with_context(**ctx).stamp(self)
@@ -444,6 +542,12 @@ class HrPayslip(models.Model):
     def action_payslip_cancel_nomina(self):
         context = dict(self._context) or {}
         if not self.uuid:
+            self.move_id.reverse_moves()
+            self.write({
+                'state': 'cancel',
+                'mandada_cancelar': True, 
+                'mensaje_pac': ""
+            })
             return True
         if context.get('state') == 'draft':
             return True
