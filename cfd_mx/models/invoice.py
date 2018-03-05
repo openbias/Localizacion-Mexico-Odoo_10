@@ -10,12 +10,60 @@ from odoo.exceptions import UserError, RedirectWarning, ValidationError
 import time
 from datetime import date, datetime, timedelta
 from pytz import timezone, utc
+import threading
 import base64
 
-
 import logging
-_logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
 
+
+class AccountInvoiceBatch(models.Model):
+    _name = 'account.invoice.bath'
+    _auto = False
+
+    @api.multi
+    def _compute_action_invoice_date(self, ids=None):
+        with api.Environment.manage():
+            new_cr = self.pool.cursor()
+            self = self.with_env(self.env(cr=new_cr))
+            tz = self.env.user.tz or "UTC"
+            hora_factura_utc = datetime.now(timezone("UTC"))
+            dtz = hora_factura_utc.astimezone(timezone(tz)).strftime("%Y-%m-%d %H:%M:%S")
+            dtz = dtz.replace(" ", "T")
+            Invoice = self.sudo().env['account.invoice']
+            for inv_id in Invoice.browse(ids):
+                if not inv_id.date_invoice_cfdi:
+                    logging.info('---DATE %s '%(dtz) )
+                    inv_id.write({'date_invoice_cfdi': dtz})
+                    new_cr.commit()
+            new_cr.close()
+        return {}
+
+    def _compute_action_invoice_open(self, ids=None):
+        with api.Environment.manage():
+            new_cr = self.pool.cursor()
+            self = self.with_env(self.env(cr=new_cr))
+            Invoice = self.sudo().env['account.invoice']
+            for inv_id in Invoice.browse(ids):
+                Invoice.with_context(batch=True)._compute_action_invoice_open([inv_id.id], use_new_cursor=new_cr.dbname)
+                new_cr.commit()
+            new_cr.close()
+        return {}
+
+    @api.multi
+    def compute_action_invoice_open(self, inv_ids):
+        logging.info("Confirm Invoice %s "%(inv_ids,))
+
+        # Escribe fecha
+        threaded_calculation = threading.Thread(target=self._compute_action_invoice_date, args=(), kwargs={"ids": inv_ids}, name=inv_ids)
+        threaded_calculation.start()
+        threaded_calculation.join()
+
+        threaded_calculation = threading.Thread(target=self._compute_action_invoice_open, args=(), kwargs={"ids": inv_ids}, name=inv_ids)
+        threaded_calculation.start()
+        threaded_calculation.join()
+
+        return True
 
 
 class AccountInvoiceRefund(models.TransientModel):
@@ -108,7 +156,6 @@ class AccountInvoiceLine(models.Model):
                 impuestos["tipo"] = "ret"
             if tax_group.cfdi_traslado:
                 impuestos["tipo"] = "tras"
-
             res.append(impuestos)
         return res
 
@@ -138,7 +185,6 @@ class AccountInvoice(models.Model):
             total += line.price_total_sat
             if line.discount:
                 descuento += line.price_discount_sat
-        
         self.price_subtotal_sat = subtotal
         self.price_tax_sat = impuestos
         self.price_discount_sat = descuento
@@ -154,8 +200,6 @@ class AccountInvoice(models.Model):
     def _get_parcialidad_pago(self):
         self.parcialidad_pago = len(self.payment_move_line_ids) or 0
         self.pagos = True if len(self.payment_move_line_ids) != 0 else False
-
-
 
     pagos = fields.Boolean(string="Pagos", default=False, copy=False, compute='_get_parcialidad_pago')
     parcialidad_pago = fields.Integer(string="No. Parcialidad Pago", compute='_get_parcialidad_pago')
@@ -190,7 +234,6 @@ class AccountInvoice(models.Model):
         if not self.uuid_relacionado_id:
             return {}
         self.uuid_egreso = self.uuid_relacionado_id.uuid
-
 
     @api.onchange('partner_id', 'formapago_id')
     def onchange_metododepago(self):
@@ -267,7 +310,7 @@ class AccountInvoice(models.Model):
         values['uuid_egreso'] = invoice.uuid
         values['tipo_comprobante'] = 'E'
         return values
-  
+
     @api.multi
     def name_get(self):
         TYPES = {
@@ -293,7 +336,23 @@ class AccountInvoice(models.Model):
         if not recs:
             recs = self.search([('name', operator, name)] + args, limit=limit)
         return recs.name_get()
-   
+
+
+    ## Creado en batch
+    @api.multi
+    def _compute_action_invoice_open(self, ids, use_new_cursor=False):
+        context = dict(self._context)
+        message = ''
+        if use_new_cursor:
+            cr = registry(self._cr.dbname).cursor()
+            self = self.with_env(self.env(cr=cr))
+        inv = self.env['account.invoice'].browse(ids)
+        inv.action_invoice_open()
+        if use_new_cursor:
+            cr.commit()
+            cr.close()
+        return {}
+
     # Crea xml
     @api.multi
     def invoice_validate(self):
@@ -322,7 +381,7 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def action_validate_cfdi(self):
-        cfdi = self
+        context = dict(self._context)
         tz = self.env.user.tz
         message = ''
         if not self.tipo_comprobante:
@@ -333,21 +392,13 @@ class AccountInvoice(models.Model):
             message += '<li>No se definio Condiciones de Pago</li>'
         if not self.formapago_id:
             message += '<li>No se definio Forma de Pago</li>'
-        if not cfdi.valida_catcfdi('formaPago', self.formapago_id.clave):
-            message += '<li>Forma de Pago no corresponde al Catalogo SAT</li>'
         if not self.metodopago_id:
             message += '<li>No se definio Metodo de Pago</li>'
-        if not cfdi.valida_catcfdi('metodoPago', self.metodopago_id.clave):
-            message += '<li>Metodo de Pago no corresponde al Catalogo SAT</li>'
         if not self.usocfdi_id:
             message += '<li>No se definio Uso CFDI</li>'
-        if not cfdi.valida_catcfdi('usoCdfi', self.usocfdi_id.clave):
-            message += '<li>Uso CFDI no corresponde al Catalogo SAT</li>'
         regimen_id = self.company_id.partner_id.regimen_id
         if not regimen_id:
             message += '<li>No se definio Regimen Fiscal para la Empresa</li>'
-        if not cfdi.valida_catcfdi('regimenFiscal', regimen_id.clave):
-            message += '<li>Regimen Fiscal no corresponde al Catalogo SAT</li>'
         if not tz:
             message += '<li>El usuario no tiene definido Zona Horaria</li>'
         if not self.partner_id.vat:
@@ -360,11 +411,12 @@ class AccountInvoice(models.Model):
             # for tax in line.invoice_line_tax_ids:
             #     if not tax.tax_group_id.cfdi_impuestos:
             #         message += '<li>El impuesto %s no tiene categoria CFD</li>'%()
-        cfdi.action_raise_message(message)
+        self.with_context(**context).action_raise_message(message)
         return message
 
     @api.one
     def action_create_cfd(self):
+        context = dict(self._context)
         tz = self.env.user.tz
         if self.uuid:
             return True
@@ -385,10 +437,9 @@ class AccountInvoice(models.Model):
             message = str(e)
         if message:
             message = message.replace("(u'", "").replace("', '')", "")
-            self.action_raise_message("Error al Generar el XML \n\n %s "%( message.upper() ))
+            self.with_context(**context).action_raise_message("Error al Generar el XML \n\n %s "%( message.upper() ))
             return False
         return True
-
 
     # Cancela xml
     @api.multi
@@ -424,7 +475,6 @@ class AccountInvoice(models.Model):
                     <strong>XML Acuse</strong><pre lang="xml"><code>%s</code></pre>
                     """%(res["result"].get("Fecha"), res["result"].get("Folios"), acuse)
                 })
-
                 attachment_obj = self.env['ir.attachment']
                 fname = "cancelacion_cfd_%s.xml"%(self.internal_number or "")
                 attachment_values = {
@@ -443,7 +493,7 @@ class AccountInvoice(models.Model):
             message = str(e)
         if message:
             message = message.replace("(u'", "").replace("', '')", "")
-            self.action_raise_message("Error al Generar el XML \n\n %s "%( message.upper() ))
+            self.with_context(**context).action_raise_message("Error al Generar el XML \n\n %s "%( message.upper() ))
             return False
         return True
 
@@ -452,10 +502,9 @@ class AccountInvoice(models.Model):
         context = dict(self._context) or {}
         dict_addenda = {}
         Addenda = self.env['cfd_mx.conf_addenda']
-        for conf_addenda in Addenda.search([('partner_ids', 'in', self.partner_id.ids)]):
+        for conf_addenda in Addenda.search([('partner_ids', 'in', self.partner_id.ids), ('company_id', '=', self.company_id.id)]):
             context.update({'model_selection': conf_addenda.model_selection})
             dict_addenda = conf_addenda.with_context(**context).create_addenda(self)
-
         return dict_addenda
 
 
@@ -474,12 +523,10 @@ class MailComposeMessage(models.TransientModel):
             invoice = self.env["account.invoice"].browse(self.env.context['active_id'])
             if not invoice.number:
                 return res
-
             xml_name = "cfd_" + invoice.number + ".xml"
             xml_id = self.env["ir.attachment"].search([('name', '=', xml_name)])
             if xml_id:
                 res['value'].setdefault('attachment_ids', []).append(xml_id[0].id)
-
         return res
 
 
@@ -492,7 +539,6 @@ class report_invoice_mx(models.AbstractModel):
         model_obj = self.env['ir.model.data']
         report = report_obj._get_report_from_name('report_invoice_mx')
         docs = self.env[ report.model ].browse(self._ids)
-
         tipo_cambio = {}
         for invoice in docs:
             tipo_cambio[invoice.id] = 1.0
@@ -504,7 +550,6 @@ class report_invoice_mx(models.AbstractModel):
                     mxn_rate = self.env["ir.model.data"].get_object('base', 'MXN').rate
                     tipocambio = (1.0 / invoice.currency_id.with_context(date='%s 06:00:00'%(date_invoice)).rate) * mxn_rate
                     tipo_cambio[invoice.id] = tipocambio
-
         docargs = {
             'doc_ids': self._ids,
             'doc_model': report.model,

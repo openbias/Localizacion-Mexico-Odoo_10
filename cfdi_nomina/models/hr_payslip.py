@@ -419,7 +419,6 @@ class HrPayslip(models.Model):
 
 
     def action_validate_cfdi(self):
-        self.mensaje_validar = ''
         rec = self
         message = ''
         empleado = rec.employee_id

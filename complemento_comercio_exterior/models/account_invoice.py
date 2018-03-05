@@ -91,7 +91,6 @@ class ResPartner(models.Model):
     def onchange_codigo_postal_id(self):
         if not self.codigo_postal_id:
             return True
-
         self.municipio_id = self.codigo_postal_id.municipio_id
         self.ciudad_id = self.codigo_postal_id.ciudad_id
 
@@ -323,7 +322,7 @@ class AccountInvoice(models.Model):
             return
 
         conf_addenda = self.env['cfd_mx.conf_addenda']
-        conf_addenda_id = conf_addenda.search([('model_selection','=', 'complemento_comercio_exterior')])
+        conf_addenda_id = conf_addenda.search([('model_selection','=', 'complemento_comercio_exterior'), ('company_id', '=', self.company_id.id)])
         if conf_addenda_id:
             res = self.partner_id.id in conf_addenda_id.partner_ids.ids
             self.comercio_exterior_activate = res

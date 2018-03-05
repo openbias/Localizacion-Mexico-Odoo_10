@@ -252,6 +252,7 @@
                 <form string="Configuración Addenda">
                     <group>
                         <field name="model_selection" />
+                        <field name="company_id" />
                         <field name="partner_ids"/>
                     </group>
                 </form>
@@ -263,6 +264,7 @@
             <field name="arch" type="xml">
                 <tree string="Configuración">
                     <field name="model_selection" />
+                    <field name="company_id" />
                     <field name="partner_ids"/>
                 </tree>
             </field>

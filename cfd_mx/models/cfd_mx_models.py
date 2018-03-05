@@ -309,6 +309,8 @@ class Addendas(models.Model):
 
     model_selection = fields.Selection(selection=[])
     partner_ids = fields.Many2many('res.partner', string="Clientes", domain=[('customer', '=', True )] )
+    company_id = fields.Many2one('res.company', string='Company', change_default=True,
+        required=True, readonly=False,  default=lambda self: self.env['res.company']._company_default_get('cfd_mx.conf_addenda'))
 
     def create_addenda(self, invoices):
         context = self._context or {}
