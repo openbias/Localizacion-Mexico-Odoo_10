@@ -7,6 +7,7 @@
     'description': """
         Long description of module's purpose
     """,
+    'sequence': 1006,
     'author': "OpenBIAS",
     'website': "http://www.bias.com.mx",
     'category': 'Accounting & Finance',

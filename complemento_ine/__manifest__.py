@@ -9,7 +9,7 @@
     'description': """
         Long description of module's purpose
     """,
-
+    'sequence': 1008,
     'author': "OpenBIAS",
     'website': "http://bias.com.mx/",
 

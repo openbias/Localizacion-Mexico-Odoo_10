@@ -17,10 +17,8 @@
                         <group>
                             <separator string="Contabilidad Electronica SAT" colspan="4"/>
                             <group>
-                                <field name="cta_origen_partner_id" invisible="1" />
                                 <field name="tipo_pago" />
                                 <field name="cta_origen_id"
-                                    domain="[('partner_id','=',cta_origen_partner_id)]"
                                     attrs="{
                                         'invisible': ['|',('tipo_pago','=',False),('tipo_pago','=','otro')], 
                                         'required': [('tipo_pago','in',('cheque','trans'))]
@@ -32,14 +30,12 @@
                                     }"/>
                             </group>
                             <group>
-                                <field name="cta_destino_partner_id" invisible="1"  />
                                 <field name="fecha_trans"
                                     attrs="{
                                         'invisible': [('tipo_pago','=',False)], 
                                         'required': [('tipo_pago','!=', False)]
                                     }"/>
                                 <field name="cta_destino_id"
-                                    domain="[('partner_id','=',cta_destino_partner_id)]"
                                     attrs="{
                                         'invisible': ['|',('tipo_pago','=',False),('tipo_pago','!=','trans')], 
                                         'required': [('tipo_pago','=','trans')]
@@ -81,10 +77,8 @@
                                 <group>
                                     <separator string="Contabilidad Electronica SAT" colspan="4"/>
                                     <group>
-                                        <field name="cta_origen_partner_id" invisible="1" />
                                         <field name="tipo_pago" />
                                         <field name="cta_origen_id"
-                                            domain="[('partner_id','=',cta_origen_partner_id)]"
                                             attrs="{
                                                 'invisible': ['|',('tipo_pago','=',False),('tipo_pago','=','otro')], 
                                                 'required': [('tipo_pago','in',('cheque','trans'))]
@@ -96,14 +90,12 @@
                                             }"/>
                                     </group>
                                     <group>
-                                        <field name="cta_destino_partner_id" invisible="1"  />
                                         <field name="fecha_trans"
                                             attrs="{
                                                 'invisible': [('tipo_pago','=',False)], 
                                                 'required': [('tipo_pago','!=', False)]
                                             }"/>
                                         <field name="cta_destino_id"
-                                            domain="[('partner_id','=',cta_destino_partner_id)]"
                                             attrs="{
                                                 'invisible': ['|',('tipo_pago','=',False),('tipo_pago','!=','trans')], 
                                                 'required': [('tipo_pago','=','trans')]
@@ -148,9 +140,9 @@
                                 <field name="cta_origen_partner_id" invisible="1"/>
                                 <field name="cta_destino_partner_id" invisible="1"/>
                                 <field name="tipo_pago"/>
-                                <field name="cta_origen_id" domain="[('partner_id','=',cta_origen_partner_id)]"
+                                <field name="cta_origen_id"
                                     attrs="{'invisible': ['|',('tipo_pago','=',False),('tipo_pago','=','otro')], 'required': [('tipo_pago','in',('cheque','trans'))]}"/>
-                                <field name="cta_destino_id" domain="[('partner_id','=',cta_destino_partner_id)]"
+                                <field name="cta_destino_id"
                                     attrs="{'invisible': ['|',('tipo_pago','=',False),('tipo_pago','!=','trans')], 'required': [('tipo_pago','=','trans')]}"/>
                                 <field name="num_cheque" attrs="{'invisible': ['|',('tipo_pago','=',False),('tipo_pago','!=','cheque')],  'required': [('tipo_pago','=','cheque')]}"/>
                                 <field name="fecha_trans"  attrs="{'invisible': [('tipo_pago','=',False)], 'required': [('tipo_pago','!=', False)]}"/>
@@ -176,6 +168,7 @@
             <field name="inherit_id" ref="account.view_bank_statement_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='line_ids']/tree/field[@name='amount']" position="before">
+                    <field name="payment_type" />
                     <field name="ttype" />
                     <field name="cta_origen_id" 
                         attrs="{

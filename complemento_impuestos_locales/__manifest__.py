@@ -5,6 +5,7 @@
     'description': """
         Complemento Impuestos Locales
     """,
+    'sequence': 1009,
     'author': "OpenBIAS",
     'category' : 'Accounting & Finance',
     'website': 'http://www.bias.com.mx',

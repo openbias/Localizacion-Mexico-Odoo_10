@@ -12,7 +12,7 @@
         asientos contables a través de medios electrónicos e ingresar de forma mensual 
         su información contable a través de la página de Internet del SAT.
     """,
-
+    'sequence': 1002,
     'author': "OpenBIAS",
     'website': "http://www.bias.com.mx",
 

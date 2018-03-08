@@ -201,7 +201,8 @@ class account_bank_statement_line(models.Model):
 
     def process_reconciliation(self, counterpart_aml_dicts=None, payment_aml_rec=None, new_aml_dicts=None):
         res = super(account_bank_statement_line, self).process_reconciliation(counterpart_aml_dicts=counterpart_aml_dicts, payment_aml_rec=payment_aml_rec, new_aml_dicts=new_aml_dicts)
-        self.process_reconciliation_pagos(res, counterpart_aml_dicts=counterpart_aml_dicts, payment_aml_rec=payment_aml_rec, new_aml_dicts=new_aml_dicts)
+        if self.journal_id.id in self.company_id.cfd_mx_journal_ids.ids:
+            self.process_reconciliation_pagos(res, counterpart_aml_dicts=counterpart_aml_dicts, payment_aml_rec=payment_aml_rec, new_aml_dicts=new_aml_dicts)
         return res
 
 

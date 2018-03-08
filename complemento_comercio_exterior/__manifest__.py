@@ -6,7 +6,7 @@
     'name' : 'Complemento Comercio Exterior',
     'version' : '1.0',
     'summary': 'Complemento Comercio Exterior',
-    'sequence': 30,
+    'sequence': 1011,
     'description': """
 
     """,

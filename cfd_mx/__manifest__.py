@@ -4,7 +4,7 @@
     'name' : 'Factura Electronica Mexico',
     'version' : '10.0.4.0.1',
     'summary': 'Factura Electronica Mexico 3.3',
-    'sequence': 100,
+    'sequence': 1000,
     'description': """
 Factura Electronica Mexico 3.3
 ==================================

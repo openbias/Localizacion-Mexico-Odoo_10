@@ -16,6 +16,23 @@ class AccountAbstractPayment(models.AbstractModel):
     metodo_pago_id = fields.Many2one('contabilidad_electronica.metodo.pago', string=u'Código', oldname="metodo_pago")
     tipo_pago = fields.Selection([('trans', 'Transferencia'),('cheque', 'Cheque'), ('otro', 'Otro')], default='trans', string=u'Tipo del Pago')
 
+    @api.onchange('journal_id')
+    def _onchange_journal(self):
+        rec = super(AccountAbstractPayment, self)._onchange_journal()
+        self.cta_destino_id = None
+        self.cta_origen_id = None
+        if rec and self.partner_id and self.journal_id and self.partner_type:
+            bank_ids = self.env['res.partner.bank'].search([('partner_id', '=', self.partner_id.id)])
+            jb_ids = self.journal_id.bank_account_id
+            if self.partner_type == "customer":
+                self.cta_destino_id = jb_ids.ids
+                rec['domain']['cta_destino_id'] = [('id', 'in', jb_ids.ids)]
+                rec['domain']['cta_origen_id'] = [('id', 'in', bank_ids.ids)]
+            else:
+                self.cta_origen_id = jb_ids.ids
+                rec['domain']['cta_origen_id'] = [('id', 'in', jb_ids.ids)]
+                rec['domain']['cta_destino_id'] = [('id', 'in', bank_ids.ids)]
+        return rec
 
 class AccountRegisterPayments(models.TransientModel):
     _inherit = "account.register.payments"
@@ -54,6 +71,7 @@ class AccountPayment(models.Model):
     _inherit = 'account.payment'
     _description = "Payments"
 
+    """
     @api.onchange('partner_id')
     def _onchange_partner_id(self):
         if self.partner_id:
@@ -67,6 +85,7 @@ class AccountPayment(models.Model):
                 self.cta_origen_partner_id = company_id.partner_id
                 self.cta_destino_partner_id = self.partner_id
             return {'domain': {}}
+    """
 
     def _create_payment_entry_contabilidad_electronica(self, amount, move):
         obj = {
@@ -150,8 +169,36 @@ class account_bank_statement_line(models.Model):
             ("cheque", "Cheque"), 
             ("otro", "Otro")],
         'Type', required=True, default='otro')
+    payment_type = fields.Selection([
+            ('outbound', 'Send Money'), 
+            ('inbound', 'Receive Money')], 
+        string='Payment Type', required=True)
+
+    @api.onchange('payment_type')
+    def onchange_payment_type(self):
+        rec = {}
+        rec['domain'] = {
+            'cta_origen_id': [],
+            'cta_destino_id': []
+        }
+        self.cta_destino_id = None
+        self.cta_origen_id = None
+        if self.partner_id and self.journal_id and self.payment_type:
+            bank_ids = self.env['res.partner.bank'].search([('partner_id', '=', self.partner_id.id)])
+            jb_ids = self.journal_id.bank_account_id
+            if self.payment_type == 'inbound':
+                self.cta_destino_id = jb_ids.ids
+                rec['domain']['cta_destino_id'] = [('id', 'in', jb_ids.ids)]
+                rec['domain']['cta_origen_id'] = [('id', 'in', bank_ids.ids)]
+            elif self.payment_type == 'outbound':
+                self.cta_origen_id = jb_ids.ids
+                rec['domain']['cta_origen_id'] = [('id', 'in', jb_ids.ids)]
+                rec['domain']['cta_destino_id'] = [('id', 'in', bank_ids.ids)]
+
+        return rec
 
 
+    """
     @api.onchange('partner_id')
     def onchange_partner_id(self):
         res = {}
@@ -163,6 +210,7 @@ class account_bank_statement_line(models.Model):
             'cta_destino_id': [('partner_id', 'in', cta_ids)]
         }
         return res
+    """
 
 
     def process_reconciliation_cont_elect(self, move_id, counterpart_aml_dicts=None, payment_aml_rec=None, new_aml_dicts=None):
