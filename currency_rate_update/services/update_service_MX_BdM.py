@@ -4,6 +4,7 @@ from lxml import etree
 import suds
 from suds.client import Client
 import xmltodict, json
+import time
 
 import logging
 _logger = logging.getLogger(__name__)
@@ -20,6 +21,20 @@ def rate_retrieve_old():
     for f in feed.entries:
         rate = f and f.cb_exchangerate or 0.0
     return rate
+
+def rate_retrieve_cop():
+    WSDL_URL = 'https://www.superfinanciera.gov.co/SuperfinancieraWebServiceTRM/TCRMServicesWebService/TCRMServicesWebService?WSDL'
+    date = time.strftime('%Y-%m-%d')
+    try:
+        client = Client(WSDL_URL, location=WSDL_URL, faults=True)
+        soapresp =  client.service.queryTCRM(date)
+        if soapresp["success"] and soapresp["value"]:
+            return {"COP": soapresp["value"]}
+        return False
+    except Exception as e:
+        return False
+    return False
+
 
 def rate_retrieve():
     hostname = 'http://www.banxico.org.mx:80/DgieWSWeb/DgieWS?WSDL'
@@ -40,9 +55,9 @@ def rate_retrieve():
 
         for serie in datas['CompactData']['ns_bm:DataSet']['ns_bm:Series']:
             if serie.get('@IDSERIE') == 'SF60653':
-                tipoCambio['MXN'] = serie['ns_bm:Obs'].get('@OBS_VALUE')
+                tipoCambio['MXN'] = float(serie['ns_bm:Obs'].get('@OBS_VALUE', '0.0'))
             if serie.get('@IDSERIE') == 'SF46410':
-                tipoCambio['EUR'] = serie['ns_bm:Obs'].get('@OBS_VALUE')
+                tipoCambio['EUR'] = float(serie['ns_bm:Obs'].get('@OBS_VALUE', '0.0'))
 
             # tipoCambio.append({
             #     'TITULO': serie.get('@TITULO').encode("utf-8"),
@@ -53,6 +68,13 @@ def rate_retrieve():
             #     'TIME_PERIOD': serie['ns_bm:Obs'].get('@TIME_PERIOD'),
             #     'OBS_VALUE': serie['ns_bm:Obs'].get('@OBS_VALUE')
             #     })
+
+    if tipoCambio.get("MXN") and tipoCambio.get("EUR"):
+        tipoCambio["EUR"] = tipoCambio["MXN"] / tipoCambio["EUR"]
+
+    rate_cop = rate_retrieve_cop()
+    if rate_cop:
+        tipoCambio.update(rate_cop)
 
     return tipoCambio
 

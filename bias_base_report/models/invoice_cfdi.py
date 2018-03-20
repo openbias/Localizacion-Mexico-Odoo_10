@@ -117,9 +117,9 @@ class AccountCfdi(models.Model):
     fecha_timbrado = fields.Char(string="Fecha de Timbrado", size=32, copy=False)
     cadena_sat = fields.Text(string="Cadena SAT", copy=False)
     cadena_sat_wrap = fields.Text(string="Cadena SAT", copy=False, compute="_get_cadena_sat_wrap")
-    mensaje_timbrado_pac = fields.Text('Mensaje del PAC', copy=False)
-    mensaje_pac = fields.Html(string='Ultimo mensaje del PAC', copy=False)
-    mensaje_validar = fields.Text(string='Mensaje Validacion', copy=False)
+    mensaje_timbrado_pac = fields.Text('Mensaje del PAC', copy=False, default="")
+    mensaje_pac = fields.Html(string='Ultimo mensaje del PAC', copy=False, default="")
+    mensaje_validar = fields.Text(string='Mensaje Validacion', copy=False, default="")
     cant_letra = fields.Char(string="Cantidad con letra", copy=False, compute='_compute_cant_letra')
 
     mandada_cancelar = fields.Boolean('Mandada Cancelar', copy=False)
@@ -240,6 +240,8 @@ class AccountCfdi(models.Model):
 
     def action_raise_message(self, message):
         context = dict(self._context) or {}
+        if not self.mensaje_validar:
+            self.mensaje_validar = ""
         if not context.get('batch', False):
             if len(message) != 0:
                 message = message.replace('<li>', '').replace('</li>', '\n')

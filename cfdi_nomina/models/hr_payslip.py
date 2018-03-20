@@ -2,7 +2,7 @@
 
 import odoo
 # import odoo.modules.registry as 
-from odoo.api import call_kw, Environment
+# from odoo.api import call_kw, Environment
 
 from odoo import api, fields, models, tools, _, registry
 from odoo.exceptions import UserError, RedirectWarning, ValidationError
@@ -110,7 +110,6 @@ class HrPayslipRun(models.Model):
 
     def _confirm_sheet_run_date(self):
         ids = self.ids
-
         with api.Environment.manage():
             new_cr = self.pool.cursor()
             self = self.with_env(self.env(cr=new_cr))
@@ -157,7 +156,6 @@ class HrPayslipRun(models.Model):
         with api.Environment.manage():
             new_cr = self.pool.cursor()
             self = self.with_env(self.env(cr=new_cr))
-            
             msg = ''
             Payslip = self.sudo().env['hr.payslip.run']
             for run in Payslip.browse(ids):
@@ -494,24 +492,21 @@ class HrPayslip(models.Model):
                 rec.write({'state': 'done'})
         return res
 
-
     def action_write_date_invoice_cfdi(self, date_invoice_cfdi, inv_id):
-        dtz = False
         if not date_invoice_cfdi:
-            dbname = self._cr.dbname
-            registry = odoo.modules.registry.Registry(dbname)
-            with registry.cursor() as cr:
-                tz = self.env.user.tz or "UTC"
-                hora_factura_utc = datetime.now(timezone("UTC"))
-                dtz = hora_factura_utc.astimezone(timezone(tz)).strftime("%Y-%m-%d %H:%M:%S")
-                dtz = dtz.replace(" ", "T")
-                cr.execute("UPDATE account_move_line SET date_invoice_cfdi='%s' WHERE id=%s "%(dtz, inv_id) )
-        logging.info("dtz 01 %s"%(dtz) )
-        return dtz
+            tz = self.env.user.tz or "UTC"
+            hora_factura_utc = datetime.now(timezone("UTC"))
+            dtz = hora_factura_utc.astimezone(timezone(tz)).strftime("%Y-%m-%d %H:%M:%S")
+            dtz = dtz.replace(" ", "T")
+            slip_id = self.sudo().env['hr.payslip'].browse(inv_id)
+            slip_id.write({'date_invoice_cfdi': dtz})
+            self._cr.commit()
+        return {}
 
 
     def action_create_cfdi(self):
         ctx = dict(self._context) or {}
+        self.read()
         if not self.journal_id.id in self.company_id.cfd_mx_journal_ids.ids:
             return True        
         message = ""
@@ -535,7 +530,6 @@ class HrPayslip(models.Model):
     @api.multi
     def send_mail(self):
         return True
-
 
     @api.multi
     def action_payslip_cancel_nomina(self):

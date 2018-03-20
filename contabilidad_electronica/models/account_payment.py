@@ -197,6 +197,10 @@ class account_bank_statement_line(models.Model):
 
         return rec
 
+    @api.onchange('ttype')
+    def onchange_ttype(self):
+        self.benef_id = None
+
 
     """
     @api.onchange('partner_id')

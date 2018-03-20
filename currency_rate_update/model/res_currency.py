@@ -62,7 +62,7 @@ class CurrencyRate(models.Model):
             currency.rate = currency_rates.get(currency.id) or 1.0
 
 
-    rate_inv = fields.Float(compute='_compute_current_rate_inv', string='Current Rate Inv', digits=(12, 8),
+    rate_inv = fields.Float(compute='_compute_current_rate_inv', string='Current Rate Inv', digits=(12, 10),
                         help='The rate of the currency to the currency of rate 1.')
     rate = fields.Float(compute='_compute_current_rate', string='Current Rate', digits=(12, 10),
                         help='The rate of the currency to the currency of rate 1.')
@@ -101,28 +101,15 @@ class CurrencyRate(models.Model):
             hora_factura_utc = datetime.now(timezone("UTC"))
             hora_factura_local = hora_factura_utc.astimezone(timezone(tz))
             date_cron = hora_factura_local.date()
-        services = {
-            'cron': True,
-            'date_cron': date_cron
-        }
+
         rate_dict = update_service_MX_BdM.rate_retrieve()
-        rate_mxn = rate_dict.get('MXN', 0.0)
-        ctx_mx = {
-            'date_cron': date_cron,
-            'rate': float(rate_mxn)
-        }
-        mxn = self.env.ref('base.MXN').with_context(**ctx_mx).refresh_currency()
-        if rate_dict.get('EUR') and rate_dict.get('MXN'):
-            rate_eur = rate_dict.get('EUR', 0.0)
-            ctx_eur = {
+        for rate in rate_dict:
+            ctx = {
                 'date_cron': date_cron,
-                'rate': float(rate_mxn) / float(rate_eur),
-                'rate_inv': float(rate_mxn)
-
+                'rate': rate_dict[rate]
             }
-            eur = self.env.ref('base.EUR').with_context(**ctx_eur).refresh_currency()
+            self.env.ref('base.%s'%(rate)).with_context(**ctx).refresh_currency()
 
-        # res = self.search([('name', '=', 'MXN')]).with_context(**services).refresh_currency()
         _logger.info(' === End of the currency rate update cron')
         return True
 
