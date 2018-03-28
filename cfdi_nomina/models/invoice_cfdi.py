@@ -7,6 +7,35 @@ from odoo.exceptions import UserError, RedirectWarning, ValidationError
 
 from pytz import timezone
 from datetime import datetime, date
+from dateutil import relativedelta
+
+import logging
+logging.basicConfig(level=logging.INFO)
+
+def getAntiguedad(date_from, date_to):
+    FechaInicioRelLaboral = datetime.strptime(date_from, "%Y-%m-%d")
+    FechaFinalPago = datetime.strptime(date_to, "%Y-%m-%d")
+    FechaFinalPago = FechaFinalPago +relativedelta.relativedelta(days=+1)
+
+    difference = relativedelta.relativedelta(FechaFinalPago, FechaInicioRelLaboral)
+    years = difference.years
+    months = difference.months
+    days = difference.days
+    logging.info("-- Difference is %s year, %s months, %s days " %(years, months, days))
+    p_diff = ""
+    # Si la diferenciaAnhos y diferenciaMeses son menores o iguales a 0, se coloca la antiguedad en formato P{diferenciaDias}D
+    if (years <= 0 and months <= 0):
+        p_diff = "P%sD"%(days)
+    # Si la diferenciaAnhos es mayor a 0 y la diferenciaMeses es igual a 0, se coloca la antiguedad en formato P{diferenciaAnhs}Y{diferenciaDias}D
+    if (years > 0 and months <= 0):
+        p_diff = "P%sY%sD"%(years, days)
+    # Si la diferenciaAnhos es menor o igual a 0 y la diferenciaMeses es mayor a 0, se coloca la antiguedad en el formato P{diferenciaMeses}M{diferenciaDias}D
+    if (years <= 0 and months > 0):
+        p_diff = "P%sM%sD"%(months, days)
+    # Si la diferenciaAnhos es mayor a 0 y la diferenciaMeses es mayor a 0, se coloca la antiguedad en formato P{diferenciaAnhos}Y{diferenciaMeses}M{diferenciaDias}D
+    if (years > 0 and months > 0):
+        p_diff = "P%sY%sM%sD"%(years, months, days)
+    return p_diff
 
 class AccountCfdi(models.Model):
     _name = 'account.cfdi'
@@ -90,7 +119,6 @@ class AccountCfdi(models.Model):
             "NumDiasPagados": "%d"%rec._get_days("WORK100")[0],
         }
 
-
         # Atributos Emisor
         emisor_attribs = {
             "RegistroPatronal": (empleado.registro_patronal_id and empleado.registro_patronal_id.name) or (company.registro_patronal_id and company.registro_patronal_id.name) or False
@@ -116,23 +144,22 @@ class AccountCfdi(models.Model):
             num_cuenta = num_cuenta[len(num_cuenta)-16:]
         contract_id = empleado.contract_id
         fecha_alta = empleado.fecha_alta or contract_id.date_start or False
-        antiguedad = (datetime.strptime(rec.date_to, "%Y-%m-%d") - datetime.strptime(fecha_alta, "%Y-%m-%d")).days / 7
-        riesgo_puesto = (empleado.job_id and empleado.job_id.riesgo_puesto_id and empleado.job_id.riesgo_puesto_id.code) or (company.riesgo_puesto_id and company.riesgo_puesto_id.code) or False
 
+        antiguedad = getAntiguedad(fecha_alta, rec.date_to)
+        riesgo_puesto = (empleado.job_id and empleado.job_id.riesgo_puesto_id and empleado.job_id.riesgo_puesto_id.code) or (company.riesgo_puesto_id and company.riesgo_puesto_id.code) or False
         receptor_attribs = {
             "Curp": empleado.curp or "",
             "TipoContrato": rec.contract_id.type_id and rec.contract_id.type_id.code or "",
             "TipoRegimen": rec.contract_id.regimen_contratacion_id and rec.contract_id.regimen_contratacion_id.code or "",
             "NumEmpleado": empleado.cod_emp or "",
             "PeriodicidadPago": rec.contract_id.periodicidad_pago_id and rec.contract_id.periodicidad_pago_id.code or "",
-            "ClaveEntFed": empleado.address_home_id and empleado.address_home_id.state_id.code or ""
+            "ClaveEntFed": empleado.address_home_id and empleado.address_home_id.state_id.code or "",
+            "Antiguedad": antiguedad
         }
         if empleado.imss:
             receptor_attribs['NumSeguridadSocial'] = empleado.imss
         if fecha_alta:
             receptor_attribs['FechaInicioRelLaboral'] = fecha_alta
-        if antiguedad:
-            receptor_attribs[u"Antiguedad"] = "P%sW"%antiguedad
         if empleado.sindicalizado:
             receptor_attribs['Sindicalizado'] = u"Sí"
         if empleado.tipo_jornada_id.code:
@@ -151,7 +178,6 @@ class AccountCfdi(models.Model):
             receptor_attribs['SalarioBaseCotApor'] = "%.2f"%empleado.sueldo_diario
         if empleado.sueldo_imss:
             receptor_attribs['SalarioDiarioIntegrado'] = "%.2f"%empleado.sueldo_imss
-
 
         #--------------------
         # Percepciones

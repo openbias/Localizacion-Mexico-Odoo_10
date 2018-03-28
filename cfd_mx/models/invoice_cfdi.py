@@ -30,6 +30,10 @@ class AccountCfdi(models.Model):
         date_invoice = obj.date_invoice_cfdi
         if not obj.date_invoice_cfdi:
             date_invoice = obj.action_write_date_invoice_cfdi(obj.id)
+
+        dp_cantidad = 6
+        SubTotal = round(obj.price_subtotal_sat, dp_cantidad)
+        Total = round(obj.amount_total, dp_cantidad)
             
         cfdi_comprobante = {
             "Folio": obj.number,
@@ -37,8 +41,8 @@ class AccountCfdi(models.Model):
             "FormaPago": obj.formapago_id and obj.formapago_id.clave or "99",
             "CondicionesDePago": obj.payment_term_id and obj.payment_term_id.name or 'CONDICIONES',
             "Moneda": obj.currency_id.name,
-            "SubTotal": '%.2f'%(obj.price_subtotal_sat),
-            "Total": '%.2f'%(obj.amount_total),
+            "SubTotal": '%s'%(SubTotal),  #  '%.2f'%(obj.price_subtotal_sat),
+            "Total": '%s'%(Total),   #  '%.2f'%(obj.amount_total),
             "TipoDeComprobante": obj.tipo_comprobante,
             "MetodoPago": obj.metodopago_id and obj.metodopago_id.clave or 'Pago en una sola exhibicion',
             "LugarExpedicion": obj.journal_id and obj.journal_id.codigo_postal_id and obj.journal_id.codigo_postal_id.name or '',
@@ -47,7 +51,8 @@ class AccountCfdi(models.Model):
         if obj.journal_id.serie:
             cfdi_comprobante['Serie'] = obj.journal_id.serie or ''
         if obj.price_discount_sat:
-            cfdi_comprobante['Descuento'] = '%.2f'%(round(obj.price_discount_sat, dp))
+
+            cfdi_comprobante['Descuento'] = '%s'%(round(obj.price_discount_sat, dp_cantidad))
         if obj.currency_id.name != 'MXN':
             cfdi_comprobante['TipoCambio'] = '%s'%(round(rate, 6))
         return cfdi_comprobante
@@ -82,21 +87,25 @@ class AccountCfdi(models.Model):
         dp = obj.env['decimal.precision']
         dp_account = dp.precision_get('Account')
         dp_product = dp.precision_get('Product Price')
+        dp_cantidad = 6
         conceptos = []
         for line in obj.invoice_line_ids:
             ClaveProdServ = '01010101'
+            Cantidad = round(line.quantity, dp_cantidad)
+            ValorUnitario = round((line.price_subtotal_sat / Cantidad), dp_cantidad)
+            Importe = round(line.price_subtotal_sat, dp_cantidad)
+            Descuento = round(line.price_discount_sat, dp_cantidad)
+
             concepto_attribs = {
                 'ClaveProdServ': line.product_id and line.product_id.clave_prodser_id and line.product_id.clave_prodser_id.clave or ClaveProdServ,
                 'NoIdentificacion': line.product_id and line.product_id.default_code or '',
                 'Descripcion': line.name.replace('[', '').replace(']', '') or '',
-                'Cantidad': '%s'%(round(line.quantity, dp_account)),
+                'Cantidad': '%s'%(Cantidad),
                 'ClaveUnidad': line.uom_id and line.uom_id.clave_unidadesmedida_id and line.uom_id.clave_unidadesmedida_id.clave or '',
                 'Unidad': line.uom_id and line.uom_id.name or '',
-                # 'ValorUnitario': '%.2f'%(round(line.price_unit, dp_product)),
-                # 'Importe': '%.2f'%( line.price_subtotal_sat ),
-                'ValorUnitario': '%.2f'%( line.price_subtotal_sat / round(line.quantity, dp_account)),
-                'Importe': '%.2f'%( line.price_subtotal_sat ), # '%.2f'%( line.price_subtotal_sat * round(line.quantity, dp_account) ),
-                'Descuento': '%.2f'%( line.price_discount_sat ),
+                'ValorUnitario': '%s'%(ValorUnitario), # '%.2f'%( line.price_subtotal_sat / Cantidad),
+                'Importe': '%s'%(Importe), # '%.6f'%( line.price_subtotal_sat ),
+                'Descuento': '%s'%(Descuento), # '%.6f'%( line.price_discount_sat ),
                 'Impuestos': {
                     'Traslado': [],
                     'Retenciones': []
@@ -115,12 +124,15 @@ class AccountCfdi(models.Model):
                 tax_group = tax_id.tax_group_id
                 importe = tax.get('amount')
                 TasaOCuota = '%.6f'%((round(abs(tax_id.amount), dp_account) / 100))
+
+                Base = round(tax.get('base') , dp_cantidad)
+                Importe = round(abs(importe), dp_cantidad)
                 impuestos = {
-                    'Base': '%.2f'%(round( tax.get('base') , dp_account)),
+                    'Base':  '%s'%(Base),  #'%.2f'%(round( tax.get('base') , dp_account)),
                     'Impuesto': tax_group.cfdi_impuestos,
                     'TipoFactor': '%s'%(tax_id.cfdi_tipofactor),
                     'TasaOCuota': '%s'%(TasaOCuota),
-                    'Importe': '%.2f'%(round(abs(importe), dp_account))
+                    'Importe': '%s'%(Importe) # '%.2f'%(round(abs(importe), dp_account))
                 }
                 if tax_group.cfdi_retencion:
                     concepto_attribs['Impuestos']['Retenciones'].append(impuestos)
@@ -135,6 +147,7 @@ class AccountCfdi(models.Model):
         TotalImpuestosTrasladados = 0.00
         traslado_attribs = {}
         retenciones_attribs = {}
+        dp_cantidad = 6
         for concepto in conceptos:
             for impuesto in concepto['Impuestos']:
                 if impuesto == 'Retenciones':
@@ -145,12 +158,13 @@ class AccountCfdi(models.Model):
                             retenciones_attribs[ ret_key ] = {
                                 'Importe': '%s'%(0.0)
                             }
-                        importe = float(retenciones_attribs[ret_key]['Importe']) + float(ret['Importe'])
+                        imp = float(retenciones_attribs[ret_key]['Importe']) + float(ret['Importe'])
+                        Importe = round(imp, dp_cantidad)
                         retenciones_attribs[ ret_key ] = {
                             'Impuesto': ret['Impuesto'],
                             'TipoFactor': ret['TipoFactor'],
                             'TasaOCuota': ret['TasaOCuota'],
-                            'Importe': '%.2f'%(importe)
+                            'Importe':  '%s'%(Importe) # '%.2f'%(importe)
                         }
                 if impuesto == 'Traslado':
                     for tras in concepto['Impuestos'][impuesto]:
@@ -160,16 +174,19 @@ class AccountCfdi(models.Model):
                             traslado_attribs[ tras_key ] = {
                                 'Importe': '%s'%(0.0)
                             }
-                        importe = float(traslado_attribs[tras_key]['Importe']) + float(tras['Importe'])
+                        imp = float(traslado_attribs[tras_key]['Importe']) + float(tras['Importe'])
+                        Importe = round(imp, dp_cantidad)
                         traslado_attribs[ tras_key ] = {
                             'Impuesto': tras['Impuesto'],
                             'TipoFactor': tras['TipoFactor'],
                             'TasaOCuota': tras['TasaOCuota'],
-                            'Importe': '%.2f'%(importe)
+                            'Importe': '%s'%(Importe)  # '%.2f'%(importe)
                         }
+        TotalImpuestosRetenidos = round(TotalImpuestosRetenidos, dp_cantidad)
+        TotalImpuestosTrasladados = round(TotalImpuestosTrasladados, dp_cantidad)
         cfdi_impuestos = {
-            'TotalImpuestosRetenidos': '%.2f'%(TotalImpuestosRetenidos),
-            'TotalImpuestosTrasladados': '%.2f'%(TotalImpuestosTrasladados),
+            'TotalImpuestosRetenidos': '%s'%(TotalImpuestosRetenidos), # '%.2f'%(TotalImpuestosRetenidos),
+            'TotalImpuestosTrasladados': '%s'%(TotalImpuestosTrasladados),  # '%.2f'%(TotalImpuestosTrasladados),
             'traslado_attribs': traslado_attribs,
             'retenciones_attribs': retenciones_attribs
         }
