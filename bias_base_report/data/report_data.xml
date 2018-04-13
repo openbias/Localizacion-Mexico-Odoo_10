@@ -3,6 +3,21 @@
 
     <!-- Paper Format -->
     <data noupdate="0">
+        <record id="account_move_paperformat" model="report.paperformat">
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="header_spacing">35</field>
+            <field name="margin_top">10</field>
+            <field name="margin_right">7</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">7</field>
+            <field name="header_line">False</field>
+            <field name="name">US Letter Account Move</field>
+            <field name="orientation">Landscape</field>
+            <field name="dpi">90</field>
+            <field name="default">True</field>
+            <field name="format">Letter</field>
+        </record>
         <record id="paperformat_us_landscape" model="report.paperformat">
             <field name="page_height">0</field>
             <field name="page_width">0</field>

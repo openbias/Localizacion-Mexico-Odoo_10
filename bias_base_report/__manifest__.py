@@ -17,6 +17,8 @@
     ],
     'data': [
         'data/report_data.xml',
+        'report/report_menus.xml',
+        'report/account_move.xml',
         'views/models_views.xml'
     ],
     'installable': True,

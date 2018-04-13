@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+        <report 
+            id="report_account_move_list"
+            model="account.move"
+            string="Journal Entries"
+            report_type="qweb-pdf"
+            name="bias_base_report.report_account_move_custom"
+            file="bias_base_report.report_account_move_custom"
+            attachment_use="True"
+            usage="default"
+            header="False" />
+    </data>
+    <data>
+        <record id="report_account_move_list" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="bias_base_report.account_move_paperformat"/>
+        </record>
+    </data>
+
+</odoo>

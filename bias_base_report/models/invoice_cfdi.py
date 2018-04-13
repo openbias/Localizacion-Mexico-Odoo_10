@@ -239,6 +239,9 @@ class AccountCfdi(models.Model):
         return True
 
     def action_raise_message(self, message):
+        print 'self', self, 
+        print 'message', message
+        self.ensure_one()
         context = dict(self._context) or {}
         if not self.mensaje_validar:
             self.mensaje_validar = ""

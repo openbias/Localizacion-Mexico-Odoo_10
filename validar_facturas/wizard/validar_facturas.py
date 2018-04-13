@@ -8,8 +8,8 @@ from json import dumps, loads
 class validar_facturas(models.TransientModel):
     _name = "validar.facturas"
 
-    xml = fields.Binary(string="XML")
-    pdf = fields.Binary(string="PDF")
+    xml = fields.Binary(string="XML", filters='*.xml')
+    pdf = fields.Binary(string="PDF", filters='*.pdf')
     reporte_validation_xml = fields.Html("Validar XML")
     message_validation_xml = fields.Html("Validar XML")
     codigo = fields.Char(string="Codigo Estatus")
@@ -36,20 +36,22 @@ class validar_facturas(models.TransientModel):
     # lines = fields.One2many("validar_facturas.subir.factura.line", "wizard_id", string="Partidas")
     # show_lines = fields.Boolean(string="Show lines", default=False)
 
+    def action_raise_message(self, message):
+        context = dict(self._context) or {}
+        if not context.get('batch', False):
+            if len(message) != 0:
+                message = message.replace('<li>', '').replace('</li>', '\n')
+                raise UserError(message)
+        return True
+
     
     @api.multi
     def action_validar_facturas(self):
         self.ensure_one()
         context = dict(self._context)
-        cfdi = self.env['account.cfdi']
         message = ""
-        # res = cfdi.validate(self)
-        # if res.get('message'):
-        #     message = res['message']
-        # else:
-        #     return self.get_process_data(res.get('result'))
         try:
-            res = cfdi.validate(self)
+            res = self.env['account.cfdi'].validate(self)
             if res.get('message'):
                 message = res['message']
             else:
@@ -60,7 +62,7 @@ class validar_facturas(models.TransientModel):
             message = str(e)
         if message:
             message = message.replace("(u'", "").replace("', '')", "")
-            cfdi.action_raise_message("%s "%( message.upper() ))
+            self.action_raise_message("%s "%( message.upper() ))
             return False
         return True
 
@@ -124,6 +126,8 @@ class validar_facturas(models.TransientModel):
         nombre_emisor = emisor.get("@Nombre", "").encode('utf-8').decode('utf-8') or emisor.get("@nombre", "").encode('utf-8').decode('utf-8') or ""
         nombre_receptor = receptor.get("@Nombre", "").encode('utf-8').decode('utf-8') or receptor.get("@nombre", "").encode('utf-8').decode('utf-8') or ""
         res = {
+            'serie': d.get("@Serie") or d.get("@Serie") or "", 
+            'folio': d.get("@Folio") or d.get("@folio") or "", 
             'importe_total': d.get("@Total") or d.get("@total"),
             'version': d.get("@Version") or d.get("@version"),
             'tipo_comprobante': d.get("@TipoDeComprobante") or d.get("@tipoDeComprobante") or "",

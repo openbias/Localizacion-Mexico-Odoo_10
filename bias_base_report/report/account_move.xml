@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+     <data>
+        <template inherit_id="report.assets_common" id="report_account_move_custom_style">
+            <xpath expr="." position="inside">
+                <style rel="stylesheet" type="text/css">
+                    .report_account_move_custom { font-size: 11px;  }
+                    .poliza_datas td{ font-size: 10px; }
+                    .border_polizas td{ border: 1px solid #dddddd !important;}
+                    .border_polizas_total td{ border-top: 1px solid #808080 !important;}
+                    .table thead tr > th.table_datas {
+                        color: #545454 !important;
+                        border: 1px solid #dddddd !important; 
+                        border-bottom: 1px solid #808080 !important; 
+                        background-color: #f9f9f9 !important;
+                    }
+                    .table tbody tr > td.table_datas { background-color: #f9f9f9 !important; }
+                    .table tbody tr > td.success { background-color: #dff0d8 !important; }
+                    .table tbody tr > td.error { background-color: #f2dede !important; }
+                    .table tbody tr > td.warning { background-color: #fcf8e3 !important; }
+                    .table tbody tr > td.info { background-color: #d9edf7 !important; }
+                    .table-hover tbody tr:hover > td.success { background-color: #d0e9c6 !important; }
+                    .table-hover tbody tr:hover > td.error { background-color: #ebcccc !important; }
+                    .table-hover tbody tr:hover > td.warning { background-color: #faf2cc !important; }
+                    .table-hover tbody tr:hover > td.info { background-color: #c4e3f3 !important; }
+
+
+                    h2 { font-weight: bold; color: #545454 !important; font-size:14px; }
+                    .company_address { font-size:9px; }
+                    .border-black td { border-top: 1px solid black !important; }
+                    .b-black { border-top: 1px solid black !important; }
+                    .border-theme td { border-top: 1px solid #d6d6d6 !important; }
+
+                    .table-condensed > thead > tr > th { background-color: #545454 !important; color: #FFFFFF !important; border-bottom: 1px solid #323232 !important; }
+                    .bg_color { color: #545454 !important; border: 0px solid !important; border-bottom: 1px solid #F2F2F2 !important;  background-color: #F2F2F2 !important; }
+                    .items { font-size:10px; }
+
+                </style>
+            </xpath>
+        </template>
+    </data>
+
+    <data>
+        <template id="report_account_move_custom">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="bias_base_report.report_account_move_custom_document" t-lang="o.partner_id.lang"/>
+                </t>
+            </t>
+        </template>
+        <template id="report_account_move_custom_document">
+            <t t-call="report.html_container">
+                <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})" />
+                <div class="page">
+
+                    <section class="report_account_move_custom oe_structure" id="report_account_move_custom">
+                        <div class="container">
+                            <div class="row">
+
+                                <div class="row mt32 mb32" style="border-bottom: 2px solid #808080; padding-bottom:4px;" >
+                                    <div class="col-xs-3 text-center">
+                                        <div style="text-align:center;">
+                                            <img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' % res_company.logo" class="img img-responsive" style="max-height: 75px;"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-9 text-right" style="vertical-align: middle !important;">
+                                        <strong><spam t-field="o.company_id.partner_id.name" /></strong>
+                                        <div class="text-right">
+                                            <strong>POLIZA CONTABLE</strong> <br />
+                                        </div>
+                                        <div style="font-size:10px;">
+                                            <strong> Impreso por: </strong> <spam t-field="user.name" /> <br />
+                                            <strong> Fecha Impresión: </strong> <span style="" t-esc="time.strftime('%Y-%m-%d')"/> <br />
+                                            <span t-usertime="%Y-%m-%d %H-%M-%S" /> 
+                                        </div>
+                                    </div>
+                                </div>
+                                <table class="table table-condensed">
+                                    <tr class="border_polizas">
+                                        <td class="bg_color"><strong>Nombre:</strong> </td>
+                                        <td><spam t-field="o.name"/></td>
+                                        <td class="bg_color"><strong>Empresa:</strong></td>
+                                        <td>
+                                            <t t-if="o.partner_id">
+                                                <spam t-field="o.partner_id.name"/>
+                                            </t>
+                                        </td>
+                                        <td class="bg_color"><strong>Diario:</strong></td>
+                                        <td><spam t-field="o.journal_id.name"/></td>
+                                    </tr>
+                                    <tr class="border_polizas">
+                                        <td class="bg_color"><strong>Fecha:</strong></td>
+                                        <td><spam t-field="o.date"/></td>
+                                        <td class="bg_color"><strong>Referencia:</strong></td>
+                                        <td><spam t-field="o.ref"/></td>
+                                        <td class="bg_color"><strong>Estatus:</strong></td>
+                                        <td><spam t-field="o.state"/></td>
+                                    </tr>
+                                </table>
+                                <table class="table table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Cuenta</th>
+                                            <th style="width: 40%;">Etiqueta</th>
+                                            <th>Importe Divisa</th>
+                                            <th>Moneda</th>
+                                            <th>Debe</th>
+                                            <th>Haber</th>
+                                        </tr>
+                                    </thead>
+                                    <t t-set="item" t-value="1" />
+                                    <t t-set="total_debit" t-value="0" />
+                                    <t t-set="total_credit" t-value="0.0" />
+                                    <tbody>
+                                        <t t-foreach="o.line_ids" t-as="l">
+                                            <tr class="border_polizas poliza_datas">
+                                                <td class="text-left"><span t-esc="item"/></td>
+                                                <td class="text-left">
+                                                    [<spam t-field="l.account_id.code"/>] <spam t-field="l.account_id.name"/>
+                                                </td>
+                                                <td class="text-left" style="width: 40%;"><spam t-field="l.name"/></td>
+                                                <td class="text-right">
+                                                    <span t-field="l.amount_currency" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                                </td>
+                                                <td class="text-left">
+                                                    <t t-if="l.currency_id">
+                                                        <spam t-field="l.currency_id.name"/>
+                                                    </t>
+                                                    <t t-if="l.currency_id is None">
+                                                        <spam t-field="o.currency_id.name"/>
+                                                    </t>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-field="l.debit" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-field="l.credit" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                                </td>
+                                            </tr>
+                                            <t t-set="item" t-value="item+1"/>
+                                            <t t-set="total_debit" t-value="total_debit+l.credit"/>
+                                            <t t-set="total_credit" t-value="total_credit+l.credit"/>
+                                        </t>
+                                    </tbody>
+                                    <tfooter>
+                                        <tr class="border_polizas_total">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><strong>Total:</strong></td>
+                                            <td class="text-right"><field t-field="o.amount_debit" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}' /></td>
+                                            <td class="text-right"><field t-field="o.amount_credit" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}' /></td>
+                                        </tr>
+                                    </tfooter>
+                                </table>
+
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </t>
+        </template>
+    </data>
+
+</odoo>
