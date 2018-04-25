@@ -44,7 +44,7 @@ class amount_to_text:
         self._n3 = ( "ciento","dosc","tresc","cuatroc","quin","seisc",
                 "setec","ochoc","novec")
     
-    def amount_to_text_cheque(self, nNumero, intermedio="pesos ", sufijo="M. N." ):
+    def amount_to_text_cheque(self, nNumero, intermedio="", sufijo="" ):
         nNumero = round( nNumero , 2)
         strCantEntera = self.amount_to_text(nNumero)
         intCantDecimal = self.extraeDecimales( nNumero )

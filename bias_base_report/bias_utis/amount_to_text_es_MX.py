@@ -53,7 +53,7 @@ class amount_to_text:
         else:
             strCantDecimal="%d"%(intCantDecimal)
         strCantDecimal += "/100"
-        return strCantEntera+' '+intermedio+' '+strCantDecimal+' '+sufijo
+        return '%s %s %s %s'%(strCantEntera, intermedio, strCantDecimal, sufijo)
     
     def extraeDecimales(self, nNumero, max_digits=2):
         strDecimales = str( round(nNumero%1, 2) ).replace('0.','')
