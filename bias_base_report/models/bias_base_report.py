@@ -2,7 +2,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from openerp import api, fields, models, _
-
 from openerp.addons.bias_base_report.bias_utis.amount_to_text_es_MX import amount_to_text
 
 def extraeDecimales(nNumero, max_digits=2):
@@ -16,8 +15,9 @@ def cant_letra(currency, amount):
         nombre = currency.nombre_largo or 'M/CTE'
         siglas = 'M/CTE'
 
-        decimales = extraeDecimales(amount, 2)
-        am = str(round(amount, 2)).split('.')
+        nNumero = round( amount , 2)
+        decimales = extraeDecimales(nNumero, 2)
+        am = str(nNumero).split('.')
         n_entero = amount_to_text().amount_to_text_cheque(float(am[0]), nombre, "").replace("  ", "").replace("00/100", "")
         n_decimales = amount_to_text().amount_to_text_cheque(float(decimales), 'centavos', siglas).replace("00/100 ", "")
         name = "%s con %s "%(n_entero, n_decimales)
