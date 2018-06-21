@@ -266,7 +266,7 @@ class AccountMoveLine(models.Model):
             if res.get('message'):
                 message = res['message']
             else:
-                self.get_process_data(self, res.get('result'))
+                self.with_context(**ctx).get_process_data(self, res.get('result'))
         except ValueError, e:
             message = str(e)
         except Exception, e:
@@ -294,6 +294,27 @@ class AccountInvoice(models.Model):
         inv = self
         amount_to_show = 0
         for payment in inv.payment_move_line_ids:
+            if inv.type in ('out_invoice', 'in_refund'):
+                amount = sum([p.amount for p in payment.matched_debit_ids if p.debit_move_id in inv.move_id.line_ids])
+                amount_currency = sum([p.amount_currency for p in payment.matched_debit_ids if p.debit_move_id in inv.move_id.line_ids])
+                if payment.matched_debit_ids:
+                    payment_currency_id = all([p.currency_id == payment.matched_debit_ids[0].currency_id for p in payment.matched_debit_ids]) and payment.matched_debit_ids[0].currency_id or False
+            elif inv.type in ('in_invoice', 'out_refund'):
+                amount = sum([p.amount for p in payment.matched_credit_ids if p.credit_move_id in inv.move_id.line_ids])
+                amount_currency = sum([p.amount_currency for p in payment.matched_credit_ids if p.credit_move_id in inv.move_id.line_ids])
+                if payment.matched_credit_ids:
+                    payment_currency_id = all([p.currency_id == payment.matched_credit_ids[0].currency_id for p in payment.matched_credit_ids]) and payment.matched_credit_ids[0].currency_id or False
+            if payment_currency_id and payment_currency_id == inv.currency_id:
+                amount_to_show += amount_currency
+            else:
+                amount_to_show += payment.company_id.currency_id.with_context(date=payment.date).compute(amount, inv.currency_id)
+        return amount_to_show
+
+    def get_cfdi_imppagado(self, payment_move_line_ids):
+        inv = self
+        amount_to_show = 0
+        for payment in payment_move_line_ids:
+            print 'payment', payment, payment.matched_debit_ids, inv.move_id.line_ids
             if inv.type in ('out_invoice', 'in_refund'):
                 amount = sum([p.amount for p in payment.matched_debit_ids if p.debit_move_id in inv.move_id.line_ids])
                 amount_currency = sum([p.amount_currency for p in payment.matched_debit_ids if p.debit_move_id in inv.move_id.line_ids])

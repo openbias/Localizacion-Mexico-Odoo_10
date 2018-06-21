@@ -21,20 +21,19 @@ class AltaCatalogosCFDI(models.TransientModel):
         models = [
             'comercio_exterior.unidadaduana',
             'comercio_exterior.fraccionarancelaria',
-            'res.country.state.municipio.colonia',
             'cfd_mx.unidadesmedida',
             'cfd_mx.prodserv',
-            'res.country.state.municipio',
             'res.country.state.ciudad',
-            'res.country.state.cp'
+            'res.country.state.municipio',
+            'res.country.state.cp',
+            'res.country.state.municipio.colonia'
         ]
         for model in models:
             model_name = model.replace('.', '_')
             logging.info(' Model: -- %s'%model_name )
-
             model_obj = self.env[model]
             fname = '/../data/json/%s.json' % model
-            current_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))        
+            current_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
             path =  current_path+fname
             jdatas = json.load(open(path))
             for indx, data in enumerate(jdatas):
@@ -97,10 +96,6 @@ class UsoCfdi(models.Model):
         return recs.name_get()
 
 
-
-
-
-
 class MetodoPago(models.Model):
     _name = "cfd_mx.metodopago"
 
@@ -150,8 +145,6 @@ class Regimen(models.Model):
         if not recs:
             recs = self.search([('name', operator, name)] + args, limit=limit)
         return recs.name_get()
-
-
 
 class FormaPago(models.Model):
     _name = 'cfd_mx.formapago'

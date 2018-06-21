@@ -554,13 +554,15 @@ class HrPayslip(models.Model):
     def action_payslip_done(self):
         res = False
         for rec in self:
+            is_cfdi = rec.employee_id and rec.employee_id.contract_id and rec.employee_id.contract_id.is_cfdi or False
             if rec.uuid and rec.state not in ['draft']:
                 return True
             if rec.uuid:
                 return True
+            if is_cfdi == False:
+                return True
 
             logging.info('Action 00 %s '%(rec.number) )
-
             message = self.action_validate_cfdi()
             try:
                 self.compute_sheet()

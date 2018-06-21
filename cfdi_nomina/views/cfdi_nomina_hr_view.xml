@@ -38,6 +38,7 @@
             <field name="arch" type="xml">
                 <field name="type_id" position="after">
                     <field name="regimen_contratacion_id"/>
+                    <field name="is_cfdi" />
                 </field>
                 <field name="wage" position="after">
                     <field name="periodicidad_pago_id"/>

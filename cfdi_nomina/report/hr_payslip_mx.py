@@ -34,7 +34,6 @@ class HrPayslip(models.Model):
         return '%s a %s'%(self.date_from, self.date_to)
 
     def get_message(self):
-        print "self.cant_letra", self.cant_letra
         msg = "RECIBI DE LA EMPRESA %s LA CANTIDAD DE %s \
         MISMAS QUE CUBREN LAS PERCEPCIONES QUE ME CORRESPONDEN EN EL PERIODO INDICADO, \
         NO EXISTIENDO NINGUN ADEUDO, POR PARTE DE LA EMPRESA PARA EL SUSCRITO, \
@@ -106,7 +105,6 @@ class HrPayslip(models.Model):
             for i in range(2):
                 datas_tmp = payslip_tmp.copy()
                 datas.append(datas_tmp)
-        print "datas", datas
         return datas
 
     def get_lines_dp(self):

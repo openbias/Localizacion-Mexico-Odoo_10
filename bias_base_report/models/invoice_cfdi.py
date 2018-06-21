@@ -164,7 +164,7 @@ class AccountCfdi(models.Model):
         if ctx['type'] in ['pagos', 'nomina']:
             self.cfdi_datas['complemento'] = getattr(self, '%s_info_complemento' % ctx['type'])()
         datas = json.dumps(self.cfdi_datas, sort_keys=True, indent=4, separators=(',', ': '))
-        # logging.info(datas)
+        logging.info(datas)
         url = '%s/stamp%s/'%(self.host, ctx['type'])
         if self.port:
             url = '%s:%s/stamp%s/'%(self.host, self.port, ctx['type'])
@@ -207,9 +207,13 @@ class AccountCfdi(models.Model):
         return res_datas
 
     def get_process_data(self, obj, res):
+        context = dict(self._context) or {}
+        fname = "cfd_%s.xml"%(obj.number or obj.name or '')
+        if context.get('type') and context.get('type') == 'pagos':
+            fname = '%s.xml'%(res.get('UUID') or res.get('uuid') or obj.number or obj.name or '')
+
         # Adjuntos
         attachment_obj = obj.env['ir.attachment']
-        fname = "cfd_" + (obj.number or obj.name) + ".xml"
         attachment_values = {
             'name': fname,
             'datas': res.get('xml'),
@@ -239,8 +243,6 @@ class AccountCfdi(models.Model):
         return True
 
     def action_raise_message(self, message):
-        print 'self', self, 
-        print 'message', message
         self.ensure_one()
         context = dict(self._context) or {}
         if not self.mensaje_validar:

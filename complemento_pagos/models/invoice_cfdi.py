@@ -89,8 +89,9 @@ class AccountCfdi(models.Model):
         cfdi_pagos = []
         DoctoRelacionado = []
         
+        print 'obj', obj
+
         tipocambio = None
-        
         monto = '%.2f'%(abs(obj.credit))
         payment_id = obj.payment_id
         p_moneda = "MXN" if obj.payment_id.currency_id.name in [False, None] else obj.payment_id.currency_id.name
@@ -108,6 +109,34 @@ class AccountCfdi(models.Model):
 
         for inv in ctx.get("invoice_ids", []):
             if inv.uuid:
+                TipoCambioDR = self._get_tipocambio(inv.currency_id, payment_id.payment_date)
+
+                ImpPagado = inv.get_cfdi_imppagado(obj)
+
+                ImpPagos = inv.get_cfdi_imp_pagados()
+                ImpPagado =  inv.get_cfdi_imppagado(obj) # (abs(obj.credit) / TipoCambioDR)
+                # if p_moneda != inv.currency_id.name:
+                #     ImpPagado = abs(obj.amount_currency)
+                ImpSaldoAnt = (inv.amount_total - (ImpPagos - ImpPagado))
+                if ImpSaldoAnt == 0.0:
+                    ImpSaldoAnt = inv.amount_total
+                ImpSaldoInsoluto = inv.amount_total - ImpPagos
+                docto_attribs = {
+                    "IdDocumento": "%s"%inv.uuid,
+                    "Folio": "%s"%inv.number,
+                    "MonedaDR": "%s"%inv.currency_id.name,
+                    "MetodoDePagoDR": "PPD",
+                    "NumParcialidad": u"%s"%(inv.parcialidad_pago or 1),
+                    "ImpSaldoAnt": '%.2f'%ImpSaldoAnt,
+                    "ImpPagado": '%.2f'%ImpPagado,
+                    "ImpSaldoInsoluto": '%.2f'%(abs(ImpSaldoInsoluto))
+                }
+                if p_moneda != inv.currency_id.name:
+                    docto_attribs['TipoCambioDR'] = '%s'%(TipoCambioDR)
+                if inv.journal_id.serie:
+                    docto_attribs['Serie'] = inv.journal_id.serie or ''
+                DoctoRelacionado.append(docto_attribs)
+                """
                 TipoCambioDR = self._get_tipocambio(inv.currency_id, payment_id.payment_date)
                 ImpPagos = inv.get_cfdi_imp_pagados()
                 ImpPagado =  (abs(obj.credit) / TipoCambioDR)
@@ -132,6 +161,7 @@ class AccountCfdi(models.Model):
                 if inv.journal_id.serie:
                     docto_attribs['Serie'] = inv.journal_id.serie or ''
                 DoctoRelacionado.append(docto_attribs)
+                """
         res = {
             'pago_attribs': pago_attribs,
             'docto_relacionados': DoctoRelacionado

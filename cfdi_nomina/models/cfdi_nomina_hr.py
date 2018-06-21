@@ -56,7 +56,6 @@ class HrSalaryRule(models.Model):
                 raise UserError(_('Wrong percentage base or quantity defined for salary rule %s (%s).') % (self.name, self.code))
         else:
             context = dict(self.env.context)
-
             """
             localdict.update({'gravado': 0.0, 'exento': 0.0, 'this': self, "UserError": UserError, 'time': time, 'datetime': datetime, 'timedelta': timedelta, 'ValidationError': ValidationError })
             safe_eval(self.amount_python_compute, localdict, mode='exec', nocopy=True)
@@ -81,6 +80,7 @@ class HrContract(models.Model):
 
     regimen_contratacion_id = fields.Many2one('cfdi_nomina.regimen_contratacion', string=u"Régimen Contratación")
     periodicidad_pago_id = fields.Many2one("cfdi_nomina.periodicidad_pago", string=u"Periodicidad pago")
+    is_cfdi = fields.Boolean(default=True, string="Es CFDI?")
 
 class HrContractType(models.Model):
     _inherit = "hr.contract.type"
