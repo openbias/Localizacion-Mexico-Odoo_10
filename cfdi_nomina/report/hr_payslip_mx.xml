@@ -69,21 +69,24 @@
                         <table class="table table-condensed" id="percepciones" style="width: 100%; font-size: 10px;">
                             <thead>
                                 <tr>
-                                    <th colspan="3">PERCEPCIONES:</th>
-                                    <th colspan="3">DEDUCCIONES:</th>
+                                    <th colspan="4">PERCEPCIONES:</th>
+                                    <th colspan="4">DEDUCCIONES:</th>
                                 </tr>
                                 <tr>
+                                    <th>Clave SAT</th>
                                     <th>Clave</th>
-                                    <th>Descripción</th>
+                                    <th style="width: 30%;">Descripción</th>
                                     <th>Importe</th>
+                                    <th>Clave SAT</th>
                                     <th>Clave</th>
-                                    <th>Descripción</th>
+                                    <th style="width: 30%;">Descripción</th>
                                     <th>Importe</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <t t-foreach="o.get_lines_dp()" t-as="d">
                                     <tr>
+                                        <td>&amp;nbsp;<span t-esc="d['p_codesat']"/></td>
                                         <td>&amp;nbsp;<span t-esc="d['p_code']"/></td>
                                         <td>&amp;nbsp;<span t-esc="d['p_name']"/></td>
                                         <td style="text-align: right;">
@@ -92,6 +95,7 @@
                                                 <t t-set="p_total" t-value="p_total+d['p_total']"/>
                                             </t>
                                         </td>
+                                        <td>&amp;nbsp;<span t-esc="d['d_codesat']"/></td>
                                         <td>&amp;nbsp;<span t-esc="d['d_code']"/></td>
                                         <td>&amp;nbsp;<span t-esc="d['d_name']"/></td>
                                         <td style="text-align: right;">
@@ -103,11 +107,12 @@
                                     </tr>
                                 </t>
                                 <tr>
-                                    <th colspan="3">Otros Pagos:</th>
-                                    <th colspan="3"></th>
+                                    <th colspan="4">Otros Pagos:</th>
+                                    <th colspan="4"></th>
                                 </tr>
                                 <t t-foreach="o.get_lines_o()" t-as="d">
                                     <tr>
+                                        <td>&amp;nbsp;<span t-esc="d['p_codesat']"/></td>
                                         <td>&amp;nbsp;<span t-esc="d['p_code']"/></td>
                                         <td>&amp;nbsp;<span t-esc="d['p_name']"/></td>
                                         <td style="text-align: right;">
@@ -116,6 +121,7 @@
                                                 <t t-set="p_total" t-value="p_total+d['p_total']"/>
                                             </t>
                                         </td>
+                                        <td>&amp;nbsp;<span t-esc="d['d_codesat']"/></td>
                                         <td>&amp;nbsp;<span t-esc="d['d_code']"/></td>
                                         <td>&amp;nbsp;<span t-esc="d['d_name']"/></td>
                                         <td style="text-align: right;">
@@ -129,19 +135,19 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="2"><strong>Total de Percepciones y Otros Pagos </strong></td>
+                                    <td colspan="3"><strong>Total de Percepciones y Otros Pagos </strong></td>
                                     <td style="text-align: right;">&amp;nbsp;$ <span t-esc="p_total"/></td>
-                                    <td colspan="2"><strong>Total de Deducciones </strong></td>
+                                    <td colspan="3"><strong>Total de Deducciones </strong></td>
                                     <td style="text-align: right;">&amp;nbsp;$ <span t-esc="d_total"/></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="3">&amp;nbsp;</td>
+                                    <td colspan="5">&amp;nbsp;</td>
                                     <td colspan="2"><strong>Total a pagar </strong></td>
                                     <td style="text-align: right;"><span t-field="o.total"/></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="3" style="width: 50%;text-align: justify;"><span t-esc="o.get_message() "/></td>
-                                    <td colspan="3" style="width: 50%;">
+                                    <td colspan="4" style="width: 50%;text-align: justify;"><span t-esc="o.get_message() "/></td>
+                                    <td colspan="4" style="width: 50%;">
                                         <div class="row">
                                             <div class="col-4"><br /><br/><span>&amp;nbsp;</span></div>
                                             <div class="col-4 text-center" style="text-align: center; border-top: 1px solid #BDBDBD;">

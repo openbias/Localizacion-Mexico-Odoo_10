@@ -54,6 +54,29 @@ class HrPayslip(models.Model):
             datas.append(datas_tmp)
         return datas
 
+    def get_lines_reportcode(self, code):
+        datas_tmp = {
+            'code': ' ',
+            'name': ' ',
+            'codesat': ' ',
+            'namesat': ' ',
+            'quantity': 0.0,
+            'amount': 0.0,
+            'total': 0.0,
+        }
+        line = self.line_ids.filtered(lambda r: r.code == code and r.salary_rule_id.appears_on_payslip_report == True)
+        if line:
+            p_codigo_id = line and line.salary_rule_id or None
+            if p_codigo_id:
+                datas_tmp['code'] = p_codigo_id and p_codigo_id.code or ' '
+                datas_tmp['name'] = p_codigo_id and p_codigo_id.name or ' '
+                datas_tmp['codesat'] = p_codigo_id and p_codigo_id.codigo_agrupador_id and p_codigo_id.codigo_agrupador_id.code or ' '
+                datas_tmp['namesat'] = p_codigo_id and p_codigo_id.codigo_agrupador_id and p_codigo_id.codigo_agrupador_id.name or ' '
+            datas_tmp['quantity'] = line and line.quantity or 0.0
+            datas_tmp['amount'] = line and line.amount or 0.0
+            datas_tmp['total'] = line and line.total or 0.0
+        return datas_tmp
+
     def _get_lines_type(self, ttype):
         Model = self.env['ir.model.data']
         line_ids = self.line_ids
@@ -77,24 +100,32 @@ class HrPayslip(models.Model):
         payslip_tmp = {
             'p_code': ' ',
             'p_name': ' ',
+            'p_codesat': ' ',
+            'p_namesat': ' ',
             'p_total': 0.0,
             'd_code': ' ',
             'd_name': ' ',
+            'd_codesat': ' ',
+            'd_namesat': ' ',
             'd_total': 0.0,
         }
         for indx in range(0, len_criteria):
             p_line = p_lines[indx] if len(p_lines) > indx else None
             d_line = d_lines[indx] if len(d_lines) > indx else None
             datas_tmp = payslip_tmp.copy()
-            p_codigo_id = p_line and p_line.salary_rule_id.codigo_agrupador_id or None
+            p_codigo_id = p_line and p_line.salary_rule_id or None
             if p_codigo_id:
                 datas_tmp['p_code'] = p_codigo_id and p_codigo_id.code or ' '
                 datas_tmp['p_name'] = p_codigo_id and p_codigo_id.name or ' '
+                datas_tmp['p_codesat'] = p_codigo_id and p_codigo_id.codigo_agrupador_id and p_codigo_id.codigo_agrupador_id.code or ' '
+                datas_tmp['p_namesat'] = p_codigo_id and p_codigo_id.codigo_agrupador_id and p_codigo_id.codigo_agrupador_id.name or ' '
             datas_tmp['p_total'] = p_line and p_line.total or 0.0
-            d_codigo_id = d_line and d_line.salary_rule_id.codigo_agrupador_id or None
+            d_codigo_id = d_line and d_line.salary_rule_id or None
             if d_codigo_id:
                 datas_tmp['d_code'] = d_codigo_id and d_codigo_id.code or ' '
                 datas_tmp['d_name'] = d_codigo_id and d_codigo_id.name or ' '
+                datas_tmp['d_codesat'] = d_codigo_id and d_codigo_id.codigo_agrupador_id and d_codigo_id.codigo_agrupador_id.code or ' '
+                datas_tmp['d_namesat'] = d_codigo_id and d_codigo_id.codigo_agrupador_id and d_codigo_id.codigo_agrupador_id.name or ' '
             datas_tmp['d_total'] = d_line and d_line.total or 0.0
             datas.append(datas_tmp)
         if len(datas) == 0:
@@ -117,9 +148,13 @@ class HrPayslip(models.Model):
         payslip_tmp = {
             'p_code': ' ',
             'p_name': ' ',
+            'p_codesat': ' ',
+            'p_namesat': ' ',
             'p_total': 0.0,
             'd_code': ' ',
             'd_name': ' ',
+            'd_codesat': ' ',
+            'd_namesat': ' ',
             'd_total': 0.0,
         }
         for indx in range(0, len_criteria):
@@ -127,15 +162,19 @@ class HrPayslip(models.Model):
             d_line = d_lines[indx] if len(d_lines) > indx else None
             datas_tmp = payslip_tmp.copy()
 
-            p_codigo_id = p_line and p_line.salary_rule_id.codigo_agrupador_id or None
+            p_codigo_id = p_line and p_line.salary_rule_id or None
             if p_codigo_id:
                 datas_tmp['p_code'] = p_codigo_id and p_codigo_id.code or ' '
                 datas_tmp['p_name'] = p_codigo_id and p_codigo_id.name or ' '
+                datas_tmp['p_codesat'] = p_codigo_id and p_codigo_id.codigo_agrupador_id and p_codigo_id.codigo_agrupador_id.code or ' '
+                datas_tmp['p_namesat'] = p_codigo_id and p_codigo_id.codigo_agrupador_id and p_codigo_id.codigo_agrupador_id.name or ' '
             datas_tmp['p_total'] = p_line and p_line.total or 0.0
-            d_codigo_id = d_line and d_line.salary_rule_id.codigo_agrupador_id or None
+            d_codigo_id = d_line and d_line.salary_rule_id or None
             if d_codigo_id:
                 datas_tmp['d_code'] = d_codigo_id and d_codigo_id.code or ' '
                 datas_tmp['d_name'] = d_codigo_id and d_codigo_id.name or ' '
+                datas_tmp['d_codesat'] = d_codigo_id and d_codigo_id.codigo_agrupador_id and d_codigo_id.codigo_agrupador_id.code or ' '
+                datas_tmp['d_namesat'] = d_codigo_id and d_codigo_id.codigo_agrupador_id and d_codigo_id.codigo_agrupador_id.name or ' '
             datas_tmp['d_total'] = d_line and d_line.total or 0.0
             datas.append(datas_tmp)
         if len(datas) == 0:
