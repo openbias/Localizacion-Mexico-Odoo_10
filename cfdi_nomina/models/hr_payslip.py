@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 
 import odoo
-# import odoo.modules.registry as 
-# from odoo.api import call_kw, Environment
-
 from odoo import api, fields, models, tools, _, registry
 from odoo.exceptions import UserError, RedirectWarning, ValidationError
 from odoo.tools import float_compare, float_is_zero
 from odoo.tools.safe_eval import safe_eval
 from odoo.api import Environment
+from openerp.addons.bias_base_report.bias_utis.amount_to_text_es_MX import amount_to_text
 
 import re
 import pytz
@@ -25,6 +23,31 @@ import threading
 import base64
 
 logging.basicConfig(level=logging.INFO)
+
+
+def extraeDecimales(nNumero, max_digits=2):
+    strDecimales = str( round(nNumero%1, 2) ).replace('0.','')
+    strDecimales += "0"*max_digits
+    strDecimales = strDecimales[0:max_digits]
+    return long( strDecimales )
+
+def cant_letra(currency, amount):
+    if currency.name == 'COP':
+        nombre = currency.nombre_largo or 'M/CTE'
+        siglas = 'M/CTE'
+        nNumero = round( amount , 2)
+        decimales = extraeDecimales(nNumero, 2)
+        am = str(nNumero).split('.')
+        n_entero = amount_to_text().amount_to_text_cheque(float(am[0]), nombre, "").replace("  ", "").replace("00/100", "")
+        n_decimales = amount_to_text().amount_to_text_cheque(float(decimales), 'centavos', siglas).replace("00/100 ", "")
+        name = "%s con %s "%(n_entero, n_decimales)
+    else:
+        nombre = currency.nombre_largo or ''
+        siglas = currency.name
+        name = amount_to_text().amount_to_text_cheque(float(amount), nombre, siglas).capitalize()
+    return name
+
+
 
 CATALOGO_TIPONOMINA = [('O','Ordinaria'),('E','Extraordinaria')]
 
@@ -672,3 +695,9 @@ class HrPayslip(models.Model):
             }
             attachment_obj.create(attachment_values)
         return True
+
+
+    @api.one
+    def get_cantLetra(self, amount):
+        cantLetra = cant_letra(self.currency_id, amount) or ''
+        return cantLetra

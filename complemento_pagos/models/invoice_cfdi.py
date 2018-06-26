@@ -89,8 +89,6 @@ class AccountCfdi(models.Model):
         cfdi_pagos = []
         DoctoRelacionado = []
         
-        print 'obj', obj
-
         tipocambio = None
         monto = '%.2f'%(abs(obj.credit))
         payment_id = obj.payment_id
