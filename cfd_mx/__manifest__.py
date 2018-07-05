@@ -43,6 +43,7 @@ Factura Electronica Mexico 3.3
         'views/product_product_views.xml',
         'views/invoice_view.xml',
         'views/report_invoice_mx_document.xml',
+        'views/report_supplierinvoice.xml',
         # 'data/mail.template.csv',
     ],
     'demo': [],
