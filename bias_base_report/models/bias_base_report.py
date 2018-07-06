@@ -79,3 +79,4 @@ class AccountInvoice(models.Model):
                 })
     
     cantLetra = fields.Char(string='Cantidad en letra', readonly=True, compute='_get_cantLetra', size=256, track_visibility='always')
+

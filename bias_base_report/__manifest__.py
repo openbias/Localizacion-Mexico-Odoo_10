@@ -19,7 +19,8 @@
         'data/report_data.xml',
         'report/report_menus.xml',
         'report/account_move.xml',
-        'views/models_views.xml'
+        'views/models_views.xml',
+        'views/wiz_report_xlsx_view.xml'
     ],
     'installable': True,
 }
