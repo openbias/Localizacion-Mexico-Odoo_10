@@ -58,6 +58,7 @@ class report_xlsx(ReportXlsx):
             'money_format': workbook.add_format({'font_name':'Trebuchet MS', 'font_size':10, 'align':'right', 'valign':'vcenter', 'num_format':'$#,##0.00;[RED]-$#,##0.00', 'fg_color':'white', 'bottom': 4, 'bottom_color':'#D9D9D9'}),
             'integer_format': workbook.add_format({'font_name':'Trebuchet MS', 'font_size':10, 'align':'right', 'valign':'vcenter', 'num_format':'#,##0.00;[RED]-#,##0.00', 'fg_color':'white', 'bottom': 4, 'bottom_color':'#D9D9D9'}),
             'datetime': workbook.add_format({ 'font_name':'Trebuchet MS', 'font_size':10, 'align':'right', 'valign':'vcenter', 'num_format':'d/mm/yyyy h:mm', 'fg_color':'white', 'bottom': 4, 'bottom_color':'#D9D9D9' }),
+            'date': workbook.add_format({ 'font_name':'Trebuchet MS', 'font_size':10, 'align':'right', 'valign':'vcenter', 'num_format':'dd/mm/yy', 'fg_color':'white', 'bottom': 4, 'bottom_color':'#D9D9D9' }),
         }
 
         for column in columns:
@@ -90,14 +91,6 @@ class report_xlsx(ReportXlsx):
                 except:
                     formato = workbook_format.get('string_left')
                 worksheet.write_column(row-1, i, d, formato)
-
-
-
-            """
-            for d in datas[1:]:
-                worksheet.write_row('A%s'%(row), d, money_format)
-                row += 1
-            """
 
         company_id = self.env.user.company_id
 report_xlsx('report.report_xlsx', 'report.xlsx.wiz')
