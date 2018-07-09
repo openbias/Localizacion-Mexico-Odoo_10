@@ -43,7 +43,7 @@ class report_xlsx(ReportXlsx):
             'title_company': workbook.add_format({'font_name':'Arial', 'font_size':18, 'bold':1, 'align':'center', 'valign':'vcenter', 'color':'#032C46'}),
             'header_format': workbook.add_format({'font_name':'Arial', 'font_size':12, 'bold':1, 'italic':0, 'align':'center', 'valign':'vcenter', 'fg_color':'#AAAAAA', 'color':'#FFFFFF', 'bottom': 2, 'bottom_color':'#AAAAAA', 'top': 2, 'top_color':'#AAAAAA' }),
             
-            'string_center': workbook.add_format({'font_name':'Trebuchet MS', 'font_size':10, 'align':'left', 'valign':'vcenter', 'fg_color':'white', 'bottom': 4, 'bottom_color':'#D9D9D9'}),
+            'string_center': workbook.add_format({'font_name':'Trebuchet MS', 'font_size':10, 'align':'center', 'valign':'vcenter', 'fg_color':'white', 'bottom': 4, 'bottom_color':'#D9D9D9'}),
             'string_left': workbook.add_format({'font_name':'Trebuchet MS', 'font_size':10, 'align':'left', 'valign':'vcenter', 'fg_color':'white', 'bottom': 4, 'bottom_color':'#D9D9D9'}),
             'string_rigth': workbook.add_format({'font_name':'Trebuchet MS', 'font_size':10, 'align':'right', 'valign':'vcenter', 'fg_color':'white', 'bottom': 4, 'bottom_color':'#D9D9D9'}),
 
@@ -57,8 +57,8 @@ class report_xlsx(ReportXlsx):
 
             'money_format': workbook.add_format({'font_name':'Trebuchet MS', 'font_size':10, 'align':'right', 'valign':'vcenter', 'num_format':'$#,##0.00;[RED]-$#,##0.00', 'fg_color':'white', 'bottom': 4, 'bottom_color':'#D9D9D9'}),
             'integer_format': workbook.add_format({'font_name':'Trebuchet MS', 'font_size':10, 'align':'right', 'valign':'vcenter', 'num_format':'#,##0.00;[RED]-#,##0.00', 'fg_color':'white', 'bottom': 4, 'bottom_color':'#D9D9D9'}),
-            'datetime': workbook.add_format({ 'font_name':'Trebuchet MS', 'font_size':10, 'align':'right', 'valign':'vcenter', 'num_format':'d/mm/yyyy h:mm', 'fg_color':'white', 'bottom': 4, 'bottom_color':'#D9D9D9' }),
-            'date': workbook.add_format({ 'font_name':'Trebuchet MS', 'font_size':10, 'align':'right', 'valign':'vcenter', 'num_format':'dd/mm/yy', 'fg_color':'white', 'bottom': 4, 'bottom_color':'#D9D9D9' }),
+            'datetime': workbook.add_format({ 'font_name':'Trebuchet MS', 'font_size':10, 'align':'right', 'valign':'vcenter', 'num_format':'yyyy-mm-dd hh:mm:ss', 'fg_color':'white', 'bottom': 4, 'bottom_color':'#D9D9D9' }),
+            'date': workbook.add_format({ 'font_name':'Trebuchet MS', 'font_size':10, 'align':'center', 'valign':'vcenter', 'num_format':'yyyy-mm-dd', 'fg_color':'white', 'bottom': 4, 'bottom_color':'#D9D9D9' }),
         }
 
         for column in columns:
