@@ -11,7 +11,7 @@
                         <field name="ine_activate" invisible="1"/>
                     </field>
                     <notebook position="inside">
-                        <page string="Complemento INE" attrs="{'invisible':[('ine_activate','=',False)]}">
+                        <page string="Complemento INE" attrs="{'invisible':[('ine_activate', '=', False)]}">
                             <group>
                                 <field name="ine_tipo_proceso"/>
                                 <field name="ine_tipo_comite"/>

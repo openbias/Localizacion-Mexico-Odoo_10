@@ -18,6 +18,7 @@
                                 <field name="cfd_mx_db" />
                             </group>
                             <group string="General" name="cfdi_general">
+                                <field name="reason_cancel_invoice" />
                             </group>
                         </group>
                         <group string="Diarios" >

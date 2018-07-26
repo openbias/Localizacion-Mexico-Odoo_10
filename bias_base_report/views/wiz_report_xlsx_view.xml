@@ -28,11 +28,13 @@
             <field name="target">new</field>
         </record>
 
+        <!--
         <menuitem 
             action="action_report_xlsx_wiz" 
             id="menu_report_xlsx_wiz" 
             parent="account.menu_finance_payables" 
             sequence="1"/>
+        -->
 
         <report 
             id="report_xlsx"

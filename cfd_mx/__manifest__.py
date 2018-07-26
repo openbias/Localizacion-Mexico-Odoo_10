@@ -45,6 +45,8 @@ Factura Electronica Mexico 3.3
         'views/report_invoice_mx_document.xml',
         'views/report_supplierinvoice.xml',
         # 'data/mail.template.csv',
+
+        'wizard/reason_cancel_invoice_view.xml'
     ],
     'demo': [],
     'qweb': [],

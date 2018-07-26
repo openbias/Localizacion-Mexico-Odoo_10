@@ -214,12 +214,15 @@ class AccountInvoice(models.Model):
     internal_number = fields.Char(string='Invoice Number', size=32, readonly=True, copy=False, help="Unique number of the invoice, computed automatically when the invoice is created.")
     usocfdi_id = fields.Many2one('cfd_mx.usocfdi', string="Uso de Comprobante CFDI", required=False)
     metodopago_id = fields.Many2one('cfd_mx.metodopago', string=u'Metodo de Pago')
+    reason_cancel = fields.Text(string="Motivo Cancelacion")
 
     # Quitar en Futuras Versiones
     cuentaBanco = fields.Char(string='Ultimos 4 digitos cuenta', size=4, default='')
     anoAprobacion = fields.Integer(string=u"Año de aprobación")
     noAprobacion = fields.Char(string="No. de aprobación")
     tipopago_id = fields.Many2one('cfd_mx.tipopago', string=u'Forma de Pago')
+
+
 
 
     @api.onchange('date_invoice')
@@ -309,6 +312,7 @@ class AccountInvoice(models.Model):
         values["tiporelacion_id"] = ctx.get("tiporelacion_id", None) or None
         values['uuid_egreso'] = invoice.uuid
         values['tipo_comprobante'] = 'E'
+        values['payment_term_id'] = invoice.payment_term_id.id
         return values
 
     @api.multi
@@ -501,11 +505,41 @@ class AccountInvoice(models.Model):
     def get_comprobante_addenda(self):
         context = dict(self._context) or {}
         dict_addenda = {}
-        Addenda = self.env['cfd_mx.conf_addenda']
-        for conf_addenda in Addenda.search([('partner_ids', 'in', self.partner_id.ids), ('company_id', '=', self.company_id.id)]):
-            context.update({'model_selection': conf_addenda.model_selection})
-            dict_addenda = conf_addenda.with_context(**context).create_addenda(self)
+        if self.type == 'out_invoice':
+            Addenda = self.env['cfd_mx.conf_addenda']
+            for conf_addenda in Addenda.search([('partner_ids', 'in', self.partner_id.ids), ('company_id', '=', self.company_id.id)]):
+                context.update({'model_selection': conf_addenda.model_selection})
+                dict_addenda = conf_addenda.with_context(**context).create_addenda(self)
         return dict_addenda
+
+
+
+    """
+    @api.multi
+    def action_invoice_cancel(self):
+        reason_cancel_invoice = self.env.user.company_id.reason_cancel_invoice or False
+        if reason_cancel_invoice:
+            wizard_form = self.env.ref('cfd_mx.reason_cancel_invoice_form', False)
+            view_id = self.env['reason.cancel.invoice']
+            vals = {
+                'name'   : '',
+                'invoice_id': self.id
+            }
+            new = view_id.create(vals)
+            return {
+                'name': _('Motivo Cancelacion'),
+                'type': 'ir.actions.act_window',
+                'res_model': 'reason.cancel.invoice',
+                'res_id': new.id,
+                'view_id': wizard_form.id,
+                'view_type': 'form',
+                'view_mode': 'form',
+                'target': 'new'
+            }
+        else:
+            res = super(AccountInvoice, self).action_invoice_cancel()
+            return res
+    """
 
 
 class MailComposeMessage(models.TransientModel):

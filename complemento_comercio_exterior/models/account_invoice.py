@@ -311,7 +311,6 @@ class AccountInvoice(models.Model):
         invoice = super(AccountInvoice, self).create(vals)
         return invoice
 
-
     @api.multi
     @api.onchange('partner_id')
     def onchange_activatecomercio(self):

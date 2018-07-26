@@ -25,17 +25,11 @@ class company(models.Model):
     
     cfd_mx_test_nomina = fields.Boolean(string=u'Timbrar en modo de prueba (nómina)')
     cfd_mx_test = fields.Boolean(string='Timbrar Prueba', default=True)
-    cfd_mx_pac = fields.Selection([
-            ('zenpar', 'Zenpar (EDICOM)'),
-            ('tralix', 'Tralix'),
-            ('finkok', 'Finkok')], 
-        string="PAC", default='')
-    cfd_mx_version = fields.Selection([
-            ('2.2', 'CFD 2.2'), 
-            ('3.2', 'CFDI 3.2'),
-            ('3.3', 'CFDI 3.3'),],
-        string='Versión', required=True, default='3.3')
+    cfd_mx_pac = fields.Selection([('finkok', 'Finkok')], string="PAC", default='')
+    cfd_mx_version = fields.Selection([('3.3', 'CFDI 3.3')], string='Versión', required=True, default='3.3')
     cfd_mx_journal_ids = fields.Many2many("account.journal", string="Diarios")
+
+    reason_cancel_invoice = fields.Boolean(string="Motivo de Cancelacion Factura")
 
     
     # Quitar en Futuras versiones

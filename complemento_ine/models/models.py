@@ -61,8 +61,18 @@ class addendas(models.Model):
 
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
+
+    @api.one
+    @api.depends('partner_id')
+    def _compute_ine_activate(self):
+        if self.partner_id:
+            conf_addenda_id = self.env['cfd_mx.conf_addenda'].search([('model_selection','=', 'complemento_ine')])
+            if conf_addenda_id:
+                res = self.partner_id.id in conf_addenda_id.partner_ids.ids
+                self.ine_activate = res
     
-    ine_activate = fields.Boolean("Activar complemento INE")
+    ine_activate = fields.Boolean("Activar complemento INE", compute='_compute_ine_activate')
+
     ine_tipo_proceso = fields.Selection([
             ('ordinario', 'Ordinario'),
             ('precampanha', 'Precampaña'),
@@ -78,6 +88,7 @@ class AccountInvoice(models.Model):
                 la clave de contabilidad se registra en la Entidad""")
     ine_entidades = fields.One2many("account.invoice.ine.entidad", "invoice_id", string="Entidades")
 
+    """
     @api.model
     def create(self, vals):
         onchanges = {
@@ -108,6 +119,8 @@ class AccountInvoice(models.Model):
         if conf_addenda_id:
             res = self.partner_id.id in conf_addenda_id.partner_ids.ids
             self.ine_activate = res
+    """
+
 
 class entidad(models.Model):
     _name = "account.invoice.ine.entidad"
