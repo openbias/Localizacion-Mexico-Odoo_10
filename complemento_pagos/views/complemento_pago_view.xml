@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data noupdate="1">
+        <record id="cfdipagos_paperformat" model="report.paperformat">
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="header_spacing">35</field>
+            <field name="margin_top">10</field>
+            <field name="margin_right">7</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">7</field>
+            <field name="header_line">False</field>
+            <field name="name">US Letter Pagos</field>
+            <field name="orientation">Portrait</field>
+            <field name="dpi">90</field>
+            <field name="default">True</field>
+            <field name="format">Letter</field>
+        </record>
+
+    </data>
+    <data>
+        <report 
+            id="complemento_pagos_mx"
+            model="account.move.line"
+            string="Pagos CFDI"
+            report_type="qweb-pdf"
+            name="complemento_pagos.report_cfdipagos_mx"
+            file="complemento_pagos.report_cfdipagos_mx" />
+
+        <record id="complemento_pagos_mx" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="complemento_pagos.cfdipagos_paperformat"/>
+        </record>
+
+    </data>
+
+    <data>
+        <template id="report_cfdipagos_mx_document">
+            <t t-call="bias_base_report.custom_external_layout">
+                <t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})" />
+                <div class="page">
+
+                    <t t-set="cfdiDatas" t-value="doc.get_xml_cfdi()" />
+                    <t t-set="compAtrib" t-value="cfdiDatas.get('compAtrib')" />
+                    <t t-set="receptorAtrib" t-value="cfdiDatas.get('receptorAtrib')" />
+                    <t t-set="nodosPagos" t-value="cfdiDatas.get('nodosPagos')" />
+                    <t t-set="timbreAtrib" t-value="cfdiDatas.get('timbreAtrib')" />
+
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <img 
+                                t-if="doc.company_id.logo" 
+                                t-att-src="'data:image/png;base64,%s' % doc.company_id.logo" 
+                                class="img img-responsive" style="max-height:104px;" />
+                        </div>
+                        <div class="col-xs-5 text-center">
+                            <strong class="font_theme_color" t-field="doc.company_id.partner_id.name" /><br />
+                            <div class="text-center" name="company_address">
+                                <div t-field="doc.company_id.partner_id" 
+                                    t-field-options='{
+                                        "widget": "contact", 
+                                        "fields": ["address", "phone", "email", "vat", "website"], 
+                                        "no_marker": false, "phone_icons": true}'
+                                    class="company_address" />
+                                <p t-if="doc.company_id.partner_id.vat" class="company_address">RFC: <span t-field="doc.company_id.partner_id.vat"/></p>
+                            </div>
+                        </div>
+                        <div class="col-xs-4 calidad_page">
+                            <div class="row">
+                                <div class="col-xs-12 bg_theme_color text-center">
+                                    <span class="fa fa-building-o"></span>
+                                    <strong>RECIBOS DE PAGOS v 3.3</strong>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-xs-12 bg_theme_color text-center">
+                                    <strong>Pagos</strong>
+                                </div>
+                                <div class="col-xs-5 bg_theme_color text-center">
+                                    <strong>Serie y Folio</strong>
+                                </div>
+                                <div class="col-xs-7 bg_theme_color text-center">
+                                    <strong>Fecha y Hora</strong>
+                                </div>
+                                <div class="col-xs-5">
+                                    <span t-esc="compAtrib.get('Serie')" />
+                                    <span t-esc="compAtrib.get('Folio')" />
+                                </div>
+                                <div class="col-xs-7">
+                                    <span t-esc="compAtrib.get('Fecha')" />
+                                </div>
+                                <div class="col-xs-12 bg_theme_color text-center">
+                                    <strong>Lugar de Expedición</strong>
+                                </div>
+                                <div class="col-xs-12 text-left">
+                                    [<span t-esc="compAtrib.get('LugarExpedicion')" />] <span t-field="doc.journal_id.codigo_postal_id.municipio_id" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="company_address" />
+                    <div class="row font_inv">
+                        <div class="col-xs-6">
+                            <div class="row">
+                                <div class="col-xs-12 bg_theme_color text-left">
+                                    <span class="fa fa-building-o"></span>
+                                    <strong>Información del Cliente</strong>
+                                </div>
+                                <div class="col-xs-12 text-left">
+                                    <strong t-field="doc.partner_id.name" />
+                                    <div class="text-left" name="font_inv">
+                                        <div t-field="doc.partner_id" 
+                                            t-field-options='{
+                                                "widget": "contact", 
+                                                "fields": ["address", "phone", "email", "vat", "website"], 
+                                                "no_marker": false, "phone_icons": true}'
+                                            class="font_inv" />
+                                        <p t-if="doc.partner_id.vat" class="font_inv"><strong>RFC: </strong> <span t-field="doc.partner_id.vat"/></p>
+                                        <p t-if="doc.partner_id.ref" class="font_inv"><strong>Numero de Cliente:</strong> <span t-field="o.partner_id.ref"/></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="row font_inv">
+                                <div class="col-xs-12 bg_theme_color text-left">
+                                    <strong>Información Adicional</strong>
+                                </div>
+                                <div class="col-xs-4 bg_theme_color text-left">
+                                    <strong>Version</strong>
+                                </div>
+                                <div class="col-xs-8 border_theme_color">
+                                    <span t-esc="compAtrib.get('Version')" />
+                                </div>
+                                <div class="col-xs-4 bg_theme_color text-left">
+                                    <strong>Total</strong>
+                                </div>
+                                <div class="col-xs-8 border_theme_color">
+                                    $ <span t-esc="compAtrib.get('Total')" />
+                                </div>
+                                <div class="col-xs-4 bg_theme_color text-left">
+                                    <strong>SubTotal</strong>
+                                </div>
+                                <div class="col-xs-8 border_theme_color">
+                                    $ <span t-esc="compAtrib.get('SubTotal')" />
+                                </div>
+                                <div class="col-xs-4 bg_theme_color text-left">
+                                    <strong>Moneda</strong>
+                                </div>
+                                <div class="col-xs-8 border_theme_color text-left">
+                                    <span t-esc="compAtrib.get('Moneda')" />
+                                </div>
+                                <div class="col-xs-4 bg_theme_color text-left">
+                                    <strong>Tipo De Comprobante</strong>
+                                </div>
+                                <div class="col-xs-8 border_theme_color text-left">
+                                    <span t-esc="compAtrib.get('TipoDeComprobante')" />
+                                </div>
+                                <div class="col-xs-4 bg_theme_color text-left">
+                                    <strong>No. Certificado</strong>
+                                </div>
+                                <div class="col-xs-8 border_theme_color text-left">
+                                    <span t-esc="compAtrib.get('NoCertificado')" />
+                                </div>
+                                <div class="col-xs-4 bg_theme_color text-left">
+                                    <strong>Uso de CFDI</strong>
+                                </div>
+                                <div class="col-xs-8 border_theme_color text-left">
+                                    <span t-esc="receptorAtrib.get('UsoCFDI')" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row font_inv">
+                        <div class="col-xs-12 bg_theme_color text-left">
+                            <strong>CONCEPTOS DEL COMPROBANTE</strong>
+                        </div>
+                        <div class="col-xs-2 bg_theme_color text-left">
+                            <span>Código</span>
+                        </div>
+                        <div class="col-xs-1 bg_theme_color text-left">
+                            <span>Cantidad</span>
+                        </div>
+                        <div class="col-xs-5 bg_theme_color text-left">
+                            <span>Descripción</span>
+                        </div>
+                        <div class="col-xs-1 bg_theme_color text-left">
+                            <span>U. de M</span>
+                        </div>
+                        <div class="col-xs-2 bg_theme_color text-left">
+                            <span>Precio U.</span>
+                        </div>
+                        <div class="col-xs-1 bg_theme_color text-left">
+                            <span>Importe</span>
+                        </div>
+                        <div class="col-xs-2 border_theme_color text-left">
+                            <span>84111506</span>
+                        </div>
+                        <div class="col-xs-1 border_theme_color text-left">
+                            <span>1</span>
+                        </div>
+                        <div class="col-xs-5 border_theme_color text-left">
+                            <span>Pago</span>
+                        </div>
+                        <div class="col-xs-1 border_theme_color text-left">
+                            <span>ACT</span>
+                        </div>
+                        <div class="col-xs-2 border_theme_color text-left">
+                            <span>$ 0.0</span>
+                        </div>
+                        <div class="col-xs-1 border_theme_color text-left">
+                            <span>$ 0.0</span>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row font_inv">
+                        <div class="col-xs-12 bg_theme_color text-left">
+                            <strong>CFDI Relacionados</strong>
+                        </div>
+                        <table class="table table-bordered table-sm event-table">
+                            <tr>
+                                <td class="bg_theme_color" style="width: 35%;"><span>UUID</span></td>
+                                <td class="bg_theme_color"><span>Folio</span></td>
+                                <td class="bg_theme_color"><span>Metodo</span></td>
+                                <td class="bg_theme_color"><span>Total</span></td>
+                                <td class="bg_theme_color"><span>Saldo Anterior</span></td>
+                                <td class="bg_theme_color"><span>Saldo Pendiente</span></td>
+                                <td class="bg_theme_color"><span>Monto Pagado</span></td>
+                            </tr>
+                            <t t-foreach="nodosPagos" t-as="nodosPago">
+                                <t t-foreach="nodosPago.get('doctosAtrib')" t-as="doctoAtrib">
+                                    <tr>
+                                        <td class="" style="width: 40%;"><span t-esc="doctoAtrib.get('IdDocumento')" /></td>
+                                        <td class=""><span t-esc="doctoAtrib.get('Folio')" /></td>
+                                        <td class=""><span t-esc="doctoAtrib.get('MetodoDePagoDR')" /></td>
+                                        <td class="">$ <span t-esc="doc.get_total_cfdi(doctoAtrib.get('IdDocumento'))" /></td>
+                                        <td class="">$ <span t-esc="doctoAtrib.get('ImpSaldoAnt')" /></td>
+                                        <td class="">$ <span t-esc="doctoAtrib.get('ImpSaldoInsoluto')" /></td>
+                                        <td class="">$ <span t-esc="doctoAtrib.get('ImpPagado')" /></td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </table>
+                    </div>
+                    <div class="row font_inv">
+                        <table class="table table-bordered table-sm event-table">
+                            <tr>
+                                <td class="bg_theme_color"><span>Fecha y Hora Pago</span></td>
+                                <td class="bg_theme_color"><span>Forma Pago</span></td>
+                                <td class="bg_theme_color"><span>Total Pago</span></td>
+                                <td class="bg_theme_color"><span>Moneda</span></td>
+                                <td class="bg_theme_color"><span>T. C.</span></td>
+                                <td class="bg_theme_color"><span>Num. Operacion</span></td>
+                            </tr>
+                            <t t-foreach="nodosPagos" t-as="nodosPago">
+                                <t t-set="pagosAtrib" t-value="nodosPago.get('pagosAtrib')" />
+                                <tr>
+                                    <td class=""><span t-esc="pagosAtrib.get('FechaPago')" /></td>
+                                    <td class=""><span t-esc="pagosAtrib.get('FormaDePagoP')" /></td>
+                                    <td class="">$ <span t-esc="pagosAtrib.get('Monto')" /></td>
+                                    <td class=""><span t-esc="pagosAtrib.get('MonedaP')" /></td>
+                                    <td class=""><span t-esc="pagosAtrib.get('TipoCambioP')" /></td>
+                                    <td class=""><span t-esc="pagosAtrib.get('NumOperacion')" /></td>
+                                </tr>
+                            </t>
+                        </table>
+                    </div>
+                    <div class="row font_inv">
+                        <div class="col-xs-3 bg_theme_color text-left">
+                            <strong>Cantidad Letra</strong>
+                        </div>
+                        <div class="col-xs-9 border_theme_color text-left">
+                            <span t-esc="doc.getCantLetra()" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row font_inv">
+                        <div class="col-xs-12 bg_theme_color text-left">
+                            <strong>TIMBRE FISCAL</strong>
+                        </div>
+                        <div class="col-xs-2 bg_theme_color text-left"><strong>PAC</strong></div>
+                        <div class="col-xs-4 bg_theme_color text-left"><strong>Folios Fiscal</strong></div>
+                        <div class="col-xs-3 bg_theme_color text-left"><strong>No. Certificado SAT</strong></div>
+                        <div class="col-xs-3 bg_theme_color text-left"><strong>Fecha y Hora de Certificación</strong></div>
+                        
+                        <div class="col-xs-2 border_theme_color text-left"><span t-esc="timbreAtrib.get('RfcProvCertif')" /> </div>
+                        <div class="col-xs-4 border_theme_color text-left"><span t-esc="timbreAtrib.get('UUID')" /> </div>
+                        <div class="col-xs-3 border_theme_color text-left"><span t-esc="timbreAtrib.get('NoCertificadoSAT')" /></div>
+                        <div class="col-xs-3 border_theme_color text-left"><span t-esc="timbreAtrib.get('FechaTimbrado')"  /></div>
+                    </div>
+                    <br />
+                    <div class="row font_inv">
+                        <div class="col-xs-3 text-left">
+                            <img t-if="doc.qrcode" t-att-src="'data:image/png;base64,%s' % doc.qrcode" style="vertical-align: text-top; width:140px!important;height:140px!important;"/>
+                        </div>
+                        <div class="col-xs-3 text-left">
+                            <div class="row font_inv">
+                                <div class="col-xs-12 text-left bg_theme_color">
+                                    <span>Sello Digital del Emisor</span>
+                                </div>
+                                <div class="col-xs-12 text-left">
+                                    <span style="font-size:8px; display:block; width:100%; word-wrap:break-word;" t-esc="timbreAtrib.get('SelloCFD')" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-3 text-left">
+                            <div class="row font_inv">
+                                <div class="col-xs-12 text-left bg_theme_color">
+                                    <span>Sello Digital del SAT</span>
+                                </div>
+                                <div class="col-xs-12 text-left">
+                                    <span style="font-size:8px; display:block; width:100%; word-wrap:break-word;" t-esc="timbreAtrib.get('SelloSAT')" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-3 text-left">
+                            <div class="row font_inv">
+                                <div class="col-xs-12 text-left bg_theme_color">
+                                    <span>Cadena Original</span>
+                                </div>
+                                <div class="col-xs-12 text-left">
+                                    <span style="font-size:8px; display:block; width:100%; word-break:break-all;" t-esc="doc.cadena_sat" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </t>
+        </template>
+        
+        <template id="report_cfdipagos_mx">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="complemento_pagos.report_cfdipagos_mx_document" t-lang="doc.partner_id.lang"/>
+                </t>
+            </t>
+        </template>
+
+    </data>
+
+
+</odoo>

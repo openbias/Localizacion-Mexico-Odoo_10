@@ -36,14 +36,14 @@ class AccountCfdi(models.Model):
         Total = round(obj.amount_total, dp_cantidad)
             
         cfdi_comprobante = {
-            "Folio": obj.number,
+            "Folio": obj.number or '',
             "Fecha": date_invoice,
             "FormaPago": obj.formapago_id and obj.formapago_id.clave or "99",
             "CondicionesDePago": obj.payment_term_id and obj.payment_term_id.name or 'CONDICIONES',
-            "Moneda": obj.currency_id.name,
+            "Moneda": obj.currency_id.name or '',
             "SubTotal": '%s'%(SubTotal),  #  '%.2f'%(obj.price_subtotal_sat),
             "Total": '%s'%(Total),   #  '%.2f'%(obj.amount_total),
-            "TipoDeComprobante": obj.tipo_comprobante,
+            "TipoDeComprobante": obj.tipo_comprobante or '',
             "MetodoPago": obj.metodopago_id and obj.metodopago_id.clave or 'Pago en una sola exhibicion',
             "LugarExpedicion": obj.journal_id and obj.journal_id.codigo_postal_id and obj.journal_id.codigo_postal_id.name or '',
             "Descuento": '%.2f'%(0.0)
@@ -51,7 +51,6 @@ class AccountCfdi(models.Model):
         if obj.journal_id.serie:
             cfdi_comprobante['Serie'] = obj.journal_id.serie or ''
         if obj.price_discount_sat:
-
             cfdi_comprobante['Descuento'] = '%s'%(round(obj.price_discount_sat, dp_cantidad))
         if obj.currency_id.name != 'MXN':
             cfdi_comprobante['TipoCambio'] = '%s'%(round(rate, 6))
@@ -76,9 +75,9 @@ class AccountCfdi(models.Model):
             'UsoCFDI': obj.usocfdi_id and obj.usocfdi_id.clave or ''
         }
         if partner_data.es_extranjero == True:
-            receptor_attribs['ResidenciaFiscal'] = partner_data.country_id.code_alpha3
+            receptor_attribs['ResidenciaFiscal'] = partner_data.country_id and partner_data.country_id.code_alpha3 or ''
             if partner_data.identidad_fiscal:
-                receptor_attribs['NumRegIdTrib'] = partner_data.identidad_fiscal
+                receptor_attribs['NumRegIdTrib'] = partner_data.identidad_fiscal or ''
         return receptor_attribs
 
     def invoice_info_conceptos(self):
@@ -97,7 +96,7 @@ class AccountCfdi(models.Model):
             Descuento = round(line.price_discount_sat, dp_cantidad)
 
             concepto_attribs = {
-                'ClaveProdServ': line.product_id and line.product_id.clave_prodser_id and line.product_id.clave_prodser_id.clave or ClaveProdServ,
+                'ClaveProdServ': line.product_id and line.product_id.clave_prodser_id and line.product_id.clave_prodser_id.clave or ClaveProdServ or '',
                 'NoIdentificacion': line.product_id and line.product_id.default_code or '',
                 'Descripcion': line.name.replace('[', '').replace(']', '') or '',
                 'Cantidad': '%s'%(Cantidad),

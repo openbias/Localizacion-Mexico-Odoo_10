@@ -104,13 +104,11 @@
                                 <field name="ref"/>
                                 <field name="name"/>
                                 <field name="journal_id" groups="base.group_user"/>
-                                <field name="debit"/>
                                 <field name="credit"/>
                                 <field name="amount_currency" groups="base.group_multi_currency"/>
                                 <field name="currency_id" groups="base.group_multi_currency"/>
-                                <!-- <field name="url_xml" widget="url" string="XML" /> -->
                                 <button name="get_xml" type="object" string="XML" class="oe_highlight"/>
-                                <button name="get_pdf" string="PDF" class="oe_highlight"/>
+                                <button name="get_pdf" type="object" string="PDF" class="oe_highlight"/>
                             </tree>
                         </field>
                     </group>

@@ -20,6 +20,7 @@
     ],
     'data': [
         'views/account_view.xml',
+        'views/complemento_pago_view.xml',
         # 'views/account_move_view.xml'
     ]
 }

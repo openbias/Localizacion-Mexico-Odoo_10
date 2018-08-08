@@ -7,8 +7,6 @@
             </xpath>
         </template>
 
-
-
         <menuitem
             name="Localización México"
             parent="account.menu_finance"

@@ -274,6 +274,7 @@ class AccountCfdi(models.Model):
         return export_text
 
     def get_cant_letra(self, currency, amount):
+        print 'asdada', currency
         if currency.name == 'MXN':
             nombre = currency.nombre_largo or 'pesos'
             siglas = 'M.N.'

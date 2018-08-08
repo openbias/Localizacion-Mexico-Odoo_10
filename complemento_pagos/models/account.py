@@ -7,9 +7,12 @@ from odoo import models, fields, api, _
 from odoo.exceptions import UserError, RedirectWarning, ValidationError
 
 
+from xml.dom import minidom
+from xml.dom.minidom import parse, parseString
+
 from datetime import date, datetime
 from pytz import timezone
-import json
+import json, base64
 
 class AccountAbstractPayment(models.AbstractModel):
     _name = "account.abstract.payment"
@@ -99,6 +102,10 @@ class AccountPayment(models.Model):
                 message += '<li>No se especifico el RFC para el Cliente</li>'
             if not self.company_id.partner_id.vat:
                 message += '<li>No se especifico el RFC para la Empresa</li>'
+            if self.partner_id.es_extranjero:
+                if not (self.partner_id.country_id and self.partner_id.country_id.code_alpha3 or False):
+                    message += '<li>No se especifico el codigo del Pais</li>'
+
         self.action_raise_message(message)
         return message
 
@@ -229,7 +236,7 @@ class AccountMoveLine(models.Model):
     def get_xml(self):
         url_id = self.env["ir.config_parameter"].search([('key', '=', "web.base.url")])
         xml_id = self.env["ir.attachment"].search([('res_model', '=', "account.move.line"), ("res_id", "=", self.id)])
-        url = '%s/web/content/%s?download=true'%(url_id.value, xml_id.id)
+        url = '/web/content/%s?download=true'%(xml_id.id)
         return {
             'type': 'ir.actions.act_url',
             'url':url,
@@ -238,7 +245,8 @@ class AccountMoveLine(models.Model):
 
     @api.multi
     def get_pdf(self):
-        return {}
+        res = self.env['report'].get_action(self, 'complemento_pagos.report_cfdipagos_mx')
+        return res
 
 
     def action_write_date_invoice_cfdi(self, inv_id):
@@ -278,6 +286,72 @@ class AccountMoveLine(models.Model):
         return True
 
 
+    @api.multi
+    def getCantLetra(self):
+        for rec in self:
+            if not rec.currency_id:
+                currency_id = self.env["ir.model.data"].get_object('base', 'MXN')
+            else:
+                currency_id = rec.currency_id
+            letras = self.get_cant_letra(currency_id, rec.credit)
+            return letras
+
+    @api.multi
+    def get_total_cfdi(self, uuid):
+        inv_id = self.env['account.invoice'].search([('uuid', '=', uuid)], limit=1)
+        return inv_id and inv_id.amount_total or 0.0
+
+
+    @api.multi
+    def get_xml_cfdi(self):
+        nodosPagos = []
+        timbreAtrib = {}
+        compAtrib = {}
+        receptorAtrib = {}
+        emisorAtrib = {}
+        att_obj = self.env['ir.attachment']
+        for rec in self:
+            att_ids = att_obj.search([('res_model', '=', 'account.move.line'), ('res_id', '=', rec.id), ('type', '=', 'binary'), ('name', 'ilike', '%s.xml'%(rec.uuid) )])
+            for att_id in att_ids:
+                cfdi = base64.b64decode(att_id.datas)
+                xmlDoc = parseString(cfdi)
+                nodes = xmlDoc.childNodes
+                comprobante = nodes[0]
+                compAtrib = dict(comprobante.attributes.items())
+
+                emisor = comprobante.getElementsByTagName('cfdi:Emisor')
+                emisorAtrib = dict(emisor[0].attributes.items())
+
+                receptor = comprobante.getElementsByTagName('cfdi:Receptor')
+                receptorAtrib = dict(receptor[0].attributes.items())
+
+                complementos = comprobante.getElementsByTagName('cfdi:Complemento')
+                for comp in complementos:
+                    timbreFiscal = comp.getElementsByTagName('tfd:TimbreFiscalDigital')
+                    for timbre in timbreFiscal:
+                        timbreAtrib = dict(timbre.attributes.items())
+
+                    pagos10 = comp.getElementsByTagName('pago10:Pagos')
+                    for pago10 in pagos10:
+                        pagos = pago10.getElementsByTagName('pago10:Pago')
+                        for pago in pagos:
+                            pagoAtrib = dict(pago.attributes.items())
+                            doctosAtrib = []
+                            rels = pago.getElementsByTagName('pago10:DoctoRelacionado')
+                            for rel in rels:
+                                relAtrib = dict(rel.attributes.items())
+                                doctosAtrib.append(relAtrib)
+                            nodosPagos.append({
+                                'pagosAtrib': pagoAtrib,
+                                'doctosAtrib': doctosAtrib
+                            })
+        return {
+            'compAtrib': compAtrib,
+            'receptorAtrib': receptorAtrib,
+            'emisorAtrib': emisorAtrib,
+            'nodosPagos': nodosPagos,
+            'timbreAtrib': timbreAtrib
+        }
 
 
 class AccountInvoice(models.Model):
@@ -314,7 +388,6 @@ class AccountInvoice(models.Model):
         inv = self
         amount_to_show = 0
         for payment in payment_move_line_ids:
-            print 'payment', payment, payment.matched_debit_ids, inv.move_id.line_ids
             if inv.type in ('out_invoice', 'in_refund'):
                 amount = sum([p.amount for p in payment.matched_debit_ids if p.debit_move_id in inv.move_id.line_ids])
                 amount_currency = sum([p.amount_currency for p in payment.matched_debit_ids if p.debit_move_id in inv.move_id.line_ids])

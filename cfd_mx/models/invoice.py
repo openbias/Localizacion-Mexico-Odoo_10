@@ -198,8 +198,13 @@ class AccountInvoice(models.Model):
 
     @api.one
     def _get_parcialidad_pago(self):
-        self.parcialidad_pago = len(self.payment_move_line_ids) or 0
-        self.pagos = True if len(self.payment_move_line_ids) != 0 else False
+        parcialidad_pago = 0
+        if self.type == 'out_invoice':
+            for payment in self.payment_move_line_ids:
+                if payment.uuid:
+                    parcialidad_pago += 1
+        self.parcialidad_pago = parcialidad_pago or 0
+        self.pagos = True if parcialidad_pago != 0 else False
 
     pagos = fields.Boolean(string="Pagos", default=False, copy=False, compute='_get_parcialidad_pago')
     parcialidad_pago = fields.Integer(string="No. Parcialidad Pago", compute='_get_parcialidad_pago')
