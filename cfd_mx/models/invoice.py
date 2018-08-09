@@ -13,6 +13,9 @@ from pytz import timezone, utc
 import threading
 import base64
 
+from lxml import etree
+from lxml.objectify import fromstring
+
 import logging
 logging.basicConfig(level=logging.INFO)
 
@@ -109,19 +112,6 @@ class AccountInvoiceLine(models.Model):
         self.price_subtotal_sat = subtotal # taxes.get('total_excluded', 0.00)  # ( self.price_unit * self.quantity )
         self.price_total_sat = subtotal + self.price_tax_sat - self.price_discount_sat
         
-        # self.price_subtotal_sat = taxes.get('total_excluded', 0.00)
-        # self.price_total_sat = (discount + self.price_tax_sat + (taxes.get('total_excluded', 0.00) - ((self.discount or 0.0) / 100.0) * base) )
-        # price_subtotal_sat = self.price_unit # * self.quantity
-        # discount =  ((self.discount or 0.0) / 100.0) * price_subtotal_sat
-        # price = (price_subtotal_sat - discount)
-        # taxes = {}
-        # if self.invoice_line_tax_ids:
-        #     taxes = self.invoice_line_tax_ids.compute_all(price, self.currency_id, self.quantity, self.product_id, self.partner_id)
-        
-        # self.price_tax_sat = taxes.get('total_included', 0.00) - taxes.get('total_excluded', 0.00)
-        # self.price_subtotal_sat = self.price_unit * self.quantity
-        # self.price_discount_sat = discount * self.quantity
-
     price_total_sat = fields.Monetary(string='total (SAT)', readonly=True, compute='_compute_price_sat', default=0.00, digits=(12, 6))
     price_subtotal_sat = fields.Monetary(string='Subtotal (SAT)', readonly=True, compute='_compute_price_sat', default=0.00, digits=(12, 6))
     price_tax_sat = fields.Monetary(string='Tax (SAT)', readonly=True, compute='_compute_price_sat', default=0.00, digits=(12, 6))
@@ -226,8 +216,6 @@ class AccountInvoice(models.Model):
     anoAprobacion = fields.Integer(string=u"Año de aprobación")
     noAprobacion = fields.Char(string="No. de aprobación")
     tipopago_id = fields.Many2one('cfd_mx.tipopago', string=u'Forma de Pago')
-
-
 
 
     @api.onchange('date_invoice')
@@ -439,7 +427,8 @@ class AccountInvoice(models.Model):
             if res.get('message'):
                 message = res['message']
             else:
-                self.get_process_data(self, res.get('result'))
+                xml_datas = self.cfdi_append_addenda(res.get('result'))
+                self.get_process_data(self, xml_datas)
         except ValueError, e:
             message = str(e)
         except Exception, e:
@@ -518,33 +507,43 @@ class AccountInvoice(models.Model):
         return dict_addenda
 
 
+    def cfdi_append_addenda(self, res):
+        self.ensure_one()
+        context = dict(self._context) or {}
+        if self.tipo_comprobante == 'I':
+            addenda = self.partner_id.cfdi_addenda
+            if addenda:
+                xml64 = res.get('xml')
+                values = {
+                    'record': self,
+                }
+                tree = fromstring(base64.decodestring(xml64))
+                addenda_node = fromstring(addenda.render(values=values))
+                if addenda_node.tag != '{http://www.sat.gob.mx/cfd/3}Addenda':
+                    node = etree.Element(etree.QName(
+                        'http://www.sat.gob.mx/cfd/3', 'Addenda'))
+                    node.append(addenda_node)
+                    addenda_node = node
+                tree.append(addenda_node)
+                res['xml'] = base64.encodestring(etree.tostring(tree, xml_declaration=True, encoding='UTF-8'))
+                self.message_post(
+                    body=_('Addenda has been added in the CFDI with success'),
+                    subtype='account.mt_invoice_validated')
+        return res
 
-    """
     @api.multi
-    def action_invoice_cancel(self):
-        reason_cancel_invoice = self.env.user.company_id.reason_cancel_invoice or False
-        if reason_cancel_invoice:
-            wizard_form = self.env.ref('cfd_mx.reason_cancel_invoice_form', False)
-            view_id = self.env['reason.cancel.invoice']
-            vals = {
-                'name'   : '',
-                'invoice_id': self.id
+    def action_test_addenda(self):
+        self.ensure_one()
+        addenda = self.partner_id.cfdi_addenda
+        if addenda:
+            values = {
+                'record': self,
             }
-            new = view_id.create(vals)
-            return {
-                'name': _('Motivo Cancelacion'),
-                'type': 'ir.actions.act_window',
-                'res_model': 'reason.cancel.invoice',
-                'res_id': new.id,
-                'view_id': wizard_form.id,
-                'view_type': 'form',
-                'view_mode': 'form',
-                'target': 'new'
-            }
+            add_str = addenda.render(values=values)
+            raise UserError(add_str)
         else:
-            res = super(AccountInvoice, self).action_invoice_cancel()
-            return res
-    """
+            raise UserError("No existe addenda relacionada")
+        return True
 
 
 class MailComposeMessage(models.TransientModel):

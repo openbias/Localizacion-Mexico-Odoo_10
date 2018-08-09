@@ -35,6 +35,7 @@ Factura Electronica Mexico 3.3
         "data/xml/res.country.xml",
         "data/xml/cfd_mx.tiporelacion.xml",
 
+        'views/ir_view_view.xml',
         'views/cfd_mx_models_views.xml',
         'views/res_country_view.xml',
         'views/res_company_view.xml',

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import ir_view
 import cfd_mx_models
 import account
 import product

@@ -300,6 +300,7 @@ class Aduana(models.Model):
 class Addendas(models.Model):
     _name = 'cfd_mx.conf_addenda'
 
+    name = fields.Char("Name")
     model_selection = fields.Selection(selection=[])
     partner_ids = fields.Many2many('res.partner', string="Clientes", domain=[('customer', '=', True )] )
     company_id = fields.Many2one('res.company', string='Company', change_default=True,

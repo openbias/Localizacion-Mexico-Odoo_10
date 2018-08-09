@@ -39,6 +39,11 @@ class partner(models.Model):
         string='Operation Type', default='85', 
         help="Define the operation type, when partner type is 05 the only valid selections are 03 and 85, this field is used to get the DIOT report.")
 
+    cfdi_addenda = fields.Many2one('ir.ui.view',
+        string='Addenda',
+        help='A view representing the addenda',
+        domain=[('is_addenda', '=', True)])
+
     @api.model
     def _address_fields_2(self):
         """ Returns the list of address fields that are synced from the parent

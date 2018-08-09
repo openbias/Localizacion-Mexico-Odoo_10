@@ -39,8 +39,8 @@
                     <field name="es_cfdi" invisible="1"/>
                     <field name="timbrada" invisible="1"/>
                     <field name="mandada_cancelar" invisible="1"/>
-                    <field name="parcialidad_pago" invisible="0"/>
-                    <field name="pagos" invisible="0"/>
+                    <field name="parcialidad_pago" invisible="1"/>
+                    <field name="pagos" invisible="1"/>
                     <field name="tipo_comprobante" invisible="1" />
                     <field name="usocfdi_id" />
                     <field name="tipo_cambio" readonly="1" />
@@ -48,9 +48,14 @@
                 <notebook position="inside">
                     <page string="Info. SAT" attrs="{'invisible': [('es_cfdi', '=', False)]}">
                         <group>
-                            <field name="tiporelacion_id" />
-                            <field name="uuid_relacionado_id" />
-                            <field name="uuid_egreso" />
+                            <group>
+                                <field name="tiporelacion_id" />
+                                <field name="uuid_relacionado_id" />
+                                <field name="uuid_egreso" />
+                            </group>
+                            <group>
+                                <button name="action_test_addenda" type="object" states="draft,proforma2" string="Test Addenda" class="oe_highlight" groups="account.group_account_invoice"/>
+                            </group>
                         </group>
                         <group name="timbre_cfdi" attrs="{'invisible': [('timbrada', '=', False)]}">
                             <group colspan="4">

@@ -88,39 +88,6 @@ class AccountInvoice(models.Model):
                 la clave de contabilidad se registra en la Entidad""")
     ine_entidades = fields.One2many("account.invoice.ine.entidad", "invoice_id", string="Entidades")
 
-    """
-    @api.model
-    def create(self, vals):
-        onchanges = {
-            'onchange_activateine': ['partner_id'],
-        }
-        for onchange_method, changed_fields in onchanges.items():
-            if any(f not in vals for f in changed_fields):
-                invoice = self.new(vals)
-                getattr(invoice, onchange_method)()
-                for field in changed_fields:
-                    if field not in vals and invoice[field]:
-                        vals[field] = invoice._fields[field].convert_to_write(invoice[field], invoice)
-        invoice = super(AccountInvoice, self).create(vals)
-        return invoice
-
-
-    @api.multi
-    @api.onchange('partner_id')
-    def onchange_activateine(self):
-        if not self.partner_id:
-            self.update({
-                'ine_activate': False,
-            })
-            return
-
-        conf_addenda = self.env['cfd_mx.conf_addenda']
-        conf_addenda_id = conf_addenda.search([('model_selection','=', 'complemento_ine')])
-        if conf_addenda_id:
-            res = self.partner_id.id in conf_addenda_id.partner_ids.ids
-            self.ine_activate = res
-    """
-
 
 class entidad(models.Model):
     _name = "account.invoice.ine.entidad"

@@ -83,8 +83,6 @@ class AccountCfdi(models.Model):
                 res = True
         self.es_cfdi = res
 
-
-
     es_cfdi = fields.Boolean(string="Es Invoice", default=False, copy=False, compute='_get_es_invoice')
     timbrada = fields.Boolean(string="Timbrado", default=False, copy=False, compute='_get_timbrado', store=False)
 

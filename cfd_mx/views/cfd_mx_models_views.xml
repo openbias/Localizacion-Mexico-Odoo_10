@@ -255,6 +255,9 @@
                         <field name="company_id" />
                         <field name="partner_ids"/>
                     </group>
+                    <group>
+                        <field name="name" />
+                    </group>
                 </form>
             </field>
         </record>
