@@ -1,21 +1,6 @@
 <odoo>
     <data>
 
-        <!-- EMPRESAS -->
-        <record model="ir.ui.view" id="view_partner_form_inherit_emp">
-            <field name="name">res.partner.form.inherit.emp</field>
-            <field name="model">res.partner</field>
-            <field name="inherit_id" ref="base.view_partner_form"/>
-            <field name="arch" type="xml">
-                <field name="company_type" position="after">
-                    <div class="o_row" attrs="{'invisible': ['|', ('is_company','=',True), '|', ('customer','=',True), ('supplier','=',True)]}">
-                        <label for="is_employee" string="Is Empoyee?"/>
-                        <field name="is_employee"  attrs="{'invisible': ['|', ('is_company','=',True), '|', ('customer','=',True), ('supplier','=',True)]}"/>
-                    </div>
-                </field>
-            </field>
-        </record>
-
         <!-- COMPANHIAS -->
         <record id="view_company_form_inherit_hr" model="ir.ui.view">
             <field name="name">view.company.form.inherit.hr</field>

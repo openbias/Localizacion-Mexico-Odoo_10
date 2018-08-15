@@ -12,14 +12,307 @@
                     <field name="fecha_baja"/>
                     <field name="anhos_servicio"/>
                 </field>
-                <field name="place_of_birth" position="after">
-                    <field name="state_id" domain="[('country_id','=',country_id)]" />
-                </field>
             </field>
         </record>
 
-        <record id="hr_employee_mx_view_form" model="ir.ui.view">
-            <field name="name">hr.employee.mx.view.form</field>
+        <record model="ir.ui.view" id="view_employee_form_hrmxext">
+            <field name="name">hr.employee.form.hrmxext</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <div class="oe_title" position="replace">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="nombre_completo" invisible="0" placeholder="Employee's Name" class="oe_read_only" />
+                            <field name="appat" placeholder="Ap. Paterno" class="oe_edit_only"/>
+                            <field name="apmat" placeholder="Ap. Materno" class="oe_edit_only"/>
+                            <field name="name" placeholder="Nombre" class="oe_edit_only"/>
+                        </h1>
+                    </div>
+
+                    <notebook position="inside">
+                        <page string="Experiences">
+                            <separator string="Academic Experiences" />
+                            <field name="academic_ids" context="{'default_employee_id': active_id}">
+                                <tree string="Academic Experiences">
+                                    <field name="name" string="Academic Experience"/>
+                                    <field name="partner_id" string="Institution"/>
+                                    <field name="diploma"/>
+                                    <field name="study_field"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                </tree>
+                                <form string="Academic Experience">
+                                    <group name="main" col="4">
+                                        <field name="name" string="Academic Experience"/>
+                                        <separator string="Dates" colspan="4"/>
+                                        <field name="start_date"/>
+                                        <field name="expire"/>
+                                        <field name="end_date" attrs="{'invisible':[('expire', '=', False)]}"/>
+                                        <separator string="Partner" colspan="4"/>
+                                        <field name="partner_id" string="Institution"/>
+                                        <field name="location"/>
+                                        <separator string="Academic Information" colspan="4"/>
+                                        <field name="diploma"/>
+                                        <field name="study_field"/>
+                                        <field name="activities"/>
+                                        <separator string="Description" colspan="4"/>
+                                        <field name="description" colspan="4" nolabel="1"/>
+                                    </group>
+                                </form>
+                            </field>
+                            <hr />
+                            <separator string="Professional Experiences" />
+                            <field name="experience_ids" context="{'default_employee_id': active_id}">
+                                <tree string="Professional Experiences">
+                                    <field name="name" string="Position"/>
+                                    <field name="partner_id" string="Employer"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                </tree>
+                                <form string="Professional Experience">
+                                    <sheet>
+                                        <group name="main" col="4">
+                                            <field name="name" string="Title Job" colspan="4"/>
+                                            <separator string="Dates" colspan="4"/>
+                                            <field name="start_date"/>
+                                            <field name="expire"/>
+                                            <field name="end_date" attrs="{'invisible':[('expire', '=', False)]}"/>
+                                            <separator string="Partner" colspan="4"/>
+                                            <field name="partner_id" string="Employer"/>
+                                            <field name="location"/>
+                                            <separator string="Description" colspan="4"/>
+                                            <field name="description" colspan="4" nolabel="1"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                            <hr />
+                            <separator string="Courses and Certifications" groups="base.group_user" />
+                            <field name="certification_ids" context="{'default_employee_id': active_id}">
+                                <tree string="Courses and Certifications">
+                                    <field name="category"/>
+                                    <field name="name" string="Certification"/>
+                                    <field name="certification" string="# Certificate"/>
+                                    <field name="partner_id" string="Issued By"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                </tree>
+                                <form string="Courses and Certifications">
+                                    <sheet>
+                                        <group name="main" colspan="4">
+                                            <group>
+                                                <field name="category"/>
+                                                <field name="name" string="Certification"/>
+                                                <field name="certification" string="# Certification"/>
+                                            </group>
+                                            <group>
+                                                <field name="start_date"/>
+                                                <field name="end_date" attrs="{'invisible':[('expire', '=', False)]}"/>
+                                                <field name="expire"/>
+                                            </group>
+                                        </group>
+                                        <group name="main" col="4">
+                                            <separator string="Partner" colspan="4"/>
+                                            <field name="partner_id" string="Issued By"/>
+                                            <field name="location"/>
+                                            <separator string="Description" colspan="4"/>
+                                            <field name="description" colspan="4" nolabel="1"/>
+                                        </group>
+                                        
+                                    </sheet>
+                                </form>
+                            </field>
+
+                        </page>
+                        <page string="Servicio médico">
+                            <group colspan="4" string="Servicio médico">
+                                <group>
+                                    <label for="med_actividad" colspan="4" />
+                                    <field name="med_actividad" nolabel="1" colspan="4" />
+
+                                    <label for="med_padecimiento" colspan="4" />
+                                    <field name="med_padecimiento" nolabel="1" colspan="4" />
+
+                                    <label for="med_exploracion" colspan="4" />
+                                    <field name="med_exploracion" nolabel="1" colspan="4" />
+
+                                    <label for="med_diagnostico" colspan="4" />
+                                    <field name="med_diagnostico" nolabel="1" colspan="4" />
+
+                                    <field name="med_apto"/>
+                                </group>
+                                <group>
+                                    <label for="med_antecedentes_1" colspan="4" />
+                                    <field name="med_antecedentes_1" nolabel="1" colspan="4" />
+
+                                    <label for="med_antecedentes_2" colspan="4" />
+                                    <field name="med_antecedentes_2" nolabel="1" colspan="4" />
+
+                                    <label for="med_antecedentes_3" colspan="4" />
+                                    <field name="med_antecedentes_3" nolabel="1" colspan="4" />
+                                </group>
+                            </group>
+                            <hr />
+                        </page>
+                        <page string="Other Information">
+                            <div class="row oe_inline">
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <separator string="IFE"/>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <label for="ife_numero"/>
+                                            <field name="ife_numero" />
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <hr />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label string="IFE Anverso"/>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label string="IFE Reverso"/>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <field name="ife_anverso" widget="image" nolabel="1" class="img img-responsive"/>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <field name="ife_reverso" widget="image" nolabel="1" class="img img-responsive"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <separator string="Licencia"/>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="licencia_numero"/>
+                                            <field name="licencia_numero" />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label string="licencia_vigencia"/>
+                                            <field name="licencia_vigencia" />
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <hr />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label string="Anverso"/>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label string="Reverso"/>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <field name="licencia_anverso" widget="image" nolabel="1" class="img img-responsive"/>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <field name="licencia_reverso" widget="image" nolabel="1" class="img img-responsive"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </page>
+                    </notebook>
+                </data>
+            </field>
+        </record>
+
+
+
+
+        <record id="view_empl_contactinformation_form" model="ir.ui.view">
+            <field name="name">view_empl_contactinformation_form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="work_phone" position="after">
+                        <field name="work_extension_phone"/>
+                        <field name="last_writedate_job_id" />
+                        <field name="last_writedate_sueldo_diario" />
+                    </field>
+                </data>
+            </field>
+        </record>
+
+        <record id="view_empl_position_form" model="ir.ui.view">
+            <field name="name">view_empl_position_form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="job_id" position="after">
+                        <field name="escolaridad_id"/>
+                    </field>
+                    <field name="notes" position="before">
+                        <separator string="Notes" colspan="4" />
+                    </field>
+                </data>
+            </field>
+        </record>
+
+        <record id="view_empl_otherinformation_form" model="ir.ui.view">
+            <field name="name">view_empl_otherinformation_form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="country_id" position="before">
+                        <field name="curp"/>
+                        <field name="rfc"/>
+                    </field>
+                    <field name="bank_account_id" position="after">
+                        <field name="tarjeta_nomina"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+
+        <record id="view_empl_contactinformation_form" model="ir.ui.view">
+            <field name="name">view_empl_contactinformation_form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="address_home_id" position="before">
+                        <field name="cod_emp"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+
+        <record id="view_empl_status_form" model="ir.ui.view">
+            <field name="name">view_empl_status_form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <data>
+                </data>
+            </field>
+        </record>
+
+        <record id="view_empl_birth_form" model="ir.ui.view">
+            <field name="name">view_empl_birth_form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="birthday" position="before">
+                        <field name="age"/>
+                    </field>
+                    <field name="birthday" position="after">
+                        <field name="state_id" domain="[('country_id','=',country_id)]" />
+                    </field>
+                </data>
+            </field>
+        </record>
+
+        <record id="view_empl_hrsettings_form" model="ir.ui.view">
+            <field name="name">view_empl_hrsettings_form</field>
             <field name="model">hr.employee</field>
             <field name="inherit_id" ref="hr.view_employee_form"/>
             <field name="arch" type="xml">
@@ -53,69 +346,47 @@
                             <field name="retiro_parcialidad"/>
                         </group>
                     </xpath>
+                    <field name="company_id" position="after">
+                        <field name="registro_patronal_id"/>
+                    </field>
                 </data>
             </field>
         </record>
 
-        <record model="ir.ui.view" id="view_employee_form_hrmxext">
-            <field name="name">hr.employee.form.hrmxext</field>
+
+
+        <record model="ir.ui.view" id="view_employee_form_depends">
+            <field name="name">hr.employee.form.depends</field>
             <field name="model">hr.employee</field>
             <field name="inherit_id" ref="hr.view_employee_form"/>
             <field name="arch" type="xml">
-                <data>
-                    <field name="name" position="replace">
-                        <field name="appat" placeholder="Ap. Paterno"/>
-                        <field name="apmat" placeholder="Ap. Materno"/>
-                        <field name="name" placeholder="Nombre"/>
-                    </field>
-                    <field name="job_id" position="after">
-                        <field name="escolaridad_id"/>
-                    </field>
-                    <field name="bank_account_id" position="after">
-                        <field name="tarjeta_nomina"/>
-                    </field>
-                    <field name="company_id" position="after">
-                        <field name="registro_patronal_id"/>
-                    </field>
-                    <field name="address_home_id" position="before">
-                        <field name="cod_emp"/>
-                    </field>
-                    <field name="country_id" position="after">
-                        <field name="curp"/>
-                        <field name="rfc"/>
-                    </field>
-                    <notebook position="inside">
-                        <page string="IFE">
-                            <group colspan="4">
-                                <field name="ife_numero"/>
-                                <field name="ife_anverso" widget="image"/>
-                                <field name="ife_reverso" widget="image"/>
-                            </group>
-                        </page>
-                        <page string="Licencia de conducir">
-                            <group colspan="4">
-                                <field name="licencia_numero"/>
-                                <field name="licencia_vigencia"/>
-                                <field name="licencia_anverso" widget="image"/>
-                                <field name="licencia_reverso" widget="image"/>
-                            </group>
-                        </page>
-                        <page string="Servicio médico">
-                            <group colspan="4">
-                                <field name="med_actividad"/>
-                                <field name="med_antecedentes_1"/>
-                                <field name="med_antecedentes_2"/>
-                                <field name="med_antecedentes_3"/>
-                                <field name="med_padecimiento"/>
-                                <field name="med_exploracion"/>
-                                <field name="med_diagnostico"/>
-                                <field name="med_apto"/>
-                            </group>
-                        </page>
-                    </notebook>
-                </data>
+                <xpath expr="//form/sheet/notebook/page[@name='personal_information']/group" position="after">
+                    <group colspan="4" col="4" name="depends" string="Depends Information">
+                        <field name="employee_dependent_ids" colspan="4" nolabel="1">
+                            <tree editable="bottom" string="Depends">
+                                <field name="sequence" widget="handle" />
+                                <field name="type"/>
+                                <field name="name"/>
+                                <field name="birthday"/>
+                                <field name="employee_id" invisible="1"/>
+                            </tree>
+                            <form string="Depends">
+                                <sheet>
+                                    <group colspan="4" col="4">
+                                        <field name="sequence" invisible="1" />
+                                        <field name="employee_id" invisible="1"/>
+                                        <field name="name"/>
+                                        <field name="type"/>
+                                        <field name="birthday"/>
+                                    </group>
+                                </sheet>
+                            </form>
+                        </field>
+                    </group>
+                </xpath>
             </field>
         </record>
+
         <record model="ir.ui.view" id="view_employee_tree_inherit">
             <field name="name">view.employee.tree.inherit</field>
             <field name="model">hr.employee</field>

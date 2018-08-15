@@ -120,3 +120,10 @@ class CurrencyRate(models.Model):
     @api.multi
     def update_currency_rate_bias(self):
         self.run_currency_update_bias()
+
+    @api.multi
+    def get_currency_rate_today(self):
+        self.ensure_one()
+        rate_dict = update_service_MX_BdM.rate_retrieve()
+        print 'rate_dict', rate_dict
+        return rate_dict

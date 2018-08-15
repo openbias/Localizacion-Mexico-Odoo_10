@@ -64,6 +64,60 @@
             </field>
         </record>
 
+        <!-- EMPRESAS -->
+        <record model="ir.ui.view" id="view_partner_mx_form">
+            <field name="name">res.partner.mx.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/group/group[2]/field[@name='phone']" position="after">
+                    <field name="extension_phone" />
+                </xpath>
+                <xpath expr="//form/sheet/notebook/page/field[@name='child_ids']/kanban/field[@name='phone']" position="after">
+                    <field name="extension_phone" />
+                </xpath>
+                <xpath expr="//form/sheet/notebook/page/field[@name='child_ids']/kanban/templates/t/div/div[2]/div[4]" position="after">
+                    <div t-if="record.extension_phone.raw_value">Ext.: <field name="extension_phone"/></div>
+                </xpath>
+                <xpath expr="//form/sheet/notebook/page/field[@name='child_ids']/form/sheet//field[@name='phone']" position="after">
+                    <field name="extension_phone" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_partner_mx_tree" model="ir.ui.view">
+            <field name="name">res.partner.tree</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <field name="phone" position="after">
+                    <field name="extension_phone" />
+                </field>
+            </field>
+        </record>
+
+        <record id="view_partner_simple_mx_form" model="ir.ui.view">
+            <field name="name">res.partner.simplified.mx.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_simple_form"/>
+            <field name="arch" type="xml">
+                <field name="phone" position="after">
+                    <field name="extension_phone" />
+                </field>
+            </field>
+        </record>
+
+        <record id="res_partner_view_form_mx_private" model="ir.ui.view">
+            <field name="name">res.partner.view.form.mx.private</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_simple_form"/>
+            <field name="arch" type="xml">
+                <field name="phone" position="after">
+                    <field name="extension_phone" />
+                </field>
+            </field>
+        </record>
+
     </data>
 </openerp>
 

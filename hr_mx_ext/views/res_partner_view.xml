@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+
+        <!-- EMPRESAS -->
+        <record model="ir.ui.view" id="view_partner_mx_ext_form">
+            <field name="name">res.partner.mx.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="company_type" position="after">
+                    <div class="o_row" attrs="{'invisible': ['|', ('is_company','=',True), '|', ('customer','=',True), ('supplier','=',True)]}">
+                        <label for="is_employee" string="Is Empoyee?"/>
+                        <field name="is_employee"  attrs="{'invisible': ['|', ('is_company','=',True), '|', ('customer','=',True), ('supplier','=',True)]}"/>
+                    </div>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

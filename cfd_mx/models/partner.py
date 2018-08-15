@@ -10,6 +10,9 @@ class partner(models.Model):
     _name = 'res.partner'
     _inherit = ['res.partner']
 
+    extension_phone = fields.Char('Extension Phone', help='Internal phone number.')
+    short_number = fields.Char('Short Number', help='Short phone number.')
+
     xml_cfdi_sinacento = fields.Boolean(string='XML CFDI sin acentos', default=False)
     noInterior = fields.Char(string='No. interior', size=64)
     noExterior = fields.Char(string='No. exterior', size=64)
