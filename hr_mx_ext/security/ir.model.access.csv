@@ -1,4 +1,9 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_curriculum,access_hr_curriculum,model_hr_curriculum,,1,1,1,1
+access_hr_academic,access_hr_academic,model_hr_academic,,1,1,1,1
+access_hr_certification,access_hr_certification,model_hr_certification,,1,1,1,1
+access_hr_experience,access_hr_experience,model_hr_experience,,1,1,1,1
+access_hr_employee_depends,access_hr_employee_depends,model_hr_employee_depends,,1,1,1,1
 access_hr_mx_ext_tipopensionados,access_hr_mx_ext_tipopensionados,model_hr_mx_ext_tipopensionados,,1,1,1,1
 access_hr_mx_ext_tipodescuento,access_hr_mx_ext_tipodescuento,model_hr_mx_ext_tipodescuento,,1,1,1,1
 access_hr_mx_ext_tipotrabajador,access_hr_mx_ext_tipotrabajador,model_hr_mx_ext_tipotrabajador,,1,1,1,1
