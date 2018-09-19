@@ -8,7 +8,7 @@ class ResCompany(models.Model):
     conta_elect_version = fields.Selection([
             ('1_1', 'Conta. Elect. 1.1'), 
             ('1_3', 'Conta. Elect. 1.3')],
-        string='Conta. Elect. Versión', required=True, default='1_3')
+        string='Conta. Elect. Version', required=True, default='1_3')
 
 
 class AccountInvoice(models.Model):

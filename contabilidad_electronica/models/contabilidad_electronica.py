@@ -11,7 +11,7 @@ class ContabilidadElectronicaNaturaleza(models.Model):
     _description = "Naturaleza cuenta (catalogo anexo 24)"
 
     name = fields.Char(string='Naturaleza', index=True, required=True)
-    code = fields.Char(string=u'Código', required=True)
+    code = fields.Char(string='Codigo', required=True)
 
     @api.multi
     def name_get(self):
@@ -77,8 +77,8 @@ class ContabilidadElectronicaCodigoAgrupador(models.Model):
             })
 
     # Fields
-    name = fields.Char(string=u'Código', index=True, required=True)
-    description = fields.Char(string=u'Descripción')
+    name = fields.Char(string='Codigo', index=True, required=True)
+    description = fields.Char(string='Descripcion')
     nivel = fields.Integer(string='Nivel', default=10)
     account_count = fields.Integer(string='# of Accounts', compute='_get_accounts_ids', readonly=True)
     account_ids = fields.Many2many("account.account", string='Accounts', compute="_get_accounts_ids", readonly=True, copy=False)
@@ -188,8 +188,8 @@ class ContabilidadElectronicaComprobante(models.Model):
     rfc = fields.Char("RFC", size=13, required=True)
     moneda_id = fields.Many2one("res.currency", string="Moneda")
     tipo_cambio = fields.Float("Tipo de cambio")
-    move_line_id = fields.Many2one("account.move.line", required=True, string=u"Transacción", ondelete="cascade")
-    move_line_name = fields.Char(string=u"Transacción", related='move_line_id.name', store=True)
+    move_line_id = fields.Many2one("account.move.line", required=True, string="Transaccion", ondelete="cascade")
+    move_line_name = fields.Char(string="Transaccion", related='move_line_id.name', store=True)
 
 class ContabilidadElectronicaComprobanteOtro(models.Model):
     _name = 'contabilidad_electronica.comprobante.otro'
@@ -201,20 +201,20 @@ class ContabilidadElectronicaComprobanteOtro(models.Model):
     monto = fields.Float("Monto", required=True)
     moneda_id = fields.Many2one("res.currency", string="Moneda")
     tipo_cambio = fields.Float("Tipo de cambio")
-    move_line_id = fields.Many2one("account.move.line", required=True, string=u"Transacción", ondelete="cascade")
-    move_line_name = fields.Char(string=u"Transacción", related='move_line_id.name', store=True)
+    move_line_id = fields.Many2one("account.move.line", required=True, string="Transaccion", ondelete="cascade")
+    move_line_name = fields.Char(string="Transaccion", related='move_line_id.name', store=True)
 
 class ContabilidadElectronicaComprobanteExtranjero(models.Model):
     _name = 'contabilidad_electronica.comprobante.ext'
     _description = "Nodo Comprobante Extranjero (Anexo 24)"
     
-    num = fields.Char(u"Número del comprobante", required=True)
-    tax_id = fields.Char(u"Identificador contribuyente")
+    num = fields.Char("Numero del comprobante", required=True)
+    tax_id = fields.Char("Identificador contribuyente")
     monto = fields.Float("Monto",  digits=(12,6), required=True)
     moneda_id = fields.Many2one("res.currency", string="Moneda")
     tipo_cambio = fields.Float("Tipo de cambio", digits=(12,6),)
-    move_line_id = fields.Many2one("account.move.line", required=True, string=u"Transacción", ondelete="cascade")
-    move_line_name = fields.Char(string=u"Transacción", related='move_line_id.name', store=True)
+    move_line_id = fields.Many2one("account.move.line", required=True, string="Transaccion", ondelete="cascade")
+    move_line_name = fields.Char(string="Transaccion", related='move_line_id.name', store=True)
     
 
 class ContabilidadElectronicaTransferencia(models.Model):
@@ -227,22 +227,22 @@ class ContabilidadElectronicaTransferencia(models.Model):
     fecha = fields.Date("Fecha", required=True)
     moneda_id = fields.Many2one("res.currency", string="Moneda")
     tipo_cambio = fields.Float("Tipo de cambio",  digits=(12,6),)
-    move_line_id = fields.Many2one("account.move.line", required=True, string=u"Transacción", ondelete="cascade")
-    move_line_name = fields.Char(string=u"Transacción", related='move_line_id.name', store=True)
+    move_line_id = fields.Many2one("account.move.line", required=True, string="Transaccion", ondelete="cascade")
+    move_line_name = fields.Char(string="Transaccion", related='move_line_id.name', store=True)
 
 class ContabilidadElectronicaCheque(models.Model):
     _name = "contabilidad_electronica.cheque"
     _description = "Nodo cheque (anexo 24)"
     
-    num = fields.Char(u"Número del cheque", required=True)
+    num = fields.Char("Numero del cheque", required=True)
     cta_ori_id = fields.Many2one("res.partner.bank", string="Cuenta origen", required=True)
     fecha = fields.Date("Fecha", required=True)
     monto = fields.Float("Monto",  digits=(12,6), required=True)
     benef_id = fields.Many2one("res.partner", string="Beneficiario", required=True)
     moneda_id = fields.Many2one("res.currency", string="Moneda")
     tipo_cambio = fields.Float("Tipo de cambio", digits=(12,6),)
-    move_line_id = fields.Many2one("account.move.line", required=True, string=u"Transacción", ondelete="cascade")
-    move_line_name = fields.Char(string=u"Transacción", related='move_line_id.name', store=True)
+    move_line_id = fields.Many2one("account.move.line", required=True, string="Transaccion", ondelete="cascade")
+    move_line_name = fields.Char(string="Transaccion", related='move_line_id.name', store=True)
 
 
 class ContabilidadElectronicaOtroMetodoPago(models.Model):
@@ -250,14 +250,14 @@ class ContabilidadElectronicaOtroMetodoPago(models.Model):
     _description = "Nodo otro metodo de pago (anexo 24)"
     _rec_name = "metodo_id"
 
-    metodo_id = fields.Many2one("contabilidad_electronica.metodo.pago", string=u"Método de pago", required=True)
+    metodo_id = fields.Many2one("contabilidad_electronica.metodo.pago", string="Metodo de pago", required=True)
     monto = fields.Float("Monto",  digits=(12,6), required=True)
     fecha = fields.Date("Fecha", required=True)
     benef_id = fields.Many2one("res.partner", string="Beneficiario", required=True)
     moneda_id = fields.Many2one("res.currency", string="Moneda")
     tipo_cambio = fields.Float("Tipo de cambio", digits=(12,6))
-    move_line_id = fields.Many2one("account.move.line", required=True, string=u"Transacción", ondelete="cascade")
-    move_line_name = fields.Char(string=u"Transacción", related='move_line_id.name', store=True)
+    move_line_id = fields.Many2one("account.move.line", required=True, string="Transaccion", ondelete="cascade")
+    move_line_name = fields.Char(string="Transaccion", related='move_line_id.name', store=True)
 
 
 class ContabilidadElectronicaAcuseSAT(models.Model):
@@ -304,13 +304,13 @@ class ContabilidadElectronicaAcuseSAT(models.Model):
         xlsx = None
         fname_xlsx = None
 
-    name = fields.Char(string=u"Acuse")
+    name = fields.Char(string="Acuse")
     company_id = fields.Many2one('res.company', string='Company', required=True,
         default=lambda self: self.env.user.company_id)
-    date_today = fields.Date(required=True, index=True, default=fields.Date.context_today, string="Periodo (Mes y Año)")
+    date_today = fields.Date(required=True, index=True, default=fields.Date.context_today, string="Periodo")
     date_from = fields.Date(required=True, index=True, default=fields.Date.context_today, string="Date From")
     date_to = fields.Date(required=True, index=True, default=fields.Date.context_today, string="Date To")
-    fiscalyear = fields.Char(u"Periodo (Año)", default=_get_fiscalyear)
+    fiscalyear = fields.Char("Periodo", default=_get_fiscalyear)
     period_id = fields.Selection([
                         ('01', 'January'), 
                         ('02', 'February'), 

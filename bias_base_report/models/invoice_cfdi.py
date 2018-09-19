@@ -34,7 +34,10 @@ class AccountCfdi(models.Model):
     def _compute_cant_letra(self):
         total = 0.0
         # if 'total' in self.env['product.product']._fields:
-        self.cant_letra = self.get_cant_letra(self.currency_id, total)
+        if self.currency_id:
+            self.cant_letra = self.get_cant_letra(self.currency_id, total)
+        else:
+            self.cant_letra = ""
 
     @api.one
     def _get_tipo_cambio(self):
@@ -46,7 +49,11 @@ class AccountCfdi(models.Model):
                 tipocambio = 1.0
             else:
                 mxn_rate = self.env["ir.model.data"].get_object('base', 'MXN').rate
-                tipocambio = (1.0 / self.currency_id.with_context(date='%s 06:00:00'%(date_invoice)).rate) * mxn_rate
+                rate = self.currency_id.with_context(date='%s 06:00:00'%(date_invoice)).rate
+                if rate != 0.0:
+                    tipocambio = (1.0 / rate) * mxn_rate
+                else:
+                    tipocambio = 1.0
 
         self.tipo_cambio = tipocambio
 

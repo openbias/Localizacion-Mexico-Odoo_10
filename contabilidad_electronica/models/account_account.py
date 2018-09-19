@@ -6,9 +6,9 @@ class AccountAccount(models.Model):
     _inherit = 'account.account'
 
     codigo_agrupador_id = fields.Many2one('contabilidad_electronica.codigo.agrupador', 
-                string=u"Código agrupador SAT", oldname="codigo_agrupador")
+                string="Codigo agrupador SAT", oldname="codigo_agrupador")
     naturaleza_id = fields.Many2one('contabilidad_electronica.naturaleza', 
-                string=u"Naturaleza", oldname="naturaleza")
+                string="Naturaleza", oldname="naturaleza")
 
 class AccountMove(models.Model):
     _inherit = "account.move"
@@ -42,7 +42,7 @@ class AccountMove(models.Model):
             ('1','Ingresos'),
             ('2','Egresos'),
             ('3','Diario'),
-        ], string=u"Tipo póliza", 
+        ], string="Tipo poliza", 
         compute='_get_tipo_poliza',
         default='3')
 
@@ -60,7 +60,7 @@ class AccountMoveLine(models.Model):
     transferencias_ids = fields.One2many("contabilidad_electronica.transferencia", "move_line_id", 
         string="Transferencias", ondelete="cascade", oldname="transferencias")
     otros_metodos_ids = fields.One2many("contabilidad_electronica.otro.metodo.pago", "move_line_id", 
-        string=u"Otros métodos de pago", ondelete="cascade", oldname="otros_metodos")
+        string="Otros metodos de pago", ondelete="cascade", oldname="otros_metodos")
 
 
 

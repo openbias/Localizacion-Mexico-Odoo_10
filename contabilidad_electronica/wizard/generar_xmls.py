@@ -52,10 +52,10 @@ class GenerarXmls(models.TransientModel):
     # Fields 
     company_id = fields.Many2one('res.company', string='Company', required=True,
         default=lambda self: self.env.user.company_id)
-    date_today = fields.Date(required=True, index=True, default=fields.Date.context_today, string="Periodo (Mes y Año)")
+    date_today = fields.Date(required=True, index=True, default=fields.Date.context_today, string="Periodo")
     date_from = fields.Date(required=True, index=True, default=fields.Date.context_today, string="Date From")
     date_to = fields.Date(required=True, index=True, default=fields.Date.context_today, string="Date To")
-    fiscalyear = fields.Char(u"Periodo (Año)")
+    fiscalyear = fields.Char(u"Periodo")
     period_id = fields.Selection([
             ('01', 'January'), 
             ('02', 'February'), 
@@ -80,17 +80,17 @@ class GenerarXmls(models.TransientModel):
     tipo_envio = fields.Selection([
             ('N', 'Normal'),
             ('C','Complementaria')],
-        string=u"Tipo de Envío de la Balanza",
+        string="Tipo de Envio de la Balanza",
         required=True, default='N')                                 # Balanza
-    fecha_mod_bal = fields.Date(u"Última Modificación")             # Balanza
+    fecha_mod_bal = fields.Date("Ultima Modificacion")             # Balanza
     tipo_solicitud = fields.Selection([
-            ('AF', 'Acto de Fiscalización'),
+            ('AF', 'Acto de Fiscalizacion'),
             ('FC', 'Fiscalización Compulsa'),
-            ('DE', 'Devolución'),
-            ('CO', 'Compensación')
-        ], string=u"Tipo de Solicitud de la Póliza")                    # Poliza
-    num_orden = fields.Char(u"Número de Orden")                     # Poliza
-    num_tramite = fields.Char(u"Número de Trámite")                 # Poliza
+            ('DE', 'Devolucion'),
+            ('CO', 'Compensacion')
+        ], string=u"Tipo de Solicitud de la Poliza")                    # Poliza
+    num_orden = fields.Char(u"Numero de Orden")                     # Poliza
+    num_tramite = fields.Char(u"Numero de Tramite")                 # Poliza
 
     xml = fields.Binary("Archivo XML")
     fname = fields.Char("Filename")

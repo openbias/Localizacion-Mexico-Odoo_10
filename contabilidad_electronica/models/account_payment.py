@@ -161,9 +161,9 @@ class account_bank_statement_line(models.Model):
 
     cta_destino_id = fields.Many2one("res.partner.bank", string="Cuenta destino", oldname="cta_destino")
     cta_origen_id = fields.Many2one("res.partner.bank", string="Cuenta origen", oldname="cta_origen")
-    num_cheque = fields.Char(string=u"Número")
+    num_cheque = fields.Char(string="Numero")
     benef_id = fields.Many2one("res.partner", string="Beneficiario", default=_default_benef, oldname="benef")
-    metodo_pago_id = fields.Many2one("contabilidad_electronica.metodo.pago", string=u"Código", default=_default_metodo_pago, oldname="metodo_pago")
+    metodo_pago_id = fields.Many2one("contabilidad_electronica.metodo.pago", string="Codigo", default=_default_metodo_pago, oldname="metodo_pago")
     ttype = fields.Selection([
             ("trans", "Transferencia"),
             ("cheque", "Cheque"), 
