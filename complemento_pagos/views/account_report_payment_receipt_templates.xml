@@ -23,9 +23,7 @@
                 <div class="page">
                     <t t-set="doc" t-value="o.cfdi_timbre_id" />
                     <t t-if="doc">
-                        <!--
                         <t t-call="complemento_pagos.report_cfdipagos_mx_body" />
-                        -->
                     </t>
                     <t t-if="not doc">
                         <h3><strong>Payment Receipt: <span t-field="o.name"/></strong></h3>

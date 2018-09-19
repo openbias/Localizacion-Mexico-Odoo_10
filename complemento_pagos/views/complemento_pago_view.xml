@@ -265,9 +265,7 @@
             <t t-call="bias_base_report.custom_external_layout">
                 <t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})" />
                 <div class="page">
-                    <!--
                     <t t-call="complemento_pagos.report_cfdipagos_mx_body" />
-                    -->
                 </div>
             </t>
         </template>
