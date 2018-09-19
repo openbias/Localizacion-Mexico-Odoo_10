@@ -105,13 +105,16 @@ class AccountInvoiceLine(models.Model):
         base = taxes.get('base', 0.00)
         price_subtotal_sat = taxes.get('total_excluded', 0.00)
         discount =  ((self.discount or 0.0) / 100.0) * base
-
-        subtotal = taxes.get('total_excluded', 0.00) / (1 - (self.discount / 100) )
+        perc_discount = (1 - (self.discount / 100) )
+        if perc_discount != 0.0:
+            subtotal = taxes.get('total_excluded', 0.00) / (1 - (self.discount / 100) )
+        else:
+            subtotal = 0.0
         self.price_tax_sat = taxes.get('total_included', 0.00) - taxes.get('total_excluded', 0.00)
         self.price_discount_sat = subtotal * (self.discount / 100)
         self.price_subtotal_sat = subtotal # taxes.get('total_excluded', 0.00)  # ( self.price_unit * self.quantity )
         self.price_total_sat = subtotal + self.price_tax_sat - self.price_discount_sat
-        
+
     price_total_sat = fields.Monetary(string='total (SAT)', readonly=True, compute='_compute_price_sat', default=0.00, digits=(12, 6))
     price_subtotal_sat = fields.Monetary(string='Subtotal (SAT)', readonly=True, compute='_compute_price_sat', default=0.00, digits=(12, 6))
     price_tax_sat = fields.Monetary(string='Tax (SAT)', readonly=True, compute='_compute_price_sat', default=0.00, digits=(12, 6))
@@ -188,13 +191,15 @@ class AccountInvoice(models.Model):
 
     @api.one
     def _get_parcialidad_pago(self):
+        """
         parcialidad_pago = 0
         if self.type == 'out_invoice':
             for payment in self.payment_move_line_ids:
                 if payment.uuid:
                     parcialidad_pago += 1
         self.parcialidad_pago = parcialidad_pago or 0
-        self.pagos = True if parcialidad_pago != 0 else False
+        """
+        self.pagos = True if len(self.payment_ids) != 0 else False
 
     pagos = fields.Boolean(string="Pagos", default=False, copy=False, compute='_get_parcialidad_pago')
     parcialidad_pago = fields.Integer(string="No. Parcialidad Pago", compute='_get_parcialidad_pago')

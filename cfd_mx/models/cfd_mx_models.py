@@ -1,15 +1,199 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api, _
-from odoo.exceptions import UserError, RedirectWarning, ValidationError
-
-import json
+from xml.dom import minidom
+from xml.dom.minidom import parse, parseString
+import json, base64, urllib
 import csv
 import os
 import inspect
 
+from odoo import models, fields, api, _
+from odoo.exceptions import UserError, RedirectWarning, ValidationError
+from odoo.addons.bias_base_report.bias_utis.amount_to_text_es_MX import amount_to_text
+
 import logging
 logging.basicConfig(level=logging.INFO)
+
+def extraeDecimales(nNumero, max_digits=2):
+    strDecimales = str( round(nNumero%1, 2) ).replace('0.','')
+    strDecimales += "0"*max_digits
+    strDecimales = strDecimales[0:max_digits]
+    return long( strDecimales )
+
+def cant_letra(currency, amount):
+    if currency.name == 'COP':
+        nombre = currency.nombre_largo or 'M/CTE'
+        siglas = 'M/CTE'
+        nNumero = round( amount , 2)
+        decimales = extraeDecimales(nNumero, 2)
+        am = str(nNumero).split('.')
+        n_entero = amount_to_text().amount_to_text_cheque(float(am[0]), nombre, "").replace("  ", "").replace("00/100", "")
+        n_decimales = amount_to_text().amount_to_text_cheque(float(decimales), 'centavos', siglas).replace("00/100 ", "")
+        name = "%s con %s "%(n_entero, n_decimales)
+    else:
+        nombre = currency.nombre_largo or ''
+        siglas = currency.name
+        name = amount_to_text().amount_to_text_cheque(float(amount), nombre, siglas).capitalize()
+    return name
+
+
+
+class CFDITimbresSat(models.Model):
+    _name = 'cfdi.timbres.sat'
+    _inherit = ['mail.thread']
+    _description = 'CFDI Timbres'
+    _order = "time_invoice desc, name desc, id desc"
+
+    name = fields.Char('Fiscal Folio', copy=False, readonly=True, help='Folio in electronic invoice, is returned by SAT when send to stamp')
+    cfdi_supplier_rfc = fields.Char(string='Supplier RFC', copy=False, readonly=True,
+        help='The supplier tax identification number.')
+    cfdi_customer_rfc = fields.Char(string='Customer RFC', copy=False, readonly=True,
+        help='The customer tax identification number.')
+    cfdi_pac_rfc = fields.Char(string='PAC RFC', copy=False, readonly=True,
+        help='The PAC tax identification number.')
+    cfdi_amount = fields.Monetary(string='Total Amount', copy=False, readonly=True,
+        help='The total amount reported on the cfdi.')
+    cfdi_certificate = fields.Char(string='Certificate', copy=False, readonly=True,
+        help='The certificate used during the generation of the cfdi.')
+    cfdi_certificate_sat = fields.Char(string='Certificate SAT', copy=False, readonly=True,
+        help='The certificate of the SAT used during the generation of the cfdi.')
+    time_invoice = fields.Char(
+        string='Time invoice', readonly=True, copy=False,
+        help="Keep empty to use the current México central time")
+    time_invoice_sat = fields.Char(
+        string='Time invoice SAT', readonly=True, copy=False,
+        help="Refers to the time of stamp of SAT")
+    cfdi_cancel_date_sat = fields.Char(
+        string='Date Cancel SAT', readonly=True, copy=False,
+        help="Refers to the date of cancellation of the CFDI Invoice.")
+    cfdi_cancel_status_sat = fields.Char(
+        string='Status Cancel SAT', readonly=True, copy=False,
+        help="Refers to the status of cancellation of the CFDI Invoice.")
+    cfdi_cancel_code_sat = fields.Char(
+        string='Code Cancel SAT', readonly=True, copy=False,
+        help="Refers to the code of cancellation of the CFDI Invoice.")
+    cfdi_cadena_ori = fields.Text(string="Cadena", copy=False)
+    cfdi_cadena_sat = fields.Text(string="Cadena SAT", copy=False)
+    cfdi_qrcode = fields.Binary(string="Codigo QR", copy=False)
+
+    journal_id = fields.Many2one('account.journal', string=u'Journal')
+    partner_id = fields.Many2one('res.partner', string=u'Partner')
+    currency_id = fields.Many2one('res.currency', string='Currency',
+        required=True, readonly=True,  
+        track_visibility='always')
+    company_id = fields.Many2one('res.company', string='Company', change_default=True,
+        required=True, readonly=True, default=lambda self: self.env['res.company']._company_default_get('cfdi.timbres.sat'))
+    cfdi_type = fields.Selection(
+        selection=[
+            ('I', 'Ingreso'),
+            ('E', 'Egreso'),
+            ('T', 'Traslado'),
+            ('P', 'Pagos'),
+            ('N', 'Nomina'),
+        ],
+        string='Type CFDI',
+        help='Refers to the type of the invoice inside the SAT system.',
+        readonly=True,
+        copy=False,
+        required=True,
+        track_visibility='onchange',
+        default='undefined')
+    cfdi_sat_status = fields.Selection(
+        selection=[
+            ('none', 'State not defined'),
+            ('undefined', 'Not Synced Yet'),
+            ('not_found', 'Not Found'),
+            ('cancelled', 'Cancelled'),
+            ('valid', 'Valid'),
+        ],
+        string='SAT status',
+        help='Refers to the status of the invoice inside the SAT system.',
+        readonly=True,
+        copy=False,
+        required=True,
+        track_visibility='onchange',
+        default='undefined')
+
+
+    @api.multi
+    def get_xml_cfdi(self):
+        nodosPagos = []
+        timbreAtrib = {}
+        compAtrib = {}
+        receptorAtrib = {}
+        emisorAtrib = {}
+        att_obj = self.env['ir.attachment']
+        for rec in self:
+            att_ids = att_obj.search([('res_model', '=', 'cfdi.timbres.sat'), ('res_id', '=', rec.id), ('type', '=', 'binary'), ('name', 'ilike', '%s.xml'%(rec.name) )])
+            for att_id in att_ids:
+                cfdi = base64.b64decode(att_id.datas)
+                xmlDoc = parseString(cfdi)
+                nodes = xmlDoc.childNodes
+                comprobante = nodes[0]
+                compAtrib = dict(comprobante.attributes.items())
+
+                emisor = comprobante.getElementsByTagName('cfdi:Emisor')
+                emisorAtrib = dict(emisor[0].attributes.items())
+
+                receptor = comprobante.getElementsByTagName('cfdi:Receptor')
+                receptorAtrib = dict(receptor[0].attributes.items())
+
+                complementos = comprobante.getElementsByTagName('cfdi:Complemento')
+                for comp in complementos:
+                    timbreFiscal = comp.getElementsByTagName('tfd:TimbreFiscalDigital')
+                    for timbre in timbreFiscal:
+                        timbreAtrib = dict(timbre.attributes.items())
+
+                    pagos10 = comp.getElementsByTagName('pago10:Pagos')
+                    for pago10 in pagos10:
+                        pagos = pago10.getElementsByTagName('pago10:Pago')
+                        for pago in pagos:
+                            pagoAtrib = dict(pago.attributes.items())
+                            doctosAtrib = []
+                            rels = pago.getElementsByTagName('pago10:DoctoRelacionado')
+                            for rel in rels:
+                                relAtrib = dict(rel.attributes.items())
+                                doctosAtrib.append(relAtrib)
+                            nodosPagos.append({
+                                'pagosAtrib': pagoAtrib,
+                                'doctosAtrib': doctosAtrib
+                            })
+        return {
+            'compAtrib': compAtrib,
+            'receptorAtrib': receptorAtrib,
+            'emisorAtrib': emisorAtrib,
+            'nodosPagos': nodosPagos,
+            'timbreAtrib': timbreAtrib
+        }
+
+
+    @api.multi
+    def get_total_cfdi(self, uuid):
+        inv_id = self.env['account.invoice'].search([('uuid', '=', uuid)], limit=1)
+        return inv_id and inv_id.amount_total or 0.0
+
+    @api.multi
+    def getCantLetra(self):
+        self.ensure_one()
+        return "MXN"
+
+    @api.multi
+    def cfdi_amount_to_text(self, moneda, amount_total):
+        self.ensure_one()
+        currency_id = self.env['res.currency'].search([('name', '=', moneda)], limit=1)
+        cantLetra = cant_letra(currency_id, amount_total) or ''
+        return cantLetra.upper()
+
+
+    @api.multi
+    def getUrlQR(self, sello):
+        self.ensure_one()
+        args = {
+            'id': self.name, 're': self.cfdi_supplier_rfc, 'rr': self.cfdi_customer_rfc, 'tt': self.cfdi_amount, 'fe': str(sello[-10:]).replace("=","")
+        }
+        url = "https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?id={id}&re={re}&rr={rr}&tt={tt}&fe={fe}".format(**args)
+        return urllib.pathname2url(url)
+
 
 class AltaCatalogosCFDI(models.TransientModel):
     _name = 'cf.mx.alta.catalogos.wizard'

@@ -33,66 +33,67 @@
                 <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})" />
                 <div class="page">
 
-                    <section class="report_account_move_custom oe_structure" id="report_account_move_custom">
-                        <div class="container">
-
-
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" class="img img-responsive" style="max-height:104px;"  />
-                                    </div>
-                                    <div class="col-xs-6">
-                                        <div class="bg_theme_color text-left">
-                                            <span class="fa fa-building-o"></span>
-                                            <strong t-field="o.company_id.partner_id.name" />
-                                        </div>
-                                        <div class="text-left" name="company_address">
-                                            <div t-field="o.company_id.partner_id" 
-                                                t-field-options='{
-                                                    "widget": "contact", 
-                                                    "fields": ["address", "phone", "email", "vat", "website"], 
-                                                    "no_marker": false, "phone_icons": true}'
-                                                class="company_address" />
-                                            <p t-if="o.company_id.partner_id.vat" class="company_address"><strong>RFC:</strong> <span t-field="o.company_id.partner_id.vat"/></p>
-                                            <p t-if="o.company_id.partner_id.regimen_id" class="company_address"><strong>Regimen:</strong> [<span t-field="o.company_id.partner_id.regimen_id.clave"/>] <span t-field="o.company_id.partner_id.regimen_id.name"/></p>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <div class="row font_inv">
-                                            <div class="col-xs-12 bg_theme_color text-left">
-                                                <span class="fa fa-building-o"></span>
-                                                <strong>Factura</strong>
-                                            </div>
-                                            <div class="col-xs-4"><strong>Serie</strong></div>
-                                            <div class="col-xs-8"><strong>Folio</strong></div>
-                                            
-                                            <div class="col-xs-6">
-                                                <span t-field="o.journal_id.serie" />
-                                            </div>
-                                            <div class="col-xs-6">
-                                                <span t-field="o.number" />
-                                            </div>
-                                            <div class="col-xs-12 bg_theme_color text-left">
-                                                <strong>Fecha y Hora de Emisión</strong>
-                                            </div>
-                                            <div class="col-xs-12 text-left">
-                                                <span t-field="o.date_invoice" />
-                                            </div>
-                                            <div class="col-xs-12 bg_theme_color text-left">
-                                                <strong>Lugar de Expedición</strong>
-                                            </div>
-                                            <div class="col-xs-12 text-left">
-                                                <span t-field="o.journal_id.codigo_postal_id.name" />
-                                            </div>
-                                        </div>
-                                    </div>
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <img 
+                                t-if="o.company_id.logo" 
+                                t-att-src="'data:image/png;base64,%s' % o.company_id.logo" 
+                                class="img img-responsive" style="max-height:104px;" />
+                        </div>
+                        <div class="col-xs-6 text-center">
+                            <strong class="font_theme_color" t-field="o.company_id.partner_id.name" /><br />
+                            <div class="text-center" name="company_address">
+                                <div t-field="o.company_id.partner_id" 
+                                    t-field-options='{
+                                        "widget": "contact", 
+                                        "fields": ["address", "phone", "email", "vat", "website"], 
+                                        "no_marker": false, "phone_icons": true}'
+                                    class="company_address" />
+                                <p t-if="o.company_id.partner_id.vat" class="company_address">RFC: <span t-field="o.company_id.partner_id.vat"/></p>
+                                <p t-if="o.company_id.partner_id.regimen_id" class="company_address"><strong>Regimen:</strong> [<span t-field="o.company_id.partner_id.regimen_id.clave"/>] <span t-field="o.company_id.partner_id.regimen_id.name"/></p>
+                            </div>
+                        </div>
+                        <div class="col-xs-3 calidad_page">
+                            <div class="row">
+                                <div class="col-xs-12 bg_theme_color text-center">
+                                    <span class="fa fa-building-o"></span>
+                                    <strong>FACTURA</strong>
                                 </div>
-                                <div class="row font_inv">
-                                    <div class="col-xs-4">
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 bg_theme_color text-center">
+                                    <strong>Serie y Folio</strong>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span t-field="o.journal_id.serie" /> <span t-field="o.number" />
+                                </div>
+                                <div class="col-xs-12 bg_theme_color text-left">
+                                    <strong>Fecha y Hora de Emisión</strong>
+                                </div>
+                                <div class="col-xs-12 text-left">
+                                    <span t-field="o.date_invoice_cfdi" />
+                                </div>
+                                <div class="col-xs-12 bg_theme_color text-left">
+                                    <strong>Lugar de Expedición</strong>
+                                </div>
+                                <div class="col-xs-12 text-left">
+                                    [<span t-field="o.journal_id.codigo_postal_id.name" />] <span t-field="o.journal_id.codigo_postal_id.municipio_id" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th style="width: 40%;">Información del Proveedor</th>
+                                    <th style="width: 60%;">Información Adicional</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr>
+                                    <td style="width: 40%;">
                                         <div class="row">
-                                            <div class="col-xs-12 bg_theme_color text-left">
-                                                <strong>Información del Proveedor</strong>
-                                            </div>
                                             <div class="col-xs-12 text-left">
                                                 <strong t-field="o.partner_id.name" />
                                                 <div class="text-left" name="font_inv">
@@ -107,193 +108,236 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-xs-4">
+                                    </td>
+                                    <td style="width: 60%;">
                                         <div class="row font_inv">
-                                            <div class="col-xs-12 bg_theme_color text-left">
-                                                <strong>Moneda</strong>
-                                            </div>
-                                            <div class="col-xs-12 text-left">
-                                                <span t-field="o.currency_id.name" />
-                                            </div>
-                                            <div class="col-xs-12 bg_theme_color text-left">
-                                                <strong>Tipo de Cambio</strong>
-                                            </div>
-                                            <div class="col-xs-12 text-left">
-                                                <span t-field="o.tipo_cambio" />
-                                            </div>
+                                            <t t-if="o.usocfdi_id">
+                                                <div class="col-xs-4 bg_theme_color text-left">
+                                                    <strong>Uso del CFDI</strong>
+                                                </div>
+                                                <div class="col-xs-8">
+                                                    <span t-field="o.usocfdi_id.name" />
+                                                </div>
+                                            </t>
+                                            <t t-if="o.currency_id">
+                                                <div class="col-xs-4 bg_theme_color text-left">
+                                                    <strong>Moneda</strong>
+                                                </div>
+                                                <div class="col-xs-8 text-left">
+                                                    <span t-field="o.currency_id.name" />
+                                                </div>
+                                            </t>
+                                            <t t-if="o.tipo_cambio">
+                                                <div class="col-xs-4 bg_theme_color text-left">
+                                                    <strong>Tipo de Cambio</strong>
+                                                </div>
+                                                <div class="col-xs-8 text-left">
+                                                    <span t-field="o.tipo_cambio" />
+                                                </div>
+                                            </t>
                                             <t t-if="o.uuid">
-                                                <div class="col-xs-12 bg_theme_color text-left">
+                                                <div class="col-xs-4 bg_theme_color text-left">
                                                     <strong>Timbre Fiscal</strong>
                                                 </div>
-                                                <div class="col-xs-12 text-left">
+                                                <div class="col-xs-8 text-left">
                                                     <span t-field="o.uuid" />
                                                 </div>
                                             </t>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-4">
-                                        <div class="row font_inv">
+                                            <t t-if="o.noCertificado">
+                                                <div class="col-xs-4 bg_theme_color text-left">
+                                                    <strong>No. Certificado</strong>
+                                                </div>
+                                                <div class="col-xs-8 text-left">
+                                                    <span t-field="o.noCertificado" />
+                                                </div>
+                                            </t>
+                                            <t t-if="o.metodopago_id">
+                                                <div class="col-xs-4 bg_theme_color text-left">
+                                                    <strong>Método de Pago</strong>
+                                                </div>
+                                                <div class="col-xs-8 text-left">
+                                                    <span t-field="o.metodopago_id.clave" /> - <span t-field="o.metodopago_id.name" />
+                                                </div>
+                                            </t>
+                                            <t t-if="o.formapago_id">
+                                                <div class="col-xs-4 bg_theme_color text-left">
+                                                    <strong>Forma de Pago</strong>
+                                                </div>
+                                                <div class="col-xs-8 text-left">
+                                                    <span t-field="o.formapago_id.clave" /> - <span t-field="o.formapago_id.name" />
+                                                </div>
+                                            </t>
+                                            <t t-if="o.payment_term_id">
+                                                <div class="col-xs-4 bg_theme_color text-left">
+                                                    <strong>Condiciones de Pago</strong>
+                                                </div>
+                                                <div class="col-xs-8 text-left">
+                                                    <span t-field="o.payment_term_id.name" />
+                                                </div>
+                                            </t>
                                             <t t-if="o.name">
-                                                <div class="col-xs-12 bg_theme_color text-left">
+                                                <div class="col-xs-4 bg_theme_color text-left">
                                                     <strong>Description</strong>
                                                 </div>
-                                                <div class="col-xs-12 text-left">
+                                                <div class="col-xs-8 text-left">
                                                     <span t-field="o.name" />
                                                 </div>
                                             </t>
                                             <t t-if="o.date_due and o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">
-                                                <div class="col-xs-12 bg_theme_color text-left">
+                                                <div class="col-xs-4 bg_theme_color text-left">
                                                     <strong>Due Date</strong>
                                                 </div>
-                                                <div class="col-xs-12 text-left">
+                                                <div class="col-xs-8 text-left">
                                                     <span t-field="o.currency_id.name" />
                                                 </div>
                                             </t>
                                             <t  t-if="o.origin">
-                                                <div class="col-xs-12 bg_theme_color text-left">
+                                                <div class="col-xs-4 bg_theme_color text-left">
                                                     <strong>Source</strong>
                                                 </div>
-                                                <div class="col-xs-12 text-left">
+                                                <div class="col-xs-8 text-left">
                                                     <span t-field="o.origin" />
                                                 </div>
                                             </t>
                                             <t t-if="o.reference">
-                                                <div class="col-xs-12 bg_theme_color text-left">
+                                                <div class="col-xs-4 bg_theme_color text-left">
                                                     <strong>Reference</strong>
                                                 </div>
-                                                <div class="col-xs-12 text-left">
+                                                <div class="col-xs-8 text-left">
                                                     <span t-field="o.reference" />
                                                 </div>
                                             </t>
                                         </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <t t-set="ret" t-value="0.0" />
+                    <t t-set="tras" t-value="0.0" />
+                    <t t-set="display_discount" t-value="any([l.discount for l in o.invoice_line_ids])"/>
+                    <div class="row font_inv">
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr><th colspan="6" class="text-center" >CONCEPTOS DEL COMPROBANTE</th></tr>
+                                <tr>
+                                    <th style="width: 30%;">Descripción</th>
+                                    <th>Cantidad</th>
+                                    <th>V. Unitario</th>
+                                    <th t-if="display_discount">Disc.(%)</th>
+                                    <th>Impuestos</th>
+                                    <th>Importe</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <t t-foreach="o.invoice_line_ids" t-as="l">
+                                    <tr>
+                                        <td style="width: 30%;"><span t-esc="l.name" /></td>
+                                        <td>
+                                            <span t-field="l.quantity" /> <span t-field="l.quantity" /> <span t-field="l.uom_id"  groups="product.group_uom"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="l.price_unit" t-options='{"widget": "monetary", "display_currency": o.currency_id}' />
+                                        </td>
+                                        <td class="text-right" t-if="display_discount">
+                                            <span t-field="l.discount"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="', '.join(map(lambda x: (x.description or x.name), l.invoice_line_tax_ids))"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="l.price_subtotal" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                    <t t-set="payments_lines" t-value="json.loads(o.payments_widget)"/>
+                    <div class="row font_inv">
+                        <div class="col-xs-8">
+                            <div class="row font_inv">
+                                <t t-if="len(o.tax_line_ids) > 0" >
+                                    <div class="col-xs-12 bg_theme_color text-center">
+                                        <strong>Impuestos</strong>
                                     </div>
-
-                                </div>
-                                <t t-set="ret" t-value="0.0" />
-                                <t t-set="tras" t-value="0.0" />
-                                <t t-set="display_discount" t-value="any([l.discount for l in o.invoice_line_ids])"/>
-                                <div class="row font_inv">
-                                    <div class="col-xs-12 bg_theme_color text-left">
-                                        <strong>CONCEPTOS DEL COMPROBANTE</strong>
-                                    </div>
-                                    <table class="table table-bordered table-sm event-table">
-                                        <tr class="border-black">
-                                            <td class="bg_theme_color" style="width: 30%;"><strong>Descripción</strong></td>
-                                            <td class="bg_theme_color"><strong>Cantidad</strong></td>
-                                            <td class="bg_theme_color"><strong>V. Unitario</strong></td>
-                                            <th class="bg_theme_color text-right" t-if="display_discount">Disc.(%)</th>
-                                            <td class="bg_theme_color"><strong>Impuestos</strong></td>
-                                            <td class="bg_theme_color"><strong>Importe</strong></td>
+                                    <table class="table table-condensed">
+                                        <tr>
+                                            <td class="bg_theme_color">Tax</td>
+                                            <td class="bg_theme_color text-right">Base</td>
+                                            <td class="bg_theme_color text-right">Amount</td>
                                         </tr>
-                                        <t t-foreach="o.invoice_line_ids" t-as="l">
-                                            <tr class="border-black">
-                                                <td class="border_top" style="width: 30%;"><span t-esc="l.name" /></td>
-                                                <td class="border_top">
-                                                    <span t-field="l.quantity" /> <span t-field="l.quantity" /> <span t-field="l.uom_id"  groups="product.group_uom"/>
-                                                </td>
-                                                <td class="border_top">
-                                                    <span t-field="l.price_unit" t-options='{"widget": "monetary", "display_currency": o.currency_id}' />
-                                                </td>
-                                                <td class="border_top text-right" t-if="display_discount">
-                                                    <span t-field="l.discount"/>
-                                                </td>
-                                                <td class="border_top text-right">
-                                                    <span t-esc="', '.join(map(lambda x: (x.description or x.name), l.invoice_line_tax_ids))"/>
-                                                </td>
-                                                <td class="border_top">
-                                                    <span t-field="l.price_subtotal" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
-                                                </td>
-                                            </tr>
-                                        </t>
+                                        <tr t-foreach="o.tax_line_ids" t-as="t">
+                                            <td><span t-field="t.tax_id.description"/></td>
+                                            <td class="text-right">
+                                                <span t-field="t.base" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="t.amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                            </td>
+                                        </tr>
                                     </table>
-                                </div>
-                                <t t-set="payments_lines" t-value="json.loads(o.payments_widget)"/>
-                                <div class="row font_inv">
-                                    <div class="col-xs-8">
-                                        <div class="row font_inv">
-                                            <t t-if="len(o.tax_line_ids) > 0" >
-                                                <div class="col-xs-12 bg_theme_color text-center">
-                                                    <strong>Impuestos</strong>
-                                                </div>
-                                                <table class="table table-condensed">
-                                                    <tr>
-                                                        <td class="bg_theme_color">Tax</td>
-                                                        <td class="bg_theme_color text-right">Base</td>
-                                                        <td class="bg_theme_color text-right">Amount</td>
-                                                    </tr>
-                                                    <tr t-foreach="o.tax_line_ids" t-as="t">
-                                                        <td><span t-field="t.tax_id.description"/></td>
-                                                        <td class="text-right">
-                                                            <span t-field="t.base" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
-                                                        </td>
-                                                        <td class="text-right">
-                                                            <span t-field="t.amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </t>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-4 pull-right">
-                                        <table class="table table-condensed">
-                                            <tr class="border-black">
-                                                <td><strong>Subtotal</strong></td>
-                                                <td class="text-right">
-                                                    <span t-field="o.amount_untaxed" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
-                                                </td>
-                                            </tr>
-                                            <t t-foreach="o._get_tax_amount_by_group()" t-as="amount_by_group">
-                                                <tr>
-                                                    <td><span t-esc="amount_by_group[0] if len(o.tax_line_ids) > 1 else (o.tax_line_ids.tax_id.description or o.tax_line_ids.tax_id.name)"/></td>
-                                                    <td class="text-right">
-                                                        <span t-esc="amount_by_group[2]"/>
-                                                    </td>
-                                                </tr>
-                                            </t>
-                                            <tr class="border-black">
-                                                <td><strong>Total</strong></td>
-                                                <td class="text-right">
-                                                     <span t-field="o.amount_total" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
-                                                </td>
-                                            </tr>
-                                            <tr class="border-black">
-                                                <td></td><td></td>
-                                            </tr>
-                                            <t t-foreach="payments_lines.get('content')" t-as="paid">
-                                                <tr>
-                                                    <td><strong>Fecha del Pago: </strong> <span t-esc="paid.get('date')"/> </td>
-                                                    <td class="text-right"> <span t-esc="paid.get('currency')"/> <span t-esc="paid.get('amount')"/></td>
-                                                </tr>
-                                            </t>
-                                            <t t-if="o.residual">
-                                                <tr class="border-black">
-                                                    <td><strong>Monto Adeudado: </strong> </td>
-                                                    <td class="text-right">
-                                                        <span t-field="o.residual" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
-                                                    </td>
-                                                </tr>
-                                            </t>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="row font_inv">
-                                    <div class="col-xs-12" t-if="o.comment">
-                                        <strong>Notas:</strong>
-                                        <span t-field="o.comment"/>
-                                    </div>
-                                    <div class="col-xs-12" t-if="o.payment_term_id">
-                                        <strong>Términos de pago:</strong>
-                                        <span t-field="o.payment_term_id.note"/>
-                                    </div>
-                                    <div class="col-xs-12" t-if="o.fiscal_position_id.note">
-                                        <strong>Posición fiscal:</strong>
-                                        <span t-field="o.fiscal_position_id.note"/>
-                                    </div>
-                                </div>
-
+                                </t>
+                            </div>
                         </div>
-                    </section>
+                        <div class="col-xs-4 pull-right">
+                            <table class="table table-condensed">
+                                <tr class="border-black">
+                                    <td><strong>Subtotal</strong></td>
+                                    <td class="text-right">
+                                        <span t-field="o.amount_untaxed" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    </td>
+                                </tr>
+                                <t t-foreach="o._get_tax_amount_by_group()" t-as="amount_by_group">
+                                    <tr>
+                                        <td><span t-esc="amount_by_group[0] if len(o.tax_line_ids) > 1 else (o.tax_line_ids.tax_id.description or o.tax_line_ids.tax_id.name)"/></td>
+                                        <td class="text-right">
+                                            <span t-esc="amount_by_group[2]"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr class="border-black">
+                                    <td><strong>Total</strong></td>
+                                    <td class="text-right">
+                                         <span t-field="o.amount_total" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    </td>
+                                </tr>
+                                <tr class="border-black">
+                                    <td></td><td></td>
+                                </tr>
+                                <t if="payments_lines">
+                                    <t t-foreach="payments_lines and payments_lines.get('content', [])" t-as="paid">
+                                        <tr>
+                                            <td><strong>Fecha del Pago: </strong> <span t-esc="paid.get('date')"/> </td>
+                                            <td class="text-right"> <span t-esc="paid.get('currency')"/> <span t-esc="paid.get('amount')"/></td>
+                                        </tr>
+                                    </t>
+                                </t>
+                                <t t-if="o.residual">
+                                    <tr class="border-black">
+                                        <td><strong>Monto Adeudado: </strong> </td>
+                                        <td class="text-right">
+                                            <span t-field="o.residual" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row font_inv">
+                        <div class="col-xs-12" t-if="o.comment">
+                            <strong>Notas:</strong>
+                            <span t-field="o.comment"/>
+                        </div>
+                        <div class="col-xs-12" t-if="o.payment_term_id">
+                            <strong>Términos de pago:</strong>
+                            <span t-field="o.payment_term_id.note"/>
+                        </div>
+                        <div class="col-xs-12" t-if="o.fiscal_position_id.note">
+                            <strong>Posición fiscal:</strong>
+                            <span t-field="o.fiscal_position_id.note"/>
+                        </div>
+                    </div>
                 </div>
             </t>
         </template>

@@ -1,12 +1,72 @@
-.o_table_nomina {
+@cs-body-color: #303030;
+@cs-body-size: 11px;
 
+@cs-table-header-bg: #656565;
+
+@cs-h2-color: #545454;
+@cs-strong-color: #545454;
+
+@cs-border-color: #dddddd;
+
+
+html, body {
+    height: 100%;
 }
+body {
+    color: @cs-body-color !important;
+    word-wrap: break-word;
+    font-size: @cs-body-size !important;
+}
+
+
+
+.bg_theme_color {
+    background-color: @cs-table-header-bg !important; 
+    color: #FFFFFF !important;
+    strong {
+        font-weight: bold; 
+        color: #FFFFFF !important;
+    }
+}
+.font_theme_color {
+    color: @cs-h2-color !important;
+}
+.border_theme_color {
+    border-bottom: 1px solid #dddddd !important;
+}
+
+.table-condensed > thead > tr > th { background-color: @cs-table-header-bg !important; color: #FFFFFF !important; border-bottom: 1px solid @cs-border-color !important; }
+
+
+.border-bottom {
+    border-bottom: 1px solid @cs-border-color !important;
+}
+.border-top {
+    border-top: 1px solid @cs-border-color !important;
+}
+.border-right {
+    border-right: 1px solid @cs-border-color !important;
+}
+.border-left {
+    border-left: 1px solid @cs-border-color !important;
+}
+
+
 .company_address {
     font-size:10px;
 }
 .font_inv {
-    font-size:11px;
+    font-size:10px;
 }
+                    
+
+/*
+
+.o_table_nomina {
+
+}
+
+
 .border_top {
     border-style: solid !important;
     border-top: solid 1px #dddddd !important;
@@ -16,47 +76,34 @@
 .event-table {
   width: 100%;
 }
-.table tr.rowA1.rowA1>th {
-  border-bottom: 1px solid red;
-}
-
-.table tr.rowB2.rowB2>td {
-    border-top-style: none !important;
-    border-top: none !important;
-    border-bottom: 1px solid #8F8F8F !important;
-}
-
-.table tfoot>tr.rowC2.rowC2>td {
-  border-bottom: 1px solid blue;
-}
 
 
 .jumbotron, .panel, .carousel, section{
     page-break-inside: avoid;
 }
-/* Wkhtmltopdf doesn't support very well the media-print CSS (depends on the version) */
+
 .hidden-print{
     display: none;
 }
 
-.font_theme_color {
-    color: #8F8F8F !important;
-}
-.bg_theme_color {
-    background-color: #8F8F8F !important;
-    color: #FFFFFF !important;
+
+
+
+
+.border-black td {
+    border-top: 1px solid black !important;
 }
 
-.border_theme_color {
-    border-bottom: 1px solid #dddddd !important;
-}
 
-#cfdi_conceptos {
+
+
+.cfdi_conceptos {
     color: #000000 !important;
     tbody {
         color: #8F8F8F !important;
         tr:nth-child(odd) {
             background-color: rgba(184, 171, 180, 0.2) !important;
+            border-bottom: 1px solid rgba(184, 171, 180, 0.2) !important;
         }
         tr td {
             color: #000000 !important;
@@ -81,15 +128,11 @@ h1, .h1, h2, .h2, h3, .h3 {
 }
 
 
-.table-condensed > thead > tr > th {
-    background-color: #545454 !important;
-    color: #FFFFFF !important;
-    border-bottom: 1px solid #323232 !important;
-}
+
+
 h2 {font-weight: bold; color: #545454 !important; font-size:16px;}
 
-.calidad_page { color: #000000 !important; word-wrap: break-word; font-size:11px; }                    
-.bg_theme_color { background-color: #545454 !important; color: #FFFFFF !important;}
+.calidad_page { color: #000000 !important; word-wrap: break-word; font-size:11px; }
 .calidad td { border: none !important; }
 .border-calidad { border-bottom: 1px solid #545454 !important; }
 .calidad td.noborder-table {
@@ -100,3 +143,4 @@ h2 {font-weight: bold; color: #545454 !important; font-size:16px;}
 }
 .calidad-folio { border: 1px solid #545454 !important; }
 
+*/

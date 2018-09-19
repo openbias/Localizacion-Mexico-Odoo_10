@@ -19,8 +19,8 @@
     'data': [
         'security/ir.model.access.csv',
         'data/hr_mx_ext.tipotrabajador.xml',
-        # 'data/hr_mx_ext.tiposueldo.xml',
-        # 'data/hr_mx_ext.tipojornada.xml',
+        'data/hr_mx_ext.tiposueldo.xml',
+        'data/hr_mx_ext.tipojornada.xml',
         'data/hr_mx_ext.tipodescuento.xml',
         'data/hr_mx_ext.tipopensionados.xml',
         'data/hr_mx_ext.escolaridad.xml',

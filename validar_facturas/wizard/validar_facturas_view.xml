@@ -66,8 +66,6 @@
         </record>
 
 
-
-
         <!-- Crear Factura -->
         <record id="action_validar_facturas" model="ir.actions.act_window">
             <field name="name">Validar XML CFDI</field>

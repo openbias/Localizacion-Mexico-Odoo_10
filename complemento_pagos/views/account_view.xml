@@ -2,17 +2,55 @@
 <odoo>
     <data>
 
-        <record id="view_bank_statement_pagos_form" model="ir.ui.view">
-            <field name="name">account.bank.statement.pagos.form</field>
-            <field name="model">account.bank.statement</field>
-            <field name="inherit_id" ref="account.view_bank_statement_form"/>
+        <record id="view_account_payment_invoice_cfdi_form" model="ir.ui.view">
+            <field name="name">account.payment.invoice.cfdi.form</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_invoice_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='line_ids']/tree/field[@name='amount']" position="before">
-                    <field name="formapago_id" />
+                <xpath expr="//sheet/group[1]" position="after">
+                    <group attrs="{'invisible': [('hide_formapago_id', '=', True)]}" >
+                        <separator string="Complemento Pagos CFDI 3.3" colspan="4"/>
+                        <group>
+                            <field name="hide_formapago_id" invisible="1"/>
+                            <field name="formapago_id"
+                                attrs="{'invisible': [('hide_formapago_id', '=', True)], 'required': [('hide_formapago_id', '=', False)]}"/>
+                            <field name="formapago_code" invisible="1" />
+                            <field name="spei_certpago" 
+                                attrs="{'invisible': [('spei_tipo_cadenapago', '!=', '01')], 'required': [('spei_tipo_cadenapago', '=', '01')]}"/>
+                            <field name="spei_sellopago"
+                                attrs="{'invisible': [('spei_tipo_cadenapago', '!=', '01')], 'required': [('spei_tipo_cadenapago', '=', '01')]}"/>
+                        </group>
+                        <group>
+                            <field name="spei_tipo_cadenapago" attrs="{'invisible': [('formapago_code', '!=', '03')] }"/>
+                            <field name="spei_cadpago"
+                                attrs="{'invisible': [('spei_tipo_cadenapago', '!=', '01')], 'required': [('spei_tipo_cadenapago', '=', '01')]}"/>
+                        </group>
+                    </group>
                 </xpath>
             </field>
         </record>
 
+        <record model="ir.ui.view" id="view_account_payment_cfdi_form">
+            <field name="name">view_account_payment_cfdi_form</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="payment_date" position="after">
+                        <field name="date_invoice_cfdi" />
+                        <field name="cfdi_timbre_id" />
+                    </field>
+                    <xpath expr="//field[@name='journal_id']" position="after">
+                        <field name="hide_formapago_id" invisible="1" />
+                        <field name="formapago_id"
+                            attrs="{
+                                'invisible': [('hide_formapago_id', '=', True)], 
+                                'required': [('hide_formapago_id', '=', False)]
+                            }"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
 
         <record id="view_account_payment_from_invoices_cp" model="ir.ui.view">
             <field name="name">account.register.payments.wizard.cfdi</field>
@@ -20,44 +58,136 @@
             <field name="inherit_id" ref="account.view_account_payment_from_invoices"/>
             <field name="arch" type="xml">
                 <xpath expr="//form/group[1]" position="after">
-                    <group
-                        attrs="{'invisible': [('hide_formapago_id', '=', True)]}" >
+                    <group attrs="{'invisible': [('hide_formapago_id', '=', True)]}" >
                         <separator string="Complemento Pagos CFDI 3.3" colspan="4"/>
                         <group>
-                            <field name="hide_formapago_id" invisible="1" />
+                            <field name="hide_formapago_id" invisible="1"/>
                             <field name="formapago_id"
-                                attrs="{
-                                    'invisible': [('hide_formapago_id', '=', True)], 
-                                    'required': [('hide_formapago_id', '=', False)]
-                                }"/>
+                                attrs="{'invisible': [('hide_formapago_id', '=', True)], 'required': [('hide_formapago_id', '=', False)]}"/>
+                            <field name="formapago_code" invisible="1" />
+                            <field name="spei_certpago" 
+                                attrs="{'invisible': [('spei_tipo_cadenapago', '!=', '01')], 'required': [('spei_tipo_cadenapago', '=', '01')]}"/>
+                            <field name="spei_sellopago"
+                                attrs="{'invisible': [('spei_tipo_cadenapago', '!=', '01')], 'required': [('spei_tipo_cadenapago', '=', '01')]}"/>
                         </group>
                         <group>
+                            <field name="spei_tipo_cadenapago" attrs="{'invisible': [('formapago_code', '!=', '03')] }"/>
+                            <field name="spei_cadpago"
+                                attrs="{'invisible': [('spei_tipo_cadenapago', '!=', '01')], 'required': [('spei_tipo_cadenapago', '=', '01')]}"/>
                         </group>
                     </group>
                 </xpath>
             </field>
         </record>
 
-        <record id="view_account_payment_invoice_cfdi_form" model="ir.ui.view">
-            <field name="name">account.payment.invoice.cfdi.form</field>
-            <field name="model">account.payment</field>
-            <field name="inherit_id" ref="account.view_account_payment_invoice_form"/>
+
+        <record id="view_bank_statement_pagos_cfdi_noedit_form" model="ir.ui.view">
+            <field name="name">account.bank.statement.pagos.form</field>
+            <field name="model">account.bank.statement</field>
+            <field name="inherit_id" ref="account.view_bank_statement_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//sheet/group[1]" position="after">
-                    <group
-                        attrs="{'invisible': [('hide_formapago_id', '=', True)]}" >
-                        <separator string="Complemento Pagos CFDI 3.3" colspan="4"/>
-                        <group>
-                            <field name="hide_formapago_id" invisible="1" />
+                <xpath expr="//field[@name='line_ids']/tree" position="attributes">
+                    <attribute name="editable" />
+                </xpath>
+            </field>
+        </record>
+        <record id="view_bank_statement_pagos_cfdi_form" model="ir.ui.view">
+            <field name="name">account.bank.statement.pagos.form</field>
+            <field name="model">account.bank.statement</field>
+            <field name="inherit_id" ref="account.view_bank_statement_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='line_ids']/tree" position="attributes">
+                    <attribute name="editable" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_bank_statement_pagos_form" model="ir.ui.view">
+            <field name="name">account.bank.statement.pagos.form</field>
+            <field name="model">account.bank.statement</field>
+            <field name="inherit_id" ref="account.view_bank_statement_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='amount']" position="before">
+                    <field name="payment_type" />
+                    <field name="formapago_id" />
+                    <field name="hide_formapago_id" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']" position="inside">
+                    <form string="Statement lines" >
+                        <group col="4">
+                            <field name="sequence" invisible="1"/>
+                            <field name="journal_entry_ids" invisible="1"/>
+                            <field name="state" invisible="1"/>
+                            <field name="formapago_code" invisible="1" />
+                            <field name="hide_formapago_id" invisible="1"/>
+                        </group>
+                        <group col="4">
+                            <field name="date" attrs="{'readonly' : [('journal_entry_ids', '!=', [])] }"/>
+                            <field name="partner_id" domain="['|',('parent_id','=',False),('is_company','=',True)]"
+                                 context="{'default_supplier': 1}"
+                                 attrs="{'readonly' : [('journal_entry_ids', '!=', [])] }"/>
+                            <field name="name" attrs="{'readonly' : [('journal_entry_ids', '!=', [])] }"/>
+                            <field name="ref" attrs="{'readonly' : [('journal_entry_ids', '!=', [])] }" groups="base.group_no_one"/>
+                            <field name="payment_type" attrs="{'readonly' : [('journal_entry_ids', '!=', [])] }"/>
+                            <field name="amount" attrs="{'readonly' : [('journal_entry_ids', '!=', [])] }"/>
+
                             <field name="formapago_id"
-                                attrs="{
-                                    'invisible': [('hide_formapago_id', '=', True)], 
-                                    'required': [('hide_formapago_id', '=', False)]
-                                }"/>
+                                attrs="{'invisible': [('hide_formapago_id', '=', True)], 'required': [('hide_formapago_id', '=', False)], 'readonly' : [('journal_entry_ids', '!=', [])]}"/>
+                            <field name="spei_tipo_cadenapago" attrs="{'invisible': [('formapago_code', '!=', '03')] }"/>
+
+                            <field name="spei_certpago" 
+                                attrs="{'invisible': [('spei_tipo_cadenapago', '!=', '01')], 'required': [('spei_tipo_cadenapago', '=', '01')], 'readonly' : [('journal_entry_ids', '!=', [])]}"/>
+                            <field name="spei_sellopago"
+                                attrs="{'invisible': [('spei_tipo_cadenapago', '!=', '01')], 'required': [('spei_tipo_cadenapago', '=', '01')], 'readonly' : [('journal_entry_ids', '!=', [])]}"/>
+                            
+                            <field name="spei_cadpago"
+                                attrs="{'invisible': [('spei_tipo_cadenapago', '!=', '01')], 'required': [('spei_tipo_cadenapago', '=', '01')], 'readonly' : [('journal_entry_ids', '!=', [])]}"/>
+                            <field name="note"/>
+
+                            <field name="journal_currency_id" invisible="1"/>
+                            <field name="amount_currency" invisible="1" />
+                            <field name="currency_id" invisible="1" options="{'no_create': True}"/>
+                            <field name="bank_account_id" invisible="1" domain="['|', ('partner_id', '=', partner_id), ('partner_id', '=', False)]"/>
                         </group>
+                        <separator string="Contabilidad Electronica SAT"/>
                         <group>
+                            <group>
+                                <field name="ttype" />
+                                <field name="cta_origen_id"
+                                    attrs="{
+                                        'invisible': ['|',('ttype','=',False),('ttype','=','otro')], 
+                                        'required': [('ttype','in',('cheque','trans'))]
+                                    }"/>
+                                <field name="benef_id"
+                                    attrs="{
+                                        'invisible': ['|',('ttype','=',False),('ttype','=','trans')], 
+                                        'required': [('ttype', 'in', ('cheque','otro'))]
+                                    }"/>
+                            </group>
+                            <group>
+                                <field name="cta_destino_id"
+                                    attrs="{
+                                        'invisible': ['|',('ttype','=',False),('ttype','!=','trans')], 
+                                        'required': [('ttype','=','trans')]
+                                    }"/>
+                                <field name="num_cheque"
+                                    attrs="{
+                                        'invisible': ['|',('ttype','=',False),('ttype','!=','cheque')], 
+                                        'required': [('ttype','=','cheque')]
+                                    }"/>
+                                <field name="metodo_pago_id" colspan="2"
+                                    attrs="{
+                                        'invisible': ['|',('ttype','=',False),('ttype','!=','otro')], 
+                                        'required': [('ttype','=','otro')]
+                                    }"/>
+                            </group>
+                            <div colspan="4">
+                                <span>NOTA</span> <br />
+                                <span>1.- Deben estar llenos los campos obligatorios.</span> <br />
+                                <span>2.- La cuenta origen debe pertenecer al cliente y la de destino a la empresa, o viceversa en caso de pago a proveedor.</span>
+                            </div>
                         </group>
-                    </group>
+                    </form>
                 </xpath>
             </field>
         </record>
@@ -109,6 +239,7 @@
                                 <field name="currency_id" groups="base.group_multi_currency"/>
                                 <button name="get_xml" type="object" string="XML" class="oe_highlight"/>
                                 <button name="get_pdf" type="object" string="PDF" class="oe_highlight"/>
+                                <button name="get_email" type="object" string="Email" class="oe_highlight"/>
                             </tree>
                         </field>
                     </group>

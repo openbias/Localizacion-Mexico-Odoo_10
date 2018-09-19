@@ -2,7 +2,8 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import odoo
-from odoo import api, fields, models, _
+from odoo import api, fields, models, tools, _
+
 
 # [('zenpar', 'Zenpar (EDICOM)'), ('tralix', 'Tralix'), ('finkok', 'Finkok')]
 
@@ -10,6 +11,7 @@ class ResBank(models.Model):
     _inherit = 'res.bank'
 
     description = fields.Char(string="Nombre o razon social")
+    vat = fields.Char(string="RFC")
 
 class company(models.Model):
     _inherit = 'res.company'
@@ -42,6 +44,8 @@ class company(models.Model):
     cfd_mx_tralix_key = fields.Char(string="Tralix Customer Key", size=64)
     cfd_mx_tralix_host = fields.Char(string="Tralix Host", size=256)
     cfd_mx_tralix_host_test = fields.Char(string="Tralix Host Modo Pruebas", size=256)
+
+
 
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

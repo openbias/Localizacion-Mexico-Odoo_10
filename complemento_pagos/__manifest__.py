@@ -13,14 +13,17 @@
     'category': 'Accounting & Finance',
     'version': '10.0.0.1',
     'depends': [
-        'account', 
         'base',
+        'mail',
+        'account', 
+        'account_cancel',
         'bias_base_report',
         'cfd_mx'
     ],
     'data': [
         'views/account_view.xml',
         'views/complemento_pago_view.xml',
-        # 'views/account_move_view.xml'
+        'views/account_report_payment_receipt_templates.xml',
+        'data/payment_receipt_data.xml',
     ]
 }

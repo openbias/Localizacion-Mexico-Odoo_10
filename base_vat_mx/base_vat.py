@@ -45,8 +45,8 @@ class ResPartner(models.Model):
         # actual [A-Z&]{3,4}[0-9]{6}[A-Z&0-9]{3}
         # [A-Z,Ñ,&]{3,4}[0-9]{2}[0-1][0-9][0-3][0-9][A-Z,0-9]?[A-Z,0-9]?[0-9,A-Z]?
         vat = re.match("[A-Z,Ñ,&]{3,4}[0-9]{2}[0-1][0-9][0-3][0-9][A-Z,0-9]?[A-Z,0-9]?[0-9,A-Z]?", vat.upper()) and True or False
-        if vat == False:
-            raise UserError(_('RFC mal formado'))
+        # if vat == False:
+        #     raise UserError(_('RFC mal formado'))
 
         # get first parent
         parent = self

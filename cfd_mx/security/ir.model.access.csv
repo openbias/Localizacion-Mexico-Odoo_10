@@ -1,4 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cfdi_timbres_sat,access_cfdi_timbres_sat,model_cfdi_timbres_sat,,1,1,1,1
 access_cf_mx_alta_catalogos_wizard,access_cf_mx_alta_catalogos_wizard,model_cf_mx_alta_catalogos_wizard,,1,1,1,1
 access_cfd_mx_tiporelacion,access_cfd_mx_tiporelacion,model_cfd_mx_tiporelacion,,1,1,1,1
 access_cfd_mx_usocfdi,access_cfd_mx_usocfdi,model_cfd_mx_usocfdi,,1,1,1,1

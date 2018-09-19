@@ -15,5 +15,22 @@
                 </xpath>
             </field>
         </record>
+
+
+        <template id="contact_cfdi" inherit_id="base.contact">
+            <xpath expr="//div[@itemprop='address']" position="after">
+                <div t-if="object.vat and 'vat' in fields" 
+                    class='css_editable_mode_hidden'>
+                    <strong>RFC:</strong> <span itemprop="vat" t-esc="object.vat" 
+                        style="margin-top:4px;margin-bottom:4px;font-size:10px;"/>
+                </div>
+                <div t-if="object.regimen_id and 'regimen_id' in fields" 
+                    class='css_editable_mode_hidden'>
+                    <strong>Regimen:</strong> [<span t-esc="object.regimen_id.clave" style="margin-top:4px;margin-bottom:4px;font-size:10px;"/>] <span itemprop="regimen_id" t-esc="object.regimen_id.name" style="margin-top:4px;margin-bottom:4px;font-size:10px;"/>
+                </div>
+           </xpath>
+        </template>
+
+
     </data>
 </odoo>

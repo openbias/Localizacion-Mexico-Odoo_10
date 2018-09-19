@@ -198,6 +198,7 @@ class validar_facturas(models.TransientModel):
                 "supplier_invoice_number": datas.get("supplier_invoice_number", ""),
                 "hora_factura": datas.get("hora_factura", ""),
                 "date_invoice": datas.get("date_invoice"),
+                "date": datas.get("date_invoice"),
                 "uuid": datas.get("uuid")
             }
             Inv = self.env['account.invoice'].browse(invoice_id)
@@ -242,6 +243,7 @@ class validar_facturas(models.TransientModel):
         total = d.get("@Total") or d.get("@total") or 0.0
         version = d.get("@Version") or d.get("@version") or 0.0
 
+        data["date"] = fecha.split("T")[0]
         data["date_invoice"] = fecha.split("T")[0]
         data["hora_factura"] = fecha.split("T")[1]
         fpos = False

@@ -15,7 +15,8 @@ import textwrap
 import json
 
 import logging
-logging.basicConfig(level=logging.INFO)
+_logger = logging.getLogger(__name__)
+
 
 catcfdi = {
     'formaPago': ['01','02','03','04','05','06','08','12','13','14','15','17','23','24','25','26','27','28','29','30','99'],
@@ -272,7 +273,6 @@ class AccountCfdi(models.Model):
         return export_text
 
     def get_cant_letra(self, currency, amount):
-        print 'asdada', currency
         if currency.name == 'MXN':
             nombre = currency.nombre_largo or 'pesos'
             siglas = 'M.N.'

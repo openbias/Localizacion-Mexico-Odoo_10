@@ -2,6 +2,73 @@
     <data>
 
         <!-- CATALOGO USO CFDI -->
+        <record id="cfdi_timbres_sat_view_form" model="ir.ui.view">
+            <field name="name">cfdi_timbres_sat_view_form</field>
+            <field name="model">cfdi.timbres.sat</field>
+            <field name="arch" type="xml">
+                <form string="Timbres SAT" create="false" delete="false">
+                    <sheet string="Timbres SAT">
+                        <group>
+                            <field name="cfdi_type" />
+                            <field name="name"/>
+                            <field name="partner_id" />
+                            <field name="journal_id" />
+                            <field name="cfdi_supplier_rfc" />
+                            <field name="cfdi_customer_rfc" />
+                            <field name="cfdi_pac_rfc" />
+                            <field name="cfdi_amount" />
+                            <field name="cfdi_certificate" />
+                            <field name="cfdi_certificate_sat" />
+                            <field name="time_invoice" />
+                            <field name="time_invoice_sat" />
+                            <field name="cfdi_sat_status" />
+                        </group>
+                        <group>
+                            <field name="cfdi_cancel_date_sat" />
+                            <field name="cfdi_cancel_status_sat" />
+                            <field name="cfdi_cancel_code_sat" />
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="cfdi_timbres_sat_view_tree" model="ir.ui.view">
+            <field name="name">cfdi_timbres_sat_view_tree</field>
+            <field name="model">cfdi.timbres.sat</field>
+            <field name="arch" type="xml">
+                <tree string="Timbres SAT" colors="red:cfdi_sat_status=='cancelled';blue:cfdi_sat_status=='valid' ">
+                    <field name="cfdi_type" />
+                    <field name="cfdi_sat_status" />
+                    <field name="name"/>
+                    <field name="cfdi_supplier_rfc" />
+                    <field name="cfdi_customer_rfc" />
+                    <field name="cfdi_pac_rfc" />
+                    <field name="cfdi_amount" />
+                    <field name="cfdi_certificate" />
+                    <field name="cfdi_certificate_sat" />
+                    <field name="time_invoice" />
+                    <field name="time_invoice_sat" />
+                </tree>
+            </field>
+        </record>
+        <record id="action_cfdi_timbres_sat" model="ir.actions.act_window">
+            <field name="name">Timbres SAT</field>
+            <field name="res_model">cfdi.timbres.sat</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">tree</field>
+            <field name="view_mode">list,form</field>
+        </record>
+        <menuitem 
+            action="action_cfdi_timbres_sat" 
+            parent="bias_base_report.menu_catalogo_cfdi"
+            groups="group_cfd_mx_user"
+            id="menu_cfdi_timbres_sat" sequence="80" />
+
+        <!-- CATALOGO USO CFDI -->
         <record id="uso_cfdi_view_tree" model="ir.ui.view">
             <field name="name">uso_cfdi_view_tree</field>
             <field name="model">cfd_mx.usocfdi</field>

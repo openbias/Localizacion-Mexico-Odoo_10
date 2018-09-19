@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record id="email_template_payment_receipt" model="mail.template">
+            <field name="name">Payment - Send by Email</field>
+            <field name="email_from">${object.company_id and object.company_id.email or ''}</field>
+            <field name="subject">${object.company_id.name} Payment (Ref ${object.name or 'n/a'})</field>
+            <field name="partner_to">${object.partner_id.id}</field>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="model_id" ref="account.model_account_payment"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="report_name">Payment_${(object.name or '').replace('/','_')}</field>
+            <field name="body_html">
+                <![CDATA[
+<p>Dear ${object.partner_id.name},</p>
+<p>Thank you for your payment.<br />Here is your payment receipt <strong>${(object.name or '').replace('/','-')}</strong> amounting to <strong>${format_amount(object.amount, object.currency_id)}</strong> from ${object.company_id.name}.</p>
+<p>If you have any questions, please do not hesitate to contact us.</p>
+<p>Best regards,
+% if user and user.signature:
+${user.signature | safe}
+% endif
+</p>
+                ]]>
+            </field>
+        </record>
+
+
+        <act_window name="Send Receipt By Email"
+            res_model="mail.compose.message"
+            src_model="account.payment"
+            view_mode="form"
+            target="new"
+            key2="client_action_relate"
+            id="account_send_payment_receipt_by_email_action"
+            context="{
+                'default_model': 'account.payment',
+                'mail_post_autofollow': True,
+                'default_composition_mode': 'comment',
+                'default_use_template': True,
+                'default_res_id': active_id,
+                'default_template_id': ref('complemento_pagos.email_template_payment_receipt'),
+                'force_email': True,
+            }"
+        />
+
+
+
+        <record id="complemento_pagos.email_notification_paynow" model="mail.template">
+            <field name="name">Payment Notification Email</field>
+            <field name="subject">${object.subject}</field>
+            <field name="model_id" ref="mail.model_mail_message"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+<table border="0" cellpadding="0" cellspacing="0" style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;">
+    <tr>
+        <td align="center">
+            <table border="0" cellpadding="0" cellspacing="0" width="590" style="padding: 24px; background-color: white; color: #454748; border-collapse:separate;">
+                <tbody>
+                    <tr>
+                        <td align="center" style="min-width: 590px;">
+                            <t t-set="access_action" t-value="record.with_context(force_website=True).get_access_action()"/>
+                            <t t-set="is_online" t-value="access_action and access_action['type'] == 'ir.actions.act_url'"/>
+                            <t t-set="access_url" t-value="is_online and record._get_share_url(redirect=True, signup_partner=True) or ''"/>
+                            <t t-set="access_code" t-value="'view'"/>
+                            <t t-set="access_name">
+                                View <t t-esc="record._description.lower()"/>
+                            </t>
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: white; padding: 0; border-collapse:separate;">
+                                <tr><td valign="middle">
+                                    <span style="font-size: 10px;">Your <t t-esc="'%s' % model_description or 'document'"/></span><br/>
+                                    <span style="font-size: 20px; font-weight: bold;">
+                                        <t t-esc="message.record_name"/>
+                                    </span>
+                                </td><td valign="middle" align="right">
+                                    <img t-att-src="'/logo.png?company=%s' % company.id" style="padding: 0px; margin: 0px; height: 48px;" t-att-alt="'%s' % company.name"/>
+                                </td></tr>
+                                <tr><td colspan="2" style="text-align:center;">
+                                  <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:4px 0px 32px 0px;"/>
+                                </td></tr>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding: 0">
+            <t t-raw="message.body"/>
+            <div t-if="is_online and not record._context.get('proforma')" style="margin: 32px 0px 32px 0px; text-align: center;">
+                <a t-att-href="access_url"
+                    style="background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;">
+                    <t t-esc="access_name"/>
+                </a>
+            </div>
+            <div style="margin: 0px; padding: 0px; font-size:13px;">
+                Best regards,
+            </div>
+            <div>&amp;nbsp;</div>
+            <div t-if="record.user_id and record.user_id.signature" style="font-size: 13px;">
+                <div t-raw="record.user_id.signature"/>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td align="center" style="min-width: 590px; padding: 8px; font-size:11px;">
+            Powered by <a target="_blank" href="https://www.odoo.com?utm_source=db&amp;utm_medium=email" style="color: #875A7B;">Odoo</a>
+        </td>
+    </tr>
+</table>
+
+            ]]></field>
+        </record>        
+
+    </data>
+
+</odoo>

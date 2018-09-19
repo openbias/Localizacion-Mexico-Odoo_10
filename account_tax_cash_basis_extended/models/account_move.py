@@ -20,7 +20,7 @@
 ##############################################################################
 
 from openerp import models, fields, api, _
-from openerp.exceptions import UserError
+from openerp.exceptions import UserError, Warning
 from operator import itemgetter
 
 
@@ -42,20 +42,21 @@ class AccountMove(models.Model):
     @api.multi
     def open_cash_basis_view(self):
         [action] = self.env.ref('account.action_move_journal_line').read()
-        cash_basis_movs = []
+        cash_basis_movs = self.env['account.move']
+        obj = self.env['account.partial.reconcile']
         if self.tax_cash_basis_rec_id:
-            cash_basis_movs.extend([self.tax_cash_basis_rec_id.credit_move_id.move_id, self.tax_cash_basis_rec_id.debit_move_id.move_id])
-        elif not cash_basis_movs:
-            for line in [l for l in self.line_ids if l.account_id.reconcile]:
-                rec_ids = self.env['account.partial.reconcile'].search(['|',('credit_move_id', 'in', line._ids),('debit_move_id', 'in', line._ids)])
-                cash_basis_movs.extend([x.credit_move_id.move_id for x in rec_ids if x.credit_move_id])
-                cash_basis_movs.extend([x.debit_move_id.move_id for x in rec_ids if x.debit_move_id])
-            line_ids = [x.id for x in self.line_ids if x.reconciled]
-            tax_cash_basis_rec_ids = self.env['account.partial.reconcile'].search(['|',('credit_move_id', 'in', line_ids),('debit_move_id', 'in', line_ids)])
-            movs = self.env['account.move'].search([('tax_cash_basis_rec_id', 'in', [x.id for x  in tax_cash_basis_rec_ids])])
-            cash_basis_movs.extend([x for x in movs])
-            
-        action['domain'] = [('id', 'in', [x.id for x in set(cash_basis_movs) if x.id != self.id])]
+            cash_basis_movs |= self.tax_cash_basis_rec_id.credit_move_id.move_id
+            cash_basis_movs |= self.tax_cash_basis_rec_id.debit_move_id.move_id
+        for line in self.line_ids.filtered(lambda l: l.account_id.reconcile):
+            rec_ids = obj.search(['|',('credit_move_id', 'in', line._ids),('debit_move_id', 'in', line._ids)])
+            cash_basis_movs |= rec_ids.filtered(lambda l: l.credit_move_id).mapped('credit_move_id.move_id')
+            cash_basis_movs |= rec_ids.filtered(lambda l: l.debit_move_id).mapped('debit_move_id.move_id')
+            cash_basis_movs |= line.mapped('full_reconcile_id.reconciled_line_ids.move_id')
+        line_ids = self.line_ids.filtered(lambda l: l.reconciled).ids
+        tax_cash_basis_rec_ids = obj.search(['|',('credit_move_id', 'in', line_ids),('debit_move_id', 'in', line_ids)])
+        lin_obj = self.env['account.move']
+        cash_basis_movs |= lin_obj.search([('tax_cash_basis_rec_id', 'in', tax_cash_basis_rec_ids.ids)])
+        action['domain'] = [('id', 'in', cash_basis_movs.ids)]
         action['context'] = "{'search_default_misc_filter':0}"
         return action
 

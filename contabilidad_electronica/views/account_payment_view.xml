@@ -72,53 +72,55 @@
             <field name="arch" type="xml">
                 <data>
                     <xpath expr="/form/sheet/group/group[2]" position="after">
-                        <notebook>
-                            <page name="conta_elect" string="Contabilidad Electronica">
-                                <group>
-                                    <separator string="Contabilidad Electronica SAT" colspan="4"/>
+                        <group colspan="4" col="4">
+                            <notebook>
+                                <page name="conta_elect" string="Contabilidad Electronica">
                                     <group>
-                                        <field name="tipo_pago" />
-                                        <field name="cta_origen_id"
-                                            attrs="{
-                                                'invisible': ['|',('tipo_pago','=',False),('tipo_pago','=','otro')], 
-                                                'required': [('tipo_pago','in',('cheque','trans'))]
-                                            }"/>
-                                        <field name="benef_id"
-                                            attrs="{
-                                                'invisible': ['|',('tipo_pago','=',False),('tipo_pago','=','trans')], 
-                                                'required': [('tipo_pago', 'in', ('cheque','otro'))]
-                                            }"/>
+                                        <separator string="Contabilidad Electronica SAT" colspan="4"/>
+                                        <group>
+                                            <field name="tipo_pago" />
+                                            <field name="cta_origen_id"
+                                                attrs="{
+                                                    'invisible': ['|',('tipo_pago','=',False),('tipo_pago','=','otro')], 
+                                                    'required': [('tipo_pago','in',('cheque','trans'))]
+                                                }"/>
+                                            <field name="benef_id"
+                                                attrs="{
+                                                    'invisible': ['|',('tipo_pago','=',False),('tipo_pago','=','trans')], 
+                                                    'required': [('tipo_pago', 'in', ('cheque','otro'))]
+                                                }"/>
+                                        </group>
+                                        <group>
+                                            <field name="fecha_trans"
+                                                attrs="{
+                                                    'invisible': [('tipo_pago','=',False)], 
+                                                    'required': [('tipo_pago','!=', False)]
+                                                }"/>
+                                            <field name="cta_destino_id"
+                                                attrs="{
+                                                    'invisible': ['|',('tipo_pago','=',False),('tipo_pago','!=','trans')], 
+                                                    'required': [('tipo_pago','=','trans')]
+                                                }"/>
+                                            <field name="num_cheque"
+                                                attrs="{
+                                                    'invisible': ['|',('tipo_pago','=',False),('tipo_pago','!=','cheque')], 
+                                                    'required': [('tipo_pago','=','cheque')]
+                                                }"/>
+                                            <field name="metodo_pago_id" colspan="2"
+                                                attrs="{
+                                                    'invisible': ['|',('tipo_pago','=',False),('tipo_pago','!=','otro')], 
+                                                    'required': [('tipo_pago','=','otro')]
+                                                }"/>
+                                        </group>
+                                        <div colspan="4">
+                                            <span>NOTA</span> <br />
+                                            <span>1.- Deben estar llenos los campos obligatorios.</span> <br />
+                                            <span>2.- La cuenta origen debe pertenecer al cliente y la de destino a la empresa, o viceversa en caso de pago a proveedor.</span>
+                                        </div>
                                     </group>
-                                    <group>
-                                        <field name="fecha_trans"
-                                            attrs="{
-                                                'invisible': [('tipo_pago','=',False)], 
-                                                'required': [('tipo_pago','!=', False)]
-                                            }"/>
-                                        <field name="cta_destino_id"
-                                            attrs="{
-                                                'invisible': ['|',('tipo_pago','=',False),('tipo_pago','!=','trans')], 
-                                                'required': [('tipo_pago','=','trans')]
-                                            }"/>
-                                        <field name="num_cheque"
-                                            attrs="{
-                                                'invisible': ['|',('tipo_pago','=',False),('tipo_pago','!=','cheque')], 
-                                                'required': [('tipo_pago','=','cheque')]
-                                            }"/>
-                                        <field name="metodo_pago_id" colspan="2"
-                                            attrs="{
-                                                'invisible': ['|',('tipo_pago','=',False),('tipo_pago','!=','otro')], 
-                                                'required': [('tipo_pago','=','otro')]
-                                            }"/>
-                                    </group>
-                                    <div colspan="4">
-                                        <span>NOTA</span> <br />
-                                        <span>1.- Deben estar llenos los campos obligatorios.</span> <br />
-                                        <span>2.- La cuenta origen debe pertenecer al cliente y la de destino a la empresa, o viceversa en caso de pago a proveedor.</span>
-                                    </div>
-                                </group>
-                            </page>
-                        </notebook>
+                                </page>
+                            </notebook>
+                        </group>
                     </xpath>
                 </data>
             </field>
@@ -161,7 +163,7 @@
         </record>
     
 
-        
+        <!--        
         <record id="view_bank_statement_conta_form" model="ir.ui.view">
             <field name="name">account.bank.statement.conta.form</field>
             <field name="model">account.bank.statement</field>
@@ -200,6 +202,7 @@
                 </xpath>
             </field>
         </record>
+        -->
        
     
     </data>
