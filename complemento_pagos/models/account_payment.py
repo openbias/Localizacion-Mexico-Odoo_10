@@ -50,6 +50,9 @@ class AltaCatalogosCFDI(models.TransientModel):
 
 
 
+
+
+
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
@@ -85,25 +88,13 @@ class AccountInvoice(models.Model):
         return res
 
 
-
-
-
-class AccountRegisterPayments(models.TransientModel):
-    _inherit = "account.register.payments"
-    _description = "Register payments on multiple invoices"
+class AccountAbstractPayment(models.AbstractModel):
+    _inherit = "account.abstract.payment"
 
     hide_formapago_id = fields.Boolean(compute='_compute_hide_formapago_id',
         help="Este campo es usado para ocultar el formapago_id, cuando no se trate de Recibo Electronico de Pago")
     formapago_id = fields.Many2one('cfd_mx.formapago', string=u'Forma de Pago')
     formapago_code = fields.Char(related='formapago_id.clave')
-    spei_tipo_cadenapago = fields.Selection([
-            ('01', 'SPEI')
-        ], string="Tipo de Cadena de Pago", domain=[('formapago_id.clave', '!=', '03')],
-        help="Se debe registrar la clave del tipo de cadena de pago que genera la entidad receptora del pago.", default="")
-    spei_certpago = fields.Text(string="Certificado Pago SPEI")
-    spei_cadpago = fields.Text(string="Cadena Pago SPEI")
-    spei_sellopago = fields.Text(string="Sello Pago SPEI")
-
 
     @api.one
     @api.depends('journal_id')
@@ -115,6 +106,29 @@ class AccountRegisterPayments(models.TransientModel):
             self.hide_formapago_id = False
         else:
             self.hide_formapago_id = True
+
+    @api.onchange('journal_id')
+    def _onchange_journal(self):
+        rec = super(AccountAbstractPayment, self)._onchange_journal()
+        self.formapago_id = self.env.ref('cfd_mx.formapago_03')
+        if self.journal_id:
+            if self.journal_id.type == 'cash':
+                self.formapago_id = self.env.ref('cfd_mx.formapago_01')
+        return rec
+
+
+class AccountRegisterPayments(models.TransientModel):
+    _inherit = "account.register.payments"
+    _description = "Register payments on multiple invoices"
+
+
+    spei_tipo_cadenapago = fields.Selection([
+            ('01', 'SPEI')
+        ], string="Tipo de Cadena de Pago", domain=[('formapago_id.clave', '!=', '03')],
+        help="Se debe registrar la clave del tipo de cadena de pago que genera la entidad receptora del pago.", default="")
+    spei_certpago = fields.Text(string="Certificado Pago SPEI")
+    spei_cadpago = fields.Text(string="Cadena Pago SPEI")
+    spei_sellopago = fields.Text(string="Sello Pago SPEI")
 
     def get_payment_vals(self):
         rec = super(AccountRegisterPayments, self).get_payment_vals()
@@ -431,7 +445,7 @@ class AccountPayment(models.Model):
         if self.formapago_id and self.formapago_id.banco:
             if self.cta_origen_id:
                 bank_vat = self.cta_origen_id and self.cta_origen_id.bank_id or False
-                if bank_vat and bank_vat and bank_vat.vat:
+                if bank_vat and bank_vat.vat:
                     pago["@RfcEmisorCtaOrd"] = bank_vat and bank_vat.vat or ""
                     pago["@CtaOrdenante"]= self.cta_origen_id.acc_number or ""
                     if bank_vat.vat == "XEXX010101000":
@@ -485,12 +499,11 @@ class AccountPayment(models.Model):
         Complemento = collections.OrderedDict()
         Complemento["pago10:Pagos"] = Pagos
         Complemento["pago10:Pagos"]["@Version"] = "1.0"
-        
         return Complemento
 
     @staticmethod
     def _get_folio(number):
-        values = {'serie': None, 'folio': None}
+        values = {'serie': "", 'folio': ""}
         number_matchs = [rn for rn in re.finditer('\d+', number or '')]
         if number_matchs:
             last_number_match = number_matchs[-1]
@@ -617,6 +630,12 @@ class AccountBankStatementLine(models.Model):
         payments = move.mapped('line_ids.payment_id')
         payment_method = self.formapago_id and self.formapago_id.id
         payments.write({
+            'cta_destino_id': self.cta_destino_id and self.cta_destino_id.id or False,
+            'cta_origen_id': self.cta_origen_id and self.cta_origen_id.id or False,
+            'num_cheque': self.num_cheque or '',
+            'benef_id': self.benef_id and self.benef_id.id or False,
+            'metodo_pago_id': self.metodo_pago_id and self.metodo_pago_id.id or False,
+            'tipo_pago': self.ttype or '',
             'formapago_id': payment_method,
             'invoice_ids': [(6, 0, invoice_ids)]
         })
@@ -626,7 +645,12 @@ class AccountBankStatementLine(models.Model):
     @api.multi
     def cfdi_is_required(self):
         self.ensure_one()
+        if self.amount < 0:
+            partner_type = 'supplier'
+        else:
+            partner_type = 'customer'
         required = (
+            partner_type == "customer" and
             self.journal_id.id in self.env.user.company_id.cfd_mx_journal_ids.ids
         )
         if getattr(self, 'pos_statement_id', False):
@@ -659,7 +683,6 @@ class AccountMoveLine(models.Model):
     def get_pdf(self):
         self.ensure_one()
         if self.payment_id and self.payment_id.cfdi_timbre_id:
-            print "self.payment_id.cfdi_timbre_id", self.payment_id.cfdi_timbre_id
             return self.env['report'].get_action(self.payment_id.cfdi_timbre_id, 'complemento_pagos.report_cfdipagosmx')
         else:
             raise UserError("No es una Factura CFDI de Pago")

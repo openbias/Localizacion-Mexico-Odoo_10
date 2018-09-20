@@ -6,16 +6,53 @@ class AccountAbstractPayment(models.AbstractModel):
     _name = "account.abstract.payment"
     _inherit = "account.abstract.payment"
 
+    @api.one
+    @api.depends('payment_date')
+    def _compute_fecha_trans(self):
+        if self.payment_date:
+            self.fecha_trans = self.payment_date
+
     cta_destino_id = fields.Many2one('res.partner.bank', string='Cuenta Destino', oldname="cta_destino")
     cta_origen_id = fields.Many2one('res.partner.bank', string='Cuenta Origen', oldname="cta_origen")
     cta_destino_partner_id = fields.Many2one('res.partner', string='Partner Cuenta Destino', oldname="cta_destino_partner")
     cta_origen_partner_id = fields.Many2one('res.partner', string='Partner Cuenta Origen', oldname="cta_origen_partner")
-    fecha_trans = fields.Date(string='Fecha de la transferencia', default=fields.Date.context_today)
+    
     num_cheque = fields.Char(string=u'Número')
+    fecha_trans = fields.Date(string='Fecha de la transferencia', store=True, compute='_compute_fecha_trans')
     benef_id = fields.Many2one('res.partner', string='Beneficiario', oldname="benef")
     metodo_pago_id = fields.Many2one('contabilidad_electronica.metodo.pago', string=u'Código', oldname="metodo_pago")
     tipo_pago = fields.Selection([('trans', 'Transferencia'),('cheque', 'Cheque'), ('otro', 'Otro')], default='trans', string=u'Tipo del Pago')
 
+
+    @api.onchange('journal_id')
+    def _onchange_journal(self):
+        rec = super(AccountAbstractPayment, self)._onchange_journal()
+
+        if rec and self.partner_id and self.journal_id and self.partner_type:
+
+            self.tipo_pago = 'otro'
+            self.benef_id = self.partner_id
+            self.metodo_pago_id = self.env.ref('contabilidad_electronica.metodo_pago_3')
+            
+            bank_ids = self.env['res.partner.bank'].search([('partner_id', '=', self.partner_id.id)])
+            jb_ids = self.journal_id.bank_account_id
+            if self.partner_type == "customer":
+                self.benef_id = self.company_id.partner_id
+                self.cta_destino_id = jb_ids.ids
+                rec['domain']['cta_destino_id'] = [('id', 'in', jb_ids.ids)]
+                rec['domain']['cta_origen_id'] = [('id', 'in', bank_ids.ids)]
+            else:
+                self.cta_origen_id = jb_ids.ids
+                rec['domain']['cta_origen_id'] = [('id', 'in', jb_ids.ids)]
+                rec['domain']['cta_destino_id'] = [('id', 'in', bank_ids.ids)]
+
+
+            if self.journal_id:
+                if self.journal_id.type == 'cash':
+                    self.metodo_pago_id = self.env.ref('contabilidad_electronica.metodo_pago_1')
+        return rec
+
+    """
     @api.onchange('journal_id')
     def _onchange_journal(self):
         rec = super(AccountAbstractPayment, self)._onchange_journal()
@@ -33,11 +70,13 @@ class AccountAbstractPayment(models.AbstractModel):
                 rec['domain']['cta_origen_id'] = [('id', 'in', jb_ids.ids)]
                 rec['domain']['cta_destino_id'] = [('id', 'in', bank_ids.ids)]
         return rec
+    """
 
 class AccountRegisterPayments(models.TransientModel):
     _inherit = "account.register.payments"
     _description = "Register payments on multiple invoices"
 
+    """
     @api.model
     def default_get(self, fields):
         rec = super(AccountRegisterPayments, self).default_get(fields)
@@ -50,7 +89,6 @@ class AccountRegisterPayments(models.TransientModel):
         return rec
 
     def get_payment_vals(self):
-        """ Hook for extension """
         rec = super(AccountRegisterPayments, self).get_payment_vals()
         vals = {
             'cta_destino_id': self.cta_destino_id and self.cta_destino_id.id or None,
@@ -65,7 +103,7 @@ class AccountRegisterPayments(models.TransientModel):
         }
         rec.update(vals)
         return rec
-
+        """
 
 class AccountPayment(models.Model):
     _inherit = 'account.payment'
@@ -219,7 +257,6 @@ class account_bank_statement_line(models.Model):
 
     def process_reconciliation_cont_elect(self, move_id, counterpart_aml_dicts=None, payment_aml_rec=None, new_aml_dicts=None):
         context = self._context
-
         cur_obj = self.env['res.currency']
         model_obj = self.env['ir.model.data']
 

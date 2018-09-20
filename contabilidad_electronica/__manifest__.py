@@ -28,7 +28,6 @@
         'views/account_payment_view.xml',
         'wizard/account_move_comprobantes_view.xml',
         "wizard/generar_xmls_view.xml"
-        # 'views/templates.xml',
     ],
 }
 
