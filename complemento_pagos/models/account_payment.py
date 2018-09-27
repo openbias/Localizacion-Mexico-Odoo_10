@@ -3,6 +3,8 @@
 from xml.dom import minidom
 from xml.dom.minidom import parse, parseString
 
+import xmltodict
+
 from datetime import date, datetime
 from pytz import timezone
 import json, base64, re
@@ -16,7 +18,7 @@ from odoo import models, fields, api, _
 from odoo.tools import DEFAULT_SERVER_TIME_FORMAT
 from odoo.exceptions import UserError, RedirectWarning, ValidationError
 
-_logger = logging.getLogger(__name__)
+_logger = logging.basicConfig(level=logging.INFO)
 
 __check_cfdi_re = re.compile(u'''([A-Z]|[a-z]|[0-9]| |Ñ|ñ|!|"|%|&|'|´|-|:|;|>|=|<|@|_|,|\{|\}|`|~|á|é|í|ó|ú|Á|É|Í|Ó|Ú|ü|Ü)''')
 
@@ -36,65 +38,14 @@ def create_list_html(array):
     return '<ul>' + msg + '</ul>'
 
 
+class ResPartnerBank(models.Model):
+    _inherit = 'res.partner.bank'
+    _description = 'Bank Accounts'
 
-class AltaCatalogosCFDI(models.TransientModel):
-    _inherit = 'cf.mx.alta.catalogos.wizard'
-
-    @api.multi
-    def getElectronicPayment(self):
-        MoveLine = self.env['account.move.line']
-        line_ids = MoveLine.sudo().search([('cadena_sat', '!=', False)])
-        for line in line_ids:
-            line.sudo().getElectronicPayment()
-        return True
-
-
-
-
-
-
-class AccountInvoice(models.Model):
-    _inherit = "account.invoice"
-
-    @api.multi
-    def assign_outstanding_credit(self, credit_aml_id):
-        self.ensure_one()
-        credit_aml = self.env['account.move.line'].browse(credit_aml_id)
-        res = super(AccountInvoice, self.with_context(invoice_id=self.id, payment_id=credit_aml.payment_id)).assign_outstanding_credit(credit_aml_id)
-        return res
-
-    @api.multi
-    def register_payment(self, payment_line, writeoff_acc_id=False, writeoff_journal_id=False):
-        res = super(AccountInvoice, self).register_payment(payment_line, writeoff_acc_id=writeoff_acc_id, writeoff_journal_id=writeoff_journal_id)
-        if self.env.context.get('invoice_id') and self.env.context.get('payment_id'):
-            payment_id = self.env.context["payment_id"]
-            if payment_id.filtered(lambda r: r.cfdi_is_required()):
-                payment_id.action_validate_cfdi()
-        return res
-
-    @api.one
-    @api.depends('payment_move_line_ids.amount_residual')
-    def _get_payment_info_JSON(self):
-        res = super(AccountInvoice, self)._get_payment_info_JSON()
-        if self.payments_widget != "false":
-            MoveLine = self.env['account.move.line']
-            payments_widget = json.loads(self.payments_widget)
-            for vals in payments_widget.get("content", []):
-                line_id = MoveLine.browse([vals.get("payment_id")])
-                if line_id and line_id.payment_id:
-                    vals['account_payment_id'] = line_id.payment_id.id
-                    vals['cfdi_timbre_id'] = line_id.payment_id and line_id.payment_id.cfdi_timbre_id and line_id.payment_id.cfdi_timbre_id.id or None
-            self.payments_widget = json.dumps(payments_widget)
-        return res
-
+    factoring = fields.Boolean(string="Es Factoraje", default=False)
 
 class AccountAbstractPayment(models.AbstractModel):
     _inherit = "account.abstract.payment"
-
-    hide_formapago_id = fields.Boolean(compute='_compute_hide_formapago_id',
-        help="Este campo es usado para ocultar el formapago_id, cuando no se trate de Recibo Electronico de Pago")
-    formapago_id = fields.Many2one('cfd_mx.formapago', string=u'Forma de Pago')
-    formapago_code = fields.Char(related='formapago_id.clave')
 
     @api.one
     @api.depends('journal_id')
@@ -107,20 +58,72 @@ class AccountAbstractPayment(models.AbstractModel):
         else:
             self.hide_formapago_id = True
 
+    @api.one
+    @api.depends('cta_origen_id')
+    def _compute_hide_cfdi_factoraje_id(self):
+        if not self.cta_origen_id:
+            self.hide_cfdi_factoraje_id = True
+            return
+        self.partner_factoraje_id = self.cta_origen_id.partner_id
+        if self.cta_origen_id.factoring:
+            self.hide_cfdi_factoraje_id = False
+        else:
+            self.hide_cfdi_factoraje_id = True
+
+
+    cta_destino_id = fields.Many2one('res.partner.bank', string='Cuenta Destino', oldname="cta_destino")
+    cta_origen_id = fields.Many2one('res.partner.bank', string='Cuenta Origen', oldname="cta_origen")
+    cta_destino_partner_id = fields.Many2one('res.partner', string='Partner Cuenta Destino', oldname="cta_destino_partner")
+    cta_origen_partner_id = fields.Many2one('res.partner', string='Partner Cuenta Origen', oldname="cta_origen_partner")
+
+    hide_formapago_id = fields.Boolean(compute='_compute_hide_formapago_id',
+        help="Este campo es usado para ocultar el formapago_id, cuando no se trate de Recibo Electronico de Pago")
+    formapago_id = fields.Many2one('cfd_mx.formapago', string=u'Forma de Pago')
+    formapago_code = fields.Char(related='formapago_id.clave')
+    
+    cfdi_factoraje_id = fields.Many2one('account.invoice', string=u'CFDI Factoraje Compensacion')
+    partner_factoraje_id = fields.Many2one('res.partner', string=u'Empresa Factoraje', store=True, compute='_compute_hide_cfdi_factoraje_id')
+    hide_cfdi_factoraje_id = fields.Boolean(compute='_compute_hide_cfdi_factoraje_id',
+        help="Este campo es usado para ocultar el cfdi_factoraje_id, cuando no se trate de una cuenta origen de Factoraje")
+
+
     @api.onchange('journal_id')
     def _onchange_journal(self):
         rec = super(AccountAbstractPayment, self)._onchange_journal()
-        self.formapago_id = self.env.ref('cfd_mx.formapago_03')
-        if self.journal_id:
+        if rec and self.partner_id and self.journal_id and self.partner_type:
             if self.journal_id.type == 'cash':
+                self.tipo_pago = 'otro'
+                self.metodo_pago_id = self.env.ref('contabilidad_electronica.metodo_pago_1')
                 self.formapago_id = self.env.ref('cfd_mx.formapago_01')
+            elif self.journal_id.type == 'bank':
+                self.tipo_pago = 'trans'
+                self.metodo_pago_id = self.env.ref('contabilidad_electronica.metodo_pago_3')
+                self.formapago_id = self.env.ref('cfd_mx.formapago_03')
+
+            bank_ids = self.env['res.partner.bank'].search([('partner_id', '=', self.partner_id.id)])
+            jb_ids = self.journal_id.bank_account_id
+
+            if self.partner_type == "customer":
+                self.benef_id = self.company_id.partner_id
+                self.cta_destino_id = jb_ids.ids
+                if self.hide_formapago_id == False:
+                    factoring_ids = self.env['res.partner.bank'].search([('factoring', '=', True)])
+                    bank_ids |= factoring_ids
+                rec['domain']['cta_origen_id'] = [('id', 'in', bank_ids.ids)]
+                rec['domain']['cta_destino_id'] = [('id', 'in', jb_ids.ids)]
+                
+            else:
+                self.benef_id = self.partner_id
+                self.cta_origen_id = jb_ids.ids
+                rec['domain']['cta_origen_id'] = [('id', 'in', jb_ids.ids)]
+                rec['domain']['cta_destino_id'] = [('id', 'in', bank_ids.ids)]
+
         return rec
 
 
 class AccountRegisterPayments(models.TransientModel):
     _inherit = "account.register.payments"
     _description = "Register payments on multiple invoices"
-
 
     spei_tipo_cadenapago = fields.Selection([
             ('01', 'SPEI')
@@ -145,7 +148,6 @@ class AccountPayment(models.Model):
     @api.one
     @api.depends('invoice_ids', 'amount', 'payment_date', 'currency_id')
     def _compute_date_invoice_cfdi(self):
-        _logger.info("self.payment_date 000 - %s "%self.payment_date)
         if self.date_invoice_cfdi:
             return
         tz = self.env.user.tz or "America/Mexico_City"
@@ -153,7 +155,6 @@ class AccountPayment(models.Model):
         hora_factura_utc = datetime.now(timezone("UTC"))
         dtz = hora_factura_utc.astimezone(timezone(tz)).strftime("%Y-%m-%d %H:%M:%S")
         dtz = dtz.replace(" ", "T")
-        _logger.info("self.payment_date 001 - %s"%dtz)
         self.date_invoice_cfdi = dtz
 
     hide_formapago_id = fields.Boolean(compute='_compute_hide_formapago_id',
@@ -187,6 +188,8 @@ class AccountPayment(models.Model):
 
     @api.multi
     def post(self):
+        for record in self.filtered(lambda r: r.cfdi_validate_required()):
+            pass
         res = super(AccountPayment, self).post()
         for record in self.filtered(lambda r: r.cfdi_is_required()):
             record.action_validate_cfdi()
@@ -203,6 +206,14 @@ class AccountPayment(models.Model):
         )
         if not required:
             return required
+        return required
+
+
+    @api.multi
+    def cfdi_validate_required(self):
+        self.ensure_one()
+        required = self.cfdi_is_required()
+
         if not self.invoice_ids:
             raise UserError(_(
                 'Is necessary assign the invoices that are paid with this '
@@ -230,6 +241,11 @@ class AccountPayment(models.Model):
         if self.partner_id.es_extranjero:
             if not (self.partner_id.country_id and self.partner_id.country_id.code_alpha3 or False):
                 raise UserError(_('No se especifico el codigo del Pais'))
+        if not self.communication:
+            raise UserError(_('No se especifico el "Concepto de Pago"'))
+        if self.cfdi_factoraje_id and self.partner_factoraje_id and not self.company_id.journal_factoring_id:
+            raise UserError(_('No se especifico el "Diario de Factoraje"'))
+
         return required
 
 
@@ -243,7 +259,61 @@ class AccountPayment(models.Model):
                 raise UserError(message)
             else:
                 self.get_process_data(res.get('result'))
+                if self.cfdi_factoraje_id and self.partner_factoraje_id:
+                    # Se cancela Factura de Proveedor Factoraje    
+                    amount_total = self.cfdi_factoraje_id.amount_total
+                    ctx = {'active_id': self.cfdi_factoraje_id.id, 'active_ids': [self.cfdi_factoraje_id.id], 'model': 'account.invoice'}
+                    res = self.env['account.invoice.refund'].with_context(**ctx).create({
+                        'description': 'Cancelar Factoraje',
+                        'filter_refund': 'cancel'
+
+                    }).invoice_refund()
+
+                    self.payment_difference_factoring()
+
         return True
+
+    @api.multi
+    def payment_difference_factoring(self):
+        self.ensure_one()
+        journal_id = self.company_id.journal_factoring_id
+
+        aml_obj = self.env['account.move.line'].with_context(check_move_validity=False)
+        invoice_currency = False
+        invoice_currency = self.cfdi_factoraje_id.currency_id
+        debit, credit, amount_currency, currency_id = aml_obj.with_context(date=self.payment_date).compute_amount_fields(-(self.cfdi_factoraje_id.amount_total), self.currency_id, self.company_id.currency_id, invoice_currency)
+
+        move_vals = {
+            'name': journal_id.with_context(ir_sequence_date=self.payment_date).sequence_id.next_by_id(),
+            'date': self.payment_date,
+            'ref': self.communication or '',
+            'company_id': self.company_id.id,
+            'journal_id': journal_id.id,
+        }
+
+        move = self.env['account.move'].create(move_vals)
+        
+        #Write line corresponding to invoice payment
+        counterpart_aml_dict = self._get_shared_move_line_vals(debit, credit, amount_currency, move.id, False)
+        counterpart_aml_dict.update(self._get_counterpart_move_line_vals(self.invoice_ids))
+        counterpart_aml_dict.update({'currency_id': currency_id})
+        counterpart_aml = aml_obj.create(counterpart_aml_dict)
+
+        self.invoice_ids.register_payment(counterpart_aml)
+
+        liquidity_aml_dict = self._get_shared_move_line_vals(credit, debit, -amount_currency, move.id, False)
+        vals = {
+            'name': _('Counterpart'),
+            'account_id': self.payment_type in ('outbound','transfer') and journal_id.default_debit_account_id.id or journal_id.default_credit_account_id.id,
+            'payment_id': self.id,
+            'journal_id': journal_id.id,
+            'currency_id': self.currency_id != self.company_id.currency_id and self.currency_id.id or False,
+        }
+        liquidity_aml_dict.update(vals)
+        aml_obj.create(liquidity_aml_dict)
+        move.post()
+        return True
+
 
     @api.multi
     def create_cfdi_payment(self):
@@ -256,7 +326,9 @@ class AccountPayment(models.Model):
         cfdi["cfdi:Comprobante"]["cfdi:Receptor"] = self.cfdi_payment_receptor()
         cfdi["cfdi:Comprobante"]["cfdi:Conceptos"] = self.cfdi_payment_conceptos()
         cfdi["cfdi:Comprobante"]["cfdi:Complemento"] = self.cfdi_payment_complemento()
+
         ordered_list = [{key: val} for key, val in cfdi.items()]
+        # print xmltodict.unparse(ordered_list[0], pretty=True)
         cfdi_json = json.dumps(ordered_list)
         url = "%s/cfdi/stamp/%s/%s"%(self.company_id.cfd_mx_host, self.company_id.cfd_mx_db, self.company_id.vat)
         headers = {'Content-Type': 'application/json'}
@@ -269,7 +341,7 @@ class AccountPayment(models.Model):
             }
         }
         data_json = json.dumps(data)
-        _logger.info(data)
+        # _logger.info(data)
         res = requests.post(url=url, data=data_json, headers=headers)
         res_datas = res.json()
         msg = res_datas.get('error') and res_datas['error'].get('data') and res_datas['error']['data'].get('message')
@@ -396,6 +468,8 @@ class AccountPayment(models.Model):
     def cfdi_payment_receptor(self):
         self.ensure_one()
         partner_data = self.partner_id
+        if self.partner_factoraje_id:
+            partner_data = self.partner_factoraje_id
         Receptor = collections.OrderedDict()
         Receptor["@Rfc"] = partner_data.vat or ""
         Receptor["@Nombre"] = partner_data.name or ""
@@ -428,39 +502,39 @@ class AccountPayment(models.Model):
 
         MoveLine = self.env['account.move.line']
         decimal_precision = self.env['decimal.precision'].precision_get('Account')
-
         mxn = self.env.ref('base.MXN')
         rate = ('%.6f' % (self.currency_id.with_context(date=self.payment_date).compute( 1, mxn, False))) if self.currency_id.name != 'MXN' else False
-        DoctoRelacionado = []
-        Pago10 = []
-        pago = collections.OrderedDict()
-        pago["@FechaPago"]= '%sT12:00:00'%(self.payment_date)
-        pago["@FormaDePagoP"]= self.formapago_id.clave or "01"
-        pago["@MonedaP"]= self.currency_id.name
-        if self.currency_id.name != "MXN":
-            pago["@TipoCambioP"] = rate
-        pago["@Monto"]= '%.*f' % (decimal_precision, self.amount)
-        pago["@NumOperacion"]= self.communication or ""
 
+        nodoPago10 = []
+
+        # Nodo pago10:Pago    
+        pago10 = collections.OrderedDict()
+        pago10["@FechaPago"]= '%sT12:00:00'%(self.payment_date)
+        pago10["@FormaDePagoP"]= self.formapago_id.clave or "01"
+        pago10["@MonedaP"]= self.currency_id.name
+        if self.currency_id.name != "MXN":
+            pago10["@TipoCambioP"] = rate
+        pago10["@Monto"]= '%.*f' % (decimal_precision, self.amount)
+        pago10["@NumOperacion"]= self.communication or ""
         if self.formapago_id and self.formapago_id.banco:
             if self.cta_origen_id:
                 bank_vat = self.cta_origen_id and self.cta_origen_id.bank_id or False
                 if bank_vat and bank_vat.vat:
-                    pago["@RfcEmisorCtaOrd"] = bank_vat and bank_vat.vat or ""
-                    pago["@CtaOrdenante"]= self.cta_origen_id.acc_number or ""
+                    pago10["@RfcEmisorCtaOrd"] = bank_vat and bank_vat.vat or ""
+                    pago10["@CtaOrdenante"]= self.cta_origen_id.acc_number or ""
                     if bank_vat.vat == "XEXX010101000":
-                        pago["@NomBancoOrdExt"] = bank_vat.description or ""
+                        pago10["@NomBancoOrdExt"] = bank_vat.description or ""
 
             bank_vat = self.journal_id and self.journal_id.bank_id and self.journal_id.bank_id.vat or False
             if bank_vat:
-                pago["@RfcEmisorCtaBen"] = bank_vat
-                pago["@CtaBeneficiario"] = self.journal_id and self.journal_id.bank_acc_number or ""
+                pago10["@RfcEmisorCtaBen"] = bank_vat
+                pago10["@CtaBeneficiario"] = self.journal_id and self.journal_id.bank_acc_number or ""
 
             if self.spei_tipo_cadenapago == "01":
-                pago["@TipoCadPago"] = self.spei_tipo_cadenapago
-                pago["@CertPago"] = self.spei_certpago
-                pago["@CadPago"] = self.spei_cadpago
-                pago["@SelloPago"] = self.spei_sellopago
+                pago10["@TipoCadPago"] = self.spei_tipo_cadenapago
+                pago10["@CertPago"] = self.spei_certpago
+                pago10["@CadPago"] = self.spei_cadpago
+                pago10["@SelloPago"] = self.spei_sellopago
 
         DoctoRelacionado = []
         write_off = self.move_line_ids.filtered(lambda l: l.account_id == self.writeoff_account_id and l.name == self.writeoff_label)
@@ -473,7 +547,6 @@ class AccountPayment(models.Model):
             amount = amount - write_off
             residual = balance - amount if balance - amount > 0 else 0
             inv_rate = ('%.6f' % (invoice.currency_id.with_context(date=self.payment_date).compute(1, self.currency_id, round=False))) if self.currency_id != invoice.currency_id else False
-            # inv_rate = 1 if inv_rate and invoice.currency_id.name == 'MXN' else inv_rate
 
             docto_attribs = collections.OrderedDict()
             docto_attribs["@IdDocumento"] = "%s"%invoice.uuid
@@ -489,16 +562,62 @@ class AccountPayment(models.Model):
             if inv_rate:
                 docto_attribs['@TipoCambioDR'] = inv_rate
             DoctoRelacionado.append(docto_attribs)
+        pago10["pago10:DoctoRelacionado"] = DoctoRelacionado
+        nodoPago10.append(pago10)
 
-        pago["pago10:DoctoRelacionado"] = DoctoRelacionado
-        Pago10.append(pago)
+        if self.cfdi_factoraje_id and self.partner_factoraje_id:
+            amount_total = self.cfdi_factoraje_id.amount_total
+            ImpSaldoAnt = 0.0
+            NumParcialidad = 0
 
-        Pagos = collections.OrderedDict()
-        Pagos["pago10:Pago"] = Pago10
+            # for nodo in nodoPago10:
+            #     nodo["@Monto"] = '%.*f' % (decimal_precision,  ( float(nodo["@Monto"]) + amount_total ) )
+
+            for docto in DoctoRelacionado:
+                docto["@ImpPagado"] = '%0.*f' % (decimal_precision,  (float(docto["@ImpPagado"])) )
+                docto["@ImpSaldoInsoluto"] = '%0.*f' % (decimal_precision, (float(docto["@ImpSaldoInsoluto"])))
+                NumParcialidad = int(docto.get("@NumParcialidad")) + 1
+                ImpSaldoAnt = float(docto["@ImpSaldoInsoluto"]) - amount_total
+
+            # Nuevo nodo
+            pago10 = collections.OrderedDict()
+            pago10["@FechaPago"]= '%sT12:00:00'%(self.payment_date)
+            pago10["@FormaDePagoP"]= "17"
+            pago10["@MonedaP"]= self.currency_id.name
+            if self.currency_id.name != "MXN":
+                pago10["@TipoCambioP"] = rate
+            pago10["@Monto"]= '%.*f' % (decimal_precision, amount_total)
+            pago10["@NumOperacion"]= "Compensacion"
+
+            DoctoRelacionado = []
+            for invoice in self.invoice_ids:
+                inv_rate = ('%.6f' % (self.cfdi_factoraje_id.currency_id.with_context(date=self.payment_date).compute(1, self.currency_id, round=False))) if self.currency_id != self.cfdi_factoraje_id.currency_id else False
+
+                docto_attribs = collections.OrderedDict()
+                docto_attribs["@IdDocumento"] = "%s"%invoice.uuid
+                docto_attribs["@Folio"] = "%s"%invoice.number
+                docto_attribs["@MonedaDR"] = "%s"%invoice.currency_id.name
+                docto_attribs["@MetodoDePagoDR"] = '%s'%(invoice.metodopago_id and invoice.metodopago_id.clave or "PPD")
+                docto_attribs["@NumParcialidad"] = '%s'%NumParcialidad
+                docto_attribs["@ImpSaldoAnt"] = '%0.*f' % (decimal_precision, (ImpSaldoAnt+amount_total))
+                docto_attribs["@ImpPagado"] = '%0.*f' % (decimal_precision, amount_total)
+                docto_attribs["@ImpSaldoInsoluto"] = '%0.*f' % (decimal_precision, (ImpSaldoAnt))
+                if invoice.journal_id.serie:
+                    docto_attribs['@Serie'] = invoice.journal_id.serie or ''
+                if inv_rate:
+                    docto_attribs['@TipoCambioDR'] = inv_rate
+                DoctoRelacionado.append(docto_attribs)
+                break
+            pago10["pago10:DoctoRelacionado"] = DoctoRelacionado
+            nodoPago10.append(pago10)
+        
+        pagos10 = collections.OrderedDict()
+        pagos10["pago10:Pago"] = nodoPago10
 
         Complemento = collections.OrderedDict()
-        Complemento["pago10:Pagos"] = Pagos
+        Complemento["pago10:Pagos"] = pagos10
         Complemento["pago10:Pagos"]["@Version"] = "1.0"
+
         return Complemento
 
     @staticmethod
@@ -656,195 +775,4 @@ class AccountBankStatementLine(models.Model):
         if getattr(self, 'pos_statement_id', False):
             return False
         return required
-
-
-class AccountMoveLine(models.Model):
-    _name = "account.move.line"
-    _inherit = ['mail.thread', 'account.move.line', 'account.cfdi']
-
-    uuid = fields.Char(string='Timbre fiscal', related='payment_id.cfdi_timbre_id.name')
-    date_invoice = fields.Date(string='Invoice Date')
-
-    @api.multi
-    def get_xml(self):
-        self.ensure_one()
-        if self.payment_id and self.payment_id.cfdi_timbre_id:
-            xml_id = self.env["ir.attachment"].search([('res_model', '=', 'cfdi.timbres.sat'), ('res_id', '=', self.payment_id.cfdi_timbre_id.id), ('type', '=', 'binary'), ('name', 'ilike', '%s.xml'%(self.uuid) )])
-            url = '/web/content/%s?download=true'%(xml_id.id)
-            return {
-                'type': 'ir.actions.act_url',
-                'url':url,
-                'nodestroy': True
-            }
-        else:
-            raise UserError("No es una Factura CFDI de Pago")
-
-    @api.multi
-    def get_pdf(self):
-        self.ensure_one()
-        if self.payment_id and self.payment_id.cfdi_timbre_id:
-            return self.env['report'].get_action(self.payment_id.cfdi_timbre_id, 'complemento_pagos.report_cfdipagosmx')
-        else:
-            raise UserError("No es una Factura CFDI de Pago")
-
-    @api.multi
-    def get_email(self):
-        self.ensure_one()
-        if self.payment_id and self.payment_id.cfdi_timbre_id:
-            template = self.env.ref('complemento_pagos.email_template_payment_receipt', False)
-            compose_form = self.env.ref('mail.email_compose_message_wizard_form', False)
-            ctx = dict(
-                default_model='account.payment',
-                default_res_id=self.payment_id.id,
-                default_use_template=bool(template),
-                default_template_id=template and template.id or False,
-                default_composition_mode='comment',
-                mark_invoice_as_sent=True,
-                cfdi_timbre_id=self.payment_id.cfdi_timbre_id.id,
-                custom_layout="complemento_pagos.email_notification_paynow"
-            )
-            return {
-                'name': _('Compose Email'),
-                'type': 'ir.actions.act_window',
-                'view_type': 'form',
-                'view_mode': 'form',
-                'res_model': 'mail.compose.message',
-                'views': [(compose_form.id, 'form')],
-                'view_id': compose_form.id,
-                'target': 'new',
-                'context': ctx,
-            }
-
-        else:
-            raise UserError("No es una Factura CFDI de Pago")
-
-
-
-    @api.multi
-    def get_xml_cfdi(self):
-        nodosPagos = []
-        timbreAtrib = {}
-        compAtrib = {}
-        receptorAtrib = {}
-        emisorAtrib = {}
-        xml = False
-        att_obj = self.env['ir.attachment']
-        for rec in self:
-            att_ids = att_obj.search([('res_model', '=', 'account.move.line'), ('res_id', '=', rec.id), ('type', '=', 'binary')])
-            for att_id in att_ids:
-                xml = att_id.datas
-                cfdi = base64.b64decode(att_id.datas)
-                xmlDoc = parseString(cfdi)
-                nodes = xmlDoc.childNodes
-                comprobante = nodes[0]
-                compAtrib = dict(comprobante.attributes.items())
-
-                emisor = comprobante.getElementsByTagName('cfdi:Emisor')
-                emisorAtrib = dict(emisor[0].attributes.items())
-
-                receptor = comprobante.getElementsByTagName('cfdi:Receptor')
-                receptorAtrib = dict(receptor[0].attributes.items())
-
-                complementos = comprobante.getElementsByTagName('cfdi:Complemento')
-                for comp in complementos:
-                    timbreFiscal = comp.getElementsByTagName('tfd:TimbreFiscalDigital')
-                    for timbre in timbreFiscal:
-                        timbreAtrib = dict(timbre.attributes.items())
-
-                    pagos10 = comp.getElementsByTagName('pago10:Pagos')
-                    for pago10 in pagos10:
-                        pagos = pago10.getElementsByTagName('pago10:Pago')
-                        for pago in pagos:
-                            pagoAtrib = dict(pago.attributes.items())
-                            doctosAtrib = []
-                            rels = pago.getElementsByTagName('pago10:DoctoRelacionado')
-                            for rel in rels:
-                                relAtrib = dict(rel.attributes.items())
-                                doctosAtrib.append(relAtrib)
-                            nodosPagos.append({
-                                'pagosAtrib': pagoAtrib,
-                                'doctosAtrib': doctosAtrib
-                            })
-        return {
-            'compAtrib': compAtrib,
-            'receptorAtrib': receptorAtrib,
-            'emisorAtrib': emisorAtrib,
-            'nodosPagos': nodosPagos,
-            'timbreAtrib': timbreAtrib,
-            'xml': xml
-        }
-
-
-    @api.multi
-    def getElectronicPayment(self):
-        Timbre = self.env["cfdi.timbres.sat"]
-        Attachment = self.env['ir.attachment']
-        for moveline_id in self:
-            if moveline_id.payment_id:
-                payment_id = moveline_id.payment_id
-                attrs = moveline_id.get_xml_cfdi()
-                if attrs and attrs.get("compAtrib") and attrs["compAtrib"].get("Sello"):
-                    xml = attrs["xml"]
-                    compAtrib = attrs["compAtrib"]
-                    timbreAtrib = attrs["timbreAtrib"]
-                    emisorAtrib = attrs["emisorAtrib"]
-                    receptorAtrib = attrs["receptorAtrib"]
-                    uuid = timbreAtrib.get('UUID')
-                    timbre_ids = Timbre.search([('name', '=', uuid)])
-                    _logger.info("UUID: %s"%uuid)
-                    if not timbre_ids:
-                        timbre_id = Timbre.sudo().create({
-                            "name": timbreAtrib.get('UUID'),
-                            "cfdi_supplier_rfc": emisorAtrib.get('Rfc', ''),
-                            "cfdi_customer_rfc": receptorAtrib.get('Rfc', ''),
-                            "cfdi_amount": float(timbreAtrib.get('Total', '0.0')),
-                            "cfdi_certificate": compAtrib.get('NoCertificado', ''),
-                            "cfdi_certificate_sat": timbreAtrib.get('NoCertificadoSAT', ''),
-                            "time_invoice": compAtrib.get('Fecha', ''),
-                            "time_invoice_sat": timbreAtrib.get('FechaTimbrado', ''),
-                            'currency_id': payment_id.currency_id and payment_id.currency_id.id or False,
-                            'cfdi_type': compAtrib.get('TipoDeComprobante', 'P'),
-                            "cfdi_pac_rfc": timbreAtrib.get('RfcProvCertif', ''),
-                            "cfdi_cadena_ori": "",
-                            'cfdi_cadena_sat': self.cadena_sat,
-                            'cfdi_sat_status': "valid",
-                            'journal_id': payment_id.journal_id.id,
-                            'partner_id': payment_id.partner_id.id
-                        })
-                        # Adjuntos
-                        xname = "%s.xml"%uuid
-                        attachment_values = {
-                            'name':  xname,
-                            'datas': xml,
-                            'datas_fname': xname,
-                            'description': 'Comprobante Fiscal Digital',
-                            'res_model': 'cfdi.timbres.sat',
-                            'res_id': timbre_id.id,
-                            'type': 'binary'
-                        }
-                        Attachment.sudo().create(attachment_values)
-                        payment_id.sudo().write({
-                            'cfdi_timbre_id': timbre_id.id
-                        })
-
-        return True
-
-
-
-class MailComposeMessage(models.TransientModel):
-    _inherit = 'mail.compose.message'
-
-    @api.multi
-    def onchange_template_id(self, template_id, composition_mode, model, res_id):
-        res = super(MailComposeMessage, self).onchange_template_id(template_id,
-                composition_mode, model, res_id)
-
-        if model=='account.payment':
-            payment_id = self.env[model].browse( res_id )
-            if payment_id and payment_id.cfdi_timbre_id:
-                xml_id = self.env["ir.attachment"].search([('name', '=', '%s.xml'%payment_id.cfdi_timbre_id.name )])
-                if xml_id:
-                    res['value'].setdefault('attachment_ids', []).append(xml_id[0].id)
-
-        return res
 

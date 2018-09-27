@@ -1,11 +1,8 @@
 @cs-body-color: #303030;
-@cs-body-size: 11px;
-
+@cs-body-size: 10px;
 @cs-table-header-bg: #656565;
-
 @cs-h2-color: #545454;
 @cs-strong-color: #545454;
-
 @cs-border-color: #dddddd;
 
 
@@ -18,7 +15,30 @@ body {
     font-size: @cs-body-size !important;
 }
 
-
+.bg_color {
+    background-color: #dddddd !important; 
+    color: #FFFFFF !important;
+    strong {
+        font-weight: bold; 
+        color: #545454 !important;
+    }
+}
+.bg_color_blue {
+    background-color: #90a4ae !important; 
+    color: #FFFFFF !important;
+    border-bottom: 1px solid #90a4ae !important;
+    strong {
+        font-weight: bold; 
+        color: #FFFFFF !important;
+    }
+}
+.bg_font_color {
+    color: #828282 !important;
+}
+.bg_border_top {
+    border-top: 1px solid #eaeaea !important;
+}
+h2 {font-weight: bold; color: #283593 !important; font-size:12px;}
 
 .bg_theme_color {
     background-color: @cs-table-header-bg !important; 
@@ -28,6 +48,9 @@ body {
         color: #FFFFFF !important;
     }
 }
+
+
+
 .font_theme_color {
     color: @cs-h2-color !important;
 }
@@ -58,89 +81,3 @@ body {
 .font_inv {
     font-size:10px;
 }
-                    
-
-/*
-
-.o_table_nomina {
-
-}
-
-
-.border_top {
-    border-style: solid !important;
-    border-top: solid 1px #dddddd !important;
-}
-
-
-.event-table {
-  width: 100%;
-}
-
-
-.jumbotron, .panel, .carousel, section{
-    page-break-inside: avoid;
-}
-
-.hidden-print{
-    display: none;
-}
-
-
-
-
-
-.border-black td {
-    border-top: 1px solid black !important;
-}
-
-
-
-
-.cfdi_conceptos {
-    color: #000000 !important;
-    tbody {
-        color: #8F8F8F !important;
-        tr:nth-child(odd) {
-            background-color: rgba(184, 171, 180, 0.2) !important;
-            border-bottom: 1px solid rgba(184, 171, 180, 0.2) !important;
-        }
-        tr td {
-            color: #000000 !important;
-            border-top: none !important;
-        }
-    }
-    tfoot {
-
-    }
-}
-
-#info {
-    color: #000000 !important;
-    td {
-        color: #000000 !important;
-        text-align: left;
-    }
-}
-h1, .h1, h2, .h2, h3, .h3 {
-    margin-top: 0px !important;
-    margin-bottom: 0px !important;
-}
-
-
-
-
-h2 {font-weight: bold; color: #545454 !important; font-size:16px;}
-
-.calidad_page { color: #000000 !important; word-wrap: break-word; font-size:11px; }
-.calidad td { border: none !important; }
-.border-calidad { border-bottom: 1px solid #545454 !important; }
-.calidad td.noborder-table {
-    border: none !important;
-    border-bottom: none !important;
-    border-top: none !important;
-    border-left: none !important;
-}
-.calidad-folio { border: 1px solid #545454 !important; }
-
-*/

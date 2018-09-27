@@ -23,35 +23,6 @@ class AccountAbstractPayment(models.AbstractModel):
     metodo_pago_id = fields.Many2one('contabilidad_electronica.metodo.pago', string=u'Código', oldname="metodo_pago")
     tipo_pago = fields.Selection([('trans', 'Transferencia'),('cheque', 'Cheque'), ('otro', 'Otro')], default='trans', string=u'Tipo del Pago')
 
-
-    @api.onchange('journal_id')
-    def _onchange_journal(self):
-        rec = super(AccountAbstractPayment, self)._onchange_journal()
-
-        if rec and self.partner_id and self.journal_id and self.partner_type:
-
-            self.tipo_pago = 'otro'
-            self.benef_id = self.partner_id
-            self.metodo_pago_id = self.env.ref('contabilidad_electronica.metodo_pago_3')
-            
-            bank_ids = self.env['res.partner.bank'].search([('partner_id', '=', self.partner_id.id)])
-            jb_ids = self.journal_id.bank_account_id
-            if self.partner_type == "customer":
-                self.benef_id = self.company_id.partner_id
-                self.cta_destino_id = jb_ids.ids
-                rec['domain']['cta_destino_id'] = [('id', 'in', jb_ids.ids)]
-                rec['domain']['cta_origen_id'] = [('id', 'in', bank_ids.ids)]
-            else:
-                self.cta_origen_id = jb_ids.ids
-                rec['domain']['cta_origen_id'] = [('id', 'in', jb_ids.ids)]
-                rec['domain']['cta_destino_id'] = [('id', 'in', bank_ids.ids)]
-
-
-            if self.journal_id:
-                if self.journal_id.type == 'cash':
-                    self.metodo_pago_id = self.env.ref('contabilidad_electronica.metodo_pago_1')
-        return rec
-
     """
     @api.onchange('journal_id')
     def _onchange_journal(self):

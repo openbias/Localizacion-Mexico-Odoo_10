@@ -178,12 +178,18 @@ class CFDITimbresSat(models.Model):
         return "MXN"
 
     @api.multi
+    def getFormaPago(self, formapago):
+        forma = self.env["cfd_mx.formapago"].search([('clave', '=', formapago)])
+        if forma:
+            return "%s - %s"%(forma.clave, forma.name)
+        return formapago
+
+    @api.multi
     def cfdi_amount_to_text(self, moneda, amount_total):
         self.ensure_one()
         currency_id = self.env['res.currency'].search([('name', '=', moneda)], limit=1)
         cantLetra = cant_letra(currency_id, amount_total) or ''
         return cantLetra.upper()
-
 
     @api.multi
     def getUrlQR(self, sello):
