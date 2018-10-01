@@ -9,7 +9,7 @@
             <field name="inherit_id" ref="account.view_account_config_settings"/>
             <field name="arch" type="xml">
                 <group name="accounting" position="after">
-                    <separator string="Fctoraje" groups="account.group_account_user"/>
+                    <separator string="Factoraje" groups="account.group_account_user"/>
                     <group name="factoring" groups="account.group_account_user">
                         <label for="id" string="Configuration"/>
                         <div name="group_factoring">
@@ -43,43 +43,9 @@
             </field>
         </record>
 
-        <record id="view_account_payment_invoice_cfdi_form" model="ir.ui.view">
-            <field name="name">account.payment.invoice.cfdi.form</field>
-            <field name="model">account.payment</field>
-            <field name="inherit_id" ref="account.view_account_payment_invoice_form"/>
-            <field name="arch" type="xml">
-                <xpath expr="//sheet/group[1]" position="after">
-                    <separator string="Complemento Pagos CFDI 3.3" colspan="4"/>
-                    <group col="4" attrs="{'invisible': [('hide_formapago_id', '=', True)]}" >
-                        <field name="hide_formapago_id" invisible="1"/>
-                        <field name="formapago_code" invisible="1" />
-                        <field name="hide_cfdi_factoraje_id" invisible="1" />
-                    </group>
-                    <group col="4" attrs="{'invisible': [('hide_formapago_id', '=', True)]}">
-                        <field name="partner_factoraje_id" attrs="{'invisible': [('hide_cfdi_factoraje_id', '=', True)]}" />
-                        <field name="cfdi_factoraje_id" 
-                            attrs="{'invisible': [('hide_cfdi_factoraje_id', '=', True)], 'required': [('hide_cfdi_factoraje_id', '=', False)]}" 
-                            domain="[('state', '=', 'open'), ('type', '=', 'in_invoice'), ('uuid', '!=', False), ('partner_id', '=', partner_factoraje_id)]" />
-                        <field name="formapago_id"
-                                attrs="{'invisible': [('hide_formapago_id', '=', True)], 'required': [('hide_formapago_id', '=', False)]}"/>
-                        <field name="spei_tipo_cadenapago" attrs="{'invisible': [('formapago_code', '!=', '03')] }"/>
-                    </group>
-                    <group attrs="{'invisible': [('hide_formapago_id', '=', True)]}" >
-                        <group>
-                            <field name="spei_certpago" 
-                                attrs="{'invisible': [('spei_tipo_cadenapago', '!=', '01')], 'required': [('spei_tipo_cadenapago', '=', '01')]}"/>
-                            <field name="spei_sellopago"
-                                attrs="{'invisible': [('spei_tipo_cadenapago', '!=', '01')], 'required': [('spei_tipo_cadenapago', '=', '01')]}"/>
-                        </group>
-                        <group>
-                            <field name="spei_cadpago"
-                                attrs="{'invisible': [('spei_tipo_cadenapago', '!=', '01')], 'required': [('spei_tipo_cadenapago', '=', '01')]}"/>
-                        </group>
-                    </group>
-                </xpath>
-            </field>
-        </record>
 
+
+        <!-- Contabilidad / Ventas / Pagos -->
         <record model="ir.ui.view" id="view_account_payment_cfdi_form">
             <field name="name">view_account_payment_cfdi_form</field>
             <field name="model">account.payment</field>
@@ -90,42 +56,137 @@
                         <field name="date_invoice_cfdi" />
                         <field name="cfdi_timbre_id" />
                     </field>
-                    <xpath expr="//field[@name='journal_id']" position="after">
-                        <field name="hide_formapago_id" invisible="1" />
-                        <field name="formapago_id"
-                            attrs="{
-                                'invisible': [('hide_formapago_id', '=', True)], 
-                                'required': [('hide_formapago_id', '=', False)]
-                            }"/>
+                    <xpath expr="/form/sheet/group[1]" position="after">
+                        <hr />
+                        <div attrs="{'invisible': [('hide_formapago_id', '=', True)]}">
+                            <separator string="Complemento Pagos CFDI 3.3" colspan="4"/>
+                            <group col="4" attrs="{'invisible': [('hide_formapago_id', '=', True)]}" >
+                                <field name="formapago_code" invisible="1" />
+                                <field name="hide_cfdi_factoraje_id" invisible="1" />
+                            </group>
+                            <group col="4" attrs="{'invisible': [('hide_formapago_id', '=', True)]}">
+                                <field name="partner_factoraje_id" attrs="{'invisible': [('hide_cfdi_factoraje_id', '=', True)]}" />
+                                <field name="cfdi_factoraje_id" 
+                                    attrs="{'invisible': [('hide_cfdi_factoraje_id', '=', True)], 'required': [('hide_cfdi_factoraje_id', '=', False)]}" 
+                                    domain="[('state', '=', 'open'), ('type', '=', 'in_invoice'), ('uuid', '!=', False), ('partner_id', '=', partner_factoraje_id)]" />
+                                <field name="formapago_id"
+                                        attrs="{'invisible': [('hide_formapago_id', '=', True)], 'required': [('hide_formapago_id', '=', False)]}"/>
+                                <field name="spei_tipo_cadenapago" attrs="{'invisible': [('formapago_code', '!=', '03')] }"/>
+                            </group>
+                            <group attrs="{'invisible': [('spei_tipo_cadenapago', '=', False)]}" >
+                                <group string="Sello Pago SPEI">
+                                    <pre>
+                                        <code>
+                                            <field name="spei_sellopago" 
+                                                attrs="{'invisible': [('spei_tipo_cadenapago', '!=', '01')], 'required': [('spei_tipo_cadenapago', '=', '01')]}"
+                                                readonly="1" nolabel="1" />
+                                        </code>
+                                    </pre>
+                                </group>
+                                <group string="Cadena Pago SPEI">
+                                    <pre>
+                                        <code>
+                                            <field name="spei_cadpago" 
+                                                attrs="{'invisible': [('spei_tipo_cadenapago', '!=', '01')], 'required': [('spei_tipo_cadenapago', '=', '01')]}"
+                                                readonly="1" nolabel="1" />
+                                        </code>
+                                    </pre>
+                                </group>
+                                <group string="Certificado Pago SPEI" colspan="4">
+                                    <pre>
+                                        <code>
+                                            <field name="spei_certpago" 
+                                                attrs="{'invisible': [('spei_tipo_cadenapago', '!=', '01')], 'required': [('spei_tipo_cadenapago', '=', '01')]}"
+                                                readonly="1" nolabel="1" />
+                                        </code>
+                                    </pre>
+                                </group>
+                            </group>
+                            <hr />
+                        </div>
+                        <field name="hide_formapago_id" invisible="1"/>
+                        
                     </xpath>
                 </data>
             </field>
         </record>
 
+        <!-- Formulario Facturas -->
+        <record id="view_account_payment_invoice_cfdi_form" model="ir.ui.view">
+            <field name="name">account.payment.invoice.cfdi.form</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/group[1]" position="after">
+                    <div attrs="{'invisible': [('hide_formapago_id', '=', True)]}">
+                        <separator string="Complemento Pagos CFDI 3.3" colspan="4"/>
+                        <group col="4" attrs="{'invisible': [('hide_formapago_id', '=', True)]}" >
+                            <field name="formapago_code" invisible="1" />
+                            <field name="hide_cfdi_factoraje_id" invisible="1" />
+                        </group>
+                        <group col="4" attrs="{'invisible': [('hide_formapago_id', '=', True)]}">
+                            <field name="partner_factoraje_id" attrs="{'invisible': [('hide_cfdi_factoraje_id', '=', True)]}" />
+                            <field name="cfdi_factoraje_id" 
+                                attrs="{'invisible': [('hide_cfdi_factoraje_id', '=', True)], 'required': [('hide_cfdi_factoraje_id', '=', False)]}" 
+                                domain="[('state', '=', 'open'), ('type', '=', 'in_invoice'), ('uuid', '!=', False), ('partner_id', '=', partner_factoraje_id)]" />
+                            <field name="formapago_id"
+                                    attrs="{'invisible': [('hide_formapago_id', '=', True)], 'required': [('hide_formapago_id', '=', False)]}"/>
+                            <field name="spei_tipo_cadenapago" attrs="{'invisible': [('formapago_code', '!=', '03')] }"/>
+                        </group>
+                        <group attrs="{'invisible': [('hide_formapago_id', '=', True)]}" >
+                            <group>
+                                <field name="spei_certpago" 
+                                    attrs="{'invisible': [('spei_tipo_cadenapago', '!=', '01')], 'required': [('spei_tipo_cadenapago', '=', '01')]}"/>
+                                <field name="spei_sellopago"
+                                    attrs="{'invisible': [('spei_tipo_cadenapago', '!=', '01')], 'required': [('spei_tipo_cadenapago', '=', '01')]}"/>
+                            </group>
+                            <group>
+                                <field name="spei_cadpago"
+                                    attrs="{'invisible': [('spei_tipo_cadenapago', '!=', '01')], 'required': [('spei_tipo_cadenapago', '=', '01')]}"/>
+                            </group>
+                        </group>
+                    </div>
+                    <field name="hide_formapago_id" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Listado de Facturas -->
         <record id="view_account_payment_from_invoices_cp" model="ir.ui.view">
             <field name="name">account.register.payments.wizard.cfdi</field>
             <field name="model">account.register.payments</field>
             <field name="inherit_id" ref="account.view_account_payment_from_invoices"/>
             <field name="arch" type="xml">
                 <xpath expr="//form/group[1]" position="after">
-                    <group attrs="{'invisible': [('hide_formapago_id', '=', True)]}" >
+                    <div attrs="{'invisible': [('hide_formapago_id', '=', True)]}">
                         <separator string="Complemento Pagos CFDI 3.3" colspan="4"/>
-                        <group>
-                            <field name="hide_formapago_id" invisible="1"/>
-                            <field name="formapago_id"
-                                attrs="{'invisible': [('hide_formapago_id', '=', True)], 'required': [('hide_formapago_id', '=', False)]}"/>
+                        <group col="4" attrs="{'invisible': [('hide_formapago_id', '=', True)]}" >
                             <field name="formapago_code" invisible="1" />
-                            <field name="spei_certpago" 
-                                attrs="{'invisible': [('spei_tipo_cadenapago', '!=', '01')], 'required': [('spei_tipo_cadenapago', '=', '01')]}"/>
-                            <field name="spei_sellopago"
-                                attrs="{'invisible': [('spei_tipo_cadenapago', '!=', '01')], 'required': [('spei_tipo_cadenapago', '=', '01')]}"/>
+                            <field name="hide_cfdi_factoraje_id" invisible="1" />
                         </group>
-                        <group>
+                        <group col="4" attrs="{'invisible': [('hide_formapago_id', '=', True)]}">
+                            <field name="partner_factoraje_id" attrs="{'invisible': [('hide_cfdi_factoraje_id', '=', True)]}" />
+                            <field name="cfdi_factoraje_id" 
+                                attrs="{'invisible': [('hide_cfdi_factoraje_id', '=', True)], 'required': [('hide_cfdi_factoraje_id', '=', False)]}" 
+                                domain="[('state', '=', 'open'), ('type', '=', 'in_invoice'), ('uuid', '!=', False), ('partner_id', '=', partner_factoraje_id)]" />
+                            <field name="formapago_id"
+                                    attrs="{'invisible': [('hide_formapago_id', '=', True)], 'required': [('hide_formapago_id', '=', False)]}"/>
                             <field name="spei_tipo_cadenapago" attrs="{'invisible': [('formapago_code', '!=', '03')] }"/>
-                            <field name="spei_cadpago"
-                                attrs="{'invisible': [('spei_tipo_cadenapago', '!=', '01')], 'required': [('spei_tipo_cadenapago', '=', '01')]}"/>
                         </group>
-                    </group>
+                        <group attrs="{'invisible': [('hide_formapago_id', '=', True)]}" >
+                            <group>
+                                <field name="spei_certpago" 
+                                    attrs="{'invisible': [('spei_tipo_cadenapago', '!=', '01')], 'required': [('spei_tipo_cadenapago', '=', '01')]}"/>
+                                <field name="spei_sellopago"
+                                    attrs="{'invisible': [('spei_tipo_cadenapago', '!=', '01')], 'required': [('spei_tipo_cadenapago', '=', '01')]}"/>
+                            </group>
+                            <group>
+                                <field name="spei_cadpago"
+                                    attrs="{'invisible': [('spei_tipo_cadenapago', '!=', '01')], 'required': [('spei_tipo_cadenapago', '=', '01')]}"/>
+                            </group>
+                        </group>
+                    </div>
+                    <field name="hide_formapago_id" invisible="1"/>
                 </xpath>
             </field>
         </record>
@@ -180,20 +241,39 @@
                             <field name="ref" attrs="{'readonly' : [('journal_entry_ids', '!=', [])] }" groups="base.group_no_one"/>
                             <field name="payment_type" attrs="{'readonly' : [('journal_entry_ids', '!=', [])] }"/>
                             <field name="amount" attrs="{'readonly' : [('journal_entry_ids', '!=', [])] }"/>
+                        </group>
 
-                            <field name="formapago_id"
-                                attrs="{'invisible': [('hide_formapago_id', '=', True)], 'required': [('hide_formapago_id', '=', False)], 'readonly' : [('journal_entry_ids', '!=', [])]}"/>
-                            <field name="spei_tipo_cadenapago" attrs="{'invisible': [('formapago_code', '!=', '03')] }"/>
 
-                            <field name="spei_certpago" 
-                                attrs="{'invisible': [('spei_tipo_cadenapago', '!=', '01')], 'required': [('spei_tipo_cadenapago', '=', '01')], 'readonly' : [('journal_entry_ids', '!=', [])]}"/>
-                            <field name="spei_sellopago"
-                                attrs="{'invisible': [('spei_tipo_cadenapago', '!=', '01')], 'required': [('spei_tipo_cadenapago', '=', '01')], 'readonly' : [('journal_entry_ids', '!=', [])]}"/>
-                            
-                            <field name="spei_cadpago"
-                                attrs="{'invisible': [('spei_tipo_cadenapago', '!=', '01')], 'required': [('spei_tipo_cadenapago', '=', '01')], 'readonly' : [('journal_entry_ids', '!=', [])]}"/>
-                            <field name="note"/>
-
+                        <div attrs="{'invisible': [('hide_formapago_id', '=', True)]}">
+                            <separator string="Complemento Pagos CFDI 3.3" colspan="4"/>
+                            <group col="4" attrs="{'invisible': [('hide_formapago_id', '=', True)]}" >
+                                <field name="hide_cfdi_factoraje_id" invisible="1" />
+                            </group>
+                            <group col="4" attrs="{'invisible': [('hide_formapago_id', '=', True)]}">
+                                <field name="partner_factoraje_id" 
+                                    attrs="{'invisible': [('hide_cfdi_factoraje_id', '=', True)]}" readonly="1" />
+                                <field name="cfdi_factoraje_id" 
+                                    attrs="{'invisible': [('hide_cfdi_factoraje_id', '=', True)], 'required': [('hide_cfdi_factoraje_id', '=', False)], 'readonly' : [('journal_entry_ids', '!=', [])]}"
+                                    domain="[('state', '=', 'open'), ('type', '=', 'in_invoice'), ('uuid', '!=', False), ('partner_id', '=', partner_factoraje_id)]" />
+                                <field name="formapago_id"
+                                    attrs="{'invisible': [('hide_formapago_id', '=', True)], 'required': [('hide_formapago_id', '=', False)], 'readonly' : [('journal_entry_ids', '!=', [])]}"/>
+                                <field name="spei_tipo_cadenapago" attrs="{'invisible': [('formapago_code', '!=', '03')] }"/>
+                            </group>
+                            <group attrs="{'invisible': [('hide_formapago_id', '=', True)]}" >
+                                <group>
+                                    <field name="spei_certpago" 
+                                        attrs="{'invisible': [('spei_tipo_cadenapago', '!=', '01')], 'required': [('spei_tipo_cadenapago', '=', '01')], 'readonly' : [('journal_entry_ids', '!=', [])]}"/>
+                                    <field name="spei_sellopago"
+                                        attrs="{'invisible': [('spei_tipo_cadenapago', '!=', '01')], 'required': [('spei_tipo_cadenapago', '=', '01')], 'readonly' : [('journal_entry_ids', '!=', [])]}"/>
+                                </group>
+                                <group>
+                                    <field name="spei_cadpago"
+                                        attrs="{'invisible': [('spei_tipo_cadenapago', '!=', '01')], 'required': [('spei_tipo_cadenapago', '=', '01')], 'readonly' : [('journal_entry_ids', '!=', [])]}"/>
+                                    <field name="note"/>
+                                </group>
+                            </group>
+                        </div>
+                        <group col="4">
                             <field name="journal_currency_id" invisible="1"/>
                             <field name="amount_currency" invisible="1" />
                             <field name="currency_id" invisible="1" options="{'no_create': True}"/>

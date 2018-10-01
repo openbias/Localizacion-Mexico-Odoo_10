@@ -179,7 +179,7 @@ class CFDITimbresSat(models.Model):
 
     @api.multi
     def getFormaPago(self, formapago):
-        forma = self.env["cfd_mx.formapago"].search([('clave', '=', formapago)])
+        forma = self.env["cfd_mx.formapago"].search([('clave', '=', formapago)], limit=1)
         if forma:
             return "%s - %s"%(forma.clave, forma.name)
         return formapago

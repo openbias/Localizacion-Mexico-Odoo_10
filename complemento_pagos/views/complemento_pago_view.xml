@@ -60,10 +60,10 @@
                 <div class="col-xs-5 bg_color">
                     <div class="row">
                         <div class="col-xs-12"> &amp;nbsp; </div>
-                        <div class="col-xs-7">
+                        <div class="col-xs-5">
                             <span>Comprobante: </span><strong><t t-esc="compAtrib.get('TipoDeComprobante')" /> - Pago </strong>
                         </div>
-                        <div class="col-xs-5">
+                        <div class="col-xs-7">
                             <span>Serie y Folio: <strong t-esc="compAtrib.get('Serie')" /> &amp;nbsp; <strong t-esc="compAtrib.get('Folio')" /> </span>
                         </div>
                         <div class="col-xs-12"> &amp;nbsp; </div>

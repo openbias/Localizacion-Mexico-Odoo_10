@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
 
+import base64
+from xml.dom import minidom
+from xml.dom.minidom import parse, parseString
+
+
 import odoo
 from odoo import models, fields, api, _
 
@@ -136,26 +141,29 @@ class AccountMoveLine(models.Model):
                     receptorAtrib = attrs["receptorAtrib"]
                     uuid = timbreAtrib.get('UUID')
                     timbre_ids = Timbre.search([('name', '=', uuid)])
+                    vals = {
+                        "name": timbreAtrib.get('UUID'),
+                        "cfdi_supplier_rfc": emisorAtrib.get('Rfc', ''),
+                        "cfdi_customer_rfc": receptorAtrib.get('Rfc', ''),
+                        "cfdi_amount": float(timbreAtrib.get('Total', '0.0')),
+                        "cfdi_certificate": compAtrib.get('NoCertificado', ''),
+                        "cfdi_certificate_sat": timbreAtrib.get('NoCertificadoSAT', ''),
+                        "time_invoice": compAtrib.get('Fecha', ''),
+                        "time_invoice_sat": timbreAtrib.get('FechaTimbrado', ''),
+                        'currency_id': payment_id.currency_id and payment_id.currency_id.id or False,
+                        'cfdi_type': compAtrib.get('TipoDeComprobante', 'P'),
+                        "cfdi_pac_rfc": timbreAtrib.get('RfcProvCertif', ''),
+                        "cfdi_cadena_ori": "",
+                        'cfdi_cadena_sat': self.cadena_sat,
+                        'cfdi_sat_status': "valid",
+                        'journal_id': payment_id.journal_id.id,
+                        'partner_id': payment_id.partner_id.id,
+                        'company_id': payment_id.company_id.id
+                    }
+                    if timbre_ids:
+                        timbre_id = timbre_ids.sudo().write(vals)
                     if not timbre_ids:
-                        timbre_id = Timbre.sudo().create({
-                            "name": timbreAtrib.get('UUID'),
-                            "cfdi_supplier_rfc": emisorAtrib.get('Rfc', ''),
-                            "cfdi_customer_rfc": receptorAtrib.get('Rfc', ''),
-                            "cfdi_amount": float(timbreAtrib.get('Total', '0.0')),
-                            "cfdi_certificate": compAtrib.get('NoCertificado', ''),
-                            "cfdi_certificate_sat": timbreAtrib.get('NoCertificadoSAT', ''),
-                            "time_invoice": compAtrib.get('Fecha', ''),
-                            "time_invoice_sat": timbreAtrib.get('FechaTimbrado', ''),
-                            'currency_id': payment_id.currency_id and payment_id.currency_id.id or False,
-                            'cfdi_type': compAtrib.get('TipoDeComprobante', 'P'),
-                            "cfdi_pac_rfc": timbreAtrib.get('RfcProvCertif', ''),
-                            "cfdi_cadena_ori": "",
-                            'cfdi_cadena_sat': self.cadena_sat,
-                            'cfdi_sat_status': "valid",
-                            'journal_id': payment_id.journal_id.id,
-                            'partner_id': payment_id.partner_id.id
-                        })
-                        # Adjuntos
+                        timbre_id = Timbre.sudo().create(vals)
                         xname = "%s.xml"%uuid
                         attachment_values = {
                             'name':  xname,

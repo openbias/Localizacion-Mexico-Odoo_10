@@ -11,6 +11,7 @@
                         <group>
                             <field name="cfdi_type" />
                             <field name="name"/>
+                            <field name="company_id" />
                             <field name="partner_id" />
                             <field name="journal_id" />
                             <field name="cfdi_supplier_rfc" />

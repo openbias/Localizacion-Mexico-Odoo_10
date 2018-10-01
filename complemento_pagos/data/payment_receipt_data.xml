@@ -52,65 +52,72 @@ ${user.signature | safe}
             <field name="subject">${object.subject}</field>
             <field name="model_id" ref="mail.model_mail_message"/>
             <field name="auto_delete" eval="True"/>
-            <field name="body_html"><![CDATA[
-<table border="0" cellpadding="0" cellspacing="0" style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;">
-    <tr>
-        <td align="center">
-            <table border="0" cellpadding="0" cellspacing="0" width="590" style="padding: 24px; background-color: white; color: #454748; border-collapse:separate;">
-                <tbody>
-                    <tr>
-                        <td align="center" style="min-width: 590px;">
-                            <t t-set="access_action" t-value="record.with_context(force_website=True).get_access_action()"/>
-                            <t t-set="is_online" t-value="access_action and access_action['type'] == 'ir.actions.act_url'"/>
-                            <t t-set="access_url" t-value="is_online and record._get_share_url(redirect=True, signup_partner=True) or ''"/>
-                            <t t-set="access_code" t-value="'view'"/>
-                            <t t-set="access_name">
-                                View <t t-esc="record._description.lower()"/>
-                            </t>
-                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: white; padding: 0; border-collapse:separate;">
-                                <tr><td valign="middle">
-                                    <span style="font-size: 10px;">Your <t t-esc="'%s' % model_description or 'document'"/></span><br/>
-                                    <span style="font-size: 20px; font-weight: bold;">
-                                        <t t-esc="message.record_name"/>
-                                    </span>
-                                </td><td valign="middle" align="right">
-                                    <img t-att-src="'/logo.png?company=%s' % company.id" style="padding: 0px; margin: 0px; height: 48px;" t-att-alt="'%s' % company.name"/>
-                                </td></tr>
-                                <tr><td colspan="2" style="text-align:center;">
-                                  <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:4px 0px 32px 0px;"/>
-                                </td></tr>
-                            </table>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </td>
-    </tr>
-    <tr>
-        <td style="padding: 0">
-            <t t-raw="message.body"/>
-            <div t-if="is_online and not record._context.get('proforma')" style="margin: 32px 0px 32px 0px; text-align: center;">
-                <a t-att-href="access_url"
-                    style="background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;">
-                    <t t-esc="access_name"/>
-                </a>
-            </div>
-            <div style="margin: 0px; padding: 0px; font-size:13px;">
-                Best regards,
-            </div>
-            <div>&amp;nbsp;</div>
-            <div t-if="record.user_id and record.user_id.signature" style="font-size: 13px;">
-                <div t-raw="record.user_id.signature"/>
-            </div>
-        </td>
-    </tr>
-    <tr>
-        <td align="center" style="min-width: 590px; padding: 8px; font-size:11px;">
-            Powered by <a target="_blank" href="https://www.odoo.com?utm_source=db&amp;utm_medium=email" style="color: #875A7B;">Odoo</a>
-        </td>
-    </tr>
-</table>
+            <field name="body_html"><![CDATA[<html>
+                <head></head>
+                % set record = ctx.get('record')
+                % set company = record and record.company_id or user.company_id
+                <body style="margin: 0; padding: 0;">
+                <table border="0" width="100%" cellpadding="0" style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;" summary="o_mail_notification">
+                    <tbody>
 
+                      <!-- HEADER -->
+                      <tr>
+                        <td align="center" style="min-width: 590px;">
+                          <table width="590" border="0" cellpadding="0" bgcolor="#875A7B" style="padding: 24px; background-color: #875A7B; color: #454748; border-collapse:separate;">
+                            <tr>
+                              <td valign="middle">
+                                  <span style="font-size:20px; color:white; font-weight: bold;">
+                                      ${object.record_name}
+                                  </span>
+                              </td>
+                              <td valign="middle" align="right">
+                                  <img src="/logo.png?company=${company.id}" style="padding: 0px; margin: 0px; height: auto; width: 80px;" alt="${company.name}">
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+
+                      <!-- CONTENT -->
+                      <tr>
+                        <td align="center" style="min-width: 590px;">
+                          <table width="590" border="0" cellpadding="0" bgcolor="#ffffff" style="min-width: 590px; background-color: rgb(255, 255, 255); padding: 20px;">
+                            <tbody>
+                              <td valign="top" style="font-family:Arial,Helvetica,sans-serif; color: #555; font-size: 14px;">
+                                ${object.body | safe}
+                              </td>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+
+                      <!-- FOOTER -->
+                      <tr>
+                        <td align="center" style="min-width: 590px; padding: 8px; font-size:11px;">
+                          <table width="590" border="0" cellpadding="0" bgcolor="#875A7B" style="min-width: 590px; background-color: #875A7B; padding: 20px;">
+                            <tr>
+                              <td valign="middle" align="left" style="color: #fff; padding-top: 10px; padding-bottom: 10px; font-size: 12px;">
+                                ${company.name}<br/>
+                                ${company.phone or ''}
+                              </td>
+                              <td valign="middle" align="right" style="color: #fff; padding-top: 10px; padding-bottom: 10px; font-size: 12px;">
+                                % if company.email:
+                                <a href="mailto:${company.email}" style="text-decoration:none; color: white;">${company.email}</a><br/>
+                                % endif
+                                % if company.website:
+                                    <a href="${company.website}" style="text-decoration:none; color: white;">
+                                        ${company.website}
+                                    </a>
+                                % endif
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                </table>
+                </body>
+                </html>
             ]]></field>
         </record>        
 
