@@ -201,7 +201,10 @@ class account_bank_statement_line(models.Model):
 
         st_line = move_id.statement_line_id
         currency_id = st_line.currency_id and st_line.currency_id or st_line.company_id.currency_id or None
-
+        if st_line.ttype == 'trans' and not st_line.cta_origen_id and not st_line.cta_destino_id:
+            return True
+        if st_line.ttype == 'cheque' and not st_line.cta_origen_id and not st_line.benef_id:
+            return True
         for move_line in move_id.line_ids:
             if st_line.ttype == 'trans':
                 vals = {

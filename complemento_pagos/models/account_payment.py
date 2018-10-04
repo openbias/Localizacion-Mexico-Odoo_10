@@ -730,20 +730,23 @@ class AccountBankStatementLine(models.Model):
         move = super(AccountBankStatementLine, self).process_reconciliation(counterpart_aml_dicts=counterpart_aml_dicts, payment_aml_rec=payment_aml_rec, new_aml_dicts=new_aml_dicts)
         if not self.cfdi_is_required():
             return move
-        invoice_ids = []
+        invoice_ids = self.env['account.invoice'].browse()
         for aml in move.line_ids:
             if aml.credit > 0:
                 for r in aml.matched_debit_ids:
                     inv_id = r.debit_move_id.invoice_id
                     if inv_id:
                         if inv_id.uuid and inv_id.type == 'out_invoice':
-                            invoice_ids.append(inv_id.id)
+                            invoice_ids |= inv_id
             else:
                 for r in aml.matched_credit_ids:
                     inv_id = r.credit_move_id.invoice_id
                     if inv_id:
                         if inv_id.uuid and inv_id.type == 'out_invoice':
-                            invoice_ids.append(inv_id.id)
+                            invoice_ids |= inv_id
+        if not invoice_ids:
+            return move
+
         payments = move.mapped('line_ids.payment_id')
         payment_method = self.formapago_id and self.formapago_id.id
         vals = {
@@ -754,9 +757,12 @@ class AccountBankStatementLine(models.Model):
             'metodo_pago_id': self.metodo_pago_id and self.metodo_pago_id.id or False,
             'tipo_pago': self.ttype or '',
             'formapago_id': payment_method,
-            'invoice_ids': [(6, 0, invoice_ids)],
+            'invoice_ids': [(6, 0, invoice_ids.ids)],
             'name': self.move_name and self.move_name.replace("/", "")
         }
+        if not payments.partner_id:
+            partner_id = invoice_ids.mapped('partner_id')
+            vals['partner_id'] = partner_id.id
         if self.partner_factoraje_id:
             vals['partner_factoraje_id'] = self.partner_factoraje_id.id
             vals['cfdi_factoraje_id'] = self.cfdi_factoraje_id.id
