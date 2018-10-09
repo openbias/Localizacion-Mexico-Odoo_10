@@ -56,7 +56,7 @@ class AccountCfdi(models.Model):
         if obj.price_discount_sat:
             cfdi_comprobante['Descuento'] = '%.*f' % (decimal_precision, obj.price_discount_sat)   # '%s'%(round(obj.price_discount_sat, dp_cantidad))
         if obj.currency_id.name != 'MXN':
-            cfdi_comprobante['TipoCambio'] = '%.*f' % (decimal_precision, rate) # '%s'%(round(rate, 6))
+            cfdi_comprobante['TipoCambio'] = '%.*f' % (6, rate) # '%s'%(round(rate, 6))
         return cfdi_comprobante
 
     def invoice_info_emisor(self):

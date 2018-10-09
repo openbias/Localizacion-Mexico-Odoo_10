@@ -265,18 +265,19 @@ class AccountPayment(models.Model):
         counterpart_aml_dict.update(self._get_counterpart_move_line_vals(invoice_id))
         counterpart_aml_dict.update({'currency_id': currency_id})
         counterpart_aml = aml_obj.create(counterpart_aml_dict)
-        invoice_id.register_payment(counterpart_aml)
-        liquidity_aml_dict = self._get_shared_move_line_vals(credit, debit, -amount_currency, move.id, False)
-        vals = {
-            'name': _('Counterpart'),
-            'account_id': self.payment_type in ('outbound','transfer') and journal_id.default_debit_account_id.id or journal_id.default_credit_account_id.id,
-            'payment_id': self.id,
-            'journal_id': journal_id.id,
-            'currency_id': self.currency_id != self.company_id.currency_id and self.currency_id.id or False,
-        }
-        liquidity_aml_dict.update(vals)
-        aml_obj.create(liquidity_aml_dict)
-        move.post()
+        if counterpart_aml:
+            invoice_id.register_payment(counterpart_aml)
+            liquidity_aml_dict = self._get_shared_move_line_vals(credit, debit, -amount_currency, move.id, False)
+            vals = {
+                'name': _('Counterpart'),
+                'account_id': self.payment_type in ('outbound','transfer') and journal_id.default_debit_account_id.id or journal_id.default_credit_account_id.id,
+                'payment_id': self.id,
+                'journal_id': journal_id.id,
+                'currency_id': self.currency_id != self.company_id.currency_id and self.currency_id.id or False,
+            }
+            liquidity_aml_dict.update(vals)
+            aml_obj.create(liquidity_aml_dict)
+            move.post()
         return True
 
     @api.multi
@@ -477,23 +478,26 @@ class AccountPayment(models.Model):
             pago10["@TipoCambioP"] = rate
         pago10["@Monto"]= '%.*f' % (decimal_precision, self.amount)
         pago10["@NumOperacion"]= self.communication or ""
-        if self.formapago_id and self.formapago_id.banco:
-            if self.cta_origen_id:
-                bank_vat = self.cta_origen_id and self.cta_origen_id.bank_id or False
-                if bank_vat and bank_vat.vat:
-                    pago10["@RfcEmisorCtaOrd"] = bank_vat and bank_vat.vat or ""
-                    pago10["@CtaOrdenante"]= self.cta_origen_id.acc_number or ""
-                    if bank_vat.vat == "XEXX010101000":
-                        pago10["@NomBancoOrdExt"] = bank_vat.description or ""
-            bank_vat = self.journal_id and self.journal_id.bank_id and self.journal_id.bank_id.vat or False
-            if bank_vat:
-                pago10["@RfcEmisorCtaBen"] = bank_vat
-                pago10["@CtaBeneficiario"] = self.journal_id and self.journal_id.bank_acc_number or ""
-            if self.spei_tipo_cadenapago == "01":
-                pago10["@TipoCadPago"] = self.spei_tipo_cadenapago
-                pago10["@CertPago"] = self.spei_certpago
-                pago10["@CadPago"] = self.spei_cadpago
-                pago10["@SelloPago"] = self.spei_sellopago
+
+        if not self.cfdi_factoraje_id:
+            if self.formapago_id and self.formapago_id.banco:
+                if self.cta_origen_id:
+                    bank_vat = self.cta_origen_id and self.cta_origen_id.bank_id or False
+                    if bank_vat and bank_vat.vat:
+                        pago10["@RfcEmisorCtaOrd"] = bank_vat and bank_vat.vat or ""
+                        pago10["@CtaOrdenante"]= self.cta_origen_id.acc_number or ""
+                        if bank_vat.vat == "XEXX010101000":
+                            pago10["@NomBancoOrdExt"] = bank_vat.description or ""
+                bank_vat = self.journal_id and self.journal_id.bank_id and self.journal_id.bank_id.vat or False
+                if bank_vat:
+                    pago10["@RfcEmisorCtaBen"] = bank_vat
+                    pago10["@CtaBeneficiario"] = self.journal_id and self.journal_id.bank_acc_number or ""
+                if self.spei_tipo_cadenapago == "01":
+                    pago10["@TipoCadPago"] = self.spei_tipo_cadenapago
+                    pago10["@CertPago"] = self.spei_certpago
+                    pago10["@CadPago"] = self.spei_cadpago
+                    pago10["@SelloPago"] = self.spei_sellopago
+
         DoctoRelacionado = []
         write_off = self.move_line_ids.filtered(lambda l: l.account_id == self.writeoff_account_id and l.name == self.writeoff_label)
         for invoice in self.invoice_ids:
@@ -521,6 +525,8 @@ class AccountPayment(models.Model):
             DoctoRelacionado.append(docto_attribs)
         pago10["pago10:DoctoRelacionado"] = DoctoRelacionado
         nodoPago10.append(pago10)
+
+
         if self.cfdi_factoraje_id and self.partner_factoraje_id:
             for invoice in self.invoice_ids:
                 if invoice.residual == 0.0:
