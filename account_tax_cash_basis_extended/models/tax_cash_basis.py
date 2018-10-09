@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from openerp import models, fields, api, _
+from odoo.exceptions import UserError
 from openerp.tools import float_compare, float_is_zero
 
 
@@ -46,7 +47,7 @@ class AccountPartialReconcileCashBasis(models.Model):
         total_by_cash_basis_account = {}
         line_to_create = []
         move_date = self.debit_move_id.date
-        for move in (self.debit_move_id.move_id, self.credit_move_id.move_id):
+        for move in (self.debit_move_id.move_id, self.credit_move_id.move_id):# account.move(44109,) - account.move(42858,)
             if move_date < move.date:
                 move_date = move.date
             for line in move.line_ids:
@@ -56,7 +57,7 @@ class AccountPartialReconcileCashBasis(models.Model):
                 currency_id = line.currency_id or line.company_id.currency_id
                 matched_percentage = value_before_reconciliation[move.id]
                 amount = currency_id.round((line.credit_cash_basis - line.debit_cash_basis) - (line.credit - line.debit) * matched_percentage)
-                if not line.tax_exigible:
+                if not float_is_zero(amount, precision_rounding=currency_id.rounding) and not line.tax_exigible:
                     if line.tax_line_id and line.tax_line_id.use_cash_basis:
                         # group by line account
                         acc = line.account_id.id
@@ -66,6 +67,8 @@ class AccountPartialReconcileCashBasis(models.Model):
                             tax_group[acc] = amount
                         # Group by cash basis account and tax
                         acc = line.tax_line_id.cash_basis_account.id
+                        if not acc:
+                            raise UserError(_('Please configure a Tax Received Account for tax %s') % line.tax_line_id.name)
                         key = (acc, line.tax_line_id.id)
                         if key in total_by_cash_basis_account:
                             total_by_cash_basis_account[key] += amount
@@ -96,17 +99,21 @@ class AccountPartialReconcileCashBasis(models.Model):
                 'debit': v if v > 0 else 0.0,
                 'credit': abs(v) if v < 0 else 0.0,
                 'account_id': k,
-                }))
+                'tax_exigible': True,
+            }))
 
         # Create counterpart vals
         for key, v in total_by_cash_basis_account.items():
             k, tax_id = key
-            line_to_create.append((0, 0, {
-                'name': '/',
-                'debit': abs(v) if v < 0 else 0.0,
-                'credit': v if v > 0 else 0.0,
-                'account_id': k,
-                'tax_line_id': tax_id,
+            # Only entries with cash flow must be created
+            if not self.company_id.currency_id.is_zero(v):
+                line_to_create.append((0, 0, {
+                    'name': '/',
+                    'debit': abs(v) if v < 0 else 0.0,
+                    'credit': v if v > 0 else 0.0,
+                    'account_id': k,
+                    'tax_line_id': tax_id,
+                    'tax_exigible': True,
                 }))
         return line_to_create, move_date
 

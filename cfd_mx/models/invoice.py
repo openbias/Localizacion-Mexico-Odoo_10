@@ -564,10 +564,14 @@ class MailComposeMessage(models.TransientModel):
                 composition_mode, model, res_id)
         if self.env.context.get('active_model', False) == 'account.invoice':
             invoice = self.env["account.invoice"].browse(self.env.context['active_id'])
-            if not invoice.number:
-                return res
-            xml_name = "cfd_" + invoice.number + ".xml"
+            # if not invoice.number:
+            #     return res
+            if invoice.number:
+                xml_name = "cfd_%s.xml"%invoice.number
+            else:
+                xml_name = "%s.xml"%(invoice.uuid)
             xml_id = self.env["ir.attachment"].search([('name', '=', xml_name)])
+            print "xml_id", xml_id
             if xml_id:
                 res['value'].setdefault('attachment_ids', []).append(xml_id[0].id)
         return res

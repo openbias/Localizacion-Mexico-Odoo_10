@@ -3,7 +3,7 @@
 from xml.dom import minidom
 from xml.dom.minidom import parse, parseString
 
-import xmltodict
+# import xmltodict
 
 from datetime import date, datetime
 from pytz import timezone
@@ -18,7 +18,8 @@ from odoo import models, fields, api, _
 from odoo.tools import DEFAULT_SERVER_TIME_FORMAT
 from odoo.exceptions import UserError, RedirectWarning, ValidationError
 
-_logger = logging.basicConfig(level=logging.INFO)
+# _logger = logging.basicConfig(level=logging.INFO)
+_logger = logging.getLogger(__name__)
 
 __check_cfdi_re = re.compile(u'''([A-Z]|[a-z]|[0-9]| |Ñ|ñ|!|"|%|&|'|´|-|:|;|>|=|<|@|_|,|\{|\}|`|~|á|é|í|ó|ú|Á|É|Í|Ó|Ú|ü|Ü)''')
 
@@ -291,6 +292,7 @@ class AccountPayment(models.Model):
         cfdi["cfdi:Comprobante"]["cfdi:Complemento"] = self.cfdi_payment_complemento()
         ordered_list = [{key: val} for key, val in cfdi.items()]
         # print xmltodict.unparse(ordered_list[0], pretty=True)
+        # _logger.info(ordered_list)
         cfdi_json = json.dumps(ordered_list)
         url = "%s/cfdi/stamp/%s/%s"%(self.company_id.cfd_mx_host, self.company_id.cfd_mx_db, self.company_id.vat)
         headers = {'Content-Type': 'application/json'}

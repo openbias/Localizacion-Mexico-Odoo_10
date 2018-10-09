@@ -109,7 +109,6 @@ class CurrencyRate(models.Model):
                 'rate': rate_dict[rate]
             }
             self.env.ref('base.%s'%(rate)).with_context(**ctx).refresh_currency()
-
         _logger.info(' === End of the currency rate update cron')
         return True
 

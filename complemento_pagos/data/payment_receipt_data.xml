@@ -119,7 +119,7 @@ ${user.signature | safe}
                 </body>
                 </html>
             ]]></field>
-        </record>        
+        </record>       
 
     </data>
 
