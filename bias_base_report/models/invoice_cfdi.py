@@ -48,7 +48,7 @@ class AccountCfdi(models.Model):
             if self.currency_id.name=='MXN':
                 tipocambio = 1.0
             else:
-                mxn_rate = self.env["ir.model.data"].get_object('base', 'MXN').rate
+                mxn_rate = self.env["ir.model.data"].get_object('base', 'MXN').with_context(date='%s 06:00:00'%(date_invoice)).rate
                 rate = self.currency_id.with_context(date='%s 06:00:00'%(date_invoice)).rate
                 if rate != 0.0:
                     tipocambio = (1.0 / rate) * mxn_rate

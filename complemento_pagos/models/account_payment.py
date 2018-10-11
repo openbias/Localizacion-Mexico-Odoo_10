@@ -15,6 +15,7 @@ import odoo
 import odoo.modules.registry
 from odoo.api import call_kw, Environment
 from odoo import models, fields, api, _
+from odoo.tools import float_is_zero, float_compare
 from odoo.tools import DEFAULT_SERVER_TIME_FORMAT
 from odoo.exceptions import UserError, RedirectWarning, ValidationError
 
@@ -186,6 +187,8 @@ class AccountPayment(models.Model):
     def cfdi_validate_required(self):
         self.ensure_one()
         required = self.cfdi_is_required()
+        if not required:
+            return required
         if not self.invoice_ids:
             raise UserError(_(
                 'Is necessary assign the invoices that are paid with this '
@@ -499,33 +502,57 @@ class AccountPayment(models.Model):
                     pago10["@SelloPago"] = self.spei_sellopago
 
         DoctoRelacionado = []
-        write_off = self.move_line_ids.filtered(lambda l: l.account_id == self.writeoff_account_id and l.name == self.writeoff_label)
+        MoveLine = self.env["account.move.line"]
+        lines = self.move_line_ids.mapped('move_id.line_ids').filtered(lambda l: l.account_id.user_type_id.type == 'liquidity')
+        amount_paid = sum(lines.mapped('amount_currency') if self.currency_id.name != 'MXN' else lines.mapped('debit'))
         for invoice in self.invoice_ids:
+            inv_currency_id = invoice.currency_id.with_context(date=invoice.date_invoice)
             payments_widget = json.loads(invoice.payments_widget)
-            amount = [p for p in payments_widget.get("content", []) if p.get('account_payment_id', False) == self.id]
-            amount = amount[0].get('amount', 0.0) if amount else 0.0
-            write_off = (write_off.amount_currency if invoice.currency_id.name != 'MXN' else write_off.debit) if write_off else 0
-            balance = invoice.residual + amount
-            amount = amount - write_off
-            residual = balance - amount if balance - amount > 0 else 0
-            inv_rate = ('%.6f' % (invoice.currency_id.with_context(date=self.payment_date).compute(1, self.currency_id, round=False))) if self.currency_id != invoice.currency_id else False
+            content = payments_widget.get("content", [])
+            vals = [p for p in content if p.get('account_payment_id', False) == self.id]
+            line_id = MoveLine.browse( vals[0].get('payment_id', False) )
+            amount = inv_currency_id.round(vals[0].get('amount', 0.0) if vals else 0.0)
+            ctx = {'date': invoice.date_invoice}
+            f_compare = float_compare(amount, invoice.amount_total, precision_digits=self.currency_id.rounding)
+            if f_compare != 0:
+                ctx = {'date': self.payment_date}
+            balance = invoice.currency_id.with_context(**ctx).compute(amount, self.currency_id, round=False)
+            if balance >= amount_paid:
+                balance = amount_paid
+            amount_paid = amount_paid - balance
+
+            balance_comp = self.currency_id.with_context(date=self.payment_date).compute(balance, invoice.currency_id, round=False)
+            rate_difference = [p for p in content if p.get('journal_name', '') == self.company_id.currency_exchange_journal_id.name]
+            rate_difference = rate_difference[0].get('amount', 0.0) if rate_difference else 0.0
+            NumParcialidad = len(invoice.payment_ids.filtered(lambda p: p.state not in ('draft', 'cancelled')).ids)
+            ImpSaldoAnt = invoice.residual + amount + rate_difference
+            ImpPagado = balance_comp if balance_comp <= invoice.residual + amount else invoice.residual + amount  # invoice.residual + amount
+            ImpSaldoInsoluto = invoice.residual + amount + rate_difference - balance_comp if invoice.residual + amount + rate_difference - balance_comp >= 0 else 0 # rate_difference
+            if rate_difference:
+                ImpPagado = invoice.residual + amount
+                ImpSaldoInsoluto = rate_difference
+
             docto_attribs = collections.OrderedDict()
             docto_attribs["@IdDocumento"] = "%s"%invoice.uuid
             docto_attribs["@Folio"] = "%s"%invoice.number
             docto_attribs["@MonedaDR"] = "%s"%invoice.currency_id.name
-            docto_attribs["@MetodoDePagoDR"] = '%s'%(invoice.metodopago_id and invoice.metodopago_id.clave or "PPD")
-            docto_attribs["@NumParcialidad"] = len(invoice.payment_ids.filtered(lambda p: p.state not in ('draft', 'cancelled')).ids)
-            docto_attribs["@ImpSaldoAnt"] = '%0.*f' % (decimal_precision, balance)
-            docto_attribs["@ImpPagado"] = '%0.*f' % (decimal_precision, amount)
-            docto_attribs["@ImpSaldoInsoluto"] = '%0.*f' % (decimal_precision, residual)
+            docto_attribs["@MetodoDePagoDR"] = 'PPD'
+            docto_attribs["@NumParcialidad"] = NumParcialidad
+            docto_attribs["@ImpSaldoAnt"] = '%0.*f' % (decimal_precision, ImpSaldoAnt)
+            docto_attribs["@ImpPagado"] = '%0.*f' % (decimal_precision, ImpPagado)
+            docto_attribs["@ImpSaldoInsoluto"] = '%0.*f' % (decimal_precision, ImpSaldoInsoluto)
+
             if invoice.journal_id.serie:
                 docto_attribs['@Serie'] = invoice.journal_id.serie or ''
-            if inv_rate:
-                docto_attribs['@TipoCambioDR'] = inv_rate
+            if self.currency_id != invoice.currency_id:
+                tdr = round( (ImpPagado / balance), 6 )
+                f_compare = float_compare(balance, (ImpPagado/tdr), precision_digits=6)
+                if f_compare < 0:
+                    tdr += 0.000001
+                docto_attribs['@TipoCambioDR'] = ('%.6f' % (tdr))  # ('%.6f' % (1/inv_rate)) 
             DoctoRelacionado.append(docto_attribs)
         pago10["pago10:DoctoRelacionado"] = DoctoRelacionado
         nodoPago10.append(pago10)
-
 
         if self.cfdi_factoraje_id and self.partner_factoraje_id:
             for invoice in self.invoice_ids:
@@ -562,7 +589,7 @@ class AccountPayment(models.Model):
                 if invoice.journal_id.serie:
                     docto_attribs['@Serie'] = invoice.journal_id.serie or ''
                 if inv_rate:
-                    docto_attribs['@TipoCambioDR'] = inv_rate
+                    docto_attribs['@TipoCambioDR'] = (1 / inv_rate)
                 DoctoRelacionado.append(docto_attribs)
                 pago10["pago10:DoctoRelacionado"] = DoctoRelacionado
                 nodoPago10.append(pago10)
@@ -571,6 +598,7 @@ class AccountPayment(models.Model):
         Complemento = collections.OrderedDict()
         Complemento["pago10:Pagos"] = pagos10
         Complemento["pago10:Pagos"]["@Version"] = "1.0"
+        # print miguelmiguel
         return Complemento
 
     @staticmethod
