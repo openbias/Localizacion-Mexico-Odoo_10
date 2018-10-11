@@ -103,6 +103,10 @@ class AccountPayment(models.Model):
             'otro': self.env['contabilidad_electronica.otro.metodo.pago']
         }
         if self.tipo_pago:
+            if self.tipo_pago == 'trans' and not self.cta_origen_id and not self.cta_destino_id:
+                return True
+            if self.tipo_pago == 'cheque' and not self.cta_origen_id and not self.benef_id:
+                return True
             for m in move:
                 for move_line in m.line_ids:
                     if self.tipo_pago == 'trans':

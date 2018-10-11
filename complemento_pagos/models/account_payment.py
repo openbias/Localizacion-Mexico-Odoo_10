@@ -480,7 +480,7 @@ class AccountPayment(models.Model):
         if self.currency_id.name != "MXN":
             pago10["@TipoCambioP"] = rate
         pago10["@Monto"]= '%.*f' % (decimal_precision, self.amount)
-        pago10["@NumOperacion"]= self.communication or ""
+        pago10["@NumOperacion"]= self.communication[:100].replace('|', ' ') if self.communication else "Pago %s "%(self.payment_date)
 
         if not self.cfdi_factoraje_id:
             if self.formapago_id and self.formapago_id.banco:
@@ -603,7 +603,7 @@ class AccountPayment(models.Model):
 
     @staticmethod
     def _get_folio(number):
-        number = number.replace("/", "")
+        number = number and number.replace("/", "") or ""
         values = {'serie': "", 'folio': ""}
         number_matchs = [rn for rn in re.finditer('\d+', number or '')]
         if number_matchs:
