@@ -7,7 +7,7 @@ from odoo import api, fields, models, _
 class banco(models.Model):
     _inherit = "res.bank"
     
-    code_sat = fields.Char(u"Código SAT", required=True)
+    code_sat = fields.Char(u"Código SAT", required=True, default="")
     razon_social = fields.Char(u"Razón social")
     extranjero = fields.Boolean("Banco extranjero")
 

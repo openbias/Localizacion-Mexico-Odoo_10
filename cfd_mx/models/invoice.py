@@ -121,6 +121,8 @@ class AccountInvoiceLine(models.Model):
     price_discount_sat = fields.Monetary(string='Discount (SAT)', readonly=True, compute='_compute_price_sat', default=0.00, digits=(12, 6))
     numero_pedimento_sat = fields.Char(string='Numero de Pedimento', help="Informacion Aduanera. Numero de Pedimento")
 
+
+
     @api.one
     def get_impuestos_sat(self):
         line = self
@@ -549,6 +551,10 @@ class AccountInvoice(models.Model):
         else:
             raise UserError("No existe addenda relacionada")
         return True
+
+
+
+
 
 
 class MailComposeMessage(models.TransientModel):

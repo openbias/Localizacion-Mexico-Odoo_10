@@ -488,13 +488,17 @@ class AccountPayment(models.Model):
                     bank_vat = self.cta_origen_id and self.cta_origen_id.bank_id or False
                     if bank_vat and bank_vat.vat:
                         pago10["@RfcEmisorCtaOrd"] = bank_vat and bank_vat.vat or ""
+                    if self.cta_origen_id and self.cta_origen_id.acc_number:
                         pago10["@CtaOrdenante"]= self.cta_origen_id.acc_number or ""
-                        if bank_vat.vat == "XEXX010101000":
-                            pago10["@NomBancoOrdExt"] = bank_vat.description or ""
+                    if bank_vat.vat == "XEXX010101000":
+                        pago10["@NomBancoOrdExt"] = bank_vat.description or ""
+
                 bank_vat = self.journal_id and self.journal_id.bank_id and self.journal_id.bank_id.vat or False
                 if bank_vat:
                     pago10["@RfcEmisorCtaBen"] = bank_vat
+                if self.journal_id and self.journal_id.bank_acc_number:
                     pago10["@CtaBeneficiario"] = self.journal_id and self.journal_id.bank_acc_number or ""
+
                 if self.spei_tipo_cadenapago == "01":
                     pago10["@TipoCadPago"] = self.spei_tipo_cadenapago
                     pago10["@CertPago"] = self.spei_certpago

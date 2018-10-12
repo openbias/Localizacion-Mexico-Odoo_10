@@ -162,32 +162,28 @@
                                 <strong>Total Pago</strong> <br/>$ <span class="bg_font_color" t-esc="pagosAtrib.get('Monto', ' ')" />
                             </td>
                         </tr>
-                        <t t-if="pagosAtrib.get('RfcEmisorCtaOrd')">
-                            <tr>
-                                <td colspan="2">
-                                    <strong>RFC Ordenante: </strong> <span class="bg_font_color" t-esc="pagosAtrib.get('RfcEmisorCtaOrd')" />
-                                </td>
-                                <td colspan="4">
-                                    <strong>Cuenta Ordenante: </strong> <span class="bg_font_color" t-esc="pagosAtrib.get('CtaOrdenante')" />
-                                </td>
-                                <td colspan="4">
-                                    <strong>Banco Ordenante Ext: </strong> <span class="bg_font_color" t-esc="pagosAtrib.get('NomBancoOrdExt')" />
-                                </td>
-                            </tr>
-                        </t>
-                        <t t-if="pagosAtrib.get('RfcEmisorCtaBen')">
-                            <tr>
-                                <td colspan="2">
-                                    <strong>RFC Beneficiario: </strong> <span class="bg_font_color" t-esc="pagosAtrib.get('RfcEmisorCtaBen')" />
-                                </td>
-                                <td colspan="4">
-                                    <strong>Cuenta Beneficiario: </strong> <span class="bg_font_color" t-esc="pagosAtrib.get('CtaBeneficiario')" />
-                                </td>
-                                <td colspan="4">
-                                    <strong>Tipo Cadena Pago: </strong><t t-if="pagosAtrib.get('TipoCadPago')"> <span class="bg_font_color" t-esc="pagosAtrib.get('TipoCadPago')" /> <span class="bg_font_color">- SPEI </span> </t> &amp;nbsp;
-                                </td>
-                            </tr>
-                        </t>
+                        <tr>
+                            <td colspan="2">
+                                <strong>RFC Ordenante: </strong> <span class="bg_font_color" t-esc="pagosAtrib.get('RfcEmisorCtaOrd')" />&amp;nbsp;
+                            </td>
+                            <td colspan="4">
+                                <strong>Cuenta Ordenante: </strong> <span class="bg_font_color" t-esc="pagosAtrib.get('CtaOrdenante')" />&amp;nbsp;
+                            </td>
+                            <td colspan="4">
+                                <strong>Banco Ordenante Ext: </strong> <span class="bg_font_color" t-esc="pagosAtrib.get('NomBancoOrdExt')" />&amp;nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <strong>RFC Beneficiario: </strong> <span class="bg_font_color" t-esc="pagosAtrib.get('RfcEmisorCtaBen')" />&amp;nbsp;
+                            </td>
+                            <td colspan="4">
+                                <strong>Cuenta Beneficiario: </strong> <span class="bg_font_color" t-esc="pagosAtrib.get('CtaBeneficiario')" />&amp;nbsp;
+                            </td>
+                            <td colspan="4">
+                                <strong>Tipo Cadena Pago: </strong><t t-if="pagosAtrib.get('TipoCadPago')"> <span class="bg_font_color" t-esc="pagosAtrib.get('TipoCadPago')" /> <span class="bg_font_color">- SPEI </span> </t> &amp;nbsp;
+                            </td>
+                        </tr>
                         <t t-if="pagosAtrib.get('TipoCadPago')">
                             <tr>
                                 <td colspan="10">
