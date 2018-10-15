@@ -99,29 +99,33 @@ class account_account(models.Model):
 
     @api.one
     def _compute_amount(self):
+        unaffected_earnings_id = self.env.ref('account.data_unaffected_earnings')
+        ContextCoa = self.env['account.context.coa']
+        CoaReport = self.env['account.coa.report']
+        uid = self.env.user.id
+        company_id = self.env.user.company_id
+
         dp = self.env['decimal.precision'].precision_get('Account')
         self._cr.execute("""SELECT COALESCE(MIN(date), NOW()::DATE) AS "min", COALESCE(MAX(date), NOW()::DATE) AS "max" from account_move_line""")
         dates = self._cr.dictfetchone()
         ctx = dict(self._context)
-
-        date_from = ctx.get('date_from') and ctx['date_from'] or dates['min']
-        date_to  = ctx.get('date_to')   and ctx['date_to']   or dates['max']
+        date_from_orig = ctx.get('date_from') and ctx['date_from'] or dates['min']
+        date_to_orig  = ctx.get('date_to')   and ctx['date_to']   or dates['max']
         data = {
             'form': {
-                'display_account': u'movement', 
-                'date_from': date_from, 
-                'date_to': date_to,
+                'display_account': u'movement',
+                'date_from': date_from_orig,
+                'date_to': date_to_orig,
                 'journal_ids': ctx.get('journal_ids'),
                 'id': 143,
                 'target_move': ctx.get('state'),
                 'used_context': {
                     u'lang': ctx.get('lang'),
-                    u'date_from': date_from,
-                    u'date_to': date_to,
+                    u'date_from': date_from_orig,
+                    u'date_to': date_to_orig,
                     u'journal_ids': ctx.get('journal_ids'),
                     u'state': ctx.get('state'),
                     u'strict_range': True,
-                    
                 }
             }
         }
@@ -130,7 +134,6 @@ class account_account(models.Model):
         self.model = self.env.context.get('active_model')        
         # docs = self.env['self.model'].browse(self.env.context.get('active_ids', []))
         display_account = data['form'].get('display_account')
-
         accounts = self._get_children_and_consol()
         date_from = datetime.strptime(data['form'].get('date_from'), '%Y-%m-%d').date()
         date_to = datetime.strptime(data['form'].get('date_to'), '%Y-%m-%d').date()
@@ -152,23 +155,47 @@ class account_account(models.Model):
             for account in account_res:
                 credit += account['credit']
                 debit += account['debit']
-
-            line_used_context = used_context.copy()
-            if acc_brw.user_type_id.include_initial_balance == True:
-                initial_date_from = date_from + relativedelta(days=-1)
-                line_used_context['date_from'] = dates['min']
-                line_used_context['date_to'] = initial_date_from
-                line_used_context.pop("strict_range")
+            if unaffected_earnings_id == acc_brw.user_type_id:
+                context_coa_id = ContextCoa.search([], limit=1)
+                if context_coa_id:
+                    context_coa_id.write({
+                        'date_from': date_from_orig,
+                        'date_to': date_to_orig,
+                        'date_filter': 'custom'
+                    })
+                    context_id = ContextCoa.search([['id', '=', context_coa_id.id]])
+                    new_context = {}
+                    new_context.update({
+                        'date_from': context_id.date_from,
+                        'date_to': context_id.date_to,
+                        'state': 'posted', # context_id.all_entries and 'all' or 'posted',
+                        'cash_basis': context_id.cash_basis,
+                        'hierarchy_3': context_id.hierarchy_3,
+                        'context_id': context_id,
+                        'company_ids': context_id.company_ids.ids,
+                        'periods_number': context_id.periods_number,
+                        'periods': [[context_id.date_from, context_id.date_to]] + context_id.get_cmp_periods(),
+                    })
+                    coa_lines = CoaReport.with_context(new_context)._lines(line_id=None)
+                    rea = [coa for coa in coa_lines if coa.get('id') == acc_brw.id]
+                    columns = rea[0].get('columns')
+                    initial = float( (columns and columns[0] or '0.0').replace('$ ', '').replace(',', '') )
             else:
-                initial_date_from = date_from + relativedelta(days=-1)
-                line_used_context['date_to'] = initial_date_from
-                line_used_context['date_from'] = '%s-01-01'%(date_to.year)
-
-            vals = self.with_context(line_used_context)._get_accounts(acc_brw, display_account)
-            for val in vals:
-                bal = round(val['balance'], dp)
-                initial += bal
-                bal1 = (bal + account.get('debit', 0.0) - account.get('credit', 0.0))
+                line_used_context = used_context.copy()
+                if acc_brw.user_type_id.include_initial_balance == True:
+                    initial_date_from = date_from + relativedelta(days=-1)
+                    line_used_context['date_from'] = dates['min']
+                    line_used_context['date_to'] = initial_date_from
+                    line_used_context.pop("strict_range")
+                else:
+                    initial_date_from = date_from + relativedelta(days=-1)
+                    line_used_context['date_to'] = initial_date_from
+                    line_used_context['date_from'] = '%s-01-01'%(date_to.year)
+                vals = self.with_context(line_used_context)._get_accounts(acc_brw, display_account)
+                for val in vals:
+                    bal = round(val['balance'], dp)
+                    initial += bal
+                    bal1 = (bal + account.get('debit', 0.0) - account.get('credit', 0.0))
         balance =  initial + debit - credit
 
         self.initial = initial
