@@ -20,18 +20,20 @@
             <field name="format">Letter</field>
         </record>
 
-
         <report 
             id="complemento_pagos_mx"
             model="cfdi.timbres.sat"
             string="Pagos CFDI"
             report_type="qweb-pdf"
             name="complemento_pagos.report_cfdipagosmx"
-            file="complemento_pagos.report_cfdipagosmx" />
+            file="complemento_pagos.report_cfdipagosmx" 
+            attachment_use="False"
+            attachment="((object.name or '').replace('/','')+'.pdf')" />
 
 
         <record id="complemento_pagos_mx" model="ir.actions.report.xml">
             <field name="paperformat_id" ref="complemento_pagos.cfdipagos_paperformat"/>
+            <field name="print_report_name"><![CDATA[((object.name or 'Pagos CFDI').replace('/','')+'.pdf')]]></field>
         </record>
 
     </data>

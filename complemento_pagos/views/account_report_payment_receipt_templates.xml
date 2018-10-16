@@ -10,10 +10,11 @@
             name="complemento_pagos.report_payment_receipt"
             file="complemento_pagos.report_payment_receipt"
             menu="True"
-        />
+            attachment_use="False" />
 
         <record id="action_report_payment_receipt" model="ir.actions.report.xml">
             <field name="paperformat_id" ref="complemento_pagos.cfdipagos_paperformat"/>
+            <field name="print_report_name"><![CDATA[((object.cfdi_timbre_id and object.cfdi_timbre_id.name or 'Pagos CFDI').replace('/','')+'.pdf')]]></field>
         </record>
 
 
