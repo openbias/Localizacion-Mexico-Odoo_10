@@ -232,15 +232,18 @@ class AccountPayment(models.Model):
                 raise UserError(message)
             else:
                 self.get_process_data(res.get('result'))
-                if self.cfdi_factoraje_id and self.partner_factoraje_id:
+                if rec.cfdi_factoraje_id and rec.partner_factoraje_id:
                     # Se cancela Factura de Proveedor Factoraje    
-                    amount_total = self.cfdi_factoraje_id.amount_total
+                    amount_total = rec.cfdi_factoraje_id.amount_total
+                    print "rec.payment_date", rec.payment_date
                     self.payment_difference_factoring()
-                    ctx = {'active_id': self.cfdi_factoraje_id.id, 'active_ids': [self.cfdi_factoraje_id.id], 'model': 'account.invoice'}
+                    ctx = {'active_id': rec.cfdi_factoraje_id.id, 'active_ids': [rec.cfdi_factoraje_id.id], 'model': 'account.invoice'}
                     res = self.env['account.invoice.refund'].with_context(**ctx).create({
+                        'date_invoice': rec.payment_date,
                         'description': 'Cancelar Factoraje',
                         'filter_refund': 'cancel'
                     }).invoice_refund()
+
         return True
 
     @api.multi
