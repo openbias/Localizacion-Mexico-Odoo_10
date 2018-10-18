@@ -36,8 +36,6 @@ def cant_letra(currency, amount):
         name = amount_to_text().amount_to_text_cheque(float(amount), nombre, siglas).capitalize()
     return name
 
-
-
 class CFDITimbresSat(models.Model):
     _name = 'cfdi.timbres.sat'
     _inherit = ['mail.thread']

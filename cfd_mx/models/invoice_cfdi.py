@@ -126,7 +126,6 @@ class AccountCfdi(models.Model):
                 tax_group = tax_id.tax_group_id
                 importe = tax.get('amount')
                 TasaOCuota = '%.6f'%((round(abs(tax_id.amount), decimal_precision) / 100))
-
                 Base = round(tax.get('base') , dp_cantidad)
                 Importe = round(abs(importe), dp_cantidad)
                 impuestos = {

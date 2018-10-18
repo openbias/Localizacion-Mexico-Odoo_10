@@ -77,13 +77,11 @@
                                 <field name="tipo_pago" />
                                 <field name="cta_origen_id"
                                     attrs="{
-                                        'invisible': ['|',('tipo_pago','=',False),('tipo_pago','=','otro')], 
-                                        'required': [('tipo_pago','in',('cheque','trans'))]
+                                        'invisible': ['|',('tipo_pago','=',False),('tipo_pago','=','otro')]
                                     }"/>
                                 <field name="benef_id"
                                     attrs="{
-                                        'invisible': ['|',('tipo_pago','=',False),('tipo_pago','=','trans')], 
-                                        'required': [('tipo_pago', 'in', ('cheque','otro'))]
+                                        'invisible': ['|',('tipo_pago','=',False),('tipo_pago','=','trans')]
                                     }"/>
                             </group>
                             <group>

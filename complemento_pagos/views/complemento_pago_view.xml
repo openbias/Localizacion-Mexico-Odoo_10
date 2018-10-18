@@ -84,8 +84,8 @@
                     </tr>
                     <tr>
                         <td>
-                            <strong t-field="doc.partner_id.name" /><br />
-                            <strong>RFC: </strong><span t-field="doc.partner_id.vat" /><br />
+                            <strong t-esc="receptorAtrib.get('Nombre')" /><br />
+                            <strong>RFC: </strong><span t-esc="receptorAtrib.get('Rfc')" /><br />
                         </td>
                         <td class="text-left">
                             <strong>Version: </strong><span t-esc="compAtrib.get('Version')" /> &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;

@@ -168,7 +168,7 @@ class account_account(models.Model):
                     new_context.update({
                         'date_from': context_id.date_from,
                         'date_to': context_id.date_to,
-                        'state': 'posted', # context_id.all_entries and 'all' or 'posted',
+                        'state': ctx.get('state'), # context_id.all_entries and 'all' or 'posted',
                         'cash_basis': context_id.cash_basis,
                         'hierarchy_3': context_id.hierarchy_3,
                         'context_id': context_id,
@@ -178,8 +178,11 @@ class account_account(models.Model):
                     })
                     coa_lines = CoaReport.with_context(new_context)._lines(line_id=None)
                     rea = [coa for coa in coa_lines if coa.get('id') == acc_brw.id]
-                    columns = rea[0].get('columns')
-                    initial = float( (columns and columns[0] or '0.0').replace('$ ', '').replace(',', '') )
+                    if rea:
+                        columns = rea[0].get('columns')
+                        initial = float( (columns and columns[0] or '0.0').replace('$ ', '').replace(',', '') )
+                        debit = float( (columns and columns[1] or '0.0').replace('$ ', '').replace(',', '') )
+                        credit = float( (columns and columns[1] or '0.0').replace('$ ', '').replace(',', '') )
             else:
                 line_used_context = used_context.copy()
                 if acc_brw.user_type_id.include_initial_balance == True:
@@ -212,10 +215,10 @@ class account_account(models.Model):
     children_ids = fields.One2many('account.account', 'parent_id', 'Children')
     child_consol_ids = fields.Many2many('account.account', 'account_account_consol_rel', 'child_id', 'parent_id', 'Consolidated Children')
     
-    initial = fields.Float(string = "Initial", compute='_compute_amount', track_visibility='always')
-    balance = fields.Float(string = "Balance", compute='_compute_amount', track_visibility='always')
-    credit = fields.Float(string='Credit', compute='_compute_amount', track_visibility='always')
-    debit = fields.Float(string='Debit', compute='_compute_amount', track_visibility='always')
+    initial = fields.Float(string = "Initial", compute='_compute_amount')
+    balance = fields.Float(string = "Balance", compute='_compute_amount')
+    credit = fields.Float(string='Credit', compute='_compute_amount')
+    debit = fields.Float(string='Debit', compute='_compute_amount')
 
     type = fields.Selection([], 'Account Type', 
         help="The 'Internal Type' is used for features available on " \

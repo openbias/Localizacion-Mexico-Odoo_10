@@ -25,7 +25,7 @@ class AccountChart(models.TransientModel):
     target_move = fields.Selection([
             ('posted', 'All Posted Entries'),
             ('all', 'All Entries')],
-        string='Target Moves', required=True, default='all')
+        string='Target Moves', required=True, default='posted')
 
     @api.onchange('date_from')
     def onchange_date(self):
@@ -55,7 +55,6 @@ class AccountChart(models.TransientModel):
 
     def _build_contexts(self, data):
         context =  dict(self.env.context)
-        print "data.get('target_move')", data.get('target_move')
         result = {}        
         result['journal_ids'] = data.get('journal_ids')
         result['state'] = data.get('target_move')

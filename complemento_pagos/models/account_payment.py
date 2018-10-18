@@ -174,6 +174,7 @@ class AccountPayment(models.Model):
     def cfdi_is_required(self):
         self.ensure_one()
         required = (
+            self.partner_id and
             self.partner_type == "customer" and 
             self.payment_type == 'inbound' and
             self.invoice_ids.filtered(lambda i: i.type == 'out_invoice') and 
@@ -234,12 +235,12 @@ class AccountPayment(models.Model):
                 if self.cfdi_factoraje_id and self.partner_factoraje_id:
                     # Se cancela Factura de Proveedor Factoraje    
                     amount_total = self.cfdi_factoraje_id.amount_total
+                    self.payment_difference_factoring()
                     ctx = {'active_id': self.cfdi_factoraje_id.id, 'active_ids': [self.cfdi_factoraje_id.id], 'model': 'account.invoice'}
                     res = self.env['account.invoice.refund'].with_context(**ctx).create({
                         'description': 'Cancelar Factoraje',
                         'filter_refund': 'cancel'
                     }).invoice_refund()
-                    self.payment_difference_factoring()
         return True
 
     @api.multi
@@ -485,12 +486,12 @@ class AccountPayment(models.Model):
         if not self.cfdi_factoraje_id:
             if self.formapago_id and self.formapago_id.banco:
                 if self.cta_origen_id:
+                    if self.cta_origen_id and self.cta_origen_id.acc_number:
+                        pago10["@CtaOrdenante"]= self.cta_origen_id.acc_number or ""
                     bank_vat = self.cta_origen_id and self.cta_origen_id.bank_id or False
                     if bank_vat and bank_vat.vat:
                         pago10["@RfcEmisorCtaOrd"] = bank_vat and bank_vat.vat or ""
-                    if self.cta_origen_id and self.cta_origen_id.acc_number:
-                        pago10["@CtaOrdenante"]= self.cta_origen_id.acc_number or ""
-                    if bank_vat.vat == "XEXX010101000":
+                    if bank_vat and bank_vat.vat == "XEXX010101000":
                         pago10["@NomBancoOrdExt"] = bank_vat.description or ""
 
                 bank_vat = self.journal_id and self.journal_id.bank_id and self.journal_id.bank_id.vat or False
@@ -606,7 +607,7 @@ class AccountPayment(models.Model):
         return Complemento
 
     @staticmethod
-    def _get_folio(number):
+    def _get_folio(number=""):
         number = number and number.replace("/", "") or ""
         values = {'serie': "", 'folio': ""}
         number_matchs = [rn for rn in re.finditer('\d+', number or '')]
