@@ -38,7 +38,7 @@ class AccountInvoice(models.Model):
                 }
                 if self.currency_id.name != "MXN":
                     vals.update({
-                        'moneda': self.currency_id.id,
+                        'moneda_id': self.currency_id.id,
                         'tipo_cambio': self.tipo_cambio
                     })
                 res = comp_obj.search(['&',('uuid','=', uuid),('move_line_id','=', move_line.id)])

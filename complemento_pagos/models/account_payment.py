@@ -88,6 +88,9 @@ class AccountAbstractPayment(models.AbstractModel):
     @api.onchange('journal_id')
     def _onchange_journal(self):
         rec = super(AccountAbstractPayment, self)._onchange_journal()
+        if not self.journal_id:
+            rec['cta_origen_id'] = False
+            rec['cta_destino_id'] = False
         if rec and self.partner_id and self.journal_id and self.partner_type:
             if self.journal_id.type == 'cash':
                 self.tipo_pago = 'otro'
@@ -160,6 +163,16 @@ class AccountPayment(models.Model):
     spei_cadpago = fields.Text(string="Cadena Pago SPEI")
     spei_sellopago = fields.Text(string="Sello Pago SPEI")
     cfdi_timbre_id = fields.Many2one('cfdi.timbres.sat', string=u'Timbre SAT')
+
+
+    @api.onchange('cta_origen_id', 'cta_destino_id')
+    def _onchange_cta_id(self):
+        if self.tipo_pago and self.tipo_pago == 'trans' and self.journal_id:
+            if self.cta_origen_id and len(self.cta_origen_id.acc_number or "") not in [10, 18]:
+                raise UserError("La Cuenta Destino debe tener 10 o 18 digitos \n Digitos: %s - Cuenta: %s"%( len(self.cta_origen_id.acc_number or ""),  self.cta_origen_id.acc_number) )
+            if self.cta_destino_id and len(self.cta_destino_id.acc_number or "") not in [10, 18]:
+                raise UserError("La Cuenta Destino debe tener 10 o 18 digitos \n Digitos: %s - Cuenta: %s"%( len(self.cta_destino_id.acc_number or ""),  self.cta_destino_id.acc_number) )
+
 
     @api.multi
     def post(self):
@@ -235,7 +248,6 @@ class AccountPayment(models.Model):
                 if rec.cfdi_factoraje_id and rec.partner_factoraje_id:
                     # Se cancela Factura de Proveedor Factoraje    
                     amount_total = rec.cfdi_factoraje_id.amount_total
-                    print "rec.payment_date", rec.payment_date
                     self.payment_difference_factoring()
                     ctx = {'active_id': rec.cfdi_factoraje_id.id, 'active_ids': [rec.cfdi_factoraje_id.id], 'model': 'account.invoice'}
                     res = self.env['account.invoice.refund'].with_context(**ctx).create({
@@ -313,7 +325,7 @@ class AccountPayment(models.Model):
             }
         }
         data_json = json.dumps(data)
-        # _logger.info(data)
+        _logger.info(data)
         res = requests.post(url=url, data=data_json, headers=headers)
         res_datas = res.json()
         msg = res_datas.get('error') and res_datas['error'].get('data') and res_datas['error']['data'].get('message')
@@ -519,17 +531,18 @@ class AccountPayment(models.Model):
             content = payments_widget.get("content", [])
             vals = [p for p in content if p.get('account_payment_id', False) == self.id]
             line_id = MoveLine.browse( vals[0].get('payment_id', False) )
-            amount = inv_currency_id.round(vals[0].get('amount', 0.0) if vals else 0.0)
+            # amount = inv_currency_id.round(vals[0].get('amount', 0.0) if vals else 0.0)
+            amount = abs(line_id.amount_currency) or abs(line_id.credit)
             ctx = {'date': invoice.date_invoice}
             f_compare = float_compare(amount, invoice.amount_total, precision_digits=self.currency_id.rounding)
             if f_compare != 0:
                 ctx = {'date': self.payment_date}
-            balance = invoice.currency_id.with_context(**ctx).compute(amount, self.currency_id, round=False)
+            # balance = invoice.currency_id.with_context(**ctx).compute(amount, self.currency_id)
+            balance = line_id.credit
             if balance >= amount_paid:
                 balance = amount_paid
             amount_paid = amount_paid - balance
-
-            balance_comp = self.currency_id.with_context(date=self.payment_date).compute(balance, invoice.currency_id, round=False)
+            balance_comp = self.currency_id.with_context(date=self.payment_date).compute(balance, invoice.currency_id)
             rate_difference = [p for p in content if p.get('journal_name', '') == self.company_id.currency_exchange_journal_id.name]
             rate_difference = rate_difference[0].get('amount', 0.0) if rate_difference else 0.0
             NumParcialidad = len(invoice.payment_ids.filtered(lambda p: p.state not in ('draft', 'cancelled')).ids)
@@ -539,7 +552,6 @@ class AccountPayment(models.Model):
             if rate_difference:
                 ImpPagado = invoice.residual + amount
                 ImpSaldoInsoluto = rate_difference
-
             docto_attribs = collections.OrderedDict()
             docto_attribs["@IdDocumento"] = "%s"%invoice.uuid
             docto_attribs["@Folio"] = "%s"%invoice.number
@@ -549,7 +561,6 @@ class AccountPayment(models.Model):
             docto_attribs["@ImpSaldoAnt"] = '%0.*f' % (decimal_precision, ImpSaldoAnt)
             docto_attribs["@ImpPagado"] = '%0.*f' % (decimal_precision, ImpPagado)
             docto_attribs["@ImpSaldoInsoluto"] = '%0.*f' % (decimal_precision, ImpSaldoInsoluto)
-
             if invoice.journal_id.serie:
                 docto_attribs['@Serie'] = invoice.journal_id.serie or ''
             if self.currency_id != invoice.currency_id:
@@ -557,6 +568,8 @@ class AccountPayment(models.Model):
                 f_compare = float_compare(balance, (ImpPagado/tdr), precision_digits=6)
                 if f_compare < 0:
                     tdr += 0.000001
+                # if f_compare == 1:
+                #     tdr -= 0.000001
                 docto_attribs['@TipoCambioDR'] = ('%.6f' % (tdr))  # ('%.6f' % (1/inv_rate)) 
             DoctoRelacionado.append(docto_attribs)
         pago10["pago10:DoctoRelacionado"] = DoctoRelacionado
@@ -606,7 +619,8 @@ class AccountPayment(models.Model):
         Complemento = collections.OrderedDict()
         Complemento["pago10:Pagos"] = pagos10
         Complemento["pago10:Pagos"]["@Version"] = "1.0"
-        # print miguelmiguel
+
+        # print "Complemento", Complemento
         return Complemento
 
     @staticmethod
@@ -769,6 +783,14 @@ class AccountBankStatementLine(models.Model):
         if domain:
             res['domain'] = domain
         return res
+
+    @api.onchange('cta_origen_id', 'cta_destino_id')
+    def _onchange_cta_id(self):
+        if self.ttype and self.ttype == 'trans' and self.journal_id:
+            if self.cta_origen_id and len(self.cta_origen_id.acc_number or "") not in [10, 18]:
+                raise UserError("La Cuenta Destino debe tener 10 o 18 digitos \n Digitos: %s - Cuenta: %s"%( len(self.cta_origen_id.acc_number or ""),  self.cta_origen_id.acc_number) )
+            if self.cta_destino_id and len(self.cta_destino_id.acc_number or "") not in [10, 18]:
+                raise UserError("La Cuenta Destino debe tener 10 o 18 digitos \n Digitos: %s - Cuenta: %s"%( len(self.cta_destino_id.acc_number or ""),  self.cta_destino_id.acc_number) )
 
     def process_reconciliation(self, counterpart_aml_dicts=None, payment_aml_rec=None, new_aml_dicts=None):
         move = super(AccountBankStatementLine, self).process_reconciliation(counterpart_aml_dicts=counterpart_aml_dicts, payment_aml_rec=payment_aml_rec, new_aml_dicts=new_aml_dicts)
