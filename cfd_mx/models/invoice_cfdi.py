@@ -37,7 +37,6 @@ class AccountCfdi(models.Model):
         dp_cantidad = 6
         SubTotal = round(obj.price_subtotal_sat, dp_cantidad)
         Total = round(obj.amount_total, dp_cantidad)
-            
         cfdi_comprobante = {
             "Folio": obj.number or '',
             "Fecha": date_invoice,
@@ -94,9 +93,9 @@ class AccountCfdi(models.Model):
         for line in obj.invoice_line_ids:
             ClaveProdServ = '01010101'
             Cantidad = round(line.quantity, dp_cantidad)
-            ValorUnitario = round((line.price_subtotal_sat / Cantidad), dp_cantidad)
-            Importe = round(line.price_subtotal_sat, dp_cantidad)
-            Descuento = round(line.price_discount_sat, dp_cantidad)
+            # ValorUnitario = round((line.price_subtotal_sat / Cantidad), dp_cantidad)
+            # Importe = round(line.price_subtotal_sat, dp_cantidad)
+            # Descuento = round(line.price_discount_sat, dp_cantidad)
 
             concepto_attribs = {
                 'ClaveProdServ': line.product_id and line.product_id.clave_prodser_id and line.product_id.clave_prodser_id.clave or ClaveProdServ or '',
@@ -120,19 +119,19 @@ class AccountCfdi(models.Model):
 
             # Calculo de Impuestos.
             price_unit = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
-            taxes = line.invoice_line_tax_ids.compute_all(price_unit, self.currency_id, line.quantity, line.product_id, self.partner_id)['taxes']
+            taxes = line.invoice_line_tax_ids.compute_all( price_unit , self.currency_id, line.quantity, line.product_id, self.partner_id)['taxes']
             for tax in taxes:
                 tax_id = tax_obj.browse(tax.get('id'))
                 tax_group = tax_id.tax_group_id
                 importe = tax.get('amount')
                 TasaOCuota = '%.6f'%((round(abs(tax_id.amount), decimal_precision) / 100))
-                Base = round(tax.get('base') , dp_cantidad)
-                Importe = round(abs(importe), dp_cantidad)
+                # Base = round(tax.get('base') , dp_cantidad)
+                # Importe = round(abs(importe), dp_cantidad)
                 impuestos = {
-                    'Base':  '%.*f' % (decimal_precision, tax.get('base')), # '%s'%(Base),  #'%.2f'%(round( tax.get('base') , dp_account)),
                     'Impuesto': tax_group.cfdi_impuestos,
                     'TipoFactor': '%s'%(tax_id.cfdi_tipofactor),
                     'TasaOCuota': '%s'%(TasaOCuota),
+                    'Base':  '%.*f' % (decimal_precision, tax.get('base')), # '%s'%(Base),  #'%.2f'%(round( tax.get('base') , dp_account)),
                     'Importe': '%.*f' % (decimal_precision, abs(importe))   # '%s'%(Importe) # '%.2f'%(round(abs(importe), dp_account))
                 }
                 if tax_group.cfdi_retencion:

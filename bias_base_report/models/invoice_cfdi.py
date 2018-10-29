@@ -142,6 +142,7 @@ class AccountCfdi(models.Model):
 
     def stamp(self, obj):
         ctx = dict(self._context) or {}
+        decimal_precision = obj.env['decimal.precision'].precision_get('Account')
         res_datas = None
         cia = obj.company_id
         self.get_datas(obj, cia)
@@ -155,7 +156,6 @@ class AccountCfdi(models.Model):
             'cfd': self.get_info_pac(),
             'db': self.db
         }
-
         if hasattr(self, '%s_info_relacionados' % ctx['type']):
             self.cfdi_datas['relacionados'] = getattr(self, '%s_info_relacionados' % ctx['type'])()
 
@@ -166,9 +166,18 @@ class AccountCfdi(models.Model):
         if ctx['type'] in ['invoice']:
             self.cfdi_datas['impuestos'] = getattr(self, '%s_info_impuestos' % ctx['type'])(self.cfdi_datas['conceptos'])
             self.cfdi_datas['addenda'] = self.obj.get_comprobante_addenda()
-
         if ctx['type'] in ['pagos', 'nomina']:
             self.cfdi_datas['complemento'] = getattr(self, '%s_info_complemento' % ctx['type'])()
+
+        Subtotal = float(self.cfdi_datas['comprobante']['SubTotal'])
+        Descuento = float(self.cfdi_datas['comprobante']['Descuento'])
+        TotalImpuestosRetenidos , TotalImpuestosTrasladados = 0.0, 0.0
+        if self.cfdi_datas['impuestos']:
+            TotalImpuestosRetenidos = float(self.cfdi_datas['impuestos']['TotalImpuestosRetenidos'])
+            TotalImpuestosTrasladados = float(self.cfdi_datas['impuestos']['TotalImpuestosTrasladados'])
+        Total = Subtotal - Descuento + TotalImpuestosTrasladados - TotalImpuestosRetenidos
+        self.cfdi_datas['comprobante']["Total"] = '%.*f' % (decimal_precision, Total)
+
         datas = json.dumps(self.cfdi_datas, sort_keys=True, indent=4, separators=(',', ': '))
         logging.info(datas)
         url = '%s/stamp%s/'%(self.host, ctx['type'])
