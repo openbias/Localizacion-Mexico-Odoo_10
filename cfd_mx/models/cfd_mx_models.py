@@ -40,9 +40,28 @@ class CFDITimbresSat(models.Model):
     _name = 'cfdi.timbres.sat'
     _inherit = ['mail.thread']
     _description = 'CFDI Timbres'
-    _order = "time_invoice desc, name desc, id desc"
+    _order = "time_invoice desc, cfdi_type desc, id desc"
 
-    name = fields.Char('Fiscal Folio', copy=False, readonly=True, help='Folio in electronic invoice, is returned by SAT when send to stamp')
+
+    @api.one
+    @api.depends('name')
+    def _get_cfdi_invoice(self):
+        for inv_id in self.env['account.invoice'].search([('uuid', '=', self.name )], limit=1):
+            self.invoice_id = inv_id
+
+    @api.one
+    @api.depends('name')
+    def _get_cfdi_payment(self):
+        for pay_id in self.env['account.payment'].search([('cfdi_timbre_id', '=', self.id )], limit=1):
+            self.payment_id = pay_id
+
+    invoice_id = fields.Many2one('account.invoice', string=u'Invoice', copy=False, 
+        store=True, readonly=True, compute='_get_cfdi_invoice')
+    payment_id = fields.Many2one('account.payment', string=u'Payment', copy=False, 
+        store=False, readonly=True, compute='_get_cfdi_payment')
+
+    name = fields.Char('Fiscal Folio', copy=False, readonly=True, help='Folio')
+    test = fields.Boolean(string="Timbrado en prueba", copy=False)
     cfdi_supplier_rfc = fields.Char(string='Supplier RFC', copy=False, readonly=True,
         help='The supplier tax identification number.')
     cfdi_customer_rfc = fields.Char(string='Customer RFC', copy=False, readonly=True,
@@ -61,15 +80,31 @@ class CFDITimbresSat(models.Model):
     time_invoice_sat = fields.Char(
         string='Time invoice SAT', readonly=True, copy=False,
         help="Refers to the time of stamp of SAT")
+
+    cfdi_cancel_date_rev = fields.Date(string='Date Cancel Revision', copy=False)
     cfdi_cancel_date_sat = fields.Char(
         string='Date Cancel SAT', readonly=True, copy=False,
         help="Refers to the date of cancellation of the CFDI Invoice.")
     cfdi_cancel_status_sat = fields.Char(
-        string='Status Cancel SAT', readonly=True, copy=False,
+        string='Status Cancel SAT', readonly=False, copy=False,
+        help="Refers to the status of cancellation of the CFDI Invoice.")
+    cfdi_cancel_escancelable_sat = fields.Char(
+        string='It is cancelable', readonly=True, copy=False,
+        help="Refers to the status of cancellation of the CFDI Invoice.")
+    cfdi_cancel_state = fields.Char(
+        string='Cancel State SAT', readonly=True, copy=False,
         help="Refers to the status of cancellation of the CFDI Invoice.")
     cfdi_cancel_code_sat = fields.Char(
         string='Code Cancel SAT', readonly=True, copy=False,
         help="Refers to the code of cancellation of the CFDI Invoice.")
+
+    cfdi_state = fields.Char(
+        string='State SAT', readonly=True, copy=False,
+        help="Refers to the status of the CFDI Invoice.", default="Vigente")
+    cfdi_code_sat = fields.Char(
+        string='Code SAT', readonly=True, copy=False,
+        help="Refers to the code of the CFDI Invoice.")
+
     cfdi_cadena_ori = fields.Text(string="Cadena", copy=False)
     cfdi_cadena_sat = fields.Text(string="Cadena SAT", copy=False)
     cfdi_qrcode = fields.Binary(string="Codigo QR", copy=False)
@@ -114,22 +149,34 @@ class CFDITimbresSat(models.Model):
 
 
     @api.multi
-    def get_xml_cfdi(self):
+    def get_xml_cfdi(self, objs=None):
+        ctx = dict(self.env.context)
+
         nodosPagos = []
         timbreAtrib = {}
         compAtrib = {}
         receptorAtrib = {}
         emisorAtrib = {}
         att_obj = self.env['ir.attachment']
-        for rec in self:
-            att_ids = att_obj.search([('res_model', '=', 'cfdi.timbres.sat'), ('res_id', '=', rec.id), ('type', '=', 'binary'), ('name', 'ilike', '%s.xml'%(rec.name) )])
+          
+        recs = objs if objs else self
+
+        xml = False
+        for rec in recs:
+            name = rec.name
+            if objs:
+                name = 'cfd_%s'%(rec.internal_number)
+            att_ids = att_obj.search([('res_model', '=', rec._name), ('res_id', '=', rec.id), ('type', '=', 'binary'), ('name', 'ilike', '.xml' )])
             for att_id in att_ids:
+                xml = att_id.datas
                 cfdi = base64.b64decode(att_id.datas)
                 xmlDoc = parseString(cfdi)
                 nodes = xmlDoc.childNodes
                 comprobante = nodes[0]
                 compAtrib = dict(comprobante.attributes.items())
 
+                if compAtrib.get('Version', '') != '3.3':
+                    continue
                 emisor = comprobante.getElementsByTagName('cfdi:Emisor')
                 emisorAtrib = dict(emisor[0].attributes.items())
 
@@ -156,13 +203,16 @@ class CFDITimbresSat(models.Model):
                                 'pagosAtrib': pagoAtrib,
                                 'doctosAtrib': doctosAtrib
                             })
-        return {
+        vals = {
             'compAtrib': compAtrib,
             'receptorAtrib': receptorAtrib,
             'emisorAtrib': emisorAtrib,
             'nodosPagos': nodosPagos,
             'timbreAtrib': timbreAtrib
         }
+        if 'xml' in ctx:
+            vals['xml'] = xml
+        return vals
 
 
     @api.multi
@@ -199,9 +249,138 @@ class CFDITimbresSat(models.Model):
         return urllib.pathname2url(url)
 
 
+    def getReportUuid(self, dateFrom, dateTo):
+        ir_module = self.env['ir.module.module']
+        cfdi_ingreso, cfdi_egreso, cfdi_pago, cfdi_nomina, cfdi_noencontrado = [], [], [], [], []
+
+        company_id = self.env.user.company_id
+        cfdi_params = {
+            'dateFrom': '%sT00:00:00'%dateFrom,
+            'dateTo': '%sT00:00:01'%dateTo
+        }
+        result = company_id.action_ws_finkok_sat('reportuuid', cfdi_params)
+        for timbre_sat in result.get('uuids', []):
+            timbres = self.search_read([('name', '=', timbre_sat.get('uuid'))], ['name', 'cfdi_type', 'cfdi_customer_rfc', 'partner_id', 'cfdi_amount', 'invoice_id', 'payment_id'])
+            for timbre in timbres:
+                if timbre.get('cfdi_type') == 'I':
+                    cfdi_ingreso.append([
+                        timbre.get('name', ''),
+                        timbre_sat.get('fecha', ''),
+                        timbre.get('cfdi_amount', 0.0),
+                        timbre.get('cfdi_type', ''),
+                        timbre.get('invoice_id') and timbre['invoice_id'][1] or '',
+                        timbre.get('cfdi_customer_rfc', ''),
+                        timbre.get('partner_id') and timbre['partner_id'][1] or '',
+                    ])
+                if timbre.get('cfdi_type') == 'E':
+                    cfdi_egreso.append([
+                        timbre.get('name', ''),
+                        timbre_sat.get('fecha', ''),
+                        timbre.get('cfdi_amount', 0.0),
+                        timbre.get('cfdi_type', ''),
+                        timbre.get('invoice_id') and timbre['invoice_id'][1] or '',
+                        timbre.get('cfdi_customer_rfc', ''),
+                        timbre.get('partner_id') and timbre['partner_id'][1] or '',
+                    ])
+                elif timbre.get('cfdi_type') == 'P':
+                    cfdi_pago.append([
+                        timbre.get('name', ''),
+                        timbre_sat.get('fecha', ''),
+                        timbre.get('cfdi_amount', 0.0),
+                        timbre.get('cfdi_type', ''),
+                        timbre.get('payment_id') and timbre['payment_id'][1] or '',
+                        timbre.get('cfdi_customer_rfc', ''),
+                        timbre.get('partner_id') and timbre['partner_id'][1] or '',
+                    ])
+            if not timbres:
+                # Busca Facturas:
+                timbres_inv = self.env['account.invoice'].search([('uuid', '=', timbre_sat.get('uuid'))], limit=1)
+                if timbres_inv:
+                    timbre = [
+                        timbres_inv.uuid or '',
+                        timbres_inv.date_invoice_cfdi or '',
+                        timbres_inv.amount_total or 0.0,
+                        timbres_inv.tipo_comprobante or 'I',
+                        timbres_inv.internal_number or timbres_inv.number or '',
+                        timbres_inv.partner_id.var or '',
+                        timbres_inv.partner_id.name or '',
+                    ]
+                    if timbres_inv.type == 'out_invoice':
+                        cfdi_ingreso.append(timbre)
+                    if timbres_inv.type == 'out_refund':
+                        cfdi_egreso.append(timbre)
+                else:
+                    if ir_module.search([('state', '=', 'installed'), ('name', '=', 'cfdi_nomina')]):
+                        timbres_nom = self.env['hr.payslip'].search([('uuid', '=', timbre_sat.get('uuid'))], limit=1)
+                        if timbres_nom:
+                            timbre = [
+                                timbres_nom.uuid or '',
+                                timbres_nom.date_invoice_cfdi or '',
+                                timbres_nom.total or 0.0,
+                                timbres_nom.tipo_comprobante or 'I',
+                                timbres_nom.name,
+                                timbres_nom.employee_id.var or '',
+                                timbres_nom.employee_id.name or '',
+                            ]
+                            cfdi_nomina.append(timbre)
+                        else:
+                            cfdi_noencontrado.append([
+                                timbre_sat.get('uuid', ''),
+                                timbre_sat.get('fecha', ''),
+                                0.0,
+                                '',
+                                '',
+                                '',
+                                ''
+                            ])
+                    else:
+                        cfdi_noencontrado.append([
+                            timbre_sat.get('uuid', ''),
+                            timbre_sat.get('fecha', ''),
+                            0.0,
+                            '',
+                            '',
+                            '',
+                            ''
+                        ])
+                continue
+
+        formats = ['string_left_bold', 'string_center', 'money_format', 'string_center', 'string_left', 'string_left', 'string_left']
+        columns = [('A:A', 35), ('B:F', 25), ('G:G', 40)]
+        datas = [['Fecha Timbrado', 'Folio Fiscal', 'Total', 'Tipo', 'Documento', 'RFC', 'Cliente']]
+        if cfdi_ingreso:
+            datas.extend([[' ', ' ', ' ', ' ', ' ', ' ', ' '], ['CFDI Ingreso', ' ', ' ', ' ', ' ', ' ', ' ']])
+            datas.extend(cfdi_ingreso)
+        if cfdi_pago:
+            datas.extend([[' ', ' ', ' ', ' ', ' ', ' ', ' '], ['CFDI Pago', ' ', ' ', ' ', ' ', ' ', ' ']])
+            datas.extend(cfdi_pago)
+        if cfdi_nomina:
+            datas.extend([[' ', ' ', ' ', ' ', ' ', ' ', ' '], ['CFDI Nomina', ' ', ' ', ' ', ' ', ' ', ' ']])
+            datas.extend(cfdi_nomina)
+        if cfdi_noencontrado:
+            datas.extend([[' ', ' ', ' ', ' ', ' ', ' ', ' '], ['No Encontrado Odoo', ' ', ' ', ' ', ' ', ' ', ' ']])
+            datas.extend(cfdi_noencontrado)
+
+        ctx = {
+            'report_name': 'Reportes Timbres SAT',
+            'datas': datas,
+            'header': True,
+            'freeze_panes': True,
+            'columns': columns,
+            'formats': formats
+        }
+        return ctx
+
+
+
+
 class AltaCatalogosCFDI(models.TransientModel):
     _name = 'cf.mx.alta.catalogos.wizard'
     _description = 'Alta Catalogos CFDI'
+
+    start_date = fields.Date(string='Fecha inicio', required=False)
+    end_date = fields.Date(string='Fecha Final', required=False)
+    
 
     @api.multi
     def action_alta_catalogos(self):
@@ -233,6 +412,72 @@ class AltaCatalogosCFDI(models.TransientModel):
                     logging.info(' Model: -- %s, Res: %s - %s'%(model_name, indx, r) )
                 self._cr.commit()
         return True
+
+
+    @api.multi
+    def getElectronicCdfi(self):
+        logging.info(' Inicia Analizis CFDI')
+        ctx = {'xml': True}
+
+        Attachment = self.env['ir.attachment']
+        Timbre = self.env['cfdi.timbres.sat']
+        for inv_id in self.env['account.invoice'].search([('uuid', '!=', False), ('type', 'in', ['out_invoice', 'out_refund'])]):
+            attrs = Timbre.with_context(ctx).get_xml_cfdi(objs=inv_id)
+            if attrs and attrs.get("compAtrib") and attrs["compAtrib"].get("Sello"):
+                xml = attrs["xml"]
+                compAtrib = attrs["compAtrib"]
+                timbreAtrib = attrs["timbreAtrib"]
+                emisorAtrib = attrs["emisorAtrib"]
+                receptorAtrib = attrs["receptorAtrib"]
+                uuid = timbreAtrib.get('UUID')
+                timbre_ids = Timbre.search([('name', '=', uuid)])
+                vals = {
+                    "name": timbreAtrib.get('UUID'),
+                    "cfdi_supplier_rfc": emisorAtrib.get('Rfc', ''),
+                    "cfdi_customer_rfc": receptorAtrib.get('Rfc', ''),
+                    "cfdi_amount": float(compAtrib.get('Total', '0.0')),
+                    "cfdi_certificate": compAtrib.get('NoCertificado', ''),
+                    "cfdi_certificate_sat": timbreAtrib.get('NoCertificadoSAT', ''),
+                    "time_invoice": compAtrib.get('Fecha', ''),
+                    "time_invoice_sat": timbreAtrib.get('FechaTimbrado', ''),
+                    'currency_id': inv_id.currency_id and inv_id.currency_id.id or False,
+                    'cfdi_type': compAtrib.get('TipoDeComprobante', 'P'),
+                    "cfdi_pac_rfc": timbreAtrib.get('RfcProvCertif', ''),
+                    "cfdi_cadena_ori": "",
+                    'cfdi_cadena_sat': inv_id.cadena_sat,
+                    'cfdi_sat_status': "valid",
+                    'journal_id': inv_id.journal_id.id,
+                    'partner_id': inv_id.partner_id.id,
+                    'company_id': inv_id.company_id.id,
+                    'test': inv_id.test
+                }
+                if timbre_ids:
+                    timbre_id = timbre_ids.sudo().write(vals)
+                if not timbre_ids:
+                    timbre_id = Timbre.sudo().create(vals)
+                    xname = "%s.xml"%uuid
+                    attachment_values = {
+                        'name':  xname,
+                        'datas': xml,
+                        'datas_fname': xname,
+                        'description': 'Comprobante Fiscal Digital',
+                        'res_model': 'cfdi.timbres.sat',
+                        'res_id': timbre_id.id,
+                        'type': 'binary'
+                    }
+                    Attachment.sudo().create(attachment_values)
+                    inv_id.sudo().write({
+                        'cfdi_timbre_id': timbre_id.id
+                    })
+        return True
+
+
+    @api.multi
+    def getReportdfi(self):
+        logging.info('Inicia Reporte CFDI')
+        ctx = self.env['cfdi.timbres.sat'].getReportUuid(self.start_date, self.end_date)
+        return self.env['report'].with_context(**ctx).get_action(self, 'report_xlsx', data=ctx)
+
 
 
 class TipoRelacion(models.Model):

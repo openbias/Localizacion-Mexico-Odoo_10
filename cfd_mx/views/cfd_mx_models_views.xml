@@ -8,7 +8,9 @@
             <field name="arch" type="xml">
                 <form string="Timbres SAT" create="false" delete="false">
                     <sheet string="Timbres SAT">
-                        <group>
+                        <group col="4">
+                            <field name="invoice_id" />
+                            <field name="payment_id" />
                             <field name="cfdi_type" />
                             <field name="name"/>
                             <field name="company_id" />
@@ -22,12 +24,17 @@
                             <field name="cfdi_certificate_sat" />
                             <field name="time_invoice" />
                             <field name="time_invoice_sat" />
-                            <field name="cfdi_sat_status" />
+                            <field name="cfdi_state" />
+                            <field name="cfdi_code_sat" />
+                            <field name="test" />
                         </group>
-                        <group>
+                        <group  col="4">
+                            <field name="cfdi_cancel_date_rev" invisible="0" />
+                            <field name="cfdi_cancel_escancelable_sat" />
                             <field name="cfdi_cancel_date_sat" />
                             <field name="cfdi_cancel_status_sat" />
                             <field name="cfdi_cancel_code_sat" />
+                            <field name="cfdi_cancel_state" />
                         </group>
                     </sheet>
                     <div class="oe_chatter">
@@ -41,9 +48,10 @@
             <field name="name">cfdi_timbres_sat_view_tree</field>
             <field name="model">cfdi.timbres.sat</field>
             <field name="arch" type="xml">
-                <tree string="Timbres SAT" colors="red:cfdi_sat_status=='cancelled';blue:cfdi_sat_status=='valid' ">
+                <tree string="Timbres SAT" colors="red:cfdi_state=='cancelled';blue:cfdi_state=='Vigente' ">
                     <field name="cfdi_type" />
-                    <field name="cfdi_sat_status" />
+                    <field name="test" />
+                    <field name="cfdi_state" />
                     <field name="name"/>
                     <field name="cfdi_supplier_rfc" />
                     <field name="cfdi_customer_rfc" />
@@ -54,6 +62,23 @@
                     <field name="time_invoice" />
                     <field name="time_invoice_sat" />
                 </tree>
+            </field>
+        </record>
+        <record id="cfdi_timbres_sat_view_filter" model="ir.ui.view">
+            <field name="name">cfdi_timbres_sat_view_filter</field>
+            <field name="model">cfdi.timbres.sat</field>
+            <field name="arch" type="xml">
+                <search string="Timbres SAT">
+                    <field name="name" string="CFDI" filter_domain="['|','|','|', ('cfdi_type','ilike',self), ('name','ilike',self), ('cfdi_supplier_rfc', 'ilike', self), ('cfdi_customer_rfc', 'ilike', self)]"/>
+                    <separator/>
+                    <filter name="ingreso" string="Ingreso" domain="[('cfdi_type','=','I')]"/>
+                    <filter name="egreso" string="Egreso" domain="[('cfdi_type','=','E')]"/>
+                    <filter name="pagos" string="Pagos" domain="[('cfdi_type','=','P')]"/>
+                    <group expand="0" string="Group By">
+                        <filter name="cfdi_type" string="Type" context="{'group_by':'cfdi_type'}"/>
+                        <filter name="cfdi_state" string="State" context="{'group_by':'cfdi_state'}"/>
+                    </group>
+                </search>
             </field>
         </record>
         <record id="action_cfdi_timbres_sat" model="ir.actions.act_window">
@@ -386,6 +411,73 @@
             groups="group_cfd_mx_user"
             id="menu_alta_catalogos_wizard"
             sequence="130" />
+
+
+
+
+        <record id="electronic_cfdi_wizard" model="ir.ui.view">
+            <field name="name">electronic_cfdi_wizard</field>
+            <field name="model">cf.mx.alta.catalogos.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <separator string="Este asistente busca cfdi de ingreso y egresos" />
+                    <footer>
+                        <button string='Aceptar' name="getElectronicCdfi" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_electronic_cfdi_wizard" model="ir.actions.act_window">
+            <field name="name">LLenar Comprobantes CFDI</field>
+            <field name="res_model">cf.mx.alta.catalogos.wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="electronic_cfdi_wizard"/>
+            <field name="target">new</field>
+        </record>
+        <menuitem
+            action="action_electronic_cfdi_wizard" 
+            parent="bias_base_report.menu_catalogo_cfdi"
+            groups="cfd_mx.group_cfd_mx_user"
+            id="menu_alta_cfdi_wizard"
+            sequence="201" />
+
+
+        
+        <record id="report_cfdi_wizard" model="ir.ui.view">
+            <field name="name">report_cfdi_wizard</field>
+            <field name="model">cf.mx.alta.catalogos.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <separator string="Reporte CFDI Emitidos" />
+                    <group col="4">
+                        <field name="start_date" />
+                        <field name="end_date" />
+                    </group>
+                    <footer>
+                        <button string='Aceptar' name="getReportdfi" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_report_cfdi_wizard" model="ir.actions.act_window">
+            <field name="name">Reporte CFDI Emitidos</field>
+            <field name="res_model">cf.mx.alta.catalogos.wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="report_cfdi_wizard"/>
+            <field name="target">new</field>
+        </record>
+        <menuitem
+            action="action_report_cfdi_wizard" 
+            parent="bias_base_report.menu_catalogo_cfdi"
+            groups="cfd_mx.group_cfd_mx_user"
+            id="menu_report_cfdi_wizard"
+            sequence="201" />
 
 
     </data>

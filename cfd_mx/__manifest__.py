@@ -24,6 +24,8 @@ Factura Electronica Mexico 3.3
         'security/cfd_mx_groups.xml',
         'security/ir.model.access.csv',
         'data/account_invoice.sql',
+
+        'data/xml/service_cron_data.xml',
         
         "data/xml/account.tax.group.xml",
         "data/xml/res.bank.xml",

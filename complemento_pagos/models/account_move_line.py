@@ -159,7 +159,8 @@ class AccountMoveLine(models.Model):
                         'cfdi_sat_status': "valid",
                         'journal_id': payment_id.journal_id.id,
                         'partner_id': payment_id.partner_id.id,
-                        'company_id': payment_id.company_id.id
+                        'company_id': payment_id.company_id.id,
+                        'test': moveline_id.test
                     }
                     if timbre_ids:
                         timbre_id = timbre_ids.sudo().write(vals)

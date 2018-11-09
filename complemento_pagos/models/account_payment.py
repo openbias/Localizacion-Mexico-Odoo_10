@@ -117,6 +117,20 @@ class AccountAbstractPayment(models.AbstractModel):
                 rec['domain']['cta_destino_id'] = [('id', 'in', bank_ids.ids)]
         return rec
 
+    """
+    @api.constrains('age')
+    def _check_cta_origen_id(self):
+        for record in self:
+            if record.cta_origen_id:
+                if self.ttype and self.ttype == 'trans' and self.journal_id:
+                    if self.cta_origen_id and len(self.cta_origen_id.acc_number or "") not in [10, 18]:
+                        raise UserError("La Cuenta Destino debe tener 10 o 18 digitos  Digitos: %s - Cuenta: %s"%( len(self.cta_origen_id.acc_number or ""),  self.cta_origen_id.acc_number) )
+                    if self.cta_destino_id and len(self.cta_destino_id.acc_number or "") not in [10, 18]:
+                        raise UserError("La Cuenta Destino debe tener 10 o 18 digitos  Digitos: %s - Cuenta: %s"%( len(self.cta_destino_id.acc_number or ""),  self.cta_destino_id.acc_number) )
+                raise ValidationError("Your record is too old: %s" % record.age)
+        # all records passed the test, don't return anything
+    """
+
 class AccountRegisterPayments(models.TransientModel):
     _inherit = "account.register.payments"
     _description = "Register payments on multiple invoices"
@@ -364,7 +378,9 @@ class AccountPayment(models.Model):
             'cfdi_cadena_sat': res.get('cadenaSat', ''),
             'cfdi_sat_status': "valid",
             'journal_id': self.journal_id.id,
-            'partner_id': self.partner_id.id
+            'partner_id': self.partner_id.id,
+            'test': self.company_id.cfd_mx_test,
+            'payment_id': self.id
         })
         # Adjuntos
         xname = "%s.xml"%res.get('UUID', '')
@@ -530,6 +546,8 @@ class AccountPayment(models.Model):
             payments_widget = json.loads(invoice.payments_widget)
             content = payments_widget.get("content", [])
             vals = [p for p in content if p.get('account_payment_id', False) == self.id]
+            if not vals:
+                raise UserError('No se pudo encontrar un pago Relacionado')
             line_id = MoveLine.browse( vals[0].get('payment_id', False) )
             # amount = inv_currency_id.round(vals[0].get('amount', 0.0) if vals else 0.0)
             amount = abs(line_id.amount_currency) or abs(line_id.credit)
@@ -564,10 +582,14 @@ class AccountPayment(models.Model):
             if invoice.journal_id.serie:
                 docto_attribs['@Serie'] = invoice.journal_id.serie or ''
             if self.currency_id != invoice.currency_id:
-                tdr = round( (ImpPagado / balance), 6 )
+                if len(self.invoice_ids) == 1:
+                    tdr = round(( round(ImpPagado, decimal_precision) / round(self.amount, decimal_precision) ), 6)
+                else:
+                    tdr = round(( round(ImpPagado, decimal_precision) / round(balance, decimal_precision) ), 6)
                 f_compare = float_compare(balance, (ImpPagado/tdr), precision_digits=6)
                 if f_compare < 0:
                     tdr += 0.000001
+
                 # if f_compare == 1:
                 #     tdr -= 0.000001
                 docto_attribs['@TipoCambioDR'] = ('%.6f' % (tdr))  # ('%.6f' % (1/inv_rate)) 
@@ -620,7 +642,8 @@ class AccountPayment(models.Model):
         Complemento["pago10:Pagos"] = pagos10
         Complemento["pago10:Pagos"]["@Version"] = "1.0"
 
-        # print "Complemento", Complemento
+        print "Complemento", Complemento
+        # print miguelmiguel
         return Complemento
 
     @staticmethod
@@ -784,6 +807,7 @@ class AccountBankStatementLine(models.Model):
             res['domain'] = domain
         return res
 
+    """
     @api.onchange('cta_origen_id', 'cta_destino_id')
     def _onchange_cta_id(self):
         if self.ttype and self.ttype == 'trans' and self.journal_id:
@@ -791,6 +815,7 @@ class AccountBankStatementLine(models.Model):
                 raise UserError("La Cuenta Destino debe tener 10 o 18 digitos \n Digitos: %s - Cuenta: %s"%( len(self.cta_origen_id.acc_number or ""),  self.cta_origen_id.acc_number) )
             if self.cta_destino_id and len(self.cta_destino_id.acc_number or "") not in [10, 18]:
                 raise UserError("La Cuenta Destino debe tener 10 o 18 digitos \n Digitos: %s - Cuenta: %s"%( len(self.cta_destino_id.acc_number or ""),  self.cta_destino_id.acc_number) )
+    """
 
     def process_reconciliation(self, counterpart_aml_dicts=None, payment_aml_rec=None, new_aml_dicts=None):
         move = super(AccountBankStatementLine, self).process_reconciliation(counterpart_aml_dicts=counterpart_aml_dicts, payment_aml_rec=payment_aml_rec, new_aml_dicts=new_aml_dicts)

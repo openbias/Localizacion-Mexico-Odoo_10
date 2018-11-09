@@ -1,20 +1,22 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-
-import odoo
-from odoo import api, fields, models, registry, _
-from odoo.exceptions import UserError, RedirectWarning, ValidationError
-# from odoo.addons.cfd_mx.models.cfd_util import CfdiUtils
-# from odoo.addons.cfd_mx.models.cfdi_validate import *
 
 import time
 from datetime import date, datetime, timedelta
 from pytz import timezone, utc
 import threading
-import base64
+import base64, json, requests
 
 from lxml import etree
 from lxml.objectify import fromstring
+
+
+from datetime import *; from dateutil.relativedelta import *
+import calendar
+
+
+import odoo
+from odoo import api, fields, models, registry, _
+from odoo.exceptions import UserError, RedirectWarning, ValidationError
 
 import logging
 logging.basicConfig(level=logging.INFO)
@@ -193,16 +195,21 @@ class AccountInvoice(models.Model):
 
     @api.one
     def _get_parcialidad_pago(self):
-        """
-        parcialidad_pago = 0
-        if self.type == 'out_invoice':
-            for payment in self.payment_move_line_ids:
-                if payment.uuid:
-                    parcialidad_pago += 1
-        self.parcialidad_pago = parcialidad_pago or 0
-        """
         self.pagos = True if len(self.payment_ids) != 0 else False
 
+
+    @api.one
+    def _get_cfdi_required(self):
+        required = (
+            self.uuid and
+            self.cfdi_timbre_id and
+            self.state not in ['cancel', 'draft', 'paid'] and
+            self.type in ['out_invoice', 'out_refund'] and
+            self.journal_id.id in self.env.user.company_id.cfd_mx_journal_ids.ids
+        )
+        self.cfdi_is_required = required
+    
+    cfdi_is_required = fields.Boolean(string="CFDI Required", default=False, copy=False, compute='_get_cfdi_required')
     pagos = fields.Boolean(string="Pagos", default=False, copy=False, compute='_get_parcialidad_pago')
     parcialidad_pago = fields.Integer(string="No. Parcialidad Pago", compute='_get_parcialidad_pago')
     uuid_relacionado_id = fields.Many2one('account.invoice', string=u'UUID Relacionado', domain=[("type", "in", ("out_invoice", "out_refund") ), ("timbrada", "=", True), ("uuid", "!=", None)])
@@ -217,6 +224,20 @@ class AccountInvoice(models.Model):
     usocfdi_id = fields.Many2one('cfd_mx.usocfdi', string="Uso de Comprobante CFDI", required=False)
     metodopago_id = fields.Many2one('cfd_mx.metodopago', string=u'Metodo de Pago')
     reason_cancel = fields.Text(string="Motivo Cancelacion")
+    cfdi_timbre_id = fields.Many2one('cfdi.timbres.sat', string=u'Timbre SAT', copy=False)
+
+    cfdi_pending_cancel = fields.Boolean(string="CFDI Pending Cancel", default=False, copy=False)
+    cfdi_pending_accept_cancel = fields.Boolean(string="CFDI Pending Accept Cancel", default=False, copy=False)
+    cfdi_accept_reject = fields.Selection(
+        selection=[
+            ('Aceptacion', 'Aceptacion'),
+            ('Rechazo', 'Rechazo')
+        ],
+        string='Aceptar o Rechazar CFDI',
+        copy=False,
+        track_visibility='onchange',
+        default='Rechazo')
+
 
     # Quitar en Futuras Versiones
     cuentaBanco = fields.Char(string='Ultimos 4 digitos cuenta', size=4, default='')
@@ -436,6 +457,7 @@ class AccountInvoice(models.Model):
             else:
                 xml_datas = self.cfdi_append_addenda(res.get('result'))
                 self.get_process_data(self, xml_datas)
+                self.get_process_data_xml(xml_datas)
         except ValueError, e:
             message = str(e)
         except Exception, e:
@@ -446,61 +468,50 @@ class AccountInvoice(models.Model):
             return False
         return True
 
-    # Cancela xml
-    @api.multi
-    def action_cancel(self):
-        ctx = {'state': self.state}
-        res = super(AccountInvoice, self).action_cancel()
-        self.with_context(**ctx).action_cancel_cfdi()
-        return res
 
-    @api.multi
-    def action_cancel_cfdi(self):
-        context = dict(self._context) or {}
-        if not self.uuid:
-            return True
-        if context.get('state') == 'draft':
-            return True
-        if self.type.startswith("in"):
-            return True
-        if self.journal_id.id not in self.company_id.cfd_mx_journal_ids.ids:
-            return True
-        message = ''
-        try:
-            res = self.cancel(self)
-            if res.get('message'):
-                message = res['message']
-            else:
-                acuse = res["result"].get("Acuse")
-                self.write({
-                    'mandada_cancelar': True, 
-                    'mensaje_pac': """
-                    <strong>Fecha: </strong> %s<br />
-                    <strong>Folios</strong>%s<br />
-                    <strong>XML Acuse</strong><pre lang="xml"><code>%s</code></pre>
-                    """%(res["result"].get("Fecha"), res["result"].get("Folios"), acuse)
-                })
-                attachment_obj = self.env['ir.attachment']
-                fname = "cancelacion_cfd_%s.xml"%(self.internal_number or "")
-                attachment_values = {
-                    'name': fname,
-                    'datas': base64.b64encode(acuse),
-                    'datas_fname': fname,
-                    'description': 'Cancelar Comprobante Fiscal Digital',
-                    'res_model': self._name,
-                    'res_id': self.id,
-                    'type': 'binary'
-                }
-                attachment_obj.create(attachment_values)
-        except ValueError, e:
-            message = str(e)
-        except Exception, e:
-            message = str(e)
-        if message:
-            message = message.replace("(u'", "").replace("', '')", "")
-            self.with_context(**context).action_raise_message("Error al Generar el XML \n\n %s "%( message.upper() ))
-            return False
-        return True
+    def get_process_data_xml(self, res):
+        Currency = self.env['res.currency']
+        attachment_obj = self.env['ir.attachment']
+        Timbre = self.env['cfdi.timbres.sat']
+        currency_id = Currency.search([('name', '=', res.get('Moneda', ''))])
+        if not currency_id:
+            currency_id = Currency.search([('name', '=', 'MXN')])
+        timbre_id = Timbre.create({
+            'name': res.get('UUID', ''),
+            'cfdi_supplier_rfc': res.get('RfcEmisor', ''),
+            'cfdi_customer_rfc': res.get('RfcReceptor', ''),
+            'cfdi_amount': float(res.get('Total', '0.0')),
+            'cfdi_certificate': res.get('NoCertificado', ''),
+            'cfdi_certificate_sat': res.get('NoCertificadoSAT', ''),
+            'time_invoice': res.get('Fecha', ''),
+            'time_invoice_sat': res.get('FechaTimbrado', ''),
+            'currency_id': currency_id and currency_id.id or False,
+            'cfdi_type': res.get('TipoDeComprobante', ''),
+            'cfdi_pac_rfc': res.get('RfcProvCertif', ''),
+            'cfdi_cadena_ori': res.get('cadenaOri', ''),
+            'cfdi_cadena_sat': res.get('cadenaSat', ''),
+            'cfdi_state': "Vigente",
+            'journal_id': self.journal_id.id,
+            'partner_id': self.partner_id.id,
+            'test': self.company_id.cfd_mx_test
+        })
+        if timbre_id:
+            xname = "%s.xml"%res.get('UUID', '')
+            attachment_values = {
+                'name':  xname,
+                'datas': res.get('xml'),
+                'datas_fname': xname,
+                'description': 'Comprobante Fiscal Digital',
+                'res_model': 'cfdi.timbres.sat',
+                'res_id': timbre_id.id,
+                'type': 'binary'
+            }
+            attachment_obj.create(attachment_values)
+            self.write({
+                'cfdi_timbre_id': timbre_id.id,
+                'uuid': res.get('UUID', ''),
+                'test': self.company_id.cfd_mx_test
+            })
 
     @api.multi
     def get_comprobante_addenda(self):
@@ -512,7 +523,6 @@ class AccountInvoice(models.Model):
                 context.update({'model_selection': conf_addenda.model_selection})
                 dict_addenda = conf_addenda.with_context(**context).create_addenda(self)
         return dict_addenda
-
 
     def cfdi_append_addenda(self, res):
         self.ensure_one()
@@ -557,6 +567,177 @@ class AccountInvoice(models.Model):
 
 
 
+
+    # Cancela xml
+    def msg_batch(self, msg):
+        context = dict(self._context)
+        if not context.get('batch', False):
+            raise UserError( msg )
+        else:
+            self.message_post(body='<ul><li> %s </li></ul>'%msg )
+        return True
+
+    @api.multi
+    def action_cancel_pending(self):
+        # , ('cfdi_cancel_date_rev', '<=', fields.Date.context_today(self) )
+
+        context = dict(self._context)
+        context['batch'] = True
+        
+        # where = [('cfdi_state', '=', 'Vigente'), ('cfdi_cancel_status_sat', '=', 'En proceso'), ('cfdi_type', 'in', ['I', 'E'])]
+        # cfdi_timbre_ids = self.env['cfdi.timbres.sat'].sudo().search(where)
+        for inv_id in self.sudo().search([('cfdi_pending_cancel', '=', True), ('state', '=', 'open')]):
+            inv_id.sudo().with_context(**context).action_invoice_cancel_cfdi()
+        return True
+
+
+    @api.multi
+    def action_cancel_pending_acceptreject(self):
+        self.search([('cfdi_pending_accept_cancel', '=', True)]).write({
+            'cfdi_pending_accept_cancel': False
+        })
+        user = self.env.user
+        cfdi_params = {
+            'RTaxpayer_id': user.company_id.vat
+        }
+        result = user.company_id.action_ws_finkok_sat('pendingcancel', cfdi_params)
+        uuids = result.get('uuids')
+        inv_ids = self.search([('uuid', 'in', uuids)])
+        inv_ids.write({
+            'cfdi_pending_accept_cancel': True
+        })
+        return True
+
+
+    @api.multi
+    def action_get_status_sat(self):
+        self.ensure_one()
+        cfdi_params = {
+            "uuid": self.uuid,
+            "taxpayer_id": self.cfdi_timbre_id.cfdi_supplier_rfc,
+            "rtaxpayer_id": self.cfdi_timbre_id.cfdi_customer_rfc,
+            "total": self.cfdi_timbre_id.cfdi_amount
+        }
+        result = self.company_id.action_ws_finkok_sat('getsatstatus', cfdi_params)
+        if result.get('error'):
+            self.msg_batch( result['error'] )
+
+        cr = self._cr
+        cr.execute("UPDATE cfdi_timbres_sat SET cfdi_cancel_status_sat='%s', cfdi_cancel_escancelable_sat='%s', cfdi_state='%s', cfdi_code_sat='%s' WHERE id=%s "%(
+            result.get('EstatusCancelacion', ''), 
+            result.get('EsCancelable', ''),
+            result.get('Estado', ''),
+            result.get('CodigoEstatus', ''),
+            self.cfdi_timbre_id.id)
+        )
+        cr.commit()
+        msg = "<b>Proceso de Cancelacion: </b><br />"
+        msg += "<ul>"
+        msg += '<li>CodigoEstatus = %s </li>'% result.get('CodigoEstatus', '')
+        msg += '<li>Estado = %s </li>'% result.get('Estado', '')
+        msg += '<li>EstatusCancelacion = %s </li>'% result.get('EstatusCancelacion', '')
+        msg += '<li>EsCancelable = %s </li>'% result.get('EsCancelable', '')
+        msg += "</ul>"
+        if result.get('Estado') == 'No Encontrado':
+            self.message_post(body=msg)
+        if result.get('Estado', '') == 'Vigente' and result.get('EstatusCancelacion', '') == 'En proceso':
+            self.cfdi_pending_cancel = result.get('EstatusCancelacion', '')
+            self.cfdi_timbre_id.cfdi_cancel_date_rev = (date.today()+relativedelta(days=+3))
+            self.message_post(body=msg)
+        return result
+
+    @api.multi
+    def action_accept_reject_sat(self):
+        if self.cfdi_accept_reject == 'Aceptacion':
+            self.action_invoice_cancel()
+
+        cfdi_params = {
+            'uuid': self.uuid,
+            'respuesta': self.cfdi_accept_reject
+        }
+        result = self.company_id.action_ws_finkok_sat('acceptreject', cfdi_params)
+        return result
+
+    def get_process_cancel_data(self, res):
+        self.cfdi_timbre_id.write({
+            "cfdi_cancel_date_sat": res.get("Fecha"),
+            "cfdi_cancel_status_sat": res.get("EstatusCancelacion"),
+            "cfdi_cancel_code_sat": res.get("MsgCancelacion"),
+            "cfdi_cancel_state": res.get("Status")
+        })
+        if res.get("Acuse"):
+            Attachment = self.env['ir.attachment']
+            fname = "cancelacion_cfd_%s.xml"%(self.cfdi_timbre_id.name or "")
+            attachment_values = {
+                'name': fname,
+                'datas': base64.b64encode( res["Acuse"] ),
+                'datas_fname': fname,
+                'description': 'Cancelar Comprobante Fiscal Digital',
+                'res_model': "cfdi.timbres.sat",
+                'res_id': self.cfdi_timbre_id.id,
+                'type': 'binary'
+            }
+            Attachment.create(attachment_values)
+            attachment_values['res_model'] = self._name
+            attachment_values['res_id'] = self.id
+            Attachment.create(attachment_values)
+        return True
+
+    @api.multi
+    def action_invoice_cancel_cfdi_sat(self):
+        self.ensure_one()
+        cfdi_params = {
+            "uuid": self.cfdi_timbre_id.name,
+            'noCertificado': self.cfdi_timbre_id.cfdi_certificate
+        }
+        result = self.company_id.action_ws_finkok_sat('cancel', cfdi_params)
+        print "res 00002 ", result
+        self.get_process_cancel_data(result)
+        return result
+
+
+
+    @api.multi
+    def action_invoice_cancel_cfdi(self):
+        if not self.cfdi_is_required:
+            return self.action_invoice_cancel()
+
+        if self.filtered(lambda inv: inv.state not in ['proforma2', 'draft', 'open']):
+            self.msg_batch("Invoice must be in draft, Pro-forma or open state in order to be cancelled.")
+
+        moves = self.env['account.move']
+        for inv in self:
+            if inv.move_id:
+                moves += inv.move_id
+            if inv.payment_move_line_ids:
+                self.msg_batch("Invoice must be in draft, Pro-forma or open state in order to be cancelled.")
+
+        """
+        res = self.action_get_status_sat()
+        if not res:
+            return True
+        if res.get('Estado', '') == 'Cancelado':
+            return self.action_invoice_cancel()
+        """
+
+        self.action_invoice_cancel_cfdi_sat()
+        
+        res = self.action_get_status_sat()
+        if not res:
+            return True
+        if res.get('Estado', '') == 'Cancelado':
+            return self.action_invoice_cancel()
+
+        return True
+
+
+
+
+
+
+
+
+
 class MailComposeMessage(models.TransientModel):
     _inherit = 'mail.compose.message'
 
@@ -577,7 +758,6 @@ class MailComposeMessage(models.TransientModel):
             else:
                 xml_name = "%s.xml"%(invoice.uuid)
             xml_id = self.env["ir.attachment"].search([('name', '=', xml_name)])
-            print "xml_id", xml_id
             if xml_id:
                 res['value'].setdefault('attachment_ids', []).append(xml_id[0].id)
         return res

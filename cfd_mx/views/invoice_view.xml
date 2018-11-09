@@ -15,7 +15,30 @@
         </record>
 
 
+        <record model="ir.ui.view" id="invoice_supplier_cfdi_form">
+            <field name="name">invoice_supplier_cfdi_form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <field name="company_currency_id" position="after">
+                    <field name="cfdi_pending_accept_cancel" readonly="1" />
+                    <field name="cfdi_accept_reject" attrs="{'invisible': [('cfdi_pending_accept_cancel','=',False)]}" />
+                    <button name="action_accept_reject_sat" type="object" string="Aceptar Cancelacion" groups="account.group_account_invoice" attrs="{'invisible': [('cfdi_pending_accept_cancel','=',False)]}"/>
+                </field>
+            </field>
+        </record>
+
         <!-- INVOICE -->
+        <record model="ir.ui.view" id="invoice_cfdi_cancel_form">
+            <field name="name">invoice_cfdi_cancel_form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account_cancel.invoice_form_cancel_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_invoice_cancel']" position="replace">
+                    <button name="action_invoice_cancel_cfdi" type="object" states="draft,proforma2,open" string="Cancel Invoice" groups="account.group_account_invoice"/>
+                </xpath>
+            </field>
+        </record>
         <record model="ir.ui.view" id="invoice_cfdi_form">
             <field name="name">invoice_cfdi_form</field>
             <field name="model">account.invoice</field>
@@ -62,8 +85,11 @@
                                 <h1 class="mt0">Timbre Fiscal</h1>
                             </group>
                             <group>
+                                <field name="cfdi_pending_cancel" invisible="1" />
+                                <field name="cfdi_is_required" invisible="1" readonly="1" />
                                 <field name="test" readonly="1"/>
-                                <field name="uuid" readonly="1"/>
+                                <field name="uuid" readonly="1" invisible="1" />
+                                <field name="cfdi_timbre_id" />
                                 <field name="fecha_timbrado" readonly="1"/>
                             </group>
                             <group>

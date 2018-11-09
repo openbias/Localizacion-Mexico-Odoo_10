@@ -17,9 +17,9 @@ class AccountCfdi(models.Model):
     def invoice_info_relacionados(self):
         obj = self.obj
         cfdi_relacionado = {}
-        if self.uuid_relacionado_id:
+        if self.uuid_egreso and self.tiporelacion_id:
             cfdi_relacionado["TipoRelacion"] = self.tiporelacion_id and self.tiporelacion_id.clave or ""
-            cfdi_relacionado["uuid"] = self.uuid_relacionado_id and self.uuid_relacionado_id.uuid or ""
+            cfdi_relacionado["uuid"] = self.uuid_egreso or ""
         return cfdi_relacionado
 
 

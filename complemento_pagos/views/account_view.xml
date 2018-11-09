@@ -405,7 +405,7 @@
             action="action_electronic_payment_wizard" 
             parent="bias_base_report.menu_catalogo_cfdi"
             groups="cfd_mx.group_cfd_mx_user"
-            id="menu_alta_catalogos_wizard"
+            id="menu_alta_pagos_wizard"
             sequence="200" />
 
     </data>

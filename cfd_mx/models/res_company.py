@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+
+import json, requests
 
 import odoo
 from odoo import api, fields, models, tools, _
+from odoo.exceptions import UserError, RedirectWarning, ValidationError
 
 
 # [('zenpar', 'Zenpar (EDICOM)'), ('tralix', 'Tralix'), ('finkok', 'Finkok')]
@@ -44,6 +46,40 @@ class company(models.Model):
     cfd_mx_tralix_key = fields.Char(string="Tralix Customer Key", size=64)
     cfd_mx_tralix_host = fields.Char(string="Tralix Host", size=256)
     cfd_mx_tralix_host_test = fields.Char(string="Tralix Host Modo Pruebas", size=256)
+
+
+
+    @api.multi
+    def action_ws_finkok_sat(self, service='', cfdi_params={}):
+        self.ensure_one()
+        url = "%s/cfdi/%s/%s/%s"%(self.cfd_mx_host, service, self.cfd_mx_db, self.vat)
+        headers = {'Content-Type': 'application/json'}
+        data = {
+            "params": {
+                "test": self.cfd_mx_test,
+                "pac": self.cfd_mx_pac,
+                "version": self.cfd_mx_version,
+                "cfdi": cfdi_params
+            }
+        }
+        data_json = json.dumps(data)
+        res = requests.post(url=url, data=data_json, headers=headers)
+        res_datas = res.json()
+        dict_error = {}
+        if res_datas.get('error') and res_datas['error'].get('data') and res_datas['error']['data'].get('message'):
+            dict_error['message'] = res_datas['error']['data']['message']
+        if res_datas.get('result') and res_datas['result'].get('error') and res_datas['result']['error'].get('message'):
+            dict_error['message'] = res_datas['result']['error']['message']
+        if res_datas.get('error'):
+            dict_error['message'] = res_datas['error']
+
+        if dict_error.get('message'):
+            message = dict_error['message']
+            return {'error': message}
+            # raise UserError(message)
+        else:
+            return res_datas.get('result')
+        return {}
 
 
 
