@@ -6,6 +6,7 @@ import json, base64, urllib
 import csv
 import os
 import inspect
+import threading
 
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError, RedirectWarning, ValidationError
@@ -414,61 +415,89 @@ class AltaCatalogosCFDI(models.TransientModel):
         return True
 
 
+
+    def getElectronicCdfi_threading(self, ids=None):
+        with api.Environment.manage():
+            new_cr = self.pool.cursor()
+            self = self.with_env(self.env(cr=new_cr))
+            
+            Invoice = self.sudo().env['account.invoice']
+            Attachment = self.sudo().env['ir.attachment']
+            Timbre = self.sudo().env['cfdi.timbres.sat']
+            indx = 0
+            for inv_id in Invoice.browse(ids):
+                indx += 1
+
+                logging.info(' - %s Invoice %s - Tipo %s '%(indx, inv_id.internal_number, inv_id.type) )
+
+                ctx = {
+                    'company_id': inv_id.company_id.id,
+                    'force_company': inv_id.company_id.id,
+                    'xml': True
+                }
+                attrs = Timbre.with_context(ctx).get_xml_cfdi(objs=inv_id)
+                if attrs and attrs.get("compAtrib") and attrs["compAtrib"].get("Sello"):
+                    xml = attrs["xml"]
+                    compAtrib = attrs["compAtrib"]
+                    timbreAtrib = attrs["timbreAtrib"]
+                    emisorAtrib = attrs["emisorAtrib"]
+                    receptorAtrib = attrs["receptorAtrib"]
+                    uuid = timbreAtrib.get('UUID')
+                    timbre_ids = Timbre.with_context(ctx).search([('name', '=', uuid)])
+                    vals = {
+                        "name": timbreAtrib.get('UUID'),
+                        "cfdi_supplier_rfc": emisorAtrib.get('Rfc', ''),
+                        "cfdi_customer_rfc": receptorAtrib.get('Rfc', ''),
+                        "cfdi_amount": float(compAtrib.get('Total', '0.0')),
+                        "cfdi_certificate": compAtrib.get('NoCertificado', ''),
+                        "cfdi_certificate_sat": timbreAtrib.get('NoCertificadoSAT', ''),
+                        "time_invoice": compAtrib.get('Fecha', ''),
+                        "time_invoice_sat": timbreAtrib.get('FechaTimbrado', ''),
+                        'currency_id': inv_id.currency_id and inv_id.currency_id.id or False,
+                        'cfdi_type': compAtrib.get('TipoDeComprobante', 'P'),
+                        "cfdi_pac_rfc": timbreAtrib.get('RfcProvCertif', ''),
+                        "cfdi_cadena_ori": "",
+                        'cfdi_cadena_sat': inv_id.cadena_sat,
+                        'cfdi_sat_status': "valid",
+                        'journal_id': inv_id.journal_id.id,
+                        'partner_id': inv_id.partner_id.id,
+                        'company_id': inv_id.company_id.id,
+                        'test': inv_id.test,
+                        'invoice_id': inv_id.id
+                    }
+                    if timbre_ids:
+                        timbre_id = timbre_ids.sudo().with_context(ctx).write(vals)
+                    if not timbre_ids:
+                        timbre_id = Timbre.sudo().with_context(ctx).create(vals)
+                        xname = "%s.xml"%uuid
+                        attachment_values = {
+                            'name':  xname,
+                            'datas': xml,
+                            'datas_fname': xname,
+                            'description': 'Comprobante Fiscal Digital',
+                            'res_model': 'cfdi.timbres.sat',
+                            'res_id': timbre_id.id,
+                            'type': 'binary'
+                        }
+                        Attachment.sudo().with_context(ctx).create(attachment_values)
+                        inv_id.sudo().with_context(ctx).write({
+                            'cfdi_timbre_id': timbre_id.id
+                        })
+
+        return True
+
+        
     @api.multi
     def getElectronicCdfi(self):
         logging.info(' Inicia Analizis CFDI')
-        ctx = {'xml': True}
 
-        Attachment = self.env['ir.attachment']
-        Timbre = self.env['cfdi.timbres.sat']
-        for inv_id in self.env['account.invoice'].search([('uuid', '!=', False), ('type', 'in', ['out_invoice', 'out_refund'])]):
-            attrs = Timbre.with_context(ctx).get_xml_cfdi(objs=inv_id)
-            if attrs and attrs.get("compAtrib") and attrs["compAtrib"].get("Sello"):
-                xml = attrs["xml"]
-                compAtrib = attrs["compAtrib"]
-                timbreAtrib = attrs["timbreAtrib"]
-                emisorAtrib = attrs["emisorAtrib"]
-                receptorAtrib = attrs["receptorAtrib"]
-                uuid = timbreAtrib.get('UUID')
-                timbre_ids = Timbre.search([('name', '=', uuid)])
-                vals = {
-                    "name": timbreAtrib.get('UUID'),
-                    "cfdi_supplier_rfc": emisorAtrib.get('Rfc', ''),
-                    "cfdi_customer_rfc": receptorAtrib.get('Rfc', ''),
-                    "cfdi_amount": float(compAtrib.get('Total', '0.0')),
-                    "cfdi_certificate": compAtrib.get('NoCertificado', ''),
-                    "cfdi_certificate_sat": timbreAtrib.get('NoCertificadoSAT', ''),
-                    "time_invoice": compAtrib.get('Fecha', ''),
-                    "time_invoice_sat": timbreAtrib.get('FechaTimbrado', ''),
-                    'currency_id': inv_id.currency_id and inv_id.currency_id.id or False,
-                    'cfdi_type': compAtrib.get('TipoDeComprobante', 'P'),
-                    "cfdi_pac_rfc": timbreAtrib.get('RfcProvCertif', ''),
-                    "cfdi_cadena_ori": "",
-                    'cfdi_cadena_sat': inv_id.cadena_sat,
-                    'cfdi_sat_status': "valid",
-                    'journal_id': inv_id.journal_id.id,
-                    'partner_id': inv_id.partner_id.id,
-                    'company_id': inv_id.company_id.id,
-                    'test': inv_id.test
-                }
-                if timbre_ids:
-                    timbre_id = timbre_ids.sudo().write(vals)
-                if not timbre_ids:
-                    timbre_id = Timbre.sudo().create(vals)
-                    xname = "%s.xml"%uuid
-                    attachment_values = {
-                        'name':  xname,
-                        'datas': xml,
-                        'datas_fname': xname,
-                        'description': 'Comprobante Fiscal Digital',
-                        'res_model': 'cfdi.timbres.sat',
-                        'res_id': timbre_id.id,
-                        'type': 'binary'
-                    }
-                    Attachment.sudo().create(attachment_values)
-                    inv_id.sudo().write({
-                        'cfdi_timbre_id': timbre_id.id
-                    })
+        Invoice = self.sudo().env['account.invoice']
+
+        inv_ids = Invoice.sudo().search([('uuid', '!=', False), ('type', 'in', ['out_invoice', 'out_refund'])])
+        threaded_calculation = threading.Thread(target=self.getElectronicCdfi_threading, args=(), kwargs={"ids": inv_ids.ids}, name=inv_ids.ids)
+        threaded_calculation.start()
+        threaded_calculation.join()
+
         return True
 
 

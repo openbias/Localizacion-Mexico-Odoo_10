@@ -117,19 +117,6 @@ class AccountAbstractPayment(models.AbstractModel):
                 rec['domain']['cta_destino_id'] = [('id', 'in', bank_ids.ids)]
         return rec
 
-    """
-    @api.constrains('age')
-    def _check_cta_origen_id(self):
-        for record in self:
-            if record.cta_origen_id:
-                if self.ttype and self.ttype == 'trans' and self.journal_id:
-                    if self.cta_origen_id and len(self.cta_origen_id.acc_number or "") not in [10, 18]:
-                        raise UserError("La Cuenta Destino debe tener 10 o 18 digitos  Digitos: %s - Cuenta: %s"%( len(self.cta_origen_id.acc_number or ""),  self.cta_origen_id.acc_number) )
-                    if self.cta_destino_id and len(self.cta_destino_id.acc_number or "") not in [10, 18]:
-                        raise UserError("La Cuenta Destino debe tener 10 o 18 digitos  Digitos: %s - Cuenta: %s"%( len(self.cta_destino_id.acc_number or ""),  self.cta_destino_id.acc_number) )
-                raise ValidationError("Your record is too old: %s" % record.age)
-        # all records passed the test, don't return anything
-    """
 
 class AccountRegisterPayments(models.TransientModel):
     _inherit = "account.register.payments"
@@ -179,13 +166,49 @@ class AccountPayment(models.Model):
     cfdi_timbre_id = fields.Many2one('cfdi.timbres.sat', string=u'Timbre SAT')
 
 
-    @api.onchange('cta_origen_id', 'cta_destino_id')
-    def _onchange_cta_id(self):
-        if self.tipo_pago and self.tipo_pago == 'trans' and self.journal_id:
-            if self.cta_origen_id and len(self.cta_origen_id.acc_number or "") not in [10, 18]:
-                raise UserError("La Cuenta Destino debe tener 10 o 18 digitos \n Digitos: %s - Cuenta: %s"%( len(self.cta_origen_id.acc_number or ""),  self.cta_origen_id.acc_number) )
-            if self.cta_destino_id and len(self.cta_destino_id.acc_number or "") not in [10, 18]:
-                raise UserError("La Cuenta Destino debe tener 10 o 18 digitos \n Digitos: %s - Cuenta: %s"%( len(self.cta_destino_id.acc_number or ""),  self.cta_destino_id.acc_number) )
+    @api.constrains('cta_origen_id')
+    def _check_cta_origen_id(self):
+        for record in self:
+            if record.cta_origen_id:
+                if self.formapago_id and self.journal_id and self.cta_origen_id:
+                    len_cta_ori = len(self.cta_origen_id.acc_number or "")
+                    if self.formapago_id.clave == '02' and len_cta_ori not in [11, 18]:
+                        raise ValidationError("La Cuenta Origen para 'Cheque nominativo' debe tener 11 o 18 digitos.\n Digitos: %s - Cuenta: %s"%( len(self.cta_origen_id.acc_number or ""),  self.cta_origen_id.acc_number) )
+                    if self.formapago_id.clave == '03' and len_cta_ori not in [10, 16, 18]:
+                        raise ValidationError("La Cuenta Origen para 'Transferencia Electronica de Fondos' debe tener 10 o 16 o 18 digitos.\n Digitos: %s - Cuenta: %s"%( len(self.cta_origen_id.acc_number or ""),  self.cta_origen_id.acc_number) )
+                    if self.formapago_id.clave == '04' and len_cta_ori not in [16]:
+                        raise ValidationError("La Cuenta Origen para 'Tarjeta de credito' debe tener 16 digitos.\n Digitos: %s - Cuenta: %s"%( len(self.cta_origen_id.acc_number or ""),  self.cta_origen_id.acc_number) )
+                    if self.formapago_id.clave == '05' and len_cta_ori not in [10, 11, 15, 16, 18, 50]:
+                        raise ValidationError("La Cuenta Origen para 'Monedero electronico' debe tener 10, 11, 15, 16, 18, 50 digitos.\n Digitos: %s - Cuenta: %s"%( len(self.cta_origen_id.acc_number or ""),  self.cta_origen_id.acc_number) )
+                    if self.formapago_id.clave == '06' and len_cta_ori not in [10]:
+                        raise ValidationError("La Cuenta Origen para 'Dinero electronico' debe tener 10 digitos.\n Digitos: %s - Cuenta: %s"%( len(self.cta_origen_id.acc_number or ""),  self.cta_origen_id.acc_number) )
+                    if self.formapago_id.clave == '28' and len_cta_ori not in [16]:
+                        raise ValidationError("La Cuenta Origen para 'Tarjeta de debito' debe tener 16 digitos.\n Digitos: %s - Cuenta: %s"%( len(self.cta_origen_id.acc_number or ""),  self.cta_origen_id.acc_number) )
+                    if self.formapago_id.clave == '29' and len_cta_ori not in [15, 16]:
+                        raise ValidationError("La Cuenta Origen para 'Tarjeta de servicios' debe tener 15 o 16 digitos.\n Digitos: %s - Cuenta: %s"%( len(self.cta_origen_id.acc_number or ""),  self.cta_origen_id.acc_number) )
+
+    @api.constrains('cta_destino_id')
+    def _check_cta_destino_id(self):
+        for record in self:
+            if record.cta_destino_id:
+                if self.formapago_id and self.journal_id and self.cta_destino_id:
+                    len_cta_dest = len(self.cta_destino_id.acc_number or "")
+                    if self.formapago_id.clave == '02' and len_cta_dest not in [10, 11, 15, 16, 18, 50]:
+                        raise ValidationError("La Cuenta Destino para 'Cheque nominativo' debe tener 10, 11, 15, 16, 18, 50 digitos.\n Digitos: %s - Cuenta: %s"%( len(self.cta_destino_id.acc_number or ""),  self.cta_destino_id.acc_number) )
+                    if self.formapago_id.clave == '03' and len_cta_dest not in [10, 18]:
+                        raise ValidationError("La Cuenta Destino para 'Transferencia Electronica de Fondos' debe tener 10 o 18 digitos.\n Digitos: %s - Cuenta: %s"%( len(self.cta_destino_id.acc_number or ""),  self.cta_destino_id.acc_number) )
+                    if self.formapago_id.clave == '04' and len_cta_dest not in [10, 11, 15, 16, 18, 50]:
+                        raise ValidationError("La Cuenta Destino para 'Tarjeta de credito' debe tener 10, 11, 15, 16, 18, 50 digitos.\n Digitos: %s - Cuenta: %s"%( len(self.cta_destino_id.acc_number or ""),  self.cta_destino_id.acc_number) )
+                    if self.formapago_id.clave == '05' and len_cta_dest not in [10, 11, 15, 16, 18, 50]:
+                        raise ValidationError("La Cuenta Destino para 'Monedero electronico' debe tener 10, 11, 15, 16, 18, 50 digitos.\n Digitos: %s - Cuenta: %s"%( len(self.cta_destino_id.acc_number or ""),  self.cta_destino_id.acc_number) )
+                    # if self.formapago_id.clave == '06' and len_cta_dest not in [10]:
+                    #     raise ValidationError("La Cuenta Destino para 'Dinero electronico' debe tener 10 digitos.\n Digitos: %s - Cuenta: %s"%( len(self.cta_destino_id.acc_number or ""),  self.cta_destino_id.acc_number) )
+                    if self.formapago_id.clave == '28' and len_cta_dest not in [10, 11, 15, 16, 18, 50]:
+                        raise ValidationError("La Cuenta Destino para 'Tarjeta de debito' debe tener 10, 11, 15, 16, 18, 50 digitos.\n Digitos: %s - Cuenta: %s"%( len(self.cta_destino_id.acc_number or ""),  self.cta_destino_id.acc_number) )
+                    if self.formapago_id.clave == '29' and len_cta_dest not in [10, 11, 15, 16, 18, 50]:
+                        raise ValidationError("La Cuenta Destino para 'Tarjeta de servicios' debe tener 10, 11, 15, 16, 18, 50 digitos.\n Digitos: %s - Cuenta: %s"%( len(self.cta_destino_id.acc_number or ""),  self.cta_destino_id.acc_number) )
+
+
 
 
     @api.multi
@@ -768,7 +791,52 @@ class AccountBankStatementLine(models.Model):
     cfdi_factoraje_id = fields.Many2one('account.invoice', string=u'CFDI Factoraje Compensacion')
     partner_factoraje_id = fields.Many2one('res.partner', string=u'Empresa Factoraje', store=True, compute='_compute_hide_cfdi_factoraje_id')
     hide_cfdi_factoraje_id = fields.Boolean(compute='_compute_hide_cfdi_factoraje_id',
-        help="Este campo es usado para ocultar el cfdi_factoraje_id, cuando no se trate de una cuenta origen de Factoraje")    
+        help="Este campo es usado para ocultar el cfdi_factoraje_id, cuando no se trate de una cuenta origen de Factoraje")
+
+
+    @api.constrains('cta_origen_id')
+    def _check_cta_origen_id(self):
+        for record in self:
+            if record.cta_origen_id:
+                if self.formapago_id and self.journal_id and self.cta_origen_id:
+                    len_cta_ori = len(self.cta_origen_id.acc_number or "")
+                    if self.formapago_id.clave == '02' and len_cta_ori not in [11, 18]:
+                        raise ValidationError("La Cuenta Origen para 'Cheque nominativo' debe tener 11 o 18 digitos.\n Digitos: %s - Cuenta: %s"%( len(self.cta_origen_id.acc_number or ""),  self.cta_origen_id.acc_number) )
+                    if self.formapago_id.clave == '03' and len_cta_ori not in [10, 16, 18]:
+                        raise ValidationError("La Cuenta Origen para 'Transferencia Electronica de Fondos' debe tener 10 o 16 o 18 digitos.\n Digitos: %s - Cuenta: %s"%( len(self.cta_origen_id.acc_number or ""),  self.cta_origen_id.acc_number) )
+                    if self.formapago_id.clave == '04' and len_cta_ori not in [16]:
+                        raise ValidationError("La Cuenta Origen para 'Tarjeta de credito' debe tener 16 digitos.\n Digitos: %s - Cuenta: %s"%( len(self.cta_origen_id.acc_number or ""),  self.cta_origen_id.acc_number) )
+                    if self.formapago_id.clave == '05' and len_cta_ori not in [10, 11, 15, 16, 18, 50]:
+                        raise ValidationError("La Cuenta Origen para 'Monedero electronico' debe tener 10, 11, 15, 16, 18, 50 digitos.\n Digitos: %s - Cuenta: %s"%( len(self.cta_origen_id.acc_number or ""),  self.cta_origen_id.acc_number) )
+                    if self.formapago_id.clave == '06' and len_cta_ori not in [10]:
+                        raise ValidationError("La Cuenta Origen para 'Dinero electronico' debe tener 10 digitos.\n Digitos: %s - Cuenta: %s"%( len(self.cta_origen_id.acc_number or ""),  self.cta_origen_id.acc_number) )
+                    if self.formapago_id.clave == '28' and len_cta_ori not in [16]:
+                        raise ValidationError("La Cuenta Origen para 'Tarjeta de debito' debe tener 16 digitos.\n Digitos: %s - Cuenta: %s"%( len(self.cta_origen_id.acc_number or ""),  self.cta_origen_id.acc_number) )
+                    if self.formapago_id.clave == '29' and len_cta_ori not in [15, 16]:
+                        raise ValidationError("La Cuenta Origen para 'Tarjeta de servicios' debe tener 15 o 16 digitos.\n Digitos: %s - Cuenta: %s"%( len(self.cta_origen_id.acc_number or ""),  self.cta_origen_id.acc_number) )
+
+    @api.constrains('cta_destino_id')
+    def _check_cta_destino_id(self):
+        for record in self:
+            if record.cta_destino_id:
+                if self.formapago_id and self.journal_id and self.cta_destino_id:
+                    len_cta_dest = len(self.cta_destino_id.acc_number or "")
+                    if self.formapago_id.clave == '02' and len_cta_dest not in [10, 11, 15, 16, 18, 50]:
+                        raise ValidationError("La Cuenta Destino para 'Cheque nominativo' debe tener 10, 11, 15, 16, 18, 50 digitos.\n Digitos: %s - Cuenta: %s"%( len(self.cta_destino_id.acc_number or ""),  self.cta_destino_id.acc_number) )
+                    if self.formapago_id.clave == '03' and len_cta_dest not in [10, 18]:
+                        raise ValidationError("La Cuenta Destino para 'Transferencia Electronica de Fondos' debe tener 10 o 18 digitos.\n Digitos: %s - Cuenta: %s"%( len(self.cta_destino_id.acc_number or ""),  self.cta_destino_id.acc_number) )
+                    if self.formapago_id.clave == '04' and len_cta_dest not in [10, 11, 15, 16, 18, 50]:
+                        raise ValidationError("La Cuenta Destino para 'Tarjeta de credito' debe tener 10, 11, 15, 16, 18, 50 digitos.\n Digitos: %s - Cuenta: %s"%( len(self.cta_destino_id.acc_number or ""),  self.cta_destino_id.acc_number) )
+                    if self.formapago_id.clave == '05' and len_cta_dest not in [10, 11, 15, 16, 18, 50]:
+                        raise ValidationError("La Cuenta Destino para 'Monedero electronico' debe tener 10, 11, 15, 16, 18, 50 digitos.\n Digitos: %s - Cuenta: %s"%( len(self.cta_destino_id.acc_number or ""),  self.cta_destino_id.acc_number) )
+                    # if self.formapago_id.clave == '06' and len_cta_dest not in [10]:
+                    #     raise ValidationError("La Cuenta Destino para 'Dinero electronico' debe tener 10 digitos.\n Digitos: %s - Cuenta: %s"%( len(self.cta_destino_id.acc_number or ""),  self.cta_destino_id.acc_number) )
+                    if self.formapago_id.clave == '28' and len_cta_dest not in [10, 11, 15, 16, 18, 50]:
+                        raise ValidationError("La Cuenta Destino para 'Tarjeta de debito' debe tener 10, 11, 15, 16, 18, 50 digitos.\n Digitos: %s - Cuenta: %s"%( len(self.cta_destino_id.acc_number or ""),  self.cta_destino_id.acc_number) )
+                    if self.formapago_id.clave == '29' and len_cta_dest not in [10, 11, 15, 16, 18, 50]:
+                        raise ValidationError("La Cuenta Destino para 'Tarjeta de servicios' debe tener 10, 11, 15, 16, 18, 50 digitos.\n Digitos: %s - Cuenta: %s"%( len(self.cta_destino_id.acc_number or ""),  self.cta_destino_id.acc_number) )
+
+
 
     @api.onchange('partner_id', 'payment_type')
     def _onchange_payment_type_partner_id(self):
