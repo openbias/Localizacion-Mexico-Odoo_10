@@ -169,6 +169,8 @@ class CFDITimbresSat(models.Model):
                 name = 'cfd_%s'%(rec.internal_number)
             att_ids = att_obj.search([('res_model', '=', rec._name), ('res_id', '=', rec.id), ('type', '=', 'binary'), ('name', 'ilike', '.xml' )])
             for att_id in att_ids:
+                if not att_id.datas:
+                    continue
                 xml = att_id.datas
                 cfdi = base64.b64decode(att_id.datas)
                 xmlDoc = parseString(cfdi)
@@ -415,21 +417,17 @@ class AltaCatalogosCFDI(models.TransientModel):
         return True
 
 
-
     def getElectronicCdfi_threading(self, ids=None):
         with api.Environment.manage():
             new_cr = self.pool.cursor()
             self = self.with_env(self.env(cr=new_cr))
-            
             Invoice = self.sudo().env['account.invoice']
             Attachment = self.sudo().env['ir.attachment']
             Timbre = self.sudo().env['cfdi.timbres.sat']
             indx = 0
-            for inv_id in Invoice.browse(ids):
+            for inv_id in Invoice.sudo().search([('uuid', '!=', False), ('cfdi_timbre_id', '=', False), ('type', 'in', ['out_invoice', 'out_refund'])]):
                 indx += 1
-
                 logging.info(' - %s Invoice %s - Tipo %s '%(indx, inv_id.internal_number, inv_id.type) )
-
                 ctx = {
                     'company_id': inv_id.company_id.id,
                     'force_company': inv_id.company_id.id,
@@ -483,21 +481,16 @@ class AltaCatalogosCFDI(models.TransientModel):
                         inv_id.sudo().with_context(ctx).write({
                             'cfdi_timbre_id': timbre_id.id
                         })
-
+                self._cr.commit()
         return True
 
-        
     @api.multi
     def getElectronicCdfi(self):
         logging.info(' Inicia Analizis CFDI')
-
-        Invoice = self.sudo().env['account.invoice']
-
-        inv_ids = Invoice.sudo().search([('uuid', '!=', False), ('type', 'in', ['out_invoice', 'out_refund'])])
-        threaded_calculation = threading.Thread(target=self.getElectronicCdfi_threading, args=(), kwargs={"ids": inv_ids.ids}, name=inv_ids.ids)
+        threaded_calculation = threading.Thread(target=self.getElectronicCdfi_threading, args=(), kwargs={}, name='CFDI')
         threaded_calculation.start()
         threaded_calculation.join()
-
+        logging.info(' Finaliza Analizis CFDI')
         return True
 
 

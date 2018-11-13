@@ -3,13 +3,14 @@
 from xml.dom import minidom
 from xml.dom.minidom import parse, parseString
 
-# import xmltodict
-
 from datetime import date, datetime
 from pytz import timezone
 import json, base64, re
 import collections, requests
 import logging
+
+from lxml import etree
+from lxml.objectify import fromstring
 
 import odoo
 import odoo.modules.registry
@@ -18,6 +19,8 @@ from odoo import models, fields, api, _
 from odoo.tools import float_is_zero, float_compare
 from odoo.tools import DEFAULT_SERVER_TIME_FORMAT
 from odoo.exceptions import UserError, RedirectWarning, ValidationError
+
+from .nodo import Nodo
 
 # _logger = logging.basicConfig(level=logging.INFO)
 _logger = logging.getLogger(__name__)
@@ -209,15 +212,23 @@ class AccountPayment(models.Model):
                         raise ValidationError("La Cuenta Destino para 'Tarjeta de servicios' debe tener 10, 11, 15, 16, 18, 50 digitos.\n Digitos: %s - Cuenta: %s"%( len(self.cta_destino_id.acc_number or ""),  self.cta_destino_id.acc_number) )
 
 
-
-
     @api.multi
     def post(self):
+        ctx_inv = {}
         for record in self.filtered(lambda r: r.cfdi_validate_required()):
+            for inv in record.invoice_ids:
+                ctx_inv[inv.id] = {
+                    'amount_total': inv.amount_total,
+                    'amount_total_company_signed': inv.amount_total_company_signed,
+                    'amount_total_signed': inv.amount_total_signed,
+                    'residual': inv.residual if inv.residual != 0.0 else inv.amount_total,
+                    'residual_company_signed': inv.residual_company_signed,
+                    'residual_signed': inv.residual_signed
+                }
             pass
         res = super(AccountPayment, self).post()
         for record in self.filtered(lambda r: r.cfdi_is_required()):
-            record.action_validate_cfdi()
+            record.with_context(ctx_inv=ctx_inv).action_validate_cfdi()
         return res
 
     @api.multi
@@ -339,18 +350,19 @@ class AccountPayment(models.Model):
     @api.multi
     def create_cfdi_payment(self):
         self.ensure_one()
-        cfdi = collections.OrderedDict()
-        cfdi["cfdi:Comprobante"] = self.cfdi_payment_comprobante()
+
+        Comprobante = self.cfdi_comprobante()
         if self.cfdi_timbre_id:
-            cfdi["cfdi:Comprobante"]["cfdi:CfdiRelacionados"] = self.cfdi_payment_relacionados()
-        cfdi["cfdi:Comprobante"]["cfdi:Emisor"] = self.cfdi_payment_emisor()
-        cfdi["cfdi:Comprobante"]["cfdi:Receptor"] = self.cfdi_payment_receptor()
-        cfdi["cfdi:Comprobante"]["cfdi:Conceptos"] = self.cfdi_payment_conceptos()
-        cfdi["cfdi:Comprobante"]["cfdi:Complemento"] = self.cfdi_payment_complemento()
-        ordered_list = [{key: val} for key, val in cfdi.items()]
-        # print xmltodict.unparse(ordered_list[0], pretty=True)
-        # _logger.info(ordered_list)
-        cfdi_json = json.dumps(ordered_list)
+            Comprobante = self.cfdi_relacionados(Comprobante)
+        Comprobante = self.cfdi_emisor(Comprobante)
+        Comprobante = self.cfdi_receptor(Comprobante)
+        Comprobante = self.cfdi_conceptos(Comprobante)
+        Comprobante = self.cfdi_complemento(Comprobante)
+        xml = Comprobante.toxml(header=False)
+        tree = fromstring(xml)
+        xml = etree.tostring(tree, pretty_print=True, encoding='UTF-8')
+        print xml
+        # print miguelmiguel
         url = "%s/cfdi/stamp/%s/%s"%(self.company_id.cfd_mx_host, self.company_id.cfd_mx_db, self.company_id.vat)
         headers = {'Content-Type': 'application/json'}
         data = {
@@ -358,7 +370,7 @@ class AccountPayment(models.Model):
                 "test": self.company_id.cfd_mx_test,
                 "pac": self.company_id.cfd_mx_pac,
                 "version": self.company_id.cfd_mx_version,
-                "cfdi": cfdi_json
+                "cfdi": base64.encodestring(Comprobante.toxml().encode('utf-8'))
             }
         }
         data_json = json.dumps(data)
@@ -438,236 +450,225 @@ class AccountPayment(models.Model):
         
 
     @api.multi
-    def cfdi_payment_comprobante(self):
+    def cfdi_comprobante(self):
         self.ensure_one()
         date_invoice = self.date_invoice_cfdi
         if not date_invoice:
             date_invoice_cfdi = self._compute_date_invoice_cfdi()
         folio_serie = self._get_folio(self.name)
         folio = folio_serie.get("folio")
-        serie = folio_serie.get("serie")       
-        Comprobante = collections.OrderedDict()
-        Comprobante['@xmlns:cfdi'] = 'http://www.sat.gob.mx/cfd/3'
-        Comprobante['@xmlns:xsi'] = 'http://www.w3.org/2001/XMLSchema-instance'
-        Comprobante['@xsi:schemaLocation'] = 'http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd http://www.sat.gob.mx/Pagos http://www.sat.gob.mx/sitio_internet/cfd/Pagos/Pagos10.xsd'
-        Comprobante['@xmlns:pago10'] = 'http://www.sat.gob.mx/Pagos'
-        Comprobante['@Version'] = '3.3'
-        if serie:
-            Comprobante['@Serie'] = get_string_cfdi(serie or '', 25) or False
-        Comprobante['@Folio'] = get_string_cfdi(folio or '', 40) or ""
-        Comprobante['@Fecha'] = date_invoice
-        Comprobante['@NoCertificado'] = ""
-        Comprobante['@Certificado'] = ""
-        Comprobante['@SubTotal'] = "0"
-        Comprobante['@Moneda'] = "XXX"
-        Comprobante['@Total'] = "0"
-        Comprobante['@TipoDeComprobante'] = "P"
-        Comprobante['@LugarExpedicion'] = self.journal_id.codigo_postal_id.name or ""
+        serie = folio_serie.get("serie")
+        cfdi_comprobante = {
+            'xmlns:cfdi': 'http://www.sat.gob.mx/cfd/3',
+            'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
+            'xsi:schemaLocation': 'http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd http://www.sat.gob.mx/Pagos http://www.sat.gob.mx/sitio_internet/cfd/Pagos/Pagos10.xsd',
+            'xmlns:pago10': 'http://www.sat.gob.mx/Pagos',
+            'Version': '3.3',
+            'Serie': get_string_cfdi(serie or '', 25) or ' ',
+            'Folio': get_string_cfdi(serie or '', 40) or ' ',
+            'Fecha': date_invoice,
+            'NoCertificado': "",
+            'Certificado': "",
+            'SubTotal': "0",
+            'Moneda': "XXX",
+            'Total': "0",
+            'TipoDeComprobante': "P",
+            'LugarExpedicion': self.journal_id.codigo_postal_id.name or "",
+        }
+        Comprobante = Nodo('cfdi:Comprobante', cfdi_comprobante)
         return Comprobante
 
     @api.multi
-    def cfdi_payment_relacionados(self):
+    def cfdi_relacionados(self, Comprobante):
         self.ensure_one()
-        Relacionados = collections.OrderedDict()
-        Relacionados["@TipoRelacion"] = "04"
-        CfdiRelacionado = []
-        Relacionado = collections.OrderedDict()
-        Relacionado["@UUID"] = self.cfdi_timbre_id.name
-        CfdiRelacionado.append(Relacionado)
-        Relacionados["cfdi:CfdiRelacionado"] = CfdiRelacionado
-        return Relacionados
+        CfdiRelacionados = Nodo('cfdi:CfdiRelacionados', {'TipoRelacion': '04'}, Comprobante)
+        CfdiRelacionado = Nodo('cfdi:CfdiRelacionado', {'UUID': self.cfdi_timbre_id.name}, CfdiRelacionados)
+        return Comprobante
 
     @api.multi
-    def cfdi_payment_emisor(self):
+    def cfdi_emisor(self, Comprobante):
         self.ensure_one()
         partner_data = self.company_id.partner_id
-        Emisor = collections.OrderedDict()
-        Emisor["@Rfc"] = partner_data.vat or ""
-        Emisor["@Nombre"] = partner_data.name or ""
-        Emisor["@RegimenFiscal"] = partner_data.regimen_id and partner_data.regimen_id.clave or ""
-        return Emisor
+        emisor_attribs = {
+            'Rfc': partner_data.vat or "",
+            'Nombre': partner_data.name or "",
+            "RegimenFiscal": partner_data.regimen_id and partner_data.regimen_id.clave or ""
+        }
+        Nodo('cfdi:Emisor', emisor_attribs, Comprobante)
+        return Comprobante
 
     @api.multi
-    def cfdi_payment_receptor(self):
+    def cfdi_receptor(self, Comprobante):
         self.ensure_one()
         partner_data = self.partner_id
         if self.partner_factoraje_id:
             partner_data = self.partner_factoraje_id
-        Receptor = collections.OrderedDict()
-        Receptor["@Rfc"] = partner_data.vat or ""
-        Receptor["@Nombre"] = partner_data.name or ""
-        Receptor["@UsoCFDI"] = "P01"
+        receptor_attribs = {
+            'Rfc': partner_data.vat or "",
+            'Nombre': partner_data.name or "",
+            'UsoCFDI': 'P01'
+        }
         if partner_data.es_extranjero == True:
-            Receptor['ResidenciaFiscal'] = partner_data.country_id and partner_data.country_id.code_alpha3 or ''
+            receptor_attribs['ResidenciaFiscal'] = partner_data.country_id and partner_data.country_id.code_alpha3 or ''
             if partner_data.identidad_fiscal:
-                Receptor['NumRegIdTrib'] = partner_data.identidad_fiscal or ''
-        return Receptor
+                receptor_attribs['NumRegIdTrib'] = partner_data.identidad_fiscal or ''
+        Nodo('cfdi:Receptor', receptor_attribs, Comprobante)
+        return Comprobante
 
     @api.multi
-    def cfdi_payment_conceptos(self):
+    def cfdi_conceptos(self, Comprobante):
         self.ensure_one()
-        Conceptos = collections.OrderedDict()
-        concepto = []
-        item = collections.OrderedDict()
-        item["@ClaveProdServ"] = "84111506"
-        item["@Cantidad"] = 1
-        item["@ClaveUnidad"] = "ACT"
-        item["@Descripcion"] = "Pago"
-        item["@ValorUnitario"] = "0"
-        item["@Importe"] = "0"
-        concepto.append(item)
-        Conceptos["cfdi:Concepto"] = concepto
-        return Conceptos
+        Conceptos = Nodo('cfdi:Conceptos', padre=Comprobante)
+        concepto_attribs = {
+            "ClaveProdServ": "84111506",
+            "Cantidad": "1",
+            "ClaveUnidad": "ACT",
+            "Descripcion": "Pago",
+            "ValorUnitario": "0",
+            "Importe": "0",
+        }
+        Concepto = Nodo('cfdi:Concepto', concepto_attribs, Conceptos)
+        return Comprobante
 
     @api.multi
-    def cfdi_payment_complemento(self):
+    def cfdi_complemento(self, Comprobante):
         self.ensure_one()
+        context = dict(self._context) or {}
+        ctx_inv = context.get('ctx_inv', {})
         MoveLine = self.env['account.move.line']
         decimal_precision = self.env['decimal.precision'].precision_get('Account')
         mxn = self.env.ref('base.MXN')
         rate = ('%.6f' % (self.currency_id.with_context(date=self.payment_date).compute( 1, mxn, False))) if self.currency_id.name != 'MXN' else False
         nodoPago10 = []
-        # Nodo pago10:Pago    
-        pago10 = collections.OrderedDict()
-        pago10["@FechaPago"]= '%sT12:00:00'%(self.payment_date)
-        pago10["@FormaDePagoP"]= self.formapago_id.clave or "01"
-        pago10["@MonedaP"]= self.currency_id.name
-        if self.currency_id.name != "MXN":
-            pago10["@TipoCambioP"] = rate
-        pago10["@Monto"]= '%.*f' % (decimal_precision, self.amount)
-        pago10["@NumOperacion"]= self.communication[:100].replace('|', ' ') if self.communication else "Pago %s "%(self.payment_date)
+        # Nodo pago10:Pago
+        Complemento = Nodo('cfdi:Complemento', padre=Comprobante)
+        Pagos = Nodo('pago10:Pagos', {"Version": '1.0'}, padre=Complemento)
 
+        pago_attribs = {
+            "FechaPago": '%sT12:00:00'%(self.payment_date),
+            "FormaDePagoP": self.formapago_id.clave or "01",
+            "MonedaP": self.currency_id.name,
+            "Monto": '%.*f' % (decimal_precision, self.amount),
+            "NumOperacion": self.communication[:100].replace('|', ' ') if self.communication else "Pago %s "%(self.payment_date)
+        }
+        if self.currency_id.name != "MXN":
+            pago_attribs["TipoCambioP"] = rate
         if not self.cfdi_factoraje_id:
             if self.formapago_id and self.formapago_id.banco:
                 if self.cta_origen_id:
                     if self.cta_origen_id and self.cta_origen_id.acc_number:
-                        pago10["@CtaOrdenante"]= self.cta_origen_id.acc_number or ""
+                        pago_attribs["CtaOrdenante"]= self.cta_origen_id.acc_number or ""
                     bank_vat = self.cta_origen_id and self.cta_origen_id.bank_id or False
                     if bank_vat and bank_vat.vat:
-                        pago10["@RfcEmisorCtaOrd"] = bank_vat and bank_vat.vat or ""
+                        pago_attribs["RfcEmisorCtaOrd"] = bank_vat and bank_vat.vat or ""
                     if bank_vat and bank_vat.vat == "XEXX010101000":
-                        pago10["@NomBancoOrdExt"] = bank_vat.description or ""
-
+                        pago_attribs["NomBancoOrdExt"] = bank_vat.description or ""
                 bank_vat = self.journal_id and self.journal_id.bank_id and self.journal_id.bank_id.vat or False
                 if bank_vat:
-                    pago10["@RfcEmisorCtaBen"] = bank_vat
+                    pago_attribs["RfcEmisorCtaBen"] = bank_vat
                 if self.journal_id and self.journal_id.bank_acc_number:
-                    pago10["@CtaBeneficiario"] = self.journal_id and self.journal_id.bank_acc_number or ""
-
+                    pago_attribs["CtaBeneficiario"] = self.journal_id and self.journal_id.bank_acc_number or ""
                 if self.spei_tipo_cadenapago == "01":
-                    pago10["@TipoCadPago"] = self.spei_tipo_cadenapago
-                    pago10["@CertPago"] = self.spei_certpago
-                    pago10["@CadPago"] = self.spei_cadpago
-                    pago10["@SelloPago"] = self.spei_sellopago
-
-        DoctoRelacionado = []
+                    pago_attribs["TipoCadPago"] = self.spei_tipo_cadenapago
+                    pago_attribs["CertPago"] = self.spei_certpago
+                    pago_attribs["CadPago"] = self.spei_cadpago
+                    pago_attribs["SelloPago"] = self.spei_sellopago
+        Pago = Nodo('pago10:Pago', pago_attribs, padre=Pagos)
         MoveLine = self.env["account.move.line"]
         lines = self.move_line_ids.mapped('move_id.line_ids').filtered(lambda l: l.account_id.user_type_id.type == 'liquidity')
         amount_paid = sum(lines.mapped('amount_currency') if self.currency_id.name != 'MXN' else lines.mapped('debit'))
+        inv_fact = {}
         for invoice in self.invoice_ids:
+            inv = ctx_inv.get(invoice.id) and ctx_inv[invoice.id]
+            TipoCambioDR = None
             inv_currency_id = invoice.currency_id.with_context(date=invoice.date_invoice)
             payments_widget = json.loads(invoice.payments_widget)
             content = payments_widget.get("content", [])
-            vals = [p for p in content if p.get('account_payment_id', False) == self.id]
-            if not vals:
-                raise UserError('No se pudo encontrar un pago Relacionado')
-            line_id = MoveLine.browse( vals[0].get('payment_id', False) )
-            # amount = inv_currency_id.round(vals[0].get('amount', 0.0) if vals else 0.0)
-            amount = abs(line_id.amount_currency) or abs(line_id.credit)
-            ctx = {'date': invoice.date_invoice}
-            f_compare = float_compare(amount, invoice.amount_total, precision_digits=self.currency_id.rounding)
-            if f_compare != 0:
-                ctx = {'date': self.payment_date}
-            # balance = invoice.currency_id.with_context(**ctx).compute(amount, self.currency_id)
-            balance = line_id.credit
-            if balance >= amount_paid:
-                balance = amount_paid
-            amount_paid = amount_paid - balance
-            balance_comp = self.currency_id.with_context(date=self.payment_date).compute(balance, invoice.currency_id)
+            payment_vals = [p for p in content if p.get('account_payment_id', False) == self.id]
+            move_line_id = MoveLine.browse( payment_vals[0].get('payment_id', False) )
+            print "amount_currency", abs(move_line_id.amount_currency), abs(move_line_id.credit)
+            amount_payment = abs(move_line_id.amount_currency) or abs(move_line_id.credit)
+            if inv_currency_id == invoice.company_id.currency_id:
+                amount_payment = abs(move_line_id.credit)
+                TipoCambioDR = rate
+            else:
+                amount_payment = abs(move_line_id.amount_currency)
+            
             rate_difference = [p for p in content if p.get('journal_name', '') == self.company_id.currency_exchange_journal_id.name]
             rate_difference = rate_difference[0].get('amount', 0.0) if rate_difference else 0.0
+
             NumParcialidad = len(invoice.payment_ids.filtered(lambda p: p.state not in ('draft', 'cancelled')).ids)
-            ImpSaldoAnt = invoice.residual + amount + rate_difference
-            ImpPagado = balance_comp if balance_comp <= invoice.residual + amount else invoice.residual + amount  # invoice.residual + amount
-            ImpSaldoInsoluto = invoice.residual + amount + rate_difference - balance_comp if invoice.residual + amount + rate_difference - balance_comp >= 0 else 0 # rate_difference
-            if rate_difference:
-                ImpPagado = invoice.residual + amount
-                ImpSaldoInsoluto = rate_difference
-            docto_attribs = collections.OrderedDict()
-            docto_attribs["@IdDocumento"] = "%s"%invoice.uuid
-            docto_attribs["@Folio"] = "%s"%invoice.number
-            docto_attribs["@MonedaDR"] = "%s"%invoice.currency_id.name
-            docto_attribs["@MetodoDePagoDR"] = 'PPD'
-            docto_attribs["@NumParcialidad"] = NumParcialidad
-            docto_attribs["@ImpSaldoAnt"] = '%0.*f' % (decimal_precision, ImpSaldoAnt)
-            docto_attribs["@ImpPagado"] = '%0.*f' % (decimal_precision, ImpPagado)
-            docto_attribs["@ImpSaldoInsoluto"] = '%0.*f' % (decimal_precision, ImpSaldoInsoluto)
-            if invoice.journal_id.serie:
-                docto_attribs['@Serie'] = invoice.journal_id.serie or ''
-            if self.currency_id != invoice.currency_id:
-                if len(self.invoice_ids) == 1:
-                    tdr = round(( round(ImpPagado, decimal_precision) / round(self.amount, decimal_precision) ), 6)
-                else:
-                    tdr = round(( round(ImpPagado, decimal_precision) / round(balance, decimal_precision) ), 6)
-                f_compare = float_compare(balance, (ImpPagado/tdr), precision_digits=6)
-                if f_compare < 0:
-                    tdr += 0.000001
+            ImpSaldoAnt = inv.get('residual', 0.0)  # invoice.residual + amount_payment + rate_difference
+            ImpPagado = amount_payment
+            if amount_payment > ImpSaldoAnt:
+                ImpPagado = ImpSaldoAnt
+                ImpSaldoInsoluto = 0.0
 
-                # if f_compare == 1:
-                #     tdr -= 0.000001
-                docto_attribs['@TipoCambioDR'] = ('%.6f' % (tdr))  # ('%.6f' % (1/inv_rate)) 
-            DoctoRelacionado.append(docto_attribs)
-        pago10["pago10:DoctoRelacionado"] = DoctoRelacionado
-        nodoPago10.append(pago10)
+            if self.currency_id != inv_currency_id:
+                TipoCambioDR = 1
+                if rate_difference:
+                    ImpPagado = ImpSaldoAnt
+                    ImpSaldoInsoluto = 0.0
 
+            ImpSaldoInsoluto = ImpSaldoAnt - ImpPagado
+            docto_attribs = {
+                "IdDocumento": "%s"%invoice.uuid,
+                "Folio": "%s"%invoice.number,
+                "MonedaDR": "%s"%invoice.currency_id.name,
+                "MetodoDePagoDR": 'PPD',
+                "NumParcialidad": NumParcialidad,
+                "ImpSaldoAnt": '%0.*f' % (decimal_precision, ImpSaldoAnt),
+                "ImpPagado": '%0.*f' % (decimal_precision, ImpPagado),
+                "ImpSaldoInsoluto": '%0.*f' % (decimal_precision, ImpSaldoInsoluto),
+            }
+            if TipoCambioDR:
+                docto_attribs['TipoCambioDR'] = TipoCambioDR # ('%.6f' % (TipoCambioDR))
+            DoctoRelacionado = Nodo('pago10:DoctoRelacionado', docto_attribs, padre=Pago)
+            inv_fact[invoice.id] = {'uuid': invoice.uuid, 'ImpSaldoInsoluto': '%0.*f' % (decimal_precision, ImpSaldoInsoluto)}
+       
         if self.cfdi_factoraje_id and self.partner_factoraje_id:
             for invoice in self.invoice_ids:
                 if invoice.residual == 0.0:
                     continue
                 amount_total = self.cfdi_factoraje_id.amount_total
-                doctoRel = [doctoRel for doctoRel in nodoPago10[0].get('pago10:DoctoRelacionado') if doctoRel.get('@IdDocumento') == invoice.uuid]
+                doctoRel = inv_fact.get(invoice.id)
                 ImpSaldoAnt = 0.0
                 if doctoRel:
-                    ImpSaldoAnt = float(doctoRel[0].get("@ImpSaldoInsoluto"))
+                    ImpSaldoAnt = float(doctoRel.get("ImpSaldoInsoluto"))
                 ImpSaldoAnt =  '%0.*f' % (decimal_precision, ImpSaldoAnt)
                 amount_total = '%0.*f' % (decimal_precision, amount_total)
                 ImpSaldoInsoluto = float(ImpSaldoAnt)-float(amount_total)
-                pago10 = collections.OrderedDict()
-                pago10["@FechaPago"]= '%sT12:00:00'%(self.payment_date)
-                pago10["@FormaDePagoP"]= "17"
-                pago10["@MonedaP"]= self.currency_id.name
+                pago_attribs = {
+                    "FechaPago": '%sT12:00:00'%(self.payment_date),
+                    "FormaDePagoP": "17",
+                    "MonedaP": self.currency_id.name,
+                    "Monto": amount_total,
+                    "NumOperacion": "Compensacion",
+                }
                 if self.currency_id.name != "MXN":
-                    pago10["@TipoCambioP"] = rate
-                pago10["@Monto"]= amount_total
-                pago10["@NumOperacion"]= "Compensacion"
+                    pago_attribs["TipoCambioP"] = rate
+                Pagos = Nodo('pago10:Pagos', {"Version": '1.0'}, padre=Complemento)
+                Pago = Nodo('pago10:Pago', pago_attribs, padre=Pagos)
                 NumParcialidad = 2
-                DoctoRelacionado = []
                 inv_rate = ('%.6f' % (self.cfdi_factoraje_id.currency_id.with_context(date=self.payment_date).compute(1, self.currency_id, round=False))) if self.currency_id != self.cfdi_factoraje_id.currency_id else False
-                docto_attribs = collections.OrderedDict()
-                docto_attribs["@IdDocumento"] = "%s"%invoice.uuid
-                docto_attribs["@Folio"] = "%s"%invoice.number
-                docto_attribs["@MonedaDR"] = "%s"%invoice.currency_id.name
-                docto_attribs["@MetodoDePagoDR"] = '%s'%(invoice.metodopago_id and invoice.metodopago_id.clave or "PPD")
-                docto_attribs["@NumParcialidad"] = '%s'%NumParcialidad
-                docto_attribs["@ImpSaldoAnt"] = ImpSaldoAnt
-                docto_attribs["@ImpPagado"] = amount_total
-                docto_attribs["@ImpSaldoInsoluto"] = '%0.*f' % (decimal_precision, ImpSaldoInsoluto)
+                docto_attribs = {
+                    "IdDocumento": "%s"%invoice.uuid,
+                    "Folio": "%s"%invoice.number,
+                    "MonedaDR": "%s"%invoice.currency_id.name,
+                    "MetodoDePagoDR": '%s'%(invoice.metodopago_id and invoice.metodopago_id.clave or "PPD"),
+                    "NumParcialidad": '%s'%NumParcialidad,
+                    "ImpSaldoAnt": ImpSaldoAnt,
+                    "ImpPagado": amount_total,
+                    "ImpSaldoInsoluto": '%0.*f' % (decimal_precision, ImpSaldoInsoluto),
+                }
                 if invoice.journal_id.serie:
-                    docto_attribs['@Serie'] = invoice.journal_id.serie or ''
+                    docto_attribs['Serie'] = invoice.journal_id.serie or ''
                 if inv_rate:
-                    docto_attribs['@TipoCambioDR'] = (1 / inv_rate)
-                DoctoRelacionado.append(docto_attribs)
-                pago10["pago10:DoctoRelacionado"] = DoctoRelacionado
-                nodoPago10.append(pago10)
-        pagos10 = collections.OrderedDict()
-        pagos10["pago10:Pago"] = nodoPago10
-        Complemento = collections.OrderedDict()
-        Complemento["pago10:Pagos"] = pagos10
-        Complemento["pago10:Pagos"]["@Version"] = "1.0"
+                    docto_attribs['TipoCambioDR'] = (1 / inv_rate)
+                DoctoRelacionado = Nodo('pago10:DoctoRelacionado', docto_attribs, padre=Pago)
 
-        print "Complemento", Complemento
-        # print miguelmiguel
-        return Complemento
+        return Comprobante
+
 
     @staticmethod
     def _get_folio(number=""):
@@ -837,7 +838,6 @@ class AccountBankStatementLine(models.Model):
                         raise ValidationError("La Cuenta Destino para 'Tarjeta de servicios' debe tener 10, 11, 15, 16, 18, 50 digitos.\n Digitos: %s - Cuenta: %s"%( len(self.cta_destino_id.acc_number or ""),  self.cta_destino_id.acc_number) )
 
 
-
     @api.onchange('partner_id', 'payment_type')
     def _onchange_payment_type_partner_id(self):
         res = {}
@@ -875,34 +875,27 @@ class AccountBankStatementLine(models.Model):
             res['domain'] = domain
         return res
 
-    """
-    @api.onchange('cta_origen_id', 'cta_destino_id')
-    def _onchange_cta_id(self):
-        if self.ttype and self.ttype == 'trans' and self.journal_id:
-            if self.cta_origen_id and len(self.cta_origen_id.acc_number or "") not in [10, 18]:
-                raise UserError("La Cuenta Destino debe tener 10 o 18 digitos \n Digitos: %s - Cuenta: %s"%( len(self.cta_origen_id.acc_number or ""),  self.cta_origen_id.acc_number) )
-            if self.cta_destino_id and len(self.cta_destino_id.acc_number or "") not in [10, 18]:
-                raise UserError("La Cuenta Destino debe tener 10 o 18 digitos \n Digitos: %s - Cuenta: %s"%( len(self.cta_destino_id.acc_number or ""),  self.cta_destino_id.acc_number) )
-    """
-
     def process_reconciliation(self, counterpart_aml_dicts=None, payment_aml_rec=None, new_aml_dicts=None):
+        invoice_ids = self.env['account.invoice'].browse()
+        ctx_inv = {}
+        for aml in counterpart_aml_dicts:
+            if aml.get('move_line'):
+                if aml['move_line'].invoice_id:
+                    inv = aml['move_line'].invoice_id
+                    if inv.type == 'out_invoice':
+                        invoice_ids |= inv
+                        ctx_inv[inv.id] = {
+                            'amount_total': inv.amount_total,
+                            'amount_total_company_signed': inv.amount_total_company_signed,
+                            'amount_total_signed': inv.amount_total_signed,
+                            'residual': inv.residual if inv.residual != 0.0 else inv.amount_total,
+                            'residual_company_signed': inv.residual_company_signed,
+                            'residual_signed': inv.residual_signed
+                        }
         move = super(AccountBankStatementLine, self).process_reconciliation(counterpart_aml_dicts=counterpart_aml_dicts, payment_aml_rec=payment_aml_rec, new_aml_dicts=new_aml_dicts)
         if not self.cfdi_is_required():
             return move
-        invoice_ids = self.env['account.invoice'].browse()
-        for aml in move.line_ids:
-            if aml.credit > 0:
-                for r in aml.matched_debit_ids:
-                    inv_id = r.debit_move_id.invoice_id
-                    if inv_id:
-                        if inv_id.uuid and inv_id.type == 'out_invoice':
-                            invoice_ids |= inv_id
-            else:
-                for r in aml.matched_credit_ids:
-                    inv_id = r.credit_move_id.invoice_id
-                    if inv_id:
-                        if inv_id.uuid and inv_id.type == 'out_invoice':
-                            invoice_ids |= inv_id
+
         if not invoice_ids:
             return move
 
@@ -926,7 +919,7 @@ class AccountBankStatementLine(models.Model):
             vals['partner_factoraje_id'] = self.partner_factoraje_id.id
             vals['cfdi_factoraje_id'] = self.cfdi_factoraje_id.id
         payments.write(vals)
-        payments.action_validate_cfdi()
+        payments.with_context(ctx_inv=ctx_inv).action_validate_cfdi()
         return move
 
     @api.multi
