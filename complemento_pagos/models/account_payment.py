@@ -58,7 +58,8 @@ class AccountAbstractPayment(models.AbstractModel):
         if not self.journal_id:
             self.hide_formapago_id = True
             return
-        if self.journal_id.id in self.company_id.cfd_mx_journal_ids.ids and self.partner_type == "customer":
+        country_code = self.company_id.partner_id.country_id and self.company_id.partner_id.country_id.code
+        if self.journal_id.id in self.company_id.cfd_mx_journal_ids.ids and self.partner_type == "customer" and country_code=="MX":
             self.hide_formapago_id = False
         else:
             self.hide_formapago_id = True
@@ -96,11 +97,11 @@ class AccountAbstractPayment(models.AbstractModel):
             rec['cta_destino_id'] = False
         if rec and self.partner_id and self.journal_id and self.partner_type:
             if self.journal_id.type == 'cash':
-                self.tipo_pago = 'otro'
+                # self.tipo_pago = 'otro'
                 self.metodo_pago_id = self.env.ref('contabilidad_electronica.metodo_pago_1')
                 self.formapago_id = self.env.ref('cfd_mx.formapago_01')
             elif self.journal_id.type == 'bank':
-                self.tipo_pago = 'trans'
+                # self.tipo_pago = 'trans'
                 self.metodo_pago_id = self.env.ref('contabilidad_electronica.metodo_pago_3')
                 self.formapago_id = self.env.ref('cfd_mx.formapago_03')
             bank_ids = self.env['res.partner.bank'].search([('partner_id', '=', self.partner_id.id)])
@@ -361,8 +362,7 @@ class AccountPayment(models.Model):
         xml = Comprobante.toxml(header=False)
         tree = fromstring(xml)
         xml = etree.tostring(tree, pretty_print=True, encoding='UTF-8')
-        print xml
-        # print miguelmiguel
+        # print xml
         url = "%s/cfdi/stamp/%s/%s"%(self.company_id.cfd_mx_host, self.company_id.cfd_mx_db, self.company_id.vat)
         headers = {'Content-Type': 'application/json'}
         data = {
@@ -586,14 +586,13 @@ class AccountPayment(models.Model):
             content = payments_widget.get("content", [])
             payment_vals = [p for p in content if p.get('account_payment_id', False) == self.id]
             move_line_id = MoveLine.browse( payment_vals[0].get('payment_id', False) )
-            print "amount_currency", abs(move_line_id.amount_currency), abs(move_line_id.credit)
+            # print "amount_currency", abs(move_line_id.amount_currency), abs(move_line_id.credit)
             amount_payment = abs(move_line_id.amount_currency) or abs(move_line_id.credit)
             if inv_currency_id == invoice.company_id.currency_id:
                 amount_payment = abs(move_line_id.credit)
                 TipoCambioDR = rate
             else:
                 amount_payment = abs(move_line_id.amount_currency)
-            
             rate_difference = [p for p in content if p.get('journal_name', '') == self.company_id.currency_exchange_journal_id.name]
             rate_difference = rate_difference[0].get('amount', 0.0) if rate_difference else 0.0
 
@@ -603,13 +602,11 @@ class AccountPayment(models.Model):
             if amount_payment > ImpSaldoAnt:
                 ImpPagado = ImpSaldoAnt
                 ImpSaldoInsoluto = 0.0
-
             if self.currency_id != inv_currency_id:
                 TipoCambioDR = 1
                 if rate_difference:
                     ImpPagado = ImpSaldoAnt
                     ImpSaldoInsoluto = 0.0
-
             ImpSaldoInsoluto = ImpSaldoAnt - ImpPagado
             docto_attribs = {
                 "IdDocumento": "%s"%invoice.uuid,
@@ -625,7 +622,6 @@ class AccountPayment(models.Model):
                 docto_attribs['TipoCambioDR'] = TipoCambioDR # ('%.6f' % (TipoCambioDR))
             DoctoRelacionado = Nodo('pago10:DoctoRelacionado', docto_attribs, padre=Pago)
             inv_fact[invoice.id] = {'uuid': invoice.uuid, 'ImpSaldoInsoluto': '%0.*f' % (decimal_precision, ImpSaldoInsoluto)}
-       
         if self.cfdi_factoraje_id and self.partner_factoraje_id:
             for invoice in self.invoice_ids:
                 if invoice.residual == 0.0:
@@ -666,7 +662,6 @@ class AccountPayment(models.Model):
                 if inv_rate:
                     docto_attribs['TipoCambioDR'] = (1 / inv_rate)
                 DoctoRelacionado = Nodo('pago10:DoctoRelacionado', docto_attribs, padre=Pago)
-
         return Comprobante
 
 
@@ -750,6 +745,24 @@ class AccountPayment(models.Model):
             attachment_obj.create(attachment_values)
         return True
 
+class AccountBankStatement(models.Model):
+    _inherit = "account.bank.statement"
+
+    @api.one
+    def _compute_hide_cfdi_id(self):
+        if not self.journal_id:
+            self.hide_cfdi_id = True
+            return
+        country_code = self.company_id.partner_id.country_id and self.company_id.partner_id.country_id.code
+        print "country_code", country_code
+        if self.journal_id.id in self.company_id.cfd_mx_journal_ids.ids and country_code == "MX":
+            self.hide_cfdi_id = False
+        else:
+            self.hide_cfdi_id = True
+
+    hide_cfdi_id = fields.Boolean(compute='_compute_hide_cfdi_id',
+        help="Este campo es usado para ocultar el formapago_id, cuando no se trate de Recibo Electronico de Pago")
+
 class AccountBankStatementLine(models.Model):
     _inherit = "account.bank.statement.line"
 
@@ -765,21 +778,23 @@ class AccountBankStatementLine(models.Model):
         else:
             self.hide_cfdi_factoraje_id = True
 
+    """
     @api.one
-    @api.depends('journal_id')
     def _compute_hide_formapago_id(self):
         if not self.journal_id:
             self.hide_formapago_id = True
             return
-        if self.journal_id.id in self.company_id.cfd_mx_journal_ids.ids and self.payment_type == 'inbound':
+        country_code = self.company_id.partner_id.country_id and self.company_id.partner_id.country_id.code
+        print "country_code", country_code
+        if self.journal_id.id in self.company_id.cfd_mx_journal_ids.ids and self.payment_type == 'inbound' and country_code == "MX":
             self.hide_formapago_id = False
         else:
             self.hide_formapago_id = True
+    """
 
     cta_destino_id = fields.Many2one("res.partner.bank", string="Cuenta destino", oldname="cta_destino")
     cta_origen_id = fields.Many2one("res.partner.bank", string="Cuenta origen", oldname="cta_origen")
-    hide_formapago_id = fields.Boolean(compute='_compute_hide_formapago_id',
-        help="Este campo es usado para ocultar el formapago_id, cuando no se trate de Recibo Electronico de Pago")
+    hide_formapago_id = fields.Boolean(default=True, help="Este campo es usado para ocultar el formapago_id, cuando no se trate de Recibo Electronico de Pago")
     formapago_id = fields.Many2one('cfd_mx.formapago', string=u'Forma de Pago')
     formapago_code = fields.Char(related='formapago_id.clave')
     spei_tipo_cadenapago = fields.Selection([
@@ -844,12 +859,19 @@ class AccountBankStatementLine(models.Model):
         warning = {}
         domain = {}
         if self.partner_id and self.journal_id and self.payment_type:
+            country_code = self.company_id.partner_id.country_id and self.company_id.partner_id.country_id.code
+            if self.journal_id.id in self.company_id.cfd_mx_journal_ids.ids and self.payment_type == 'inbound' and country_code == "MX":
+                self.hide_formapago_id = False
+            else:
+                self.hide_formapago_id = True
+
+
             if self.journal_id.type == 'cash':
-                self.ttype = 'otro'
+                # self.ttype = 'otro'
                 self.metodo_pago_id = self.env.ref('contabilidad_electronica.metodo_pago_1')
                 self.formapago_id = self.env.ref('cfd_mx.formapago_01')
             elif self.journal_id.type == 'bank':
-                self.ttype = 'trans'
+                # self.ttype = 'trans'
                 self.metodo_pago_id = self.env.ref('contabilidad_electronica.metodo_pago_3')
                 self.formapago_id = self.env.ref('cfd_mx.formapago_03')
             bank_ids = self.env['res.partner.bank'].search([('partner_id', '=', self.partner_id.id)])

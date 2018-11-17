@@ -14,7 +14,7 @@
             <field name="arch" type="xml">
                 <data>
                     <xpath expr="//sheet/group[1]" position="after">
-                        <group>
+                        <group attrs="{'invisible': [('hide_formapago_id', '=', True)]}">
                             <separator string="Contabilidad Electronica SAT" colspan="4"/>
                             <group>
                                 <field name="tipo_pago" />
@@ -72,7 +72,7 @@
             <field name="arch" type="xml">
                 <data>
                     <xpath expr="/form/sheet/group[1]" position="after">
-                        <group string="Contabilidad Electronica">
+                        <group string="Contabilidad Electronica" attrs="{'invisible': [('hide_formapago_id', '=', True)]}">
                             <group>
                                 <field name="tipo_pago" />
                                 <field name="cta_origen_id"
@@ -127,7 +127,7 @@
             <field name="arch" type="xml">
                 <data>
                     <xpath expr="/form/group" position="after">
-                        <group string="Contabilidad Electronica">
+                        <group string="Contabilidad Electronica" attrs="{'invisible': [('hide_formapago_id', '=', True)]}">
                             <group>
                                 <field name="tipo_pago" />
                                 <field name="cta_origen_id"

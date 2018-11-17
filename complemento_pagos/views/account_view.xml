@@ -53,8 +53,8 @@
             <field name="arch" type="xml">
                 <data>
                     <field name="payment_date" position="after">
-                        <field name="date_invoice_cfdi" />
-                        <field name="cfdi_timbre_id" />
+                        <field name="date_invoice_cfdi" attrs="{'invisible': [('hide_formapago_id', '=', True)]}" />
+                        <field name="cfdi_timbre_id" attrs="{'invisible': [('hide_formapago_id', '=', True)]}" />
                     </field>
                     <xpath expr="/form/sheet/group[1]" position="after">
                         <hr />
@@ -220,7 +220,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='line_ids']/tree/field[@name='amount']" position="before">
                     <field name="payment_type" />
-                    <field name="formapago_id" />
+                    <field name="formapago_id" invisible="1" />
                     <field name="hide_formapago_id" invisible="1"/>
                 </xpath>
                 <xpath expr="//field[@name='line_ids']" position="inside">
@@ -279,44 +279,46 @@
                             <field name="currency_id" invisible="1" options="{'no_create': True}"/>
                             <field name="bank_account_id" invisible="1" domain="['|', ('partner_id', '=', partner_id), ('partner_id', '=', False)]"/>
                         </group>
-                        <separator string="Contabilidad Electronica SAT"/>
-                        <group>
+                        <div attrs="{'invisible': [('hide_formapago_id', '=', True)]}">
+                            <separator string="Contabilidad Electronica SAT"/>
                             <group>
-                                <field name="ttype" />
-                                <field name="cta_origen_id"
-                                    attrs="{
-                                        'invisible': ['|',('ttype','=',False),('ttype','=','otro')], 
-                                        'required': [('ttype','in',('cheque','trans'))]
-                                    }"/>
-                                <field name="benef_id"
-                                    attrs="{
-                                        'invisible': ['|',('ttype','=',False),('ttype','=','trans')], 
-                                        'required': [('ttype', 'in', ('cheque','otro'))]
-                                    }"/>
+                                <group>
+                                    <field name="ttype" />
+                                    <field name="cta_origen_id"
+                                        attrs="{
+                                            'invisible': ['|',('ttype','=',False),('ttype','=','otro')], 
+                                            'required': [('ttype','in',('cheque','trans'))]
+                                        }"/>
+                                    <field name="benef_id"
+                                        attrs="{
+                                            'invisible': ['|',('ttype','=',False),('ttype','=','trans')], 
+                                            'required': [('ttype', 'in', ('cheque','otro'))]
+                                        }"/>
+                                </group>
+                                <group>
+                                    <field name="cta_destino_id"
+                                        attrs="{
+                                            'invisible': ['|',('ttype','=',False),('ttype','!=','trans')], 
+                                            'required': [('ttype','=','trans')]
+                                        }"/>
+                                    <field name="num_cheque"
+                                        attrs="{
+                                            'invisible': ['|',('ttype','=',False),('ttype','!=','cheque')], 
+                                            'required': [('ttype','=','cheque')]
+                                        }"/>
+                                    <field name="metodo_pago_id" colspan="2"
+                                        attrs="{
+                                            'invisible': ['|',('ttype','=',False),('ttype','!=','otro')], 
+                                            'required': [('ttype','=','otro')]
+                                        }"/>
+                                </group>
+                                <div colspan="4">
+                                    <span>NOTA</span> <br />
+                                    <span>1.- Deben estar llenos los campos obligatorios.</span> <br />
+                                    <span>2.- La cuenta origen debe pertenecer al cliente y la de destino a la empresa, o viceversa en caso de pago a proveedor.</span>
+                                </div>
                             </group>
-                            <group>
-                                <field name="cta_destino_id"
-                                    attrs="{
-                                        'invisible': ['|',('ttype','=',False),('ttype','!=','trans')], 
-                                        'required': [('ttype','=','trans')]
-                                    }"/>
-                                <field name="num_cheque"
-                                    attrs="{
-                                        'invisible': ['|',('ttype','=',False),('ttype','!=','cheque')], 
-                                        'required': [('ttype','=','cheque')]
-                                    }"/>
-                                <field name="metodo_pago_id" colspan="2"
-                                    attrs="{
-                                        'invisible': ['|',('ttype','=',False),('ttype','!=','otro')], 
-                                        'required': [('ttype','=','otro')]
-                                    }"/>
-                            </group>
-                            <div colspan="4">
-                                <span>NOTA</span> <br />
-                                <span>1.- Deben estar llenos los campos obligatorios.</span> <br />
-                                <span>2.- La cuenta origen debe pertenecer al cliente y la de destino a la empresa, o viceversa en caso de pago a proveedor.</span>
-                            </div>
-                        </group>
+                        </div>
                     </form>
                 </xpath>
             </field>
