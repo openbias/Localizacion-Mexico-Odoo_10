@@ -169,14 +169,29 @@ class AccountCfdi(models.Model):
         if ctx['type'] in ['pagos', 'nomina']:
             self.cfdi_datas['complemento'] = getattr(self, '%s_info_complemento' % ctx['type'])()
 
-        Subtotal = float(self.cfdi_datas['comprobante']['SubTotal'])
-        Descuento = float(self.cfdi_datas['comprobante']['Descuento'])
-        TotalImpuestosRetenidos , TotalImpuestosTrasladados = 0.0, 0.0
-        if self.cfdi_datas['impuestos']:
-            TotalImpuestosRetenidos = float(self.cfdi_datas['impuestos']['TotalImpuestosRetenidos'])
-            TotalImpuestosTrasladados = float(self.cfdi_datas['impuestos']['TotalImpuestosTrasladados'])
-        Total = Subtotal - Descuento + TotalImpuestosTrasladados - TotalImpuestosRetenidos
-        self.cfdi_datas['comprobante']["Total"] = '%.*f' % (decimal_precision, Total)
+
+        print "Total 000 1", self.cfdi_datas['comprobante']["Total"]
+
+        if ctx['type'] in ['invoice']:
+            Subtotal = float(self.cfdi_datas['comprobante']['SubTotal'])
+            Descuento = float(self.cfdi_datas['comprobante']['Descuento'])
+            TotalImpuestosRetenidos , TotalImpuestosTrasladados = 0.0, 0.0
+            if self.cfdi_datas.get('impuestos'):
+                TotalImpuestosRetenidos = float(self.cfdi_datas['impuestos']['TotalImpuestosRetenidos'])
+                TotalImpuestosTrasladados = float(self.cfdi_datas['impuestos']['TotalImpuestosTrasladados'])
+            Total = Subtotal - Descuento + TotalImpuestosTrasladados - TotalImpuestosRetenidos
+            self.cfdi_datas['comprobante']["Total"] = '%.*f' % (decimal_precision, Total)
+
+            if self.cfdi_datas.get('addenda'):
+                addenda = self.cfdi_datas['addenda'] and self.cfdi_datas['addenda'].get('addenda') or {}
+                if addenda and addenda.get('imploc_attribs'):
+                    total = float(self.cfdi_datas['comprobante']["Total"])
+                    TotaldeRetenciones = float(addenda['imploc_attribs'].get('TotaldeRetenciones', "0.0"))
+                    TotaldeTraslados = float(addenda['imploc_attribs'].get('TotaldeTraslados', "0.0"))
+                    total = total + TotaldeTraslados - TotaldeRetenciones
+                    self.cfdi_datas['comprobante']["Total"] = '%.*f' % (decimal_precision, total)
+        print "Total 000 2", self.cfdi_datas['comprobante']["Total"]
+        print "--------- "
 
         datas = json.dumps(self.cfdi_datas, sort_keys=True, indent=4, separators=(',', ': '))
         logging.info(datas)

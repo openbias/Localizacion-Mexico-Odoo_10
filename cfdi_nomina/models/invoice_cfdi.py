@@ -50,7 +50,6 @@ class AccountCfdi(models.Model):
         rec = self.obj
         tz = rec.env.user.tz
 
-
         cfdi_comprobante = {
             "Version": "3.3",
             "Folio": rec._get_folio(),

@@ -626,7 +626,7 @@ class HrPayslip(models.Model):
         if not self.journal_id.id in self.company_id.cfd_mx_journal_ids.ids:
             return True        
         message = ""
-        ctx['type'] = 'nomina'     
+        ctx['type'] = 'nomina'
         try:
             res = self.with_context(**ctx).stamp(self)
             if res.get('message'):
