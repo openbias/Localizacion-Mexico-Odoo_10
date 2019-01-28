@@ -17,7 +17,8 @@ Factura Electronica Mexico 3.3
     'depends' : [
         'base',
         'bias_base_report',
-        'account', 
+        'account',
+        'account_cancel',
         'sales_team'
     ],
     'data': [

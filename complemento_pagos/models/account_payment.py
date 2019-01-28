@@ -582,6 +582,7 @@ class AccountPayment(models.Model):
             inv = ctx_inv.get(invoice.id) and ctx_inv[invoice.id]
             TipoCambioDR = None
             inv_currency_id = invoice.currency_id.with_context(date=invoice.date_invoice)
+            print "invoice", invoice.id, invoice.number, invoice.payments_widget
             payments_widget = json.loads(invoice.payments_widget)
             content = payments_widget.get("content", [])
             payment_vals = [p for p in content if p.get('account_payment_id', False) == self.id]
@@ -618,8 +619,11 @@ class AccountPayment(models.Model):
                 "ImpPagado": '%0.*f' % (decimal_precision, ImpPagado),
                 "ImpSaldoInsoluto": '%0.*f' % (decimal_precision, ImpSaldoInsoluto),
             }
-            if TipoCambioDR:
+            if TipoCambioDR and inv_currency_id != invoice.company_id.currency_id:
                 docto_attribs['TipoCambioDR'] = TipoCambioDR # ('%.6f' % (TipoCambioDR))
+            elif  TipoCambioDR and inv_currency_id == invoice.company_id.currency_id:
+                docto_attribs['TipoCambioDR'] = rate
+
             DoctoRelacionado = Nodo('pago10:DoctoRelacionado', docto_attribs, padre=Pago)
             inv_fact[invoice.id] = {'uuid': invoice.uuid, 'ImpSaldoInsoluto': '%0.*f' % (decimal_precision, ImpSaldoInsoluto)}
         if self.cfdi_factoraje_id and self.partner_factoraje_id:
@@ -900,20 +904,21 @@ class AccountBankStatementLine(models.Model):
     def process_reconciliation(self, counterpart_aml_dicts=None, payment_aml_rec=None, new_aml_dicts=None):
         invoice_ids = self.env['account.invoice'].browse()
         ctx_inv = {}
-        for aml in counterpart_aml_dicts:
-            if aml.get('move_line'):
-                if aml['move_line'].invoice_id:
-                    inv = aml['move_line'].invoice_id
-                    if inv.type == 'out_invoice':
-                        invoice_ids |= inv
-                        ctx_inv[inv.id] = {
-                            'amount_total': inv.amount_total,
-                            'amount_total_company_signed': inv.amount_total_company_signed,
-                            'amount_total_signed': inv.amount_total_signed,
-                            'residual': inv.residual if inv.residual != 0.0 else inv.amount_total,
-                            'residual_company_signed': inv.residual_company_signed,
-                            'residual_signed': inv.residual_signed
-                        }
+        if counterpart_aml_dicts:
+            for aml in counterpart_aml_dicts:
+                if aml.get('move_line'):
+                    if aml['move_line'].invoice_id:
+                        inv = aml['move_line'].invoice_id
+                        if inv.type == 'out_invoice':
+                            invoice_ids |= inv
+                            ctx_inv[inv.id] = {
+                                'amount_total': inv.amount_total,
+                                'amount_total_company_signed': inv.amount_total_company_signed,
+                                'amount_total_signed': inv.amount_total_signed,
+                                'residual': inv.residual if inv.residual != 0.0 else inv.amount_total,
+                                'residual_company_signed': inv.residual_company_signed,
+                                'residual_signed': inv.residual_signed
+                            }
         move = super(AccountBankStatementLine, self).process_reconciliation(counterpart_aml_dicts=counterpart_aml_dicts, payment_aml_rec=payment_aml_rec, new_aml_dicts=new_aml_dicts)
         if not self.cfdi_is_required():
             return move

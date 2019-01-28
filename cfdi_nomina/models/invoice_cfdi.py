@@ -15,26 +15,29 @@ logging.basicConfig(level=logging.INFO)
 def getAntiguedad(date_from, date_to):
     FechaInicioRelLaboral = datetime.strptime(date_from, "%Y-%m-%d")
     FechaFinalPago = datetime.strptime(date_to, "%Y-%m-%d")
-    FechaFinalPago = FechaFinalPago +relativedelta.relativedelta(days=+1)
-
+    FechaFinalPago = FechaFinalPago +relativedelta.relativedelta(days=+0)
     difference = relativedelta.relativedelta(FechaFinalPago, FechaInicioRelLaboral)
+
     years = difference.years
     months = difference.months
     days = difference.days
-    logging.info("-- Difference is %s year, %s months, %s days " %(years, months, days))
+    
     p_diff = ""
-    # Si la diferenciaAnhos y diferenciaMeses son menores o iguales a 0, se coloca la antiguedad en formato P{diferenciaDias}D
     if (years <= 0 and months <= 0):
+        logging.info("-- PD - Difference is %s year, %s months, %s days " %(years, months, days))
         p_diff = "P%sD"%(days)
-    # Si la diferenciaAnhos es mayor a 0 y la diferenciaMeses es igual a 0, se coloca la antiguedad en formato P{diferenciaAnhs}Y{diferenciaDias}D
-    if (years > 0 and months <= 0):
-        p_diff = "P%sY%sD"%(years, days)
-    # Si la diferenciaAnhos es menor o igual a 0 y la diferenciaMeses es mayor a 0, se coloca la antiguedad en el formato P{diferenciaMeses}M{diferenciaDias}D
+        return p_diff
+
     if (years <= 0 and months > 0):
+        logging.info("-- PMD - Difference is %s year, %s months, %s days " %(years, months, days))
         p_diff = "P%sM%sD"%(months, days)
-    # Si la diferenciaAnhos es mayor a 0 y la diferenciaMeses es mayor a 0, se coloca la antiguedad en formato P{diferenciaAnhos}Y{diferenciaMeses}M{diferenciaDias}D
+        return p_diff
+
     if (years > 0 and months > 0):
+        logging.info("-- PYMD - Difference is %s year, %s months, %s days " %(years, months, days))
         p_diff = "P%sY%sM%sD"%(years, months, days)
+        return p_diff
+
     return p_diff
 
 class AccountCfdi(models.Model):
@@ -145,6 +148,7 @@ class AccountCfdi(models.Model):
         fecha_alta = empleado.fecha_alta or contract_id.date_start or False
 
         antiguedad = getAntiguedad(fecha_alta, rec.date_to)
+        print "Antiguedad", antiguedad, "FechaInicioRelLaboral", fecha_alta, "FechaFinalPago", rec.date_to
         riesgo_puesto = (empleado.job_id and empleado.job_id.riesgo_puesto_id and empleado.job_id.riesgo_puesto_id.code) or (company.riesgo_puesto_id and company.riesgo_puesto_id.code) or False
         receptor_attribs = {
             "Curp": empleado.curp or "",

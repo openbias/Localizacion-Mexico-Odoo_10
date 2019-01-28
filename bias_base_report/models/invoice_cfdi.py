@@ -169,9 +169,6 @@ class AccountCfdi(models.Model):
         if ctx['type'] in ['pagos', 'nomina']:
             self.cfdi_datas['complemento'] = getattr(self, '%s_info_complemento' % ctx['type'])()
 
-
-        print "Total 000 1", self.cfdi_datas['comprobante']["Total"]
-
         if ctx['type'] in ['invoice']:
             Subtotal = float(self.cfdi_datas['comprobante']['SubTotal'])
             Descuento = float(self.cfdi_datas['comprobante']['Descuento'])
@@ -190,8 +187,6 @@ class AccountCfdi(models.Model):
                     TotaldeTraslados = float(addenda['imploc_attribs'].get('TotaldeTraslados', "0.0"))
                     total = total + TotaldeTraslados - TotaldeRetenciones
                     self.cfdi_datas['comprobante']["Total"] = '%.*f' % (decimal_precision, total)
-        print "Total 000 2", self.cfdi_datas['comprobante']["Total"]
-        print "--------- "
 
         datas = json.dumps(self.cfdi_datas, sort_keys=True, indent=4, separators=(',', ': '))
         logging.info(datas)

@@ -13,8 +13,8 @@
                         <page string="CFDI" name="cfdi">
                             <group>
                                 <group>
-                                    <field name="regimen_id" string="Régimen Fiscal" groups="cfd_mx.group_cfd_mx_manager"/>
-                                    <field name="usocfdi_id" string="Uso CFDI" groups="cfd_mx.group_cfd_mx_manager"/>
+                                    <field name="regimen_id" string="Régimen Fiscal"/>
+                                    <field name="usocfdi_id" string="Uso CFDI"/>
                                     <field name="formapago_id"/>
                                     <field name="metodopago_id" />
                                     <field name="cfdi_addenda" />
