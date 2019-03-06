@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+
+        <template id="assets_common" name="nomina_assets_common" inherit_id="report.assets_common">
+            <xpath expr="." position="inside">
+                <link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet"/>
+                <link href="/cfdi_nomina/static/src/less/layout_background.less" rel="stylesheet" type="text/less"/>
+            </xpath>
+        </template>
+
         
         <record id="view_company_form_inherit_riesgo" model="ir.ui.view">
             <field name="name">view.company.form.inherit.riesgo</field>

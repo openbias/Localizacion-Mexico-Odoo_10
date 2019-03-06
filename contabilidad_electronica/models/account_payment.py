@@ -129,7 +129,7 @@ class account_bank_statement_line(models.Model):
         self.benef_id = None
 
 
-    def process_reconciliation_cont_elect(self, move_id, counterpart_aml_dicts=None, payment_aml_rec=None, new_aml_dicts=None):
+    def process_reconciliation_cont_elect(self, move_ids, counterpart_aml_dicts=None, payment_aml_rec=None, new_aml_dicts=None):
         context = self._context
         cur_obj = self.env['res.currency']
         model_obj = self.env['ir.model.data']
@@ -139,47 +139,48 @@ class account_bank_statement_line(models.Model):
             'cheque': self.env['contabilidad_electronica.cheque'],
             'otro': self.env['contabilidad_electronica.otro.metodo.pago']
         }
-        st_line = move_id.statement_line_id
-        if not st_line.ttype:
-            return True
-        currency_id = st_line.currency_id and st_line.currency_id or st_line.company_id.currency_id or None
-        if st_line.ttype == 'trans' and not st_line.cta_origen_id and not st_line.cta_destino_id:
-            return True
-        if st_line.ttype == 'cheque' and not st_line.cta_origen_id and not st_line.benef_id:
-            return True
-        for move_line in move_id.line_ids:
-            if st_line.ttype == 'trans':
-                vals = {
-                    'cta_ori_id': st_line.cta_origen_id.id,
-                    'cta_dest_id': st_line.cta_destino_id.id,
-                    'fecha': st_line.date,
-                }
-            elif st_line.ttype == 'cheque':
-                vals = {
-                    'cta_ori_id': st_line.cta_origen_id.id,
-                    'num': st_line.num_cheque,
-                    'benef_id': st_line.benef_id.id,
-                    'fecha': st_line.date
-                }
-            else:
-                vals = {
-                    'metodo_id': st_line.metodo_pago_id.id,
-                    'benef_id': st_line.benef_id.id,
-                    'fecha': st_line.date
-                }
-            vals.update({
-                "move_line_id": move_line.id,
-                "monto": st_line.amount
-            })
-            if currency_id and self.currency_id.name != "MXN":
-                tipo_cambio = self._get_tipocambio(st_line.date)
+        for move_id in move_ids:
+            st_line = move_id.statement_line_id
+            if not st_line.ttype:
+                return True
+            currency_id = st_line.currency_id and st_line.currency_id or st_line.company_id.currency_id or None
+            if st_line.ttype == 'trans' and not st_line.cta_origen_id and not st_line.cta_destino_id:
+                return True
+            if st_line.ttype == 'cheque' and not st_line.cta_origen_id and not st_line.benef_id:
+                return True
+            for move_line in move_id.line_ids:
+                if st_line.ttype == 'trans':
+                    vals = {
+                        'cta_ori_id': st_line.cta_origen_id.id,
+                        'cta_dest_id': st_line.cta_destino_id.id,
+                        'fecha': st_line.date,
+                    }
+                elif st_line.ttype == 'cheque':
+                    vals = {
+                        'cta_ori_id': st_line.cta_origen_id.id,
+                        'num': st_line.num_cheque,
+                        'benef_id': st_line.benef_id.id,
+                        'fecha': st_line.date
+                    }
+                else:
+                    vals = {
+                        'metodo_id': st_line.metodo_pago_id.id,
+                        'benef_id': st_line.benef_id.id,
+                        'fecha': st_line.date
+                    }
                 vals.update({
-                    "moneda_id": self.currency_id.id,
-                    "tipo_cambio":  tipo_cambio
+                    "move_line_id": move_line.id,
+                    "monto": st_line.amount
                 })
-            print "st_line", st_line
-            print "vals", vals
-            obj[st_line.ttype].create(vals)
+                if currency_id and self.currency_id.name != "MXN":
+                    tipo_cambio = self._get_tipocambio(st_line.date)
+                    vals.update({
+                        "moneda_id": self.currency_id.id,
+                        "tipo_cambio":  tipo_cambio
+                    })
+                print "st_line", st_line
+                print "vals", vals
+                obj[st_line.ttype].create(vals)
 
     def _get_tipocambio(self, date_invoice):
         model_obj = self.env['ir.model.data']

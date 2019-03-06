@@ -101,6 +101,8 @@
                 <field name="credit_note" position="after" >
                     <field name="total" readonly="1" />
                     <field name="concepto" />
+                    <field name="tipo_nomina_especial" />
+                    <field name="tipo_nomina" />
                     <field name="fecha_pago" />
                     <field name="es_sncf" invisible="1" />
                     <field name="source_sncf" />
@@ -169,6 +171,7 @@
             <field name="arch" type="xml">
                 <field name="name" position="after">
                     <field name="concepto"/>
+                    <field name="tipo_nomina_especial" />
                     <field name="tipo_nomina" />
                 </field>
                 <notebook position="inside">

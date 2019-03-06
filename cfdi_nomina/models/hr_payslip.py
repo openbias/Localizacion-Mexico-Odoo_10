@@ -91,13 +91,35 @@ class HrPayslipRun(models.Model):
         return True
 
     @api.one
-    @api.depends('slip_ids', 'source_sncf', 'amount_sncf')
+    @api.depends('slip_ids', 'source_sncf', 'amount_sncf', 'tipo_nomina_especial')
     def _compute_sncf(self):
+        tipo_nomina = 'O' if self.tipo_nomina_especial == 'ord' else 'E'
         self.es_sncf = True if self.source_sncf else False
+        self.tipo_nomina = tipo_nomina
+        self.sudo().slip_ids.write({
+            "source_sncf": self.source_sncf,
+            "amount_sncf": self.amount_sncf,
+            "tipo_nomina": tipo_nomina,
+            "tipo_nomina_especial": self.tipo_nomina_especial
+        })
+        """
         for line in self.sudo().slip_ids:
             line.source_sncf = self.source_sncf
             line.amount_sncf = self.amount_sncf
+        """
         return True
+
+    @api.one
+    @api.depends('slip_ids', 'tipo_nomina_especial')
+    def _compute_tipo_nomina(self):
+        if self.tipo_nomina_especial:
+            tipo_nomina = 'O' if self.tipo_nomina_especial == 'ord' else 'E'
+            print "tipo_nomina", tipo_nomina
+            for line in self.sudo().slip_ids:
+                line.tipo_nomina = tipo_nomina
+                line.tipo_nomina_especial = self.tipo_nomina_especial
+                print "line", line.name, tipo_nomina, line.tipo_nomina, line.tipo_nomina_especial
+            self.tipo_nomina = tipo_nomina
 
     @api.one
     @api.depends('fecha_pago', 'concepto', 'slip_ids', 'slip_ids.total')
@@ -106,10 +128,9 @@ class HrPayslipRun(models.Model):
             self.total = 0.0
         else:
             self.sudo().slip_ids.write({
-                    'fecha_pago': self.fecha_pago, 
-                    'concepto': self.concepto,
-                    'source_sncf': self.source_sncf,
-                    'amount_sncf': self.amount_sncf })
+                "fecha_pago": self.fecha_pago, 
+                "concepto": self.concepto
+            })
             p_total = 0.0
             for line in self.sudo().slip_ids:
                 p_total += line.total
@@ -132,6 +153,13 @@ class HrPayslipRun(models.Model):
     eval_state = fields.Boolean('Eval State', compute='_compute_state')
     fecha_pago = fields.Date(string="Fecha pago", required=True)
     concepto = fields.Char(string="Concepto", required=True)
+
+    tipo_nomina_especial = fields.Selection([
+            ('ord', 'Nomina Ordinaria'),
+            ('ext_nom', 'Nomina Extraordinaria'),
+            ('ext_agui', 'Extraordinaria Aguinaldo')],
+        string="Tipo Nomina Especial", default="ord")
+    tipo_nomina = fields.Selection(selection=CATALOGO_TIPONOMINA, string=u"Tipo Nómina", default='O', compute='_compute_sncf')
 
     def _confirm_sheet_run_date(self):
         ids = self.ids
@@ -316,10 +344,15 @@ class HrPayslip(models.Model):
                     break
         return True
 
+    tipo_nomina_especial = fields.Selection([
+            ('ord', 'Nomina Ordinaria'),
+            ('ext_nom', 'Nomina Extraordinaria'),
+            ('ext_agui', 'Extraordinaria Aguinaldo')],
+        string="Tipo Nomina Especial", default="ord")
+    tipo_nomina = fields.Selection(selection=CATALOGO_TIPONOMINA, string=u"Tipo Nómina", default='O')
     currency_id = fields.Many2one('res.currency', string='Currency',
             required=True, readonly=True, 
             default=_default_currency, track_visibility='always')
-    tipo_nomina = fields.Selection(selection=CATALOGO_TIPONOMINA, string=u"Tipo Nómina", required=True, default='O')
     fecha_pago = fields.Date(string="Fecha pago", required=True, default=_default_fecha_pago)
     retenido = fields.Monetary(string="ISR Retenido", copy=False)
     descuento = fields.Monetary(string="Total Deducciones sin ISR (Descuento)", copy=False)

@@ -252,6 +252,8 @@ class CFDITimbresSat(models.Model):
         return urllib.pathname2url(url)
 
 
+
+
     def getReportUuid(self, dateFrom, dateTo):
         ir_module = self.env['ir.module.module']
         cfdi_ingreso, cfdi_egreso, cfdi_pago, cfdi_nomina, cfdi_noencontrado = [], [], [], [], []

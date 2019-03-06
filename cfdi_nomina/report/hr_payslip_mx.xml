@@ -2,7 +2,7 @@
 <odoo>
     <data>
 
-        <template id="report_hr_payslip_mx_document">
+        <template id="report_hr_payslip_mx_document_old">
             <t t-call="report.html_container">
                 <div class="page">
 
@@ -211,26 +211,417 @@
                                 </td>
                             </tr>
                         </table>
-<!--                         <table class="table table-condensed" style="width: 100%; font-size: 10px;">
-                            <tr>
-                                <td colspan="3" style="width: 100%;">
-                                    <t t-if="o.sello_sat">
-                                        <strong>Sello Digital CFDI: </strong> <t t-esc="o.get_info_sat(o.sello_sat)"/>
-                                    </t>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" style="width: 100%;">
-                                    <t t-if="o.cadena_sat">
-                                        <strong>Cadena original del complemento de certificación SAT: </strong><br/>
-                                        <t t-esc="o.get_info_sat(o.cadena_sat)"/>
-                                    </t>
-                                </td>
-                            </tr>
-                        </table> -->
                 </div>
             </t>
         </template>
+
+
+
+
+        <template id="recibo">
+
+            <div class="o_nomina" style="width:100%; min-height:460px; border: 0px solid grey;">
+                <!-- ENCABEZADO -->
+                <div class="row" style="margin-top: 0px; margin-bottom: 0px;">
+                    <!-- Logotipo -->
+                    <div class="col-xs-3 text-center">
+                        <div style="text-align:center; height:60px;">
+                            <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" class="img img-responsive" style="max-height:60px;"/>
+                        </div>
+                    </div>
+                    <!-- Empresa -->
+                    <div class="empresa col-xs-6 text-center">
+                        <address t-att-style="Address">
+                            <span t-field="o.company_id.partner_id.name" t-att-style="Address_Company"/><br/>
+                            RFC:<span t-field="o.company_id.partner_id.vat"/>, RPU:<span t-field="o.company_id.registro_patronal_id.name"/><br/>
+                            <span t-field="o.company_id.partner_id.street"/>
+                            <span t-field="o.company_id.partner_id.noExterior"/>,
+                            <span t-field="o.company_id.partner_id.street2"/><br/>
+                            <span t-field="o.company_id.partner_id.city"/>,
+                            <span t-field="o.company_id.partner_id.state_id.name"/>,
+                            <span t-field="o.company_id.partner_id.country_id.name"/>,
+                            <span t-field="o.company_id.partner_id.zip"/>
+                        </address>
+                    </div>
+                    <div class="col-xs-3" style="text-align: right;">
+                        <div style="float: right; width:80px !important; height:80px !important; background-color:#dddddd;">
+                            <img t-if="o.qrcode" t-att-src="'data:image/png;base64,%s' % o.qrcode" style="width:80px !important; height:80px !important;"/>
+                        </div>
+                    </div>
+                </div>
+                <!-- Datos empleado -->
+                <table class="empleado table table-condensed" style="margin-bottom: 1px;">
+                    <tr>
+                        <td class="etiqueta">NumEmp:</td>
+                        <td class="dato"><span t-field="o.employee_id.cod_emp"/></td>
+                        <td class="etiqueta">RFC:</td>
+                        <td class="dato"><span t-field="o.employee_id.rfc"/></td>
+                        <td class="etiqueta">Fecha Ingreso:</td>
+                        <td class="dato"><span t-field="o.employee_id.fecha_alta" t-field-options="{&quot;format&quot;: &quot;yyyy-MMM-dd&quot;}"/></td>
+                    </tr>
+                    <tr>
+                        <td class="etiqueta">Nombre:</td>
+                        <td class="dato"><span t-field="o.employee_id.nombre_completo"/></td>
+                        <td class="etiqueta">NSS:</td>
+                        <td class="dato"><span t-field="o.employee_id.imss"/></td>
+                        <td class="etiqueta">Quincena:</td>
+                        <td class="dato"><span t-field="o.concepto"/></td>
+                    </tr>
+                    <tr>
+                        <td class="etiqueta">Depto.:</td>
+                        <td class="dato"><span t-field="o.employee_id.department_id.name"/></td>
+                        <td class="etiqueta">Dias Trab.:</td>
+                        <td class="dato"><span t-esc="diast"/></td>
+                        <td class="etiqueta">Período:</td>
+                        <td class="dato"><strong t-esc="o.get_periodo()"/></td>
+                    </tr>
+                    <tr>
+                        <td class="etiqueta">&amp;nbsp;</td>
+                        <td class="dato">&amp;nbsp;</td>
+                        <td class="etiqueta">Faltas:</td>
+                        <td class="dato"><span t-esc="fal['total']"/></td>
+                        <td class="etiqueta">Incapacidad:</td>
+                        <td class="dato"><span t-esc="inca['total']"/> dia(s)</td>
+                    </tr>
+                </table>
+                <div style="font-size: 7pt;">
+                    <table class="table table-condensed" id="info" style="width: 100%; margin-bottom: 1px;">
+                        <tr>
+                            <td style="width: 50%; text-align: center; vertical-align:top;">
+                            <!-- PERCEPCIONES -->
+                                <table class="pyd table table-condensed" style="width: 100%; margin-bottom: 1px; background-color: #EEE;">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="4"><span>PERCEPCIONES</span> </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="width: 10%;"><strong>C.SAT: </strong></td>
+                                            <td style="width: 60%;"><strong>Concepto: </strong></td>
+                                            <td style="width: 10%;"><strong>Dias: </strong></td>
+                                            <td style="width: 20%; text-align: right;"><strong>Monto: </strong></td>
+                                        </tr>
+                                        <t t-if="sue['total'] &gt; 0">
+                                            <tr> <!-- Sueldo -->
+                                                <td><span t-esc="sue['codesat']"/></td>
+                                                <td><span t-esc="sue['name']"/></td>
+                                                <td><span t-esc="dia['total']"/></td>
+                                                <td style="text-align: right;"><span t-esc="sue['total']" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/></td>
+                                            </tr>
+                                        </t>
+
+                                        <!-- 
+                                        <t t-if="sbq['total'] &gt; 0">
+                                            <tr> 
+                                                <td><span t-esc="sbq['codesat']"/></td>
+                                                <td><span t-esc="sbq['name']"/></td>
+                                                <td><span t-esc="sbq['total']"/></td>
+                                                <td style="text-align: right;"><span t-esc="sbq['total']" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/></td>
+                                            </tr>
+                                        </t>
+                                        <t t-if="hext['total'] &gt; 0">
+                                            <tr> 
+                                                <td><span t-esc="hext['codesat']"/></td>
+                                                <td><span t-esc="hext['name']"/></td>
+                                                <td><span t-esc="hext['total']"/></td>
+                                                <td style="text-align: right;"><span t-esc="hext['total']" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/></td>
+                                            </tr>
+                                        </t>
+                                        <t t-if="des['total'] &gt; 0">
+                                            <tr> 
+                                                <td><span t-esc="des['codesat']"/></td>
+                                                <td><span t-esc="des['name']"/></td>
+                                                <td><span t-esc="des['total']"/></td>
+                                                <td style="text-align: right;"><span t-esc="des['total']" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/></td>
+                                            </tr>
+                                        </t>
+                                        <t t-if="asi['total'] &gt; 0">
+                                            <tr> 
+                                                <td><span t-esc="asi['codesat']"/></td>
+                                                <td><span t-esc="asi['name']"/></td>
+                                                <td><span t-esc="asi['total']"/></td>
+                                                <td style="text-align: right;"><span t-esc="asi['total']" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/></td>
+                                            </tr>
+                                        </t>
+                                        <t t-if="pun['total'] &gt; 0">
+                                            <tr> 
+                                                <td><span t-esc="pun['codesat']"/></td>
+                                                <td><span t-esc="pun['name']"/></td>
+                                                <td><span t-esc="pun['total']"/></td>
+                                                <td style="text-align: right;"><span t-esc="pun['total']" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/></td>
+                                            </tr>
+                                        </t>
+                                        -->
+
+                                        <t t-if="sdd['total'] &gt; 0">
+                                            <tr> <!-- Séptimo día -->
+                                                <td><span t-esc="sdd['codesat']"/></td>
+                                                <td><span t-esc="sdd['name']"/></td>
+                                                <td><span t-esc="sdu['total']"/></td>
+                                                <td style="text-align: right;"><span t-esc="sdd['total']" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/></td>
+                                            </tr>
+                                        </t>
+                                        <t t-if="vac['total'] &gt; 0">
+                                            <tr> <!-- Vacaciones -->
+                                                <td><span t-esc="vac['codesat']"/></td>
+                                                <td><span t-esc="vac['name']"/></td>
+                                                <td><span t-esc="ddv['total']"/></td>
+                                                <td style="text-align: right;"><span t-esc="vac['total']" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/></td>
+                                            </tr>
+                                        </t>
+                                        <t t-if="pvac['total'] &gt; 0">
+                                            <tr> <!-- Prima vacacional -->
+                                                <td><span t-esc="pvac['codesat']"/></td>
+                                                <td><span t-esc="pvac['name']"/></td>
+                                                <td><span t-esc="ddv['total']"/></td>
+                                                <td style="text-align: right;"><span t-esc="pvac['total']" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/></td>
+                                            </tr>
+                                        </t>
+                                        <t t-if="aaa['total'] &gt; 0">
+                                            <tr>  <!-- Cve. Prima Vac. anterior -->
+                                                <td><span t-esc="aaa['codesat']"/></td>
+                                                <td><span t-esc="aaa['name']"/></td>
+                                                <td/>
+                                                <td style="text-align: right;"><span t-esc="aaa['total']" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/></td>
+                                            </tr>
+                                        </t>
+                                        <t t-if="dela['total'] &gt; 0">
+                                            <tr> <!-- Descanso laborado -->
+                                                <td><span t-esc="dela['codesat']"/></td>
+                                                <td><span t-esc="dela['name']"/></td>
+                                                <td><span t-esc="dias_des_lab['total']"/></td>
+                                                <td style="text-align: right;"><span t-esc="dela['total']" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/></td>
+                                            </tr>
+                                        </t>
+                                        <t t-if="prdo['total'] &gt; 0">
+                                            <tr> <!-- Prima dominical -->
+                                                <td><span t-esc="prdo['codesat']"/></td>
+                                                <td><span t-esc="prdo['name']"/></td>
+                                                <td><span t-esc="dias_prdo['total']"/></td>
+                                                <td style="text-align: right;"><span t-esc="prdo['total']" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/></td>
+                                            </tr>
+                                        </t>
+                                        <t t-if="fela['total'] &gt; 0">
+                                            <tr> <!-- Festivo laborado -->
+                                                <td><span t-esc="fela['codesat']"/></td>
+                                                <td><span t-esc="fela['name']"/></td>
+                                                <td><span t-esc="dias_fes_lab['total']"/></td>
+                                                <td style="text-align: right;"><span t-esc="fela['total']" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/></td>
+                                            </tr>
+                                        </t>
+                                        <t t-if="agpre['total'] &gt; 0">
+                                            <tr> <!-- Aguinaldo -->
+                                                <td><span t-esc="agpre['codesat']"/></td>
+                                                <td>Aguinaldo</td>
+                                                <td/>
+                                                <td style="text-align: right;"><span t-esc="agpre['total']" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/></td>
+                                            </tr>
+                                        </t>
+                                        <tr>
+                                            <td style="text-align: right; padding-bottom: 0px;" colspan="3">
+                                                <strong>Total Percepciones:</strong>
+                                            </td>
+                                            <td style="text-align: right; padding-bottom: 0px;">
+                                                <strong><span t-esc="total_p" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/></strong>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td style="width: 50%; vertical-align:top;">
+                                <!-- DEDUCCIONES -->
+                                <table class="pyd table table-condensed" style="width: 100%; margin-bottom: 1px; background-color: #EEE;">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="3"><span>DEDUCCIONES</span> </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>C.SAT: </strong></td>
+                                            <td><strong>Concepto: </strong></td>
+                                            <td style="text-align: right;"><strong>Monto: </strong></td>
+                                        </tr>
+                                        <t t-if="isr['total'] &gt; 0">
+                                            <tr> <!-- ISR -->
+                                                <td><span t-esc="isr['codesat']"/></td>
+                                                <td>
+                                                    <t t-if="isrs &gt; 0"> <span t-esc="isr['name']"/> </t>
+                                                    <t t-else=""> <span t-esc="sae['name']"/> </t>
+                                                </td>
+                                                <td style="text-align: right;"><span t-esc="isrs" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/></td>
+                                            </tr>
+                                        </t>
+                                        <t t-if="rdimss['total'] &gt; 0">
+                                            <tr>  <!-- Retención IMSS -->
+                                                <td><span t-esc="rdimss['codesat']"/></td>
+                                                <td><span t-esc="rdimss['name']"/></td>
+                                                <td style="text-align: right;"><span t-esc="rdimss['total']" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/></td>
+                                            </tr>
+                                        </t>
+                                        <t t-if="rci['total'] &gt; 0">
+                                            <tr>  <!-- Retención INFONAVIT -->
+                                                <td><span t-esc="rci['codesat']"/></td>
+                                                <td><span t-esc="rci['name']"/></td>
+                                                <td style="text-align: right;"><span t-esc="rci['total']" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/></td>
+                                            </tr>
+                                        </t>
+                                        <t t-if="otp['total'] &gt; 0">
+                                            <tr>  <!-- Otras Préstamo -->
+                                                <td><span t-esc="otp['codesat']"/></td>
+                                                <td><span t-esc="otp['name']"/></td>
+                                                <td style="text-align: right;"><span t-esc="otp['total']" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/></td>
+                                            </tr>
+                                        </t>
+                                        <t t-if="isragt['total'] &gt; 0">
+                                            <tr>  <!-- Aguinaldo -->
+                                                <td><span t-esc="isragt['codesat']"/></td>
+                                                <td>ISR Aguinaldo</td>
+                                                <td style="text-align: right;"><span t-esc="isragt['total']" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/></td>
+                                            </tr>
+                                        </t>
+                                        <tr>
+                                            <td style="text-align: right;" colspan="2">
+                                                <strong>Total Deducciones:</strong></td>
+                                            <td style="text-align: right;">
+                                                <strong><span t-esc="total_d" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/></strong>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <t t-if="note"><div style="padding-top:20px; text-align: right;">(<strong>Nota:</strong> <span t-esc="note"/>)</div></t>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!-- Textos legales, firma, Neto y datos del CFDi -->
+                <t t-set="nap_letra" t-value="o.get_cantLetra(nap)[0]"/>  <!-- Neto a pagar en letra -->
+                <table class="table table-condensed" id="info" style="width: 100%; margin-bottom: 0px;">
+                    <tr class="pagar">
+                        <td colspan="2" style="text-align:right; white-space: nowrap;">
+                            A Pagar: <strong><span t-esc="nap" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                            (<span t-esc="nap_letra"/>)</strong>
+                        </td>
+                    </tr>
+                    <tr class="recibi">
+                        <td style="text-align: justify; background-color: #fff;">
+                            Recibí de conformidad el pago mostrado en este recibo por el sueldo y Prestaciones que me corresponden por los
+                            trabajos que he desempeñado declaro que me considero legal y satisfactoriamente pagado hasta la fecha en virtud de
+                            haberse cumplido en todas sus partes en la Ley Federal del Trabajo. Y que no se me adeuda cantidad alguna por
+                            concepto de sueldos y salarios, tiempo extra, vacaciones, prima vacacional y aguinaldo.
+                        </td>
+                        <td style="width:35%; text-align: center; vertical-align:bottom;">
+                            <div style="border-top: 1px solid #808080; padding-top: 5px;">Firma del Empleado</div>
+                        </td>
+                    </tr>
+                </table>
+                <div>
+                    <div class="sello" style="display: inline-block; word-wrap:break-word; text-align: left;">
+                        <t t-if="o.sello_sat">
+                            <strong>Sello Digital CFDI: </strong><br/>
+                            <t t-esc="o.slice_info(o.sello_sat,172)"/><br/>
+                        </t>
+                        <t t-if="o.cadena">
+                            <strong>Cadena original del complemento de certificación SAT: </strong><br/>
+                            <t t-esc="o.slice_info(o.cadena_sat,172)"/>
+                        </t>
+                    </div>
+                    <div class="sello" style="text-align: center;">
+                        <strong>Este documento es una representación impresa de un CFDi-Nómina. </strong> --
+                        <strong>FechaTimbrado:</strong><span t-esc="o.fecha_timbrado"/>,<br/>
+                        <strong>UUID:</strong><span t-esc="o.uuid"/>,
+                        <strong>Certificado:</strong><span t-esc="o.noCertificado"/>,
+                        <strong>CertificadoSAT:</strong><span t-esc="o.certificado_sat"/>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </template>
+
+
+
+        <template id="report_hr_payslip_mx_document">
+            <t t-call="report.html_container">
+                <div class="page">
+
+                    <!-- Faltas e incapacidades -->
+                    <t t-set="fal" t-value="o.get_lines_reportcode('FAL')"/>
+                    <t t-set="inca" t-value="o.get_lines_reportcode('INCA')"/>
+
+
+                    <!-- Percepciones -->
+                    <!--
+                    <t t-set="sbq" t-value="o.get_lines_reportcode('SBQ')"/>
+                    <t t-set="hext" t-value="o.get_lines_reportcode('HEXT')"/>
+                    <t t-set="des" t-value="o.get_lines_reportcode('DES')"/>
+                    <t t-set="asi" t-value="o.get_lines_reportcode('ASI')"/>
+                    <t t-set="pun" t-value="o.get_lines_reportcode('PUN')"/>
+                    -->
+
+                    <t t-set="sue" t-value="o.get_lines_reportcode('SUE')"/>
+                    <t t-set="vac" t-value="o.get_lines_reportcode('VAC')"/>
+                    <t t-set="sdd" t-value="o.get_lines_reportcode('SDD')"/>
+                    <t t-set="aaa" t-value="o.get_lines_reportcode('AAA')"/>
+                    <t t-set="dela" t-value="o.get_lines_reportcode('DELA')"/>
+                    <t t-set="fela" t-value="o.get_lines_reportcode('FELA')"/>
+                    <t t-set="prdo" t-value="o.get_lines_reportcode('PRDO')"/>
+                    <t t-set="pvac" t-value="o.get_lines_reportcode('PVAC')"/>
+                    <!-- Aguinaldo -->
+                    <t t-set="agpre" t-value="o.get_lines_reportcode('AGPRE')"/>
+
+                    <!-- Dias -->
+                    <t t-set="dia" t-value="o.get_lines_reportcode('DIA')"/>
+                    <t t-set="sdu" t-value="o.get_lines_reportcode('SDU')"/>
+                    <t t-set="ddv" t-value="o.get_lines_reportcode('DDV')"/>
+                    <t t-set="dias_des_lab" t-value="o.get_lines_reportcode('DIAS_DES_LAB')"/>
+                    <t t-set="dias_fes_lab" t-value="o.get_lines_reportcode('DIAS_FES_LAB')"/>
+                    <t t-set="dias_prdo" t-value="o.get_lines_reportcode('DIAS_PRDO')"/>
+
+                    <t t-set="diast" t-value="dia['total'] + sdu['total']"/>
+
+                    <!-- Deducciones -->
+                    <t t-set="isr" t-value="o.get_lines_reportcode('ISR')"/>
+                    <t t-set="rdimss" t-value="o.get_lines_reportcode('RDIMSS')"/>
+                    <t t-set="rci" t-value="o.get_lines_reportcode('RCI')"/>
+                    <t t-set="otp" t-value="o.get_lines_reportcode('OTP')"/>
+                    <!-- Aguinaldo -->
+                    <t t-set="isragt" t-value="o.get_lines_reportcode('ISRAGT')"/>
+
+                    <!-- Subsidio -->
+                    <t t-set="sae" t-value="o.get_lines_reportcode('SAE')"/>
+                    <t t-set="isrs" t-value="isr['total'] - sae['total']"/>
+
+                    <!-- Totales -->
+                    <t t-set="total_p" t-value="o.get_lines_reportcode('TOP')['total']"/>
+                    <t t-set="nap" t-value="o.get_lines_reportcode('NAP')['total']"/>
+                    <t t-set="total_d" t-value="total_p - nap"/>
+
+                    <t t-if="agpre['total'] &gt; 0">
+                        <t t-set="total_p" t-value="agpre['total']"/>
+                        <t t-set="total_d" t-value="isragt['total']"/>
+                        <t t-set="nap" t-value="total_p - total_d"/>
+                    </t>
+
+                    <!-- Notas -->
+                    <t t-set="note" t-value="o.note"/>
+
+                    <!-- Copia superior -->
+                    <t t-call="cfdi_nomina.recibo"/>
+
+                    <!-- Separador -->
+                    <div style="width:100%; height:20px; margin-top:20px; border-top: 1px dotted #CCC;"/>
+
+                    <!-- Copia inferior -->
+                    <t t-call="cfdi_nomina.recibo"/>
+
+                </div>
+            </t>
+        </template>
+
 
         <template id="report_hr_payslip_mx">
             <t t-call="report.html_container">

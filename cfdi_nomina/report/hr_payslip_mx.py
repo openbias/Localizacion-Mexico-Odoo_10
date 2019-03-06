@@ -75,6 +75,7 @@ class HrPayslip(models.Model):
             datas_tmp['quantity'] = line and line.quantity or 0.0
             datas_tmp['amount'] = line and line.amount or 0.0
             datas_tmp['total'] = line and line.total or 0.0
+        print "code=", code, datas_tmp
         return datas_tmp
 
     def _get_lines_type(self, ttype):
