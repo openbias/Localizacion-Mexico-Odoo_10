@@ -782,23 +782,23 @@ class AccountBankStatementLine(models.Model):
         else:
             self.hide_cfdi_factoraje_id = True
 
-    """
     @api.one
+    @api.depends('journal_id')
     def _compute_hide_formapago_id(self):
         if not self.journal_id:
             self.hide_formapago_id = True
             return
         country_code = self.company_id.partner_id.country_id and self.company_id.partner_id.country_id.code
-        print "country_code", country_code
-        if self.journal_id.id in self.company_id.cfd_mx_journal_ids.ids and self.payment_type == 'inbound' and country_code == "MX":
+        if self.journal_id.id in self.company_id.cfd_mx_journal_ids.ids and country_code=="MX":
             self.hide_formapago_id = False
         else:
             self.hide_formapago_id = True
-    """
 
+    hide_formapago_id = fields.Boolean(compute='_compute_hide_formapago_id', 
+        help="Este campo es usado para ocultar el formapago_id, cuando no se trate de Recibo Electronico de Pago")
     cta_destino_id = fields.Many2one("res.partner.bank", string="Cuenta destino", oldname="cta_destino")
     cta_origen_id = fields.Many2one("res.partner.bank", string="Cuenta origen", oldname="cta_origen")
-    hide_formapago_id = fields.Boolean(default=True, help="Este campo es usado para ocultar el formapago_id, cuando no se trate de Recibo Electronico de Pago")
+    
     formapago_id = fields.Many2one('cfd_mx.formapago', string=u'Forma de Pago')
     formapago_code = fields.Char(related='formapago_id.clave')
     spei_tipo_cadenapago = fields.Selection([
