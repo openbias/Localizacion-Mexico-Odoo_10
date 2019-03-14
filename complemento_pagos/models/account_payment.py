@@ -455,17 +455,19 @@ class AccountPayment(models.Model):
         date_invoice = self.date_invoice_cfdi
         if not date_invoice:
             date_invoice_cfdi = self._compute_date_invoice_cfdi()
-        folio_serie = self._get_folio(self.move_name)
-        folio = folio_serie.get("folio")
-        serie = folio_serie.get("serie")
+        folio_serie = self._get_folio(self.move_name or self.name)
+        folio = get_string_cfdi(folio_serie.get("folio", ""), 25) or ' '
+        serie = get_string_cfdi(folio_serie.get("serie", ""), 40) or ' '
+        print "folio", folio, "serie", serie
+        # serie = folio_serie.get("serie", "")
         cfdi_comprobante = {
             'xmlns:cfdi': 'http://www.sat.gob.mx/cfd/3',
             'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
             'xsi:schemaLocation': 'http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd http://www.sat.gob.mx/Pagos http://www.sat.gob.mx/sitio_internet/cfd/Pagos/Pagos10.xsd',
             'xmlns:pago10': 'http://www.sat.gob.mx/Pagos',
             'Version': '3.3',
-            'Serie': get_string_cfdi(serie or '', 25) or '',
-            'Folio': get_string_cfdi(serie or '', 40) or '',
+            'Serie': get_string_cfdi(serie or '', 25) or ' ',
+            'Folio': get_string_cfdi(folio or '', 40) or ' ',
             'Fecha': date_invoice,
             'NoCertificado': "",
             'Certificado': "",
