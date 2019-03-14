@@ -455,7 +455,7 @@ class AccountPayment(models.Model):
         date_invoice = self.date_invoice_cfdi
         if not date_invoice:
             date_invoice_cfdi = self._compute_date_invoice_cfdi()
-        folio_serie = self._get_folio(self.name)
+        folio_serie = self._get_folio(self.move_name)
         folio = folio_serie.get("folio")
         serie = folio_serie.get("serie")
         cfdi_comprobante = {
@@ -464,8 +464,8 @@ class AccountPayment(models.Model):
             'xsi:schemaLocation': 'http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd http://www.sat.gob.mx/Pagos http://www.sat.gob.mx/sitio_internet/cfd/Pagos/Pagos10.xsd',
             'xmlns:pago10': 'http://www.sat.gob.mx/Pagos',
             'Version': '3.3',
-            'Serie': get_string_cfdi(serie or '', 25) or ' ',
-            'Folio': get_string_cfdi(serie or '', 40) or ' ',
+            'Serie': get_string_cfdi(serie or '', 25) or '',
+            'Folio': get_string_cfdi(serie or '', 40) or '',
             'Fecha': date_invoice,
             'NoCertificado': "",
             'Certificado': "",
@@ -647,7 +647,8 @@ class AccountPayment(models.Model):
                 }
                 if self.currency_id.name != "MXN":
                     pago_attribs["TipoCambioP"] = rate
-                Pagos = Nodo('pago10:Pagos', {"Version": '1.0'}, padre=Complemento)
+                # Pagos = Nodo('pago10:Pagos', {"Version": '1.0'}, padre=Complemento)
+
                 Pago = Nodo('pago10:Pago', pago_attribs, padre=Pagos)
                 NumParcialidad = 2
                 inv_rate = ('%.6f' % (self.cfdi_factoraje_id.currency_id.with_context(date=self.payment_date).compute(1, self.currency_id, round=False))) if self.currency_id != self.cfdi_factoraje_id.currency_id else False
