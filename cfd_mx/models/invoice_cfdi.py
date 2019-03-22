@@ -38,7 +38,7 @@ class AccountCfdi(models.Model):
         SubTotal = round(obj.price_subtotal_sat, dp_cantidad)
         Total = round(obj.amount_total, dp_cantidad)
         cfdi_comprobante = {
-            "Folio": obj.number or '',
+            "Folio": obj.move_name or obj.number or '',
             "Fecha": date_invoice,
             "FormaPago": obj.formapago_id and obj.formapago_id.clave or "99",
             "CondicionesDePago": obj.payment_term_id and obj.payment_term_id.name or 'CONDICIONES',

@@ -27,7 +27,7 @@ Factura Electronica Mexico 3.3
         'data/account_invoice.sql',
 
         'data/xml/service_cron_data.xml',
-        
+        # "data/xml/account_data.xml",
         "data/xml/account.tax.group.xml",
         "data/xml/res.bank.xml",
         "data/xml/cfd_mx.formapago.xml",
@@ -59,5 +59,6 @@ Factura Electronica Mexico 3.3
     'auto_install': False,
 }
 
-
+# No permitir draft de facturas CFDI
+# No permitir cancelar si existe un timbre fiscal
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

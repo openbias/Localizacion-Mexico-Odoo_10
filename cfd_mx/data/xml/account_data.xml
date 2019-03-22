@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+
+        <record id="mt_invoice_cancelled" model="mail.message.subtype">
+            <field name="name">Cancelled</field>
+            <field name="res_model">account.invoice</field>
+            <field name="default" eval="False"/>
+            <field name="description">Invoice cancelled</field>
+        </record>
+
+        <record id="mt_invoice_signed_cfdi" model="mail.message.subtype">
+            <field name="name">Signed</field>
+            <field name="res_model">account.invoice</field>
+            <field name="default" eval="False"/>
+            <field name="description">Invoice signed cfdi</field>
+        </record>
+
+    </data>
+</odoo>

@@ -150,6 +150,26 @@ class CFDITimbresSat(models.Model):
 
 
     @api.multi
+    def action_verificacfdi(self):
+        ctx = {
+            'company_id': self.company_id.id,
+            'force_company': self.company_id.id,
+            'xml': True
+        }
+        cfdiDatas = self.with_context(ctx).get_xml_cfdi()
+        timbreAtrib = cfdiDatas.get('timbreAtrib')
+        sello = timbreAtrib.get('SelloCFD')
+        args = {
+            'id': self.name, 're': self.cfdi_supplier_rfc, 'rr': self.cfdi_customer_rfc, 'tt': self.cfdi_amount, 'fe': str(sello[-10:]).replace("=","")
+        }
+        url = "https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?id={id}&re={re}&rr={rr}&tt={tt}&fe={fe}".format(**args)
+        return {
+            "type": "ir.actions.act_url",
+            "url": url,
+            "target": "new",
+        }
+
+    @api.multi
     def get_xml_cfdi(self, objs=None):
         ctx = dict(self.env.context)
 

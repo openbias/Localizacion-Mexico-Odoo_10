@@ -205,7 +205,7 @@ class AccountInvoice(models.Model):
             self.cfdi_timbre_id and
             self.state not in ['cancel', 'draft', 'paid'] and
             self.type in ['out_invoice', 'out_refund'] and
-            self.journal_id.id in self.env.user.company_id.cfd_mx_journal_ids.ids
+            self.company_id.country_id == self.env.ref('base.mx')
         )
         self.cfdi_is_required = required
     
@@ -409,6 +409,8 @@ class AccountInvoice(models.Model):
         context = dict(self._context)
         tz = self.env.user.tz
         message = ''
+        if not self.number:
+            message += '<li>No se creo un Folio para la Factura</li>'
         if not self.tipo_comprobante:
             message += '<li>No se definio Tipo Comprobante</li>'
         if not self.journal_id.codigo_postal_id:
@@ -469,7 +471,6 @@ class AccountInvoice(models.Model):
             self.with_context(**context).action_raise_message("Error al Generar el XML \n\n %s "%( message.upper() ))
             return False
         return True
-
 
     def get_process_data_xml(self, res):
         Currency = self.env['res.currency']
@@ -576,7 +577,7 @@ class AccountInvoice(models.Model):
         if not context.get('batch', False):
             raise UserError( msg )
         else:
-            self.message_post(body='<ul><li> %s </li></ul>'%msg )
+            self.message_post(body='<ul><li> %s </li></ul>'%msg, subtype='account.mt_invoice_validated' )
         return True
 
     @api.multi
@@ -622,17 +623,17 @@ class AccountInvoice(models.Model):
         }
         result = self.company_id.action_ws_finkok_sat('getsatstatus', cfdi_params)
         if result.get('error'):
-            self.msg_batch( result['error'] )
+            self.message_post(
+                body='<p style="color:red">' + result['error'] + '</p>',
+                subtype='account.mt_invoice_validated')
 
-        cr = self._cr
-        cr.execute("UPDATE cfdi_timbres_sat SET cfdi_cancel_status_sat='%s', cfdi_cancel_escancelable_sat='%s', cfdi_state='%s', cfdi_code_sat='%s' WHERE id=%s "%(
-            result.get('EstatusCancelacion', ''), 
-            result.get('EsCancelable', ''),
-            result.get('Estado', ''),
-            result.get('CodigoEstatus', ''),
-            self.cfdi_timbre_id.id)
-        )
-        cr.commit()
+
+        self.cfdi_timbre_id.write({
+            "cfdi_cancel_status_sat": result.get("EstatusCancelacion"),
+            "cfdi_cancel_escancelable_sat": result.get("EsCancelable"),
+            "cfdi_state": result.get("Estado"),
+            "cfdi_code_sat": result.get("CodigoEstatus")
+        })
         msg = "<b>Proceso de Cancelacion: </b><br />"
         msg += "<ul>"
         msg += '<li>CodigoEstatus = %s </li>'% result.get('CodigoEstatus', '')
@@ -640,12 +641,27 @@ class AccountInvoice(models.Model):
         msg += '<li>EstatusCancelacion = %s </li>'% result.get('EstatusCancelacion', '')
         msg += '<li>EsCancelable = %s </li>'% result.get('EsCancelable', '')
         msg += "</ul>"
+
+        if result.get('Estado') == 'Cancelado':
+            msg_tmp = '<p style="color:blue">' + _('The cancel service has been called with success') + '</p>'
+            msg_tmp += msg
+            self.message_post(
+                body=msg_tmp,
+                subtype='account.mt_invoice_validated')
         if result.get('Estado') == 'No Encontrado':
-            self.message_post(body=msg)
+            msg_tmp = '<p style="color:red">' + _('The cancel service requested failed') + '</p>'
+            msg_tmp += msg
+            self.message_post(
+                body=msg_tmp,
+                subtype='account.mt_invoice_validated')
         if result.get('Estado', '') == 'Vigente' and result.get('EstatusCancelacion', '') == 'En proceso':
             self.cfdi_pending_cancel = result.get('EstatusCancelacion', '')
             self.cfdi_timbre_id.cfdi_cancel_date_rev = (date.today()+relativedelta(days=+3))
-            self.message_post(body=msg)
+            msg_tmp = '<p style="color:red">' + _('The cancel service requested failed') + '</p>'
+            msg_tmp += msg
+            self.message_post(
+                body=msg_tmp,
+                subtype='account.mt_invoice_validated')
         return result
 
     @api.multi
@@ -693,50 +709,87 @@ class AccountInvoice(models.Model):
             'noCertificado': self.cfdi_timbre_id.cfdi_certificate
         }
         result = self.company_id.action_ws_finkok_sat('cancel', cfdi_params)
-        print "res 00002 ", result
-        self.get_process_cancel_data(result)
+        self.cfdi_timbre_id.write({
+            "cfdi_cancel_date_sat": result.get("Fecha"),
+            "cfdi_cancel_status_sat": result.get("EstatusCancelacion"),
+            "cfdi_cancel_code_sat": result.get("MsgCancelacion"),
+            "cfdi_cancel_state": result.get("Status")
+        })
+        if result.get("Acuse"):
+            Attachment = self.env['ir.attachment']
+            fname = "cancelacion_cfd_%s.xml"%(self.cfdi_timbre_id.name or "")
+            attachment_values = {
+                'name': fname,
+                'datas': base64.b64encode( result["Acuse"] ),
+                'datas_fname': fname,
+                'description': 'Cancelar Comprobante Fiscal Digital',
+                'res_model': "cfdi.timbres.sat",
+                'res_id': self.cfdi_timbre_id.id,
+                'type': 'binary'
+            }
+            Attachment.create(attachment_values)
+            attachment_values['res_model'] = self._name
+            attachment_values['res_id'] = self.id
+            Attachment.create(attachment_values)
         return result
 
 
 
     @api.multi
     def action_invoice_cancel_cfdi(self):
+        self.ensure_one()
         if not self.cfdi_is_required:
             return self.action_invoice_cancel()
 
         if self.filtered(lambda inv: inv.state not in ['proforma2', 'draft', 'open']):
-            self.msg_batch("Invoice must be in draft, Pro-forma or open state in order to be cancelled.")
+            self.message_post(
+                body='<p style="color:red">' + _('Invoice must be in draft, Pro-forma or open state in order to be cancelled ') + '</p>',
+                subtype='account.mt_invoice_validated')
 
-        moves = self.env['account.move']
-        for inv in self:
-            if inv.move_id:
-                moves += inv.move_id
-            if inv.payment_move_line_ids:
-                self.msg_batch("Invoice must be in draft, Pro-forma or open state in order to be cancelled.")
-
-        """
-        res = self.action_get_status_sat()
-        if not res:
-            return True
-        if res.get('Estado', '') == 'Cancelado':
-            return self.action_invoice_cancel()
-        """
+        if self.payment_move_line_ids:
+            self.message_post(
+                body='<p style="color:red">' + _('You cannot cancel an invoice which is partially paid. You need to cancel payment entries first ') + '</p>',
+                subtype='account.mt_invoice_validated')
 
         self.action_invoice_cancel_cfdi_sat()
-        
         res = self.action_get_status_sat()
         if not res:
             return True
         if res.get('Estado', '') == 'Cancelado':
             return self.action_invoice_cancel()
-
         return True
 
+    @api.multi
+    def cfdi_cancel_is_required(self):
+        self.ensure_one()
+        required = (
+            self.uuid and
+            self.cfdi_timbre_id and
+            self.state in ['cancel'] and
+            self.type in ['out_invoice', 'out_refund'] and
+            self.company_id.country_id == self.env.ref('base.mx')
+        )
+        return required
+
+    @api.multi
+    def action_invoice_draft(self):
+        not_allow = self.filtered(lambda inv: inv.cfdi_cancel_is_required())
+        not_allow.message_post(
+            subject=_('An error occurred while setting to draft.'),
+            message_type='comment',
+            body='<p style="color:red">' +  _('This invoice does not have a properly cancelled XML and '
+                   'it was signed at least once, please cancel properly with '
+                   'the SAT.') + '</p>' )
+        allow = self - not_allow
+        allow.write({'date_invoice_cfdi': False})
+        return super(AccountInvoice, self - not_allow).action_invoice_draft()
 
 
-
-
-
+    @api.multi
+    def action_verificacfdi(self):
+        if self.cfdi_timbre_id:
+            return self.cfdi_timbre_id.action_verificacfdi()
+        return True
 
 
 

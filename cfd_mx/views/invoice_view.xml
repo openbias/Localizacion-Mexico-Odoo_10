@@ -78,6 +78,7 @@
                             </group>
                             <group>
                                 <button name="action_test_addenda" type="object" states="draft,proforma2" string="Test Addenda" class="oe_highlight" groups="account.group_account_invoice"/>
+                                <button name="action_verificacfdi" type="object" states="cancel,open,paid" string="Verifica CFDI SAT" class="oe_highlight" attrs="{'invisible': [('cfdi_timbre_id', '!=', False)]}" />
                             </group>
                         </group>
                         <group name="timbre_cfdi" attrs="{'invisible': [('timbrada', '=', False)]}">

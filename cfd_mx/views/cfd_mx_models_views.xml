@@ -7,6 +7,9 @@
             <field name="model">cfdi.timbres.sat</field>
             <field name="arch" type="xml">
                 <form string="Timbres SAT" create="false" delete="false">
+                    <header>
+                        <button name="action_verificacfdi" type="object" string="Verifica CFDI SAT" class="oe_highlight" />
+                    </header>
                     <sheet string="Timbres SAT">
                         <group col="4">
                             <field name="invoice_id" />
