@@ -105,9 +105,10 @@ class AccountChartMovesReportXlsx(ReportXlsx):
                     domain = action.get('domain', [])
 
                     for move in Move.search(domain):
-                        if move.tipo_poliza == '3':
+                        if move.tipo_poliza == '3' and move.partner_id:
                             ref = move.name or move.ref or ''
                             partner = move.partner_id and move.partner_id.name or ''
+                            break
 
                 sheet.write_string(row, col, '%s'%(partner), string_format_03)
                 sheet.write_string(row, col + 1, '%s'%(ref), string_format_03)

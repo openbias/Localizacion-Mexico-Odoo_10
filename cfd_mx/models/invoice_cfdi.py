@@ -86,8 +86,8 @@ class AccountCfdi(models.Model):
         obj = self.obj
         tax_obj = obj.env['account.tax']
         dp = obj.env['decimal.precision']
-        decimal_precision = dp.precision_get('Account')
-        dp_product = dp.precision_get('Product Price')
+        # decimal_precision = dp.precision_get('Account')
+        decimal_precision = dp.precision_get('Product Price')
         dp_cantidad = 6
         conceptos = []
         for line in obj.invoice_line_ids:
@@ -101,7 +101,7 @@ class AccountCfdi(models.Model):
                 'ClaveProdServ': line.product_id and line.product_id.clave_prodser_id and line.product_id.clave_prodser_id.clave or ClaveProdServ or '',
                 'NoIdentificacion': line.product_id and line.product_id.default_code or '',
                 'Descripcion': line.name.replace('[', '').replace(']', '') or '',
-                'Cantidad': '%s'%(Cantidad),
+                'Cantidad':  '%.*f' % (6, line.quantity),  # '%s'%(Cantidad),
                 'ClaveUnidad': line.uom_id and line.uom_id.clave_unidadesmedida_id and line.uom_id.clave_unidadesmedida_id.clave or '',
                 'Unidad': line.uom_id and line.uom_id.name or '',
                 'ValorUnitario':  '%.*f' % (decimal_precision, line.price_subtotal_sat / Cantidad),   # '%s'%(ValorUnitario), # '%.2f'%( line.price_subtotal_sat / Cantidad),
@@ -144,6 +144,8 @@ class AccountCfdi(models.Model):
 
     def invoice_info_impuestos(self, conceptos):
         decimal_precision = self.obj.env['decimal.precision'].precision_get('Account')
+        # decimal_precision = self.obj.env['decimal.precision'].precision_get('Product Price')
+
         TotalImpuestosRetenidos = 0.00
         TotalImpuestosTrasladados = 0.00
         traslado_attribs = {}

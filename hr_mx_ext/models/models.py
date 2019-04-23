@@ -15,6 +15,7 @@ class ResCountryState(models.Model):
 
 class TipoPensionados(models.Model):
     _name = 'hr_mx_ext.tipopensionados'
+    _description = "Tipo Pensionados"
     
     name = fields.Char(string="Name", size=64, required=True, default="")
     code = fields.Char(string="Code", required=True, default="")
@@ -42,6 +43,7 @@ class TipoDescuento(models.Model):
 
 class TipoTrabajador(models.Model):
     _name = 'hr_mx_ext.tipotrabajador'
+    _description = "Tipo de Trabajador"
     
     name = fields.Char(string="Name", size=64, required=True, default="")
     code = fields.Char(string="Code", required=True, default="")
@@ -55,6 +57,7 @@ class TipoTrabajador(models.Model):
 
 class TipoSueldo(models.Model):
     _name = 'hr_mx_ext.tiposueldo'
+    _description = "Tipo de Sueldo"
     
     name = fields.Char(string="Name", size=64, required=True, default="")
     code = fields.Char(string="Code", required=True, default="")
@@ -68,6 +71,7 @@ class TipoSueldo(models.Model):
 
 class TipoJornada(models.Model):
     _name = "hr_mx_ext.tipojornada"
+    _description = "Tipo de Jornada"
 
     name = fields.Char(string="Name", size=64, required=True, default="")
     code = fields.Char(string="Code", required=True, default="")
@@ -81,6 +85,7 @@ class TipoJornada(models.Model):
 
 class ZonaSalario(models.Model):
     _name = 'hr_mx_ext.zonasalario'
+    _description = "Zona de Salario"
 
     name = fields.Char(string="Name", size=64, required=True, default="")
     code = fields.Char(string="Code", default="")
@@ -95,6 +100,7 @@ class ZonaSalario(models.Model):
     
 class FormaPago(models.Model):
     _name = 'hr_mx_ext.formapago'
+    _description = "Forma de Pago"
     
     name = fields.Char(string="Name", size=64, required=True, default="")
     code = fields.Char(string="Code", required=True, default="")
@@ -109,6 +115,7 @@ class FormaPago(models.Model):
 
 class RegistroPatronal(models.Model):
     _name = 'hr_mx_ext.regpat'
+    _description = "Tipo Registro Patronal"
     
     name = fields.Char(string="Name", size=64, required=True, default="")
     company_id = fields.Many2one('res.company', string='Company', change_default=True,
@@ -116,6 +123,7 @@ class RegistroPatronal(models.Model):
 
 class HrEscolaridad(models.Model):
     _name = "hr_mx_ext.escolaridad"
+    _description = "Escolaridad"
 
     name = fields.Char(string="Name", size=64, required=True, default="")
     code = fields.Char(string="Code", required=True, default="")
@@ -128,16 +136,3 @@ class HrEscolaridad(models.Model):
             result.append((rec.id, "[%s] %s" % (rec.code, rec.name or '')))
         return result
 
-
-
-# class hr_mx_ext(models.Model):
-#     _name = 'hr_mx_ext.hr_mx_ext'
-
-#     name = fields.Char()
-#     value = fields.Integer()
-#     value2 = fields.Float(compute="_value_pc", store=True)
-#     description = fields.Text()
-#
-#     @api.depends('value')
-#     def _value_pc(self):
-#         self.value2 = float(self.value) / 100

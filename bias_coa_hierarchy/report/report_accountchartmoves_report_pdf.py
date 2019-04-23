@@ -52,9 +52,10 @@ class AccountChartMovesReportPDF(models.AbstractModel):
                 action = aml.move_id.open_cash_basis_view()
                 domain = action.get('domain', [])
                 for move in Move.search(domain):
-                    if move.tipo_poliza == '3':
+                    if move.tipo_poliza == '3' and move.partner_id:
                         ref = move.name or move.ref or ''
                         partner = move.partner_id and move.partner_id.name or ''
+                        break
 
             acc_item = {
                 'type': 'normal',
