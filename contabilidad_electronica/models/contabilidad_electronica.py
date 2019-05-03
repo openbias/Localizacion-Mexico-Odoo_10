@@ -159,6 +159,7 @@ class ContabilidadElectronicaCodigoAgrupador(models.Model):
                 signo = 1 
                 if account.naturaleza_id and account.naturaleza_id.code == "A":
                     signo = -1
+
                 cuenta = {
                     'id': account.id,
                     'nivel': (cod_brw.nivel + 1),
@@ -166,15 +167,19 @@ class ContabilidadElectronicaCodigoAgrupador(models.Model):
                     'descripcion': account.name,
                     'codigo': account.code,
                     'codigo_agrupador': cod_brw.name or False,
-                    'inicial': (account.initial * signo) if account.initial != 0.0 else account.initial,
-                    'final': (account.balance * signo) if account.balance != 0.0 else account.balance,
-                    'debe': account.debit,
-                    'haber': account.credit
+                    'inicial': 0.0, # (account.initial * signo) if account.initial != 0.0 else account.initial,
+                    'final': 0.0, # (account.balance * signo) if account.balance != 0.0 else account.balance,
+                    'debe': 0.0, # account.debit,
+                    'haber': 0.0, # account.credit
                 }
-                # if context.get('balanza', False):
-                #     cuenta_balanza = self.with_context(**context).get_codigo_agrupador_balanza(account)
-                #     if cuenta_balanza:
-                #         cuenta.update(cuenta_balanza)
+                if context.get('balanza', False):
+                    cuenta_balanza = self.with_context(**context).get_codigo_agrupador_balanza(account)
+                    if cuenta_balanza:
+                        cuenta.update(cuenta_balanza)
+                        cuenta['inicial'] = (cuenta['inicial'] * signo) if cuenta['inicial'] != 0.0 else cuenta['inicial']
+                        cuenta['final'] = (cuenta['final'] * signo) if cuenta['final'] != 0.0 else cuenta['final']
+
+                
                 cuentas.append(cuenta)
         return cuentas
 

@@ -40,6 +40,11 @@ class AccountMove(models.Model):
     show_fiscal = fields.Boolean(compute='_fiscal', store=True)
 
     @api.multi
+    def open_mdm_view(self):
+        print self.tax_cash_basis_rec_id
+        return True
+
+    @api.multi
     def open_cash_basis_view(self):
         [action] = self.env.ref('account.action_move_journal_line').read()
         cash_basis_movs = self.env['account.move']

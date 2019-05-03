@@ -123,7 +123,7 @@ class GenerarXmls(models.TransientModel):
         context = dict(self._context)
         cod_agrupador = self.env['contabilidad_electronica.codigo.agrupador']
         company_id = self.env.user.company_id
-        vce = company_id.conta_elect_version or '1_3'
+        vce = '1_3' # company_id.conta_elect_version or '1_3'
         data = {
             'mes': self._get_fiscalyear_month(),
             'ano': self._get_fiscalyear(),
@@ -156,7 +156,7 @@ class GenerarXmls(models.TransientModel):
         cod_agrupador = self.env['contabilidad_electronica.codigo.agrupador']
 
         company_id = self.env.user.company_id
-        vce = company_id.conta_elect_version or '1_3'
+        vce = '1_3' # company_id.conta_elect_version or '1_3'
 
         date_object = datetime.datetime.strptime(self.date_today, '%Y-%m-%d')
         last_day = calendar.monthrange(date_object.year,date_object.month)[1]
@@ -570,7 +570,8 @@ class GenerarXmls(models.TransientModel):
         self.ensure_one()
         cfdi = self.env['account.cfdi']
         message = ""
-        # res = cfdi.with_context(**datas).contabilidad(self)
+        res = cfdi.with_context(**datas).contabilidad(self)
+        print "resss", res
         try:
             res = cfdi.with_context(**datas).contabilidad(self)
             if res.get('message'):
@@ -581,6 +582,7 @@ class GenerarXmls(models.TransientModel):
             message = str(e)
         except Exception, e:
             message = str(e)
+        print "message", message
         if message:
             message = message.replace("(u'", "").replace("', '')", "")
             cfdi.action_raise_message("%s "%( message.upper() ))
