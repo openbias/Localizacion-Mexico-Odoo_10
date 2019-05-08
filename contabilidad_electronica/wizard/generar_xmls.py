@@ -89,7 +89,7 @@ class GenerarXmls(models.TransientModel):
             ('DE', 'Devolucion'),
             ('CO', 'Compensacion')
         ], string=u"Tipo de Solicitud de la Poliza")                    # Poliza
-    num_orden = fields.Char(u"Numero de Orden")                     # Poliza
+    num_orden = fields.Char(u"Numero de Orden", default="ABC1234567/12")                     # Poliza
     num_tramite = fields.Char(u"Numero de Tramite")                 # Poliza
 
     xml = fields.Binary("Archivo XML")
@@ -114,7 +114,6 @@ class GenerarXmls(models.TransientModel):
             'type': 'ir.actions.act_url',
             'url':url,
         }
-
 
     # 1. XML CATALOGO DE CUENTAS
     @api.multi
@@ -193,8 +192,10 @@ class GenerarXmls(models.TransientModel):
     def get_polizas_lines(self):
         if not self.tipo_solicitud:
             raise UserError('Favor de indicar el tipo de solicitud')
+
+        where = [('date','>=',self.date_from), ('date','<=',self.date_to), ('company_id', '=', self.company_id.id), ('journal_id.company_id', '=', self.company_id.id)]
         move_obj = self.env['account.move']
-        move_ids = move_obj.search(['&', ('date','>=',self.date_from), ('date','<=',self.date_to), ('company_id', '=', self.company_id.id)])
+        move_ids = move_obj.search(where)
         return move_ids
 
     @api.multi
@@ -220,7 +221,6 @@ class GenerarXmls(models.TransientModel):
         for move in self.get_polizas_lines():
             if len(move.line_ids) == 0:
                 continue
-
             poliza = {
                 "num": "%s-%s"%(move.tipo_poliza, move.name),
                 "fecha": move.date,
@@ -241,63 +241,10 @@ class GenerarXmls(models.TransientModel):
                     'comprobantes_cfd_cbb': [],
                     'comprobantes_ext': []
                 }
+                print "move_line", transaccion
+
+                # Comprobantes
                 #-----------------------------------------------------------
-                for cheque in move_line.cheques_ids:
-                    vals = {
-                        "num": cheque.num,
-                        "banco": cheque.cta_ori.bank_id.bic,
-                        "cta_ori": cheque.cta_ori.acc_number,
-                        "fecha": cheque.fecha,
-                        "monto": cheque.monto,
-                        "benef": cheque.benef_id.name,
-                        "rfc": cheque.benef_id.vat
-                    }
-                    if cheque.cta_ori.bank_id.extranjero:
-                        vals["banco_ext"] = cheque.cta_ori.bank_id.name
-                    if cheque.moneda:
-                        vals.update({
-                            "moneda": cheque.moneda.name,
-                            "tip_camb": cheque.tipo_cambio
-                        })
-                    transaccion["cheques"].append(vals)
-                #-----------------------------------------------------------
-                for trans in move_line.transferencias_ids:
-                    vals = {                        
-                        "cta_ori": trans.cta_ori.acc_number,
-                        "banco_ori": trans.cta_ori.bank_id.bic,
-                        "monto": trans.monto,
-                        "cta_dest": trans.cta_dest.acc_number,
-                        "banco_dest": trans.cta_dest.bank_id.bic,
-                        "fecha": trans.fecha,
-                        "benef": trans.cta_dest.partner_id.name,
-                        "rfc": trans.cta_ori.partner_id.vat if trans.move_line_id.move_id.tipo_poliza == '1' else trans.cta_dest.partner_id.vat
-                    }
-                    if trans.cta_ori.bank_id.extranjero:
-                        vals["banco_ori_ext"] = trans.cta_ori.bank_id.name
-                    if trans.cta_dest.bank_id.extranjero:
-                        vals["banco_dest_ext"] = trans.cta_dest.bank_id.name
-                    if trans.moneda_id:
-                        vals.update({
-                            "moneda": trans.moneda_id.name,
-                            "tip_camb": trans.tipo_cambio
-                        })
-                    transaccion["transferencias"].append(vals)
-                #-----------------------------------------------------------                    
-                for met in move_line.otros_metodos_ids:
-                    vals = {
-                        "met_pago": met.metodo_id.code,
-                        "fecha": met.fecha,
-                        "benef": met.benef_id.name,
-                        "rfc": met.benef_id.vat,
-                        "monto": met.monto
-                    }
-                    if met.moneda_id:
-                        vals.update({
-                            "moneda": met.moneda_id.name,
-                            "tip_camb": met.tipo_cambio
-                        })
-                    transaccion["otros_metodos"].append(vals)
-                #-----------------------------------------------------------                    
                 for comp in move_line.comprobantes_ids:
                     vals = {
                         "uuid": comp.uuid,
@@ -338,7 +285,64 @@ class GenerarXmls(models.TransientModel):
                             "tip_camb": comp.tipo_cambio
                         })
                     transaccion["comprobantes"].append(vals)
+                #-----------------------------------------------------------
+                for cheque in move_line.cheques_ids:
+                    vals = {
+                        "num": cheque.num,
+                        "banco": cheque.cta_ori_id.bank_id.bic,
+                        "cta_ori": cheque.cta_ori_id.acc_number,
+                        "fecha": cheque.fecha,
+                        "monto": cheque.monto,
+                        "benef": cheque.benef_id.name,
+                        "rfc": cheque.benef_id.vat
+                    }
+                    if cheque.cta_ori_id.bank_id.extranjero:
+                        vals["banco_ext"] = cheque.cta_ori_id.bank_id.name
+                    if cheque.moneda_id:
+                        vals.update({
+                            "moneda": cheque.moneda_id.name,
+                            "tip_camb": cheque.tipo_cambio
+                        })
+                    transaccion["cheques"].append(vals)
+                #-----------------------------------------------------------
+                for trans in move_line.transferencias_ids:
+                    vals = {                        
+                        "cta_ori": trans.cta_ori_id.acc_number,
+                        "banco_ori": trans.cta_ori_id.bank_id.bic,
+                        "monto": trans.monto,
+                        "cta_dest": trans.cta_dest_id.acc_number,
+                        "banco_dest": trans.cta_dest_id.bank_id.bic,
+                        "fecha": trans.fecha,
+                        "benef": trans.cta_dest_id.partner_id.name,
+                        "rfc": trans.cta_ori_id.partner_id.vat if trans.move_line_id.move_id.tipo_poliza == '1' else trans.cta_dest_id.partner_id.vat
+                    }
+                    if trans.cta_ori_id.bank_id.extranjero:
+                        vals["banco_ori_ext"] = trans.cta_ori_id.bank_id.name
+                    if trans.cta_dest_id.bank_id.extranjero:
+                        vals["banco_dest_ext"] = trans.cta_dest_id.bank_id.name
+                    if trans.moneda_id:
+                        vals.update({
+                            "moneda": trans.moneda_id.name,
+                            "tip_camb": trans.tipo_cambio
+                        })
+                    transaccion["transferencias"].append(vals)
+                #-----------------------------------------------------------                    
+                for met in move_line.otros_metodos_ids:
+                    vals = {
+                        "met_pago": met.metodo_id.code,
+                        "fecha": met.fecha,
+                        "benef": met.benef_id.name,
+                        "rfc": met.benef_id.vat,
+                        "monto": met.monto
+                    }
+                    if met.moneda_id:
+                        vals.update({
+                            "moneda": met.moneda_id.name,
+                            "tip_camb": met.tipo_cambio
+                        })
+                    transaccion["otros_metodos"].append(vals)
                 poliza["transacciones"].append(transaccion)
+
             data["polizas"].append(poliza)
 
         fname = '{0}{1}{2}PL'.format(self.company_id.partner_id.vat or '', data.get('ano'), data.get('mes'))
@@ -368,7 +372,7 @@ class GenerarXmls(models.TransientModel):
         code_transferencia = model_data.get_object("contabilidad_electronica", "metodo_pago_3").code
 
         company_id = self.env.user.company_id
-        vce = company_id.conta_elect_version or '1_3'
+        vce = "1_3" # company_id.conta_elect_version or '1_3'
 
         date_object = datetime.datetime.strptime(self.date_today, '%Y-%m-%d')
         last_day = calendar.monthrange(date_object.year,date_object.month)[1]
@@ -464,10 +468,9 @@ class GenerarXmls(models.TransientModel):
             "data": data,
             "ctx": ctx
         }
+        print "data", data
         self.with_context(**ctx)._save_xml(data)
         return self.with_context(**ctx)._return_action()
-
-
 
 
 
@@ -570,8 +573,6 @@ class GenerarXmls(models.TransientModel):
         self.ensure_one()
         cfdi = self.env['account.cfdi']
         message = ""
-        res = cfdi.with_context(**datas).contabilidad(self)
-        print "resss", res
         try:
             res = cfdi.with_context(**datas).contabilidad(self)
             if res.get('message'):
@@ -582,10 +583,9 @@ class GenerarXmls(models.TransientModel):
             message = str(e)
         except Exception, e:
             message = str(e)
-        print "message", message
         if message:
             message = message.replace("(u'", "").replace("', '')", "")
-            cfdi.action_raise_message("%s "%( message.upper() ))
+            raise UserError(message)
             return False
         return True
 
@@ -598,3 +598,9 @@ class GenerarXmls(models.TransientModel):
             'fiscalyear': self._get_fiscalyear(),
         }
         self.write(vals)
+
+
+
+
+# [A-Z]{3}[0-9]{7}(/)[0-9]{2}
+# ABC1234567/12

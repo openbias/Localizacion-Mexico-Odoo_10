@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
 
+import time
+import calendar
+from datetime import datetime, timedelta
+from dateutil.relativedelta import relativedelta
+
 from odoo import models, fields, api, _
 
 class AccountAccount(models.Model):
@@ -51,7 +56,7 @@ class AccountAccount(models.Model):
         for account in accounts:
             res = dict((fn, 0.0) for fn in ['credit', 'debit', 'balance'])
             currency = account.currency_id and account.currency_id or account.company_id.currency_id
-            res['code'] = account.code_alias
+            res['code'] = account.code
             res['name'] = account.name
             if account.id in account_result.keys():
                 res['debit'] = account_result[account.id].get('debit')
@@ -161,9 +166,9 @@ class AccountAccount(models.Model):
                     bal = round(val['balance'], dp)
                     initial += bal
             balance =  initial + debit - credit
-            # if acc_brw.code_alias.startswith('1') or acc_brw.code_alias.startswith('5') or acc_brw.code_alias.startswith('6') or acc_brw.code_alias.startswith('7'):
+            # if acc_brw.code.startswith('1') or acc_brw.code.startswith('5') or acc_brw.code.startswith('6') or acc_brw.code.startswith('7'):
             #     balance = initial - debit - credit # abs(line_total_pre + line.debit - line.credit)
-            # elif acc_brw.code_alias.startswith('2') or acc_brw.code_alias.startswith('3') or acc_brw.code_alias.startswith('4'):
+            # elif acc_brw.code.startswith('2') or acc_brw.code.startswith('3') or acc_brw.code.startswith('4'):
             #     balance = initial - debit + credit # abs(line_total_pre - line.debit + line.credit)
         return {
             'initial': initial, 

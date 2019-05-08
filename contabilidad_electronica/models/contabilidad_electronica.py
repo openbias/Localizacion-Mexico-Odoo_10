@@ -147,8 +147,52 @@ class ContabilidadElectronicaCodigoAgrupador(models.Model):
                 cuenta['inicial'] = account_res[0]['balance']
         return cuenta
 
+
+    def _build_contexts(self):
+        context = dict(self._context)
+        journal_ids = self.env['account.journal'].search([])
+        data = {}
+        data['company_id'] = self.env.user.company_id.id
+        data['target_move'] = 'all'
+        data['date_from'] = context.get('date_from')
+        data['date_to'] = context.get('date_to')
+        data['journal_ids'] = journal_ids.ids
+        return data
+
     @api.multi
     def get_codigo_agrupador(self):
+        context = dict(self._context)
+        cuentas = []
+        datas = self.with_context(**context)._build_contexts()
+        acc_obj = self.env['contabilidad_electronica.codigo.agrupador']
+        cod_srch = acc_obj.search([])
+        cod_ids = [x for x in cod_srch if x.account_count > 0]
+        for cod_brw in cod_ids:
+            for account in cod_brw.with_context( **context ).mapped('account_ids'):
+                signo = 1 
+                if account.naturaleza_id and account.naturaleza_id.code == "A":
+                    signo = -1
+                acc_vals = account._compute_initial_balance(datas)
+                cuenta = {
+                    'id': account.id,
+                    'nivel': (cod_brw.nivel + 1),
+                    'naturaleza': account.naturaleza_id and account.naturaleza_id.code or False,
+                    'descripcion': account.name,
+                    'codigo': account.code or '',
+                    'codigo_agrupador': cod_brw.name or False,
+                    'inicial': acc_vals.get('initial', 0.0),
+                    'final': acc_vals.get('balance', 0.0),
+                    'debe': acc_vals.get('debit', 0.0),
+                    'haber': acc_vals.get('credit', 0.0)
+                }
+                cuentas.append(cuenta)
+        return cuentas
+
+
+
+
+    @api.multi
+    def get_codigo_agrupador_old(self):
         context = dict(self._context)
         cuentas = []
         acc_obj = self.env['contabilidad_electronica.codigo.agrupador']
@@ -172,13 +216,14 @@ class ContabilidadElectronicaCodigoAgrupador(models.Model):
                     'debe': 0.0, # account.debit,
                     'haber': 0.0, # account.credit
                 }
+                """
                 if context.get('balanza', False):
                     cuenta_balanza = self.with_context(**context).get_codigo_agrupador_balanza(account)
                     if cuenta_balanza:
                         cuenta.update(cuenta_balanza)
                         cuenta['inicial'] = (cuenta['inicial'] * signo) if cuenta['inicial'] != 0.0 else cuenta['inicial']
                         cuenta['final'] = (cuenta['final'] * signo) if cuenta['final'] != 0.0 else cuenta['final']
-
+                """
                 
                 cuentas.append(cuenta)
         return cuentas

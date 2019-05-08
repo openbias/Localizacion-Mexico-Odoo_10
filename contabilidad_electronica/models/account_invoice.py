@@ -25,10 +25,11 @@ class AccountInvoice(models.Model):
     @api.multi
     def action_move_create_ce(self, move_lines):
         comp_obj = self.env['contabilidad_electronica.comprobante']
-        uuid = self.uuid or ''
-        if uuid:
+        uuid = self.uuid or self.cfdi_timbre_id and self.cfdi_timbre_id.name or ''
+        if self.uuid:
             if len(uuid) != 36:
                 uuid = uuid[0:8]+'-'+uuid[8:12]+'-'+uuid[12:16]+'-'+uuid[16:20]+'-'+uuid[20:32]
+                print self.number, self.id
             for move_line in move_lines:
                 vals = {
                     'monto': self.amount_total,
@@ -41,7 +42,7 @@ class AccountInvoice(models.Model):
                         'moneda_id': self.currency_id.id,
                         'tipo_cambio': self.tipo_cambio
                     })
-                res = comp_obj.search(['&',('uuid','=', uuid),('move_line_id','=', move_line.id)])
+                res = comp_obj.search([('move_line_id','=', move_line.id)])
                 if len(res) > 0:
                     res.write(vals)
                 else:
