@@ -213,9 +213,31 @@ class AccountPayment(models.Model):
                         raise ValidationError("La Cuenta Destino para 'Tarjeta de servicios' debe tener 10, 11, 15, 16, 18, 50 digitos.\n Digitos: %s - Cuenta: %s"%( len(self.cta_destino_id.acc_number or ""),  self.cta_destino_id.acc_number) )
 
 
+    {
+        u'lang': u'es_MX', 
+        u'tz': u'America/Monterrey', 
+        u'uid': 1, 
+        u'active_model': u'account.invoice', 
+        u'default_invoice_ids': [[4, 387, None]], 
+        u'journal_type': u'sale', 
+        u'params': {u'menu_id': 105, u'view_type': u'form', u'_push_me': False, u'action': 200, u'model': u'account.invoice', u'id': 387}, 
+        u'search_disable_custom_filters': True, 
+        u'active_ids': [387], 
+        u'type': u'out_invoice', 
+        u'active_id': 387
+    }
+
+    """
     @api.multi
     def post(self):
+        print "self._context", self._context
+        if self._context.get('active_model', '') != 'account.invoice' and not self.invoice_ids:
+            print "self._context", self.invoice_ids
+            return super(AccountPayment, self).post()
+
+        print mmm
         ctx_inv = {}
+        print "mmmmmmmmmmmmmmmmmmmmmmm", mmm
         for record in self.filtered(lambda r: r.cfdi_validate_required()):
             for inv in record.invoice_ids:
                 ctx_inv[inv.id] = {
@@ -231,6 +253,7 @@ class AccountPayment(models.Model):
         for record in self.filtered(lambda r: r.cfdi_is_required()):
             record.with_context(ctx_inv=ctx_inv).action_validate_cfdi()
         return res
+    """
 
     @api.multi
     def cfdi_is_required(self):
@@ -242,6 +265,7 @@ class AccountPayment(models.Model):
             self.invoice_ids.filtered(lambda i: i.type == 'out_invoice') and 
             self.journal_id.id in self.env.user.company_id.cfd_mx_journal_ids.ids
         )
+        print "requiredrequired", required
         if not required:
             return required
         return required
@@ -249,9 +273,12 @@ class AccountPayment(models.Model):
     @api.multi
     def cfdi_validate_required(self):
         self.ensure_one()
+        print "self.invoice_ids", self.invoice_ids
         required = self.cfdi_is_required()
+        print "required", required
         if not required:
             return required
+        print "self.invoice_ids", self.invoice_ids
         if not self.invoice_ids:
             raise UserError(_(
                 'Is necessary assign the invoices that are paid with this '
@@ -871,7 +898,6 @@ class AccountBankStatementLine(models.Model):
                 self.hide_formapago_id = False
             else:
                 self.hide_formapago_id = True
-
 
             if self.journal_id.type == 'cash':
                 # self.ttype = 'otro'

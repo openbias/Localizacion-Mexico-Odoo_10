@@ -16,6 +16,29 @@ class AccountMoveLine(models.Model):
     uuid = fields.Char(string='Timbre fiscal', related='payment_id.cfdi_timbre_id.name')
     date_invoice = fields.Date(string='Invoice Date')
 
+    {u'lang': u'es_MX', u'default_partner_type': u'customer', u'tz': u'America/Monterrey', u'uid': 1, u'default_payment_type': u'inbound', 
+     u'params': {u'menu_id': 105, u'view_type': u'form', u'_push_me': False, u'action': 126, u'model': u'account.payment', u'id': 409}}
+
+
+    @api.multi
+    def remove_move_reconcile(self):
+        """ Undo a reconciliation """
+        print "remove_move_reconcile", self._context
+        if not self:
+            return True
+
+        model = self._context and self._context.get('params', False) and self._context['params'].get('model', '')
+        print "model", model
+        if model != 'account.payment':
+            for account_move_line in self:
+                if account_move_line.payment_id.cfdi_timbre_id:
+                    msg = "NOTA: \n"
+                    msg += "No es puede romper conciliacion a un CFDI de PAGOS \n"
+                    msg += "Debes cancelar el Pago %s"%(account_move_line.payment_id.name)
+                    raise UserError(msg)
+        res = super(AccountMoveLine, self).remove_move_reconcile()
+        return res
+
     @api.multi
     def get_xml(self):
         self.ensure_one()
@@ -68,7 +91,6 @@ class AccountMoveLine(models.Model):
 
         else:
             raise UserError("No es una Factura CFDI de Pago")
-
 
 
     @api.multi
@@ -182,3 +204,4 @@ class AccountMoveLine(models.Model):
                         })
 
         return True
+

@@ -11,7 +11,7 @@
     'author': "OpenBIAS",
     'website': "http://www.bias.com.mx",
     'category': 'Accounting & Finance',
-    'version': '10.0.0.1',
+    'version': '10.0.0.2',
     'depends': [
         'base',
         'mail',

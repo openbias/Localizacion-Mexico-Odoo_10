@@ -26,16 +26,26 @@ class AccountInvoice(models.Model):
         res = super(AccountInvoice, self.with_context(invoice_id=self.id, payment_id=credit_aml.payment_id)).assign_outstanding_credit(credit_aml_id)
         return res
 
-    """
     @api.multi
     def register_payment(self, payment_line, writeoff_acc_id=False, writeoff_journal_id=False):
-        res = super(AccountInvoice, self).register_payment(payment_line, writeoff_acc_id=writeoff_acc_id, writeoff_journal_id=writeoff_journal_id)
-        if self.env.context.get('invoice_id') and self.env.context.get('payment_id'):
-            payment_id = self.env.context["payment_id"]
-            if payment_id.filtered(lambda r: r.cfdi_is_required()):
-                payment_id.action_validate_cfdi()
+        res = super(AccountInvoice, self).register_payment(payment_line, writeoff_acc_id=writeoff_acc_id, writeoff_journal_id=writeoff_journal_id)        
+        if payment_line.payment_id and payment_line.payment_id:
+            ctx_inv = {}
+            for record in payment_line.payment_id.filtered(lambda r: r.cfdi_validate_required()):
+                for inv in record.invoice_ids:
+                    ctx_inv[inv.id] = {
+                        'amount_total': inv.amount_total,
+                        'amount_total_company_signed': inv.amount_total_company_signed,
+                        'amount_total_signed': inv.amount_total_signed,
+                        'residual': inv.residual if inv.residual != 0.0 else inv.amount_total,
+                        'residual_company_signed': inv.residual_company_signed,
+                        'residual_signed': inv.residual_signed
+                    }
+                pass
+            if payment_line.payment_id.filtered(lambda r: r.cfdi_validate_required()):
+                payment_line.payment_id.with_context(ctx_inv=ctx_inv).action_validate_cfdi()
         return res
-    """
+
 
     @api.one
     @api.depends('payment_move_line_ids.amount_residual')
