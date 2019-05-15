@@ -265,7 +265,6 @@ class AccountPayment(models.Model):
             self.invoice_ids.filtered(lambda i: i.type == 'out_invoice') and 
             self.journal_id.id in self.env.user.company_id.cfd_mx_journal_ids.ids
         )
-        print "requiredrequired", required
         if not required:
             return required
         return required
@@ -273,12 +272,9 @@ class AccountPayment(models.Model):
     @api.multi
     def cfdi_validate_required(self):
         self.ensure_one()
-        print "self.invoice_ids", self.invoice_ids
         required = self.cfdi_is_required()
-        print "required", required
         if not required:
             return required
-        print "self.invoice_ids", self.invoice_ids
         if not self.invoice_ids:
             raise UserError(_(
                 'Is necessary assign the invoices that are paid with this '
@@ -485,7 +481,6 @@ class AccountPayment(models.Model):
         folio_serie = self._get_folio(self.move_name or self.name)
         folio = get_string_cfdi(folio_serie.get("folio", ""), 25) or ' '
         serie = get_string_cfdi(folio_serie.get("serie", ""), 40) or ' '
-        print "folio", folio, "serie", serie
         # serie = folio_serie.get("serie", "")
         cfdi_comprobante = {
             'xmlns:cfdi': 'http://www.sat.gob.mx/cfd/3',
@@ -611,7 +606,6 @@ class AccountPayment(models.Model):
             inv = ctx_inv.get(invoice.id) and ctx_inv[invoice.id]
             TipoCambioDR = None
             inv_currency_id = invoice.currency_id.with_context(date=invoice.date_invoice)
-            print "invoice", invoice.id, invoice.number, invoice.payments_widget
             payments_widget = json.loads(invoice.payments_widget)
             content = payments_widget.get("content", [])
             payment_vals = [p for p in content if p.get('account_payment_id', False) == self.id]
@@ -627,6 +621,8 @@ class AccountPayment(models.Model):
             rate_difference = rate_difference[0].get('amount', 0.0) if rate_difference else 0.0
 
             NumParcialidad = len(invoice.payment_ids.filtered(lambda p: p.state not in ('draft', 'cancelled')).ids)
+            if NumParcialidad == 0:
+                NumParcialidad = 1
             ImpSaldoAnt = inv.get('residual', 0.0)  # invoice.residual + amount_payment + rate_difference
             ImpPagado = amount_payment
             if amount_payment > ImpSaldoAnt:
@@ -642,8 +638,8 @@ class AccountPayment(models.Model):
                 "IdDocumento": "%s"%invoice.uuid,
                 "Folio": "%s"%invoice.number,
                 "MonedaDR": "%s"%invoice.currency_id.name,
-                "MetodoDePagoDR": 'PPD',
-                "NumParcialidad": NumParcialidad,
+                "MetodoDePagoDR": '%s'%(invoice.metodopago_id and invoice.metodopago_id.clave or "PPD"),
+                "NumParcialidad": '%s'%NumParcialidad,
                 "ImpSaldoAnt": '%0.*f' % (decimal_precision, ImpSaldoAnt),
                 "ImpPagado": '%0.*f' % (decimal_precision, ImpPagado),
                 "ImpSaldoInsoluto": '%0.*f' % (decimal_precision, ImpSaldoInsoluto),
@@ -788,7 +784,6 @@ class AccountBankStatement(models.Model):
             self.hide_cfdi_id = True
             return
         country_code = self.company_id.partner_id.country_id and self.company_id.partner_id.country_id.code
-        print "country_code", country_code
         if self.journal_id.id in self.company_id.cfd_mx_journal_ids.ids and country_code == "MX":
             self.hide_cfdi_id = False
         else:
