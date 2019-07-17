@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 
+from datetime import date, datetime
+from pytz import timezone
+
 from xml.dom import minidom
 from xml.dom.minidom import parse, parseString
 import json, base64, urllib
+import collections, requests
 import csv
 import os
 import inspect
@@ -14,6 +18,8 @@ from odoo.addons.bias_base_report.bias_utis.amount_to_text_es_MX import amount_t
 
 import logging
 logging.basicConfig(level=logging.INFO)
+
+_logger = logging.getLogger(__name__)
 
 def extraeDecimales(nNumero, max_digits=2):
     strDecimales = str( round(nNumero%1, 2) ).replace('0.','')
@@ -36,6 +42,126 @@ def cant_letra(currency, amount):
         siglas = currency.name
         name = amount_to_text().amount_to_text_cheque(float(amount), nombre, siglas).capitalize()
     return name
+
+
+
+class CFDIManifiestoPac(models.Model):
+    _name = 'cfdi.manifiesto.pac'
+
+    date_signed_contract = fields.Char(string="Fecha Firmado Contrato", copy=False)
+
+    privacy_txt = fields.Text(string='Aviso de Privacidad')
+    privacy_b64 = fields.Binary(string="Privacy")
+    contract_txt = fields.Text(string='Contrato de Servicio')
+    contract_b64 = fields.Binary(string="Contract")
+
+    company_id = fields.Many2one('res.company', string='Company', change_default=True,
+        required=True, readonly=True, default=lambda self: self.env['res.company']._company_default_get('cfdi.manifiesto.pac'))
+
+
+    @api.model
+    def create(self, vals):
+        company_id = vals.get('company_id', self.env.user.company_id.id)
+        company = self.search([('company_id', '=', company_id)])
+        if company:
+            raise UserError(_(u'No se puede crear multiples contratos por compañias'))
+        manifiesto = super(CFDIManifiestoPac, self).create(vals)
+        return manifiesto
+
+    @api.multi
+    def action_get_contracts(self):
+        partner_id = self.company_id.partner_id
+        url = "%s/cfdi/contratos/%s/%s"%(self.company_id.cfd_mx_host, self.company_id.cfd_mx_db, self.company_id.vat)
+        headers = {'Content-Type': 'application/json'}
+        data = {
+            "params": {
+                "test": self.company_id.cfd_mx_test,
+                "pac": self.company_id.cfd_mx_pac,
+                "version": self.company_id.cfd_mx_version,
+                "cfdi": {
+                    "name": partner_id.name,
+                    "taxpayer_id": partner_id.vat,
+                    "email": partner_id.email,
+                    "address": "%s No. %s, Col %s, %s, %s, %s "%(
+                        partner_id.street or '', 
+                        partner_id.noInterior or '',
+                        partner_id.street2 or '',
+                        partner_id.city or '',
+                        partner_id.state_id and partner_id.state_id.name or '',
+                        partner_id.country_id and partner_id.country_id.name or '',
+                    )
+                }
+            }
+        }
+        data_json = json.dumps(data)
+        _logger.info(data)
+        res = requests.post(url=url, data=data_json, headers=headers)
+        res_datas = res.json()
+        msg = res_datas.get('error') and res_datas['error'].get('data') and res_datas['error']['data'].get('message')
+        if msg:
+            return res_datas['error']['data']
+        if res_datas.get('error'):
+            return res_datas['error']
+        if res_datas.get('result') and res_datas['result'].get('error'):
+            return res_datas['result']['error']
+
+        contract_txt = res_datas.get('result') and res_datas['result'] and res_datas['result'].get('privacy') or None
+        privacy_txt = res_datas.get('result') and res_datas['result'] and res_datas['result'].get('privacy') or None
+        self.write({
+            'contract_txt': base64.decodestring(contract_txt), 
+            'contract_b64': contract_txt,
+            'privacy_txt': base64.decodestring(privacy_txt), 
+            'privacy_b64': privacy_txt,
+
+        })
+
+    @api.multi
+    def action_sign_contract(self):
+        self._compute_date_signed_contract()
+        partner_id = self.company_id.partner_id
+        url = "%s/cfdi/signcontract/%s/%s"%(self.company_id.cfd_mx_host, self.company_id.cfd_mx_db, self.company_id.vat)
+        headers = {'Content-Type': 'application/json'}
+        data = {
+            "params": {
+                "test": self.company_id.cfd_mx_test,
+                "pac": self.company_id.cfd_mx_pac,
+                "version": self.company_id.cfd_mx_version,
+                "cfdi": {
+                    "date": self.date_signed_contract,
+                    "privacy": self.privacy_b64,
+                    "contract": self.contract_b64,
+                }
+            }
+        }
+        data_json = json.dumps(data)
+        _logger.info(data)
+        res = requests.post(url=url, data=data_json, headers=headers)
+        res_datas = res.json()
+        print "res_datas", res_datas
+        msg = res_datas.get('error') and res_datas['error'].get('data') and res_datas['error']['data'].get('message')
+        if msg:
+            print res_datas['error']['data']
+        if res_datas.get('error'):
+            print res_datas['error']
+        if res_datas.get('result') and res_datas['result'].get('error'):
+            print res_datas['result']['error']
+
+
+
+
+    @api.one
+    def _compute_date_signed_contract(self):
+        if self.date_signed_contract:
+            return True
+        tz = self.env.user.tz or "America/Mexico_City"
+        hora_factura_utc = datetime.now(timezone("UTC"))
+        dtz = hora_factura_utc.astimezone(timezone(tz)).strftime("%Y-%m-%d %H:%M:%S")
+        dtz = dtz.replace(" ", "T")
+        print "dtz", dtz
+        self.date_signed_contract = dtz
+
+        
+
 
 class CFDITimbresSat(models.Model):
     _name = 'cfdi.timbres.sat'

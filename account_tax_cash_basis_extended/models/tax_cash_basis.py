@@ -41,7 +41,7 @@ class AccountPartialReconcileCashBasis(models.Model):
                 fiscal.unlink()
         super(AccountPartialReconcileCashBasis, self).unlink()
 
-    def _get_tax_cash_basis_lines(self, value_before_reconciliation):
+    def _get_tax_cash_basis_lines_old(self, value_before_reconciliation):
         # Search in account_move if we have any taxes account move lines
         tax_group = {}
         total_by_cash_basis_account = {}

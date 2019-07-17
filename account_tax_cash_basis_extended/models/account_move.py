@@ -108,7 +108,7 @@ class AccountMoveLine(models.Model):
     ## CREATE account_move_fiscal Lines and create tax transfer account_move_line
     #####################################################################################################################
     @api.model
-    def create(self, vals):
+    def create_old(self, vals):
         res = super(AccountMoveLine, self).create(vals)
         res.move_id.button_create_fiscal()
         return res

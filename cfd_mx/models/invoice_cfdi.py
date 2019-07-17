@@ -132,7 +132,7 @@ class AccountCfdi(models.Model):
                     'TipoFactor': '%s'%(tax_id.cfdi_tipofactor),
                     'TasaOCuota': '%s'%(TasaOCuota),
                     'Base':  '%.*f' % (decimal_precision, tax.get('base')), # '%s'%(Base),  #'%.2f'%(round( tax.get('base') , dp_account)),
-                    'Importe': '%.*f' % (decimal_precision, abs(importe))   # '%s'%(Importe) # '%.2f'%(round(abs(importe), dp_account))
+                    'Importe': '%.*f' % (decimal_precision, abs( float(TasaOCuota)*tax.get('base') ))  # abs(importe)  # '%s'%(Importe) # '%.2f'%(round(abs(importe), dp_account))
                 }
                 if tax_group.cfdi_retencion:
                     concepto_attribs['Impuestos']['Retenciones'].append(impuestos)

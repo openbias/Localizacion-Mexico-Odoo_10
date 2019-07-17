@@ -1,6 +1,91 @@
 <odoo>
     <data>
 
+        <record id="cfdi_manifiesto_pac_view_form" model="ir.ui.view">
+            <field name="name">cfdi_manifiesto_pac_view_form</field>
+            <field name="model">cfdi.manifiesto.pac</field>
+            <field name="arch" type="xml">
+                <form string="Manifiesto PAC" create="false" delete="false">
+                    <header>
+                        <button name="action_get_contracts" type="object" string="Ver Contratos PAC" class="oe_highlight" />
+                        <button name="action_sign_contract" type="object" string="Firmar Aviso" class="oe_highlight" />
+                    </header>
+                    <sheet string="Manifiesto PAC">
+                        
+                        <fiel name="privacy_b64" invisible="1" />
+                        <fiel name="contract_b64" invisible="1" />
+                        <group>
+                            <group>
+                                <field name="company_id" readonly="1" />
+                                <field name="date_signed_contract" readonly="1" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Aviso Privacidad">
+                                <group>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-2">
+                                                <br />
+                                            </div>
+                                            <div class="col-8">
+                                                <field name="privacy_txt" readonly="1" placeholder="Additional notes..."/>
+                                            </div>
+                                            <div class="col-2">
+                                                <br />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </group>
+                            </page>
+                            <page string="Contrato de Servicio">
+                                <group>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-2">
+                                                <br />
+                                            </div>
+                                            <div class="col-8">
+                                                <field name="contract_txt" readonly="1" placeholder="Additional notes..."/>
+                                            </div>
+                                            <div class="col-2">
+                                                <br />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </group>
+                                
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="cfdi_manifiesto_pac_view_tree" model="ir.ui.view">
+            <field name="name">cfdi_manifiesto_pac_view_tree</field>
+            <field name="model">cfdi.manifiesto.pac</field>
+            <field name="arch" type="xml">
+                <tree string="Manifiesto PAC" create="true" delete="true">
+                    <field name="company_id" />
+                    <button name="action_get_contracts" type="object" string="Ver Contratos PAC" class="oe_highlight" />
+                    <button name="action_sig_privacy" type="object" string="Firmar Aviso" class="oe_highlight" />
+                    <button name="action_sig_contract" type="object" string="Firmar Contrato" class="oe_highlight" />
+                </tree>
+            </field>
+        </record>
+        <record id="action_cfdi_manifiesto_pac" model="ir.actions.act_window">
+            <field name="name">Manifiesto PAC</field>
+            <field name="res_model">cfdi.manifiesto.pac</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">list,form</field>
+        </record>
+        <menuitem 
+            action="action_cfdi_manifiesto_pac" 
+            parent="bias_base_report.menu_catalogo_cfdi"
+            groups="group_cfd_mx_user"
+            id="menu_cfdi_manifiesto_pac" sequence="80" />
+
         <!-- CATALOGO USO CFDI -->
         <record id="cfdi_timbres_sat_view_form" model="ir.ui.view">
             <field name="name">cfdi_timbres_sat_view_form</field>

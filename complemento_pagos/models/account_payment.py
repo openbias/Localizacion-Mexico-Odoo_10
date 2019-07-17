@@ -212,21 +212,6 @@ class AccountPayment(models.Model):
                     if self.formapago_id.clave == '29' and len_cta_dest not in [10, 11, 15, 16, 18, 50]:
                         raise ValidationError("La Cuenta Destino para 'Tarjeta de servicios' debe tener 10, 11, 15, 16, 18, 50 digitos.\n Digitos: %s - Cuenta: %s"%( len(self.cta_destino_id.acc_number or ""),  self.cta_destino_id.acc_number) )
 
-
-    {
-        u'lang': u'es_MX', 
-        u'tz': u'America/Monterrey', 
-        u'uid': 1, 
-        u'active_model': u'account.invoice', 
-        u'default_invoice_ids': [[4, 387, None]], 
-        u'journal_type': u'sale', 
-        u'params': {u'menu_id': 105, u'view_type': u'form', u'_push_me': False, u'action': 200, u'model': u'account.invoice', u'id': 387}, 
-        u'search_disable_custom_filters': True, 
-        u'active_ids': [387], 
-        u'type': u'out_invoice', 
-        u'active_id': 387
-    }
-
     """
     @api.multi
     def post(self):
