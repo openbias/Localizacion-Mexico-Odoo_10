@@ -27,15 +27,15 @@ class AccountMoveLine(models.Model):
         if not self:
             return True
 
-        model = self._context and self._context.get('params', False) and self._context['params'].get('model', '')
-        print "model", model
-        if model != 'account.payment':
+        invoice_id = self._context.get('invoice_id')
+        if invoice_id:
             for account_move_line in self:
                 if account_move_line.payment_id.cfdi_timbre_id:
                     msg = "NOTA: \n"
                     msg += "No es puede romper conciliacion a un CFDI de PAGOS \n"
                     msg += "Debes cancelar el Pago %s"%(account_move_line.payment_id.name)
                     raise UserError(msg)
+
         res = super(AccountMoveLine, self).remove_move_reconcile()
         return res
 
