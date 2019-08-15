@@ -190,6 +190,7 @@ class AccountCfdi(models.Model):
 
         datas = json.dumps(self.cfdi_datas, sort_keys=True, indent=4, separators=(',', ': '))
         logging.info(datas)
+
         url = '%s/stamp%s/'%(self.host, ctx['type'])
         if self.port:
             url = '%s:%s/stamp%s/'%(self.host, self.port, ctx['type'])

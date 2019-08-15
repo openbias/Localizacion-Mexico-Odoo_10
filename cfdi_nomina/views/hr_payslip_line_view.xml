@@ -16,6 +16,7 @@
             <field name="arch" type="xml">
                 <field name="appears_on_payslip" position="after">
                     <field name="appears_on_payslip_report"  />
+                    <field name="appears_on_payslip_xlsx"  />
                 </field>
             </field>
         </record>
