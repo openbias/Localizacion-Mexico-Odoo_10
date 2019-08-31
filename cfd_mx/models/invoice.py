@@ -187,7 +187,6 @@ class AccountInvoice(models.Model):
         self.price_discount_sat = descuento
         self.price_total_sat = total
 
-
     @api.one
     def _default_uso_cfdi_id(self):
         public = self.env.ref('cfd_mx.usocfdi_G01')
@@ -196,7 +195,6 @@ class AccountInvoice(models.Model):
     @api.one
     def _get_parcialidad_pago(self):
         self.pagos = True if len(self.payment_ids) != 0 else False
-
 
     @api.one
     def _get_cfdi_required(self):
@@ -225,7 +223,6 @@ class AccountInvoice(models.Model):
     metodopago_id = fields.Many2one('cfd_mx.metodopago', string=u'Metodo de Pago')
     reason_cancel = fields.Text(string="Motivo Cancelacion")
     cfdi_timbre_id = fields.Many2one('cfdi.timbres.sat', string=u'Timbre SAT', copy=False)
-
     cfdi_pending_cancel = fields.Boolean(string="CFDI Pending Cancel", default=False, copy=False)
     cfdi_pending_accept_cancel = fields.Boolean(string="CFDI Pending Accept Cancel", default=False, copy=False)
     cfdi_accept_reject = fields.Selection(
@@ -244,7 +241,6 @@ class AccountInvoice(models.Model):
     anoAprobacion = fields.Integer(string=u"Año de aprobación")
     noAprobacion = fields.Char(string="No. de aprobación")
     tipopago_id = fields.Many2one('cfd_mx.tipopago', string=u'Forma de Pago')
-
 
     @api.onchange('date_invoice')
     def _onchange_date_invoice(self):
@@ -361,7 +357,6 @@ class AccountInvoice(models.Model):
         if not recs:
             recs = self.search([('name', operator, name)] + args, limit=limit)
         return recs.name_get()
-
 
     ## Creado en batch
     @api.multi

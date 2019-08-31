@@ -294,31 +294,33 @@ class AccountPayment(models.Model):
 
     @api.multi
     def action_validate_cfdi(self):
-        for rec in self:
-            res = rec.create_cfdi_payment()
-            if res.get('message'):
-                message = res['message']
-                rec.message_post(body=message)
-                raise UserError(message)
-            else:
-                self.get_process_data(res.get('result'))
-                if rec.cfdi_factoraje_id and rec.partner_factoraje_id:
-                    # Se cancela Factura de Proveedor Factoraje    
-                    amount_total = rec.cfdi_factoraje_id.amount_total
-                    self.payment_difference_factoring()
-                    ctx = {'active_id': rec.cfdi_factoraje_id.id, 'active_ids': [rec.cfdi_factoraje_id.id], 'model': 'account.invoice'}
-                    res = self.env['account.invoice.refund'].with_context(**ctx).create({
-                        'date_invoice': rec.payment_date,
-                        'description': 'Cancelar Factoraje',
-                        'filter_refund': 'cancel'
-                    }).invoice_refund()
+        self.ensure_one()
+        res = self.create_cfdi_payment()
+        if res.get('message'):
+            message = res['message']
+            self.message_post(body=message)
+            raise UserError(message)
+        else:
+            self.get_process_data(res.get('result'))
+            if self.cfdi_factoraje_id and self.partner_factoraje_id:
+                # Se cancela Factura de Proveedor Factoraje    
+                amount_total = self.cfdi_factoraje_id.amount_total
+                print "amount_total", amount_total
+                self.payment_difference_factoring()
+                print "amount_total 000", amount_total
+                ctx = {'active_id': self.cfdi_factoraje_id.id, 'active_ids': [self.cfdi_factoraje_id.id], 'model': 'account.invoice'}
+                res = self.env['account.invoice.refund'].with_context(**ctx).create({
+                    'date_invoice': self.payment_date,
+                    'description': 'Cancelar Factoraje',
+                    'filter_refund': 'cancel'
+                }).invoice_refund()
 
         return True
 
     @api.multi
     def payment_difference_factoring(self):
         self.ensure_one()
-        invoice_id = False
+        invoice_id = self.env['account.invoice']
         for invoice in self.invoice_ids:
             if invoice.residual == 0.0:
                 continue
@@ -359,7 +361,6 @@ class AccountPayment(models.Model):
     @api.multi
     def create_cfdi_payment(self):
         self.ensure_one()
-
         Comprobante = self.cfdi_comprobante()
         if self.cfdi_timbre_id:
             Comprobante = self.cfdi_relacionados(Comprobante)
@@ -371,6 +372,7 @@ class AccountPayment(models.Model):
         tree = fromstring(xml)
         xml = etree.tostring(tree, pretty_print=True, encoding='UTF-8')
         # print xml
+        res_datas = {}
         url = "%s/cfdi/stamp/%s/%s"%(self.company_id.cfd_mx_host, self.company_id.cfd_mx_db, self.company_id.vat)
         headers = {'Content-Type': 'application/json'}
         data = {
@@ -911,6 +913,7 @@ class AccountBankStatementLine(models.Model):
         return res
 
     def process_reconciliation(self, counterpart_aml_dicts=None, payment_aml_rec=None, new_aml_dicts=None):
+        print "counterpart_aml_dicts", counterpart_aml_dicts
         invoice_ids = self.env['account.invoice'].browse()
         ctx_inv = {}
         if counterpart_aml_dicts:
@@ -955,7 +958,7 @@ class AccountBankStatementLine(models.Model):
             vals['partner_factoraje_id'] = self.partner_factoraje_id.id
             vals['cfdi_factoraje_id'] = self.cfdi_factoraje_id.id
         payments.write(vals)
-        payments.with_context(ctx_inv=ctx_inv).action_validate_cfdi()
+        payments.with_context(ctx_inv=ctx_inv, model_model="MDM").action_validate_cfdi()
         return move
 
     @api.multi

@@ -173,6 +173,12 @@ class AccountCfdi(models.Model):
             Subtotal = float(self.cfdi_datas['comprobante']['SubTotal'])
             Descuento = float(self.cfdi_datas['comprobante']['Descuento'])
             TotalImpuestosRetenidos , TotalImpuestosTrasladados = 0.0, 0.0
+
+            Subtotal = 0.0
+            for concepto in self.cfdi_datas.get('conceptos', []):
+                Subtotal += float( concepto.get('Importe', '0.0') )
+            self.cfdi_datas['comprobante']['Subtotal'] = '%.*f' % (decimal_precision, Subtotal)
+
             if self.cfdi_datas.get('impuestos'):
                 TotalImpuestosRetenidos = float(self.cfdi_datas['impuestos']['TotalImpuestosRetenidos'])
                 TotalImpuestosTrasladados = float(self.cfdi_datas['impuestos']['TotalImpuestosTrasladados'])
@@ -200,7 +206,7 @@ class AccountCfdi(models.Model):
 
     def get_info_pac(self):
         cfdi_datas = {
-            'test': self.test,
+            'test': "%s"%self.test,
             'pac': self.pac,
             'version': self.version
         }
@@ -237,7 +243,6 @@ class AccountCfdi(models.Model):
         fname = "cfd_%s.xml"%(obj.number or obj.name or '')
         if context.get('type') and context.get('type') == 'pagos':
             fname = '%s.xml'%(res.get('UUID') or res.get('uuid') or obj.number or obj.name or '')
-
         # Adjuntos
         attachment_obj = obj.env['ir.attachment']
         attachment_values = {
