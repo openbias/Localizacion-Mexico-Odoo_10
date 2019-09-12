@@ -38,7 +38,8 @@ def rate_retrieve_cop():
 
 def rate_retrieve():
     hostname = 'http://www.banxico.org.mx:80/DgieWSWeb/DgieWS?WSDL'
-    client = Client(hostname)
+    client = Client(hostname, cache=None, timeout=40)
+    print "clientclient", client
     tipoCambioResponse = client.service.tiposDeCambioBanxico()
     parser = etree.XMLParser(ns_clean=True, recover=True, encoding='utf-8')
     objroot = etree.fromstring(tipoCambioResponse.encode("utf-8"), parser=parser)

@@ -29,6 +29,8 @@ class AccountInvoice(models.Model):
     @api.multi
     def register_payment(self, payment_line, writeoff_acc_id=False, writeoff_journal_id=False):
         res = super(AccountInvoice, self).register_payment(payment_line, writeoff_acc_id=writeoff_acc_id, writeoff_journal_id=writeoff_journal_id)
+        if self._context.get('factoring', False):
+            return res
         if not self:
             return res
         if self.type.startswith("in"):

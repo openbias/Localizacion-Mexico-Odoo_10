@@ -23,7 +23,6 @@ class AccountMoveLine(models.Model):
     @api.multi
     def remove_move_reconcile(self):
         """ Undo a reconciliation """
-        print "remove_move_reconcile", self._context
         if not self:
             return True
 
@@ -88,10 +87,8 @@ class AccountMoveLine(models.Model):
                 'target': 'new',
                 'context': ctx,
             }
-
         else:
             raise UserError("No es una Factura CFDI de Pago")
-
 
     @api.multi
     def get_xml_cfdi(self):

@@ -219,7 +219,6 @@ class AccountPayment(models.Model):
         if self._context.get('active_model', '') != 'account.invoice' and not self.invoice_ids:
             print "self._context", self.invoice_ids
             return super(AccountPayment, self).post()
-
         print mmm
         ctx_inv = {}
         print "mmmmmmmmmmmmmmmmmmmmmmm", mmm
@@ -305,16 +304,13 @@ class AccountPayment(models.Model):
             if self.cfdi_factoraje_id and self.partner_factoraje_id:
                 # Se cancela Factura de Proveedor Factoraje    
                 amount_total = self.cfdi_factoraje_id.amount_total
-                print "amount_total", amount_total
                 self.payment_difference_factoring()
-                print "amount_total 000", amount_total
                 ctx = {'active_id': self.cfdi_factoraje_id.id, 'active_ids': [self.cfdi_factoraje_id.id], 'model': 'account.invoice'}
                 res = self.env['account.invoice.refund'].with_context(**ctx).create({
                     'date_invoice': self.payment_date,
                     'description': 'Cancelar Factoraje',
                     'filter_refund': 'cancel'
                 }).invoice_refund()
-
         return True
 
     @api.multi
@@ -344,7 +340,7 @@ class AccountPayment(models.Model):
         counterpart_aml_dict.update({'currency_id': currency_id})
         counterpart_aml = aml_obj.create(counterpart_aml_dict)
         if counterpart_aml:
-            invoice_id.register_payment(counterpart_aml)
+            invoice_id.with_context(factoring=True).register_payment(counterpart_aml)
             liquidity_aml_dict = self._get_shared_move_line_vals(credit, debit, -amount_currency, move.id, False)
             vals = {
                 'name': _('Counterpart'),
@@ -457,7 +453,6 @@ class AccountPayment(models.Model):
             'cfdi_timbre_id': timbre_id.id
         })
         return True
-        
 
     @api.multi
     def cfdi_comprobante(self):
@@ -554,7 +549,6 @@ class AccountPayment(models.Model):
         # Nodo pago10:Pago
         Complemento = Nodo('cfdi:Complemento', padre=Comprobante)
         Pagos = Nodo('pago10:Pagos', {"Version": '1.0'}, padre=Complemento)
-
         pago_attribs = {
             "FechaPago": '%sT12:00:00'%(self.payment_date),
             "FormaDePagoP": self.formapago_id.clave or "01",
@@ -606,7 +600,6 @@ class AccountPayment(models.Model):
                 amount_payment = abs(move_line_id.amount_currency)
             rate_difference = [p for p in content if p.get('journal_name', '') == self.company_id.currency_exchange_journal_id.name]
             rate_difference = rate_difference[0].get('amount', 0.0) if rate_difference else 0.0
-
             NumParcialidad = len(invoice.payment_ids.filtered(lambda p: p.state not in ('draft', 'cancelled')).ids)
             if NumParcialidad == 0:
                 NumParcialidad = 1
@@ -635,7 +628,6 @@ class AccountPayment(models.Model):
                 docto_attribs['TipoCambioDR'] = TipoCambioDR # ('%.6f' % (TipoCambioDR))
             elif  TipoCambioDR and inv_currency_id == invoice.company_id.currency_id:
                 docto_attribs['TipoCambioDR'] = rate
-
             DoctoRelacionado = Nodo('pago10:DoctoRelacionado', docto_attribs, padre=Pago)
             inv_fact[invoice.id] = {'uuid': invoice.uuid, 'ImpSaldoInsoluto': '%0.*f' % (decimal_precision, ImpSaldoInsoluto)}
         if self.cfdi_factoraje_id and self.partner_factoraje_id:
@@ -660,7 +652,6 @@ class AccountPayment(models.Model):
                 if self.currency_id.name != "MXN":
                     pago_attribs["TipoCambioP"] = rate
                 # Pagos = Nodo('pago10:Pagos', {"Version": '1.0'}, padre=Complemento)
-
                 Pago = Nodo('pago10:Pago', pago_attribs, padre=Pagos)
                 NumParcialidad = 2
                 inv_rate = ('%.6f' % (self.cfdi_factoraje_id.currency_id.with_context(date=self.payment_date).compute(1, self.currency_id, round=False))) if self.currency_id != self.cfdi_factoraje_id.currency_id else False
@@ -680,7 +671,6 @@ class AccountPayment(models.Model):
                     docto_attribs['TipoCambioDR'] = (1 / inv_rate)
                 DoctoRelacionado = Nodo('pago10:DoctoRelacionado', docto_attribs, padre=Pago)
         return Comprobante
-
 
     @staticmethod
     def _get_folio(number=""):
@@ -825,7 +815,6 @@ class AccountBankStatementLine(models.Model):
     hide_cfdi_factoraje_id = fields.Boolean(compute='_compute_hide_cfdi_factoraje_id',
         help="Este campo es usado para ocultar el cfdi_factoraje_id, cuando no se trate de una cuenta origen de Factoraje")
 
-
     @api.constrains('cta_origen_id')
     def _check_cta_origen_id(self):
         for record in self:
@@ -880,7 +869,6 @@ class AccountBankStatementLine(models.Model):
                 self.hide_formapago_id = False
             else:
                 self.hide_formapago_id = True
-
             if self.journal_id.type == 'cash':
                 # self.ttype = 'otro'
                 self.metodo_pago_id = self.env.ref('contabilidad_electronica.metodo_pago_1')
@@ -913,7 +901,6 @@ class AccountBankStatementLine(models.Model):
         return res
 
     def process_reconciliation(self, counterpart_aml_dicts=None, payment_aml_rec=None, new_aml_dicts=None):
-        print "counterpart_aml_dicts", counterpart_aml_dicts
         invoice_ids = self.env['account.invoice'].browse()
         ctx_inv = {}
         if counterpart_aml_dicts:
@@ -934,10 +921,8 @@ class AccountBankStatementLine(models.Model):
         move = super(AccountBankStatementLine, self).process_reconciliation(counterpart_aml_dicts=counterpart_aml_dicts, payment_aml_rec=payment_aml_rec, new_aml_dicts=new_aml_dicts)
         if not self.cfdi_is_required():
             return move
-
         if not invoice_ids:
             return move
-
         payments = move.mapped('line_ids.payment_id')
         payment_method = self.formapago_id and self.formapago_id.id
         vals = {
