@@ -206,7 +206,7 @@ class AccountCfdi(models.Model):
 
     def get_info_pac(self):
         cfdi_datas = {
-            'test': "%s"%self.test,
+            'test': self.test,
             'pac': self.pac,
             'version': self.version
         }
