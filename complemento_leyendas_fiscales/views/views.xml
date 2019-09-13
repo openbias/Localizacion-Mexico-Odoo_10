@@ -1,0 +1,62 @@
+<odoo>
+    <data>
+
+        <!-- LEYENDAS FISCALES -->
+        <record id="leyendas_view_tree" model="ir.ui.view">
+            <field name="name">leyendas_view_tree</field>
+            <field name="model">cfd_mx.leyendasfiscales</field>
+            <field name="arch" type="xml">
+                <tree string="Leyendas Fiscales">
+                    <field name="disposicion_fiscal"/>
+                    <field name="norma"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="leyendasfiscales_view_filter" model="ir.ui.view">
+            <field name="name">leyendasfiscales_view.search</field>
+            <field name="model">cfd_mx.leyendasfiscales</field>
+            <field name="arch" type="xml">
+                <search string="Leyendas Fiscales">
+                    <field name="name" string="Name" filter_domain="['|',('norma','ilike',self),('name','ilike',self)]"/>
+                </search>
+            </field>
+        </record>
+        <record id="action_leyendasfiscales" model="ir.actions.act_window">
+            <field name="name">Leyendas Fiscales</field>
+            <field name="res_model">cfd_mx.leyendasfiscales</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">tree</field>
+            <field name="view_mode">list,form</field>
+            <field name="target"></field>
+        </record>
+        <menuitem
+            action="action_leyendasfiscales" 
+            parent="bias_base_report.menu_catalogo_cfdi"
+            groups="cfd_mx.group_cfd_mx_user"
+            id="menu_leyendasfiscales"
+            sequence="97" />
+
+
+        <record model="ir.ui.view" id="view_invoice_form_add_leyendasfiscales">
+            <field name="name">account_invoice_form_add_leyendasfiscales</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="partner_id" position="after">
+                        <field name="leyendas_fiscales_activate" invisible="1"/>
+                    </field>
+                    <notebook position="inside">
+                        <page string="Complemento Leyendas Fiscales" attrs="{'invisible':[('leyendas_fiscales_activate','=',False)]}">
+                            <group col="4" colspan="4">
+                                <field name="leyendasfiscales_ids" colspan="4" nolabel="1" />
+                            </group>
+                        </page>
+                    </notebook>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</odoo>

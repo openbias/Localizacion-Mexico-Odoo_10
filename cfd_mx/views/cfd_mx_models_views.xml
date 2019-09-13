@@ -387,8 +387,6 @@
             id="menu_regimen"
             sequence="95" />
 
-
-
         <!-- CATALOGO ADUANAS -->
         <record id="aduana_view_tree" model="ir.ui.view">
             <field name="name">aduana_view_tree</field>

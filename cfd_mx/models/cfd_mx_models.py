@@ -49,15 +49,12 @@ class CFDIManifiestoPac(models.Model):
     _name = 'cfdi.manifiesto.pac'
 
     date_signed_contract = fields.Char(string="Fecha Firmado Contrato", copy=False)
-
     privacy_txt = fields.Text(string='Aviso de Privacidad')
     privacy_b64 = fields.Binary(string="Privacy")
     contract_txt = fields.Text(string='Contrato de Servicio')
     contract_b64 = fields.Binary(string="Contract")
-
     company_id = fields.Many2one('res.company', string='Company', change_default=True,
         required=True, readonly=True, default=lambda self: self.env['res.company']._company_default_get('cfdi.manifiesto.pac'))
-
 
     @api.model
     def create(self, vals):
@@ -104,7 +101,6 @@ class CFDIManifiestoPac(models.Model):
             return res_datas['error']
         if res_datas.get('result') and res_datas['result'].get('error'):
             return res_datas['result']['error']
-
         contract_txt = res_datas.get('result') and res_datas['result'] and res_datas['result'].get('privacy') or None
         privacy_txt = res_datas.get('result') and res_datas['result'] and res_datas['result'].get('privacy') or None
         self.write({
@@ -112,7 +108,6 @@ class CFDIManifiestoPac(models.Model):
             'contract_b64': contract_txt,
             'privacy_txt': base64.decodestring(privacy_txt), 
             'privacy_b64': privacy_txt,
-
         })
 
     @api.multi
@@ -137,7 +132,6 @@ class CFDIManifiestoPac(models.Model):
         _logger.info(data)
         res = requests.post(url=url, data=data_json, headers=headers)
         res_datas = res.json()
-        print "res_datas", res_datas
         msg = res_datas.get('error') and res_datas['error'].get('data') and res_datas['error']['data'].get('message')
         if msg:
             print res_datas['error']['data']
@@ -145,9 +139,6 @@ class CFDIManifiestoPac(models.Model):
             print res_datas['error']
         if res_datas.get('result') and res_datas['result'].get('error'):
             print res_datas['result']['error']
-
-
-
 
     @api.one
     def _compute_date_signed_contract(self):
@@ -160,15 +151,11 @@ class CFDIManifiestoPac(models.Model):
         print "dtz", dtz
         self.date_signed_contract = dtz
 
-        
-
-
 class CFDITimbresSat(models.Model):
     _name = 'cfdi.timbres.sat'
     _inherit = ['mail.thread']
     _description = 'CFDI Timbres'
     _order = "time_invoice desc, cfdi_type desc, id desc"
-
 
     @api.one
     @api.depends('name')
@@ -274,7 +261,6 @@ class CFDITimbresSat(models.Model):
         track_visibility='onchange',
         default='undefined')
 
-
     @api.multi
     def action_verificacfdi(self):
         ctx = {
@@ -298,16 +284,13 @@ class CFDITimbresSat(models.Model):
     @api.multi
     def get_xml_cfdi(self, objs=None):
         ctx = dict(self.env.context)
-
         nodosPagos = []
         timbreAtrib = {}
         compAtrib = {}
         receptorAtrib = {}
         emisorAtrib = {}
         att_obj = self.env['ir.attachment']
-          
         recs = objs if objs else self
-
         xml = False
         for rec in recs:
             name = rec.name
@@ -323,21 +306,17 @@ class CFDITimbresSat(models.Model):
                 nodes = xmlDoc.childNodes
                 comprobante = nodes[0]
                 compAtrib = dict(comprobante.attributes.items())
-
                 if compAtrib.get('Version', '') != '3.3':
                     continue
                 emisor = comprobante.getElementsByTagName('cfdi:Emisor')
                 emisorAtrib = dict(emisor[0].attributes.items())
-
                 receptor = comprobante.getElementsByTagName('cfdi:Receptor')
                 receptorAtrib = dict(receptor[0].attributes.items())
-
                 complementos = comprobante.getElementsByTagName('cfdi:Complemento')
                 for comp in complementos:
                     timbreFiscal = comp.getElementsByTagName('tfd:TimbreFiscalDigital')
                     for timbre in timbreFiscal:
                         timbreAtrib = dict(timbre.attributes.items())
-
                     pagos10 = comp.getElementsByTagName('pago10:Pagos')
                     for pago10 in pagos10:
                         pagos = pago10.getElementsByTagName('pago10:Pago')
@@ -362,7 +341,6 @@ class CFDITimbresSat(models.Model):
         if 'xml' in ctx:
             vals['xml'] = xml
         return vals
-
 
     @api.multi
     def get_total_cfdi(self, uuid):
@@ -397,13 +375,9 @@ class CFDITimbresSat(models.Model):
         url = "https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?id={id}&re={re}&rr={rr}&tt={tt}&fe={fe}".format(**args)
         return urllib.pathname2url(url)
 
-
-
-
     def getReportUuid(self, dateFrom, dateTo):
         ir_module = self.env['ir.module.module']
         cfdi_ingreso, cfdi_egreso, cfdi_pago, cfdi_nomina, cfdi_noencontrado = [], [], [], [], []
-
         company_id = self.env.user.company_id
         cfdi_params = {
             'dateFrom': '%sT00:00:00'%dateFrom,
@@ -495,7 +469,6 @@ class CFDITimbresSat(models.Model):
                             ''
                         ])
                 continue
-
         formats = ['string_left_bold', 'string_center', 'money_format', 'string_center', 'string_left', 'string_left', 'string_left']
         columns = [('A:A', 35), ('B:F', 25), ('G:G', 40)]
         datas = [['Fecha Timbrado', 'Folio Fiscal', 'Total', 'Tipo', 'Documento', 'RFC', 'Cliente']]
@@ -511,7 +484,6 @@ class CFDITimbresSat(models.Model):
         if cfdi_noencontrado:
             datas.extend([[' ', ' ', ' ', ' ', ' ', ' ', ' '], ['No Encontrado Odoo', ' ', ' ', ' ', ' ', ' ', ' ']])
             datas.extend(cfdi_noencontrado)
-
         ctx = {
             'report_name': 'Reportes Timbres SAT',
             'datas': datas,
@@ -522,9 +494,6 @@ class CFDITimbresSat(models.Model):
         }
         return ctx
 
-
-
-
 class AltaCatalogosCFDI(models.TransientModel):
     _name = 'cf.mx.alta.catalogos.wizard'
     _description = 'Alta Catalogos CFDI'
@@ -532,7 +501,6 @@ class AltaCatalogosCFDI(models.TransientModel):
     start_date = fields.Date(string='Fecha inicio', required=False)
     end_date = fields.Date(string='Fecha Final', required=False)
     
-
     @api.multi
     def action_alta_catalogos(self):
         logging.info(' Inicia Alta Catalogos')
@@ -563,7 +531,6 @@ class AltaCatalogosCFDI(models.TransientModel):
                     logging.info(' Model: -- %s, Res: %s - %s'%(model_name, indx, r) )
                 self._cr.commit()
         return True
-
 
     def getElectronicCdfi_threading(self, ids=None):
         with api.Environment.manage():
@@ -641,14 +608,11 @@ class AltaCatalogosCFDI(models.TransientModel):
         logging.info(' Finaliza Analizis CFDI')
         return True
 
-
     @api.multi
     def getReportdfi(self):
         logging.info('Inicia Reporte CFDI')
         ctx = self.env['cfdi.timbres.sat'].getReportUuid(self.start_date, self.end_date)
         return self.env['report'].with_context(**ctx).get_action(self, 'report_xlsx', data=ctx)
-
-
 
 class TipoRelacion(models.Model):
     _name = "cfd_mx.tiporelacion"
