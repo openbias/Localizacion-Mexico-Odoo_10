@@ -29,12 +29,14 @@ class AccountInvoice(models.Model):
     @api.multi
     def register_payment(self, payment_line, writeoff_acc_id=False, writeoff_journal_id=False):
         res = super(AccountInvoice, self).register_payment(payment_line, writeoff_acc_id=writeoff_acc_id, writeoff_journal_id=writeoff_journal_id)
+
         if self._context.get('factoring', False):
             return res
         if not self:
             return res
-        if self.type.startswith("in"):
-            return res
+        for inv in self:
+            if inv.type.startswith("in"):
+                return res
         if payment_line.payment_id and payment_line.payment_id:
             ctx_inv = {}
             for record in payment_line.payment_id.filtered(lambda r: r.cfdi_validate_required()):
