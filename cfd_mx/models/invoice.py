@@ -735,6 +735,11 @@ class AccountInvoice(models.Model):
         self.ensure_one()
         if not self.cfdi_is_required:
             return self.action_invoice_cancel()
+        if self.company_id.cfd_mx_test:
+            self.message_post(
+                body='<p style="color:green">' + _('Invoice canceled in test environment ') + '</p>',
+                subtype='account.mt_invoice_validated')
+            return self.action_invoice_cancel()
 
         if self.filtered(lambda inv: inv.state not in ['proforma2', 'draft', 'open']):
             self.message_post(
