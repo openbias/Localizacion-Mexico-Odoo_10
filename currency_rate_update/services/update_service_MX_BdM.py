@@ -36,10 +36,12 @@ def rate_retrieve_cop():
     return False
 
 
+# https://www.banxico.org.mx/DgieWSWeb/DgieWS?WSDL
+# http://www.banxico.org.mx:80/DgieWSWeb/DgieWS?WSDL
+
 def rate_retrieve():
-    hostname = 'http://www.banxico.org.mx:80/DgieWSWeb/DgieWS?WSDL'
-    client = Client(hostname, cache=None, timeout=40)
-    print "clientclient", client
+    hostname = 'https://www.banxico.org.mx/DgieWSWeb/DgieWS?WSDL'
+    client = Client(hostname, location=hostname, cache=None, timeout=40)
     tipoCambioResponse = client.service.tiposDeCambioBanxico()
     parser = etree.XMLParser(ns_clean=True, recover=True, encoding='utf-8')
     objroot = etree.fromstring(tipoCambioResponse.encode("utf-8"), parser=parser)
@@ -59,7 +61,6 @@ def rate_retrieve():
                 tipoCambio['MXN'] = float(serie['ns_bm:Obs'].get('@OBS_VALUE', '0.0'))
             if serie.get('@IDSERIE') == 'SF46410':
                 tipoCambio['EUR'] = float(serie['ns_bm:Obs'].get('@OBS_VALUE', '0.0'))
-
             # tipoCambio.append({
             #     'TITULO': serie.get('@TITULO').encode("utf-8"),
             #     'IDSERIE': serie.get('@IDSERIE').encode("utf-8"),
@@ -69,14 +70,11 @@ def rate_retrieve():
             #     'TIME_PERIOD': serie['ns_bm:Obs'].get('@TIME_PERIOD'),
             #     'OBS_VALUE': serie['ns_bm:Obs'].get('@OBS_VALUE')
             #     })
-
     if tipoCambio.get("MXN") and tipoCambio.get("EUR"):
         tipoCambio["EUR"] = tipoCambio["MXN"] / tipoCambio["EUR"]
-
     rate_cop = rate_retrieve_cop()
     if rate_cop:
         tipoCambio.update(rate_cop)
-
     return tipoCambio
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
