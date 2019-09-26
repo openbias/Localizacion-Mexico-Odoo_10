@@ -242,6 +242,8 @@ class AccountPayment(models.Model):
     @api.multi
     def cfdi_is_required(self):
         self.ensure_one()
+        if self.company_id.cfd_mx_test:
+            return False
         required = (
             self.partner_id and
             self.partner_type == "customer" and 
@@ -949,6 +951,8 @@ class AccountBankStatementLine(models.Model):
     @api.multi
     def cfdi_is_required(self):
         self.ensure_one()
+        if self.company_id.cfd_mx_test:
+            return False
         if self.amount < 0:
             partner_type = 'supplier'
         else:
