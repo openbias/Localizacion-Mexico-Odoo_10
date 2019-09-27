@@ -242,8 +242,8 @@ class AccountPayment(models.Model):
     @api.multi
     def cfdi_is_required(self):
         self.ensure_one()
-        if self.company_id.cfd_mx_test:
-            return False
+        # if self.company_id.cfd_mx_test:
+        #     return False
         required = (
             self.partner_id and
             self.partner_type == "customer" and 
@@ -463,8 +463,8 @@ class AccountPayment(models.Model):
         if not date_invoice:
             date_invoice_cfdi = self._compute_date_invoice_cfdi()
         folio_serie = self._get_folio(self.move_name or self.name)
-        folio = get_string_cfdi(folio_serie.get("folio", ""), 25) or ' '
-        serie = get_string_cfdi(folio_serie.get("serie", ""), 40) or ' '
+        folio = get_string_cfdi(folio_serie.get("folio", ""), 25) or ''
+        serie = get_string_cfdi(folio_serie.get("serie", ""), 40) or ''
         # serie = folio_serie.get("serie", "")
         cfdi_comprobante = {
             'xmlns:cfdi': 'http://www.sat.gob.mx/cfd/3',
@@ -472,8 +472,7 @@ class AccountPayment(models.Model):
             'xsi:schemaLocation': 'http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd http://www.sat.gob.mx/Pagos http://www.sat.gob.mx/sitio_internet/cfd/Pagos/Pagos10.xsd',
             'xmlns:pago10': 'http://www.sat.gob.mx/Pagos',
             'Version': '3.3',
-            'Serie': get_string_cfdi(serie or '', 25) or ' ',
-            'Folio': get_string_cfdi(folio or '', 40) or ' ',
+            'Folio': get_string_cfdi(folio or '', 40) or '',
             'Fecha': date_invoice,
             'NoCertificado': "",
             'Certificado': "",
@@ -483,6 +482,8 @@ class AccountPayment(models.Model):
             'TipoDeComprobante': "P",
             'LugarExpedicion': self.journal_id.codigo_postal_id.name or "",
         }
+        if serie:
+            cfdi_comprobante['Serie'] = get_string_cfdi(serie or '', 25) or ' '
         Comprobante = Nodo('cfdi:Comprobante', cfdi_comprobante)
         return Comprobante
 
@@ -690,6 +691,8 @@ class AccountPayment(models.Model):
     def cancel(self):
         res = super(AccountPayment, self).cancel()
         for record in self.filtered(lambda r: r.cfdi_is_required()):
+            if self.company_id.cfd_mx_test:
+                return False
             if self.cfdi_timbre_id:
                 res = record.action_cancel_cfdi()
                 if res.get('message'):
