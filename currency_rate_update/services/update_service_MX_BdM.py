@@ -14,7 +14,7 @@ try:
 except ImportError:
     pass
 
-def rate_retrieve_old():
+def rate_retrieve_old_old():
     banxico_rss_url = "http://www.banxico.org.mx/rsscb/rss?BMXC_canal=pagos&BMXC_idioma=es" 
     feed = feedparser.parse(banxico_rss_url)
     rate = 0.0
@@ -40,6 +40,11 @@ def rate_retrieve_cop():
 # http://www.banxico.org.mx:80/DgieWSWeb/DgieWS?WSDL
 
 def rate_retrieve():
+    tipoCambio = {}
+
+    return {}
+
+def rate_retrieve_old():
     hostname = 'https://www.banxico.org.mx/DgieWSWeb/DgieWS?WSDL'
     client = Client(hostname, location=hostname, cache=None, timeout=40)
     tipoCambioResponse = client.service.tiposDeCambioBanxico()

@@ -2,16 +2,17 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import logging
-from openerp import models, fields, api, _
-from openerp import exceptions
-from ..services import update_service_MX_BdM
-from datetime import date, datetime
+from odoo import models, fields, api, _
+
 from pytz import timezone
+import requests
+from datetime import datetime
+
 
 _logger = logging.getLogger(__name__)
 
-import openerp
-from openerp.osv import osv
+
+
 
 
 class CurrencyRate(models.Model):
@@ -66,7 +67,81 @@ class CurrencyRate(models.Model):
                         help='The rate of the currency to the currency of rate 1.')
     rate = fields.Float(compute='_compute_current_rate', string='Current Rate', digits=(12, 10),
                         help='The rate of the currency to the currency of rate 1.')
-    
+
+
+    def getTipoCambio(self, fechaIni, fechaFin, token):
+        url = "https://www.banxico.org.mx/SieAPIRest/service/v1/series/SF60653,SF46410/datos"
+        urlHost = '%s/%s/%s'%(url, fechaIni, fechaFin)
+        response = requests.get(
+            urlHost,
+            params={'token': token},
+            headers={'Accept': 'application/json', 'Bmx-Token': token, 'Accept-Encoding': 'gzip'},
+        )
+        json_response = response.json()
+        tipoCambios = {}
+        for bmx in json_response:
+            series = json_response[bmx].get('series') or []
+            for serie in series:
+                idSerie = serie.get('idSerie') or ''
+                if idSerie == 'SF60653':
+                    idSerie = 'MXN'
+                elif idSerie == 'SF46410':
+                    idSerie = 'EUR'
+                tipoCambios[idSerie] = []
+                for dato in serie.get('datos', []):
+                    fecha = datetime.strptime(dato.get('fecha'), '%d/%m/%Y').date()
+                    importe = float(dato.get('dato'))
+                    tipoCambios[idSerie].append({
+                        'fecha': '%s'%fecha,
+                        'importe': importe
+                    })
+        return tipoCambios
+
+    @api.multi
+    def refresh_currency(self, tipoCambios):
+        Currency = self.env['res.currency']
+        CurrencyRate = self.env['res.currency.rate']
+        for moneda in tipoCambios:
+            currency_id = Currency.search([('name', '=', moneda)])
+            for tipo in tipoCambios[moneda]:
+                if tipo['importe'] != 0.0:
+                    rate_brw = CurrencyRate.search([('name', 'like', '%s 06:00:00'%tipo['fecha']), ('currency_id', '=', currency_id.id)])
+                    vals = {
+                        'name': '%s 06:00:00'%(tipo['fecha']),
+                        'currency_id': currency_id.id,
+                        'rate': tipo['importe'],
+                        'company_id': False
+                    }
+                    if not rate_brw:
+                        CurrencyRate.create(vals)
+                        _logger.info('  ** Create currency %s -- date %s --rate %s ',currency_id.name, tipo['fecha'], tipo['importe'])
+                    else:
+                        CurrencyRate.write(vals)
+                        _logger.info('  ** Update currency %s -- date %s --rate %s',currency_id.name, tipo['fecha'], tipo['importe'])
+
+
+        return True
+
+    @api.model
+    def _run_currency_update(self):
+        _logger.info(' === Starting the currency rate update cron')
+        tz = self.env.user.tz
+        date_cron = fields.Date.today()
+        if tz:
+            hora_factura_utc = datetime.now(timezone("UTC"))
+            hora_factura_local = hora_factura_utc.astimezone(timezone(tz))
+            date_cron = hora_factura_local.date()
+
+        try:
+            token = self.env['ir.config_parameter'].sudo().get_param('bmx.token', default='')
+            if token:
+                tipoCambios = self.getTipoCambio(date_cron, date_cron, token)
+                self.refresh_currency(tipoCambios)
+        except:
+            pass
+        return True
+
+    """
     @api.one
     def refresh_currency(self):
         context = dict(self._context)
@@ -93,7 +168,7 @@ class CurrencyRate(models.Model):
         return True
 
     @api.multi
-    def run_currency_update_bias(self):
+    def run_currency_update_bias_old(self):
         _logger.info(' === Starting the currency rate update cron')
         tz = self.env.user.tz
         date_cron = fields.Date.today()
@@ -111,18 +186,16 @@ class CurrencyRate(models.Model):
             self.env.ref('base.%s'%(rate)).with_context(**ctx).refresh_currency()
         _logger.info(' === End of the currency rate update cron')
         return True
-
-    @api.model
-    def _run_currency_update(self):
-        self.run_currency_update_bias()
-
     @api.multi
     def update_currency_rate_bias(self):
         self.run_currency_update_bias()
-
     @api.multi
     def get_currency_rate_today(self):
         self.ensure_one()
         rate_dict = update_service_MX_BdM.rate_retrieve()
         print 'rate_dict', rate_dict
         return rate_dict
+    """
+
+    def update_currency_rate_bias(self):
+        self._run_currency_update()

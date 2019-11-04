@@ -734,3 +734,10 @@ class HrPayslip(models.Model):
     def get_cantLetra(self, amount):
         cantLetra = cant_letra(self.currency_id, amount) or ''
         return cantLetra
+
+    def slice_info(self, splitme, swidth):
+        pp = textwrap.wrap(splitme, width=int(swidth))
+        export_text = ""
+        for p in pp:
+            export_text += p + '\n'
+        return export_text

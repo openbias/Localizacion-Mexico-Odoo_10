@@ -21,6 +21,10 @@ def getAntiguedad(date_from, date_to):
     years = difference.years
     months = difference.months
     days = difference.days
+
+    logging.info("years %s "%years )
+    logging.info("months %s "%months )
+    logging.info("days %s "%days )
     
     p_diff = ""
     if (years <= 0 and months <= 0):
@@ -148,6 +152,7 @@ class AccountCfdi(models.Model):
         fecha_alta = empleado.fecha_alta or contract_id.date_start or False
 
         antiguedad = getAntiguedad(fecha_alta, rec.date_to)
+        logging.info("----antiguedad %s --- %s --- %s  "%(antiguedad, fecha_alta, rec.date_to) )
         print "Antiguedad", antiguedad, "FechaInicioRelLaboral", fecha_alta, "FechaFinalPago", rec.date_to
         riesgo_puesto = (empleado.job_id and empleado.job_id.riesgo_puesto_id and empleado.job_id.riesgo_puesto_id.code) or (company.riesgo_puesto_id and company.riesgo_puesto_id.code) or False
         receptor_attribs = {

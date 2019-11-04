@@ -12,7 +12,7 @@ Tipo de cambio para solventar obligaciones denominadas en dólares de los EE.UU.
     "author": "OpenBIAS S.A.",
     "website": "www.bias.com.mx",
     "category": "Financial Management/Configuration",
-    "depends": ['bias_base_report'],
+    "depends": ['base', 'bias_base_report'],
     "data": [
         "data/service_cron_data.xml",
         "views/res_currency_view.xml",

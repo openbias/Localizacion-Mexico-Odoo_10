@@ -264,7 +264,7 @@
                         <td class="dato"><span t-field="o.employee_id.nombre_completo"/></td>
                         <td class="etiqueta">NSS:</td>
                         <td class="dato"><span t-field="o.employee_id.imss"/></td>
-                        <td class="etiqueta">Quincena:</td>
+                        <td class="etiqueta">Periodo:</td>
                         <td class="dato"><span t-field="o.concepto"/></td>
                     </tr>
                     <tr>
@@ -272,7 +272,7 @@
                         <td class="dato"><span t-field="o.employee_id.department_id.name"/></td>
                         <td class="etiqueta">Dias Trab.:</td>
                         <td class="dato"><span t-esc="diast"/></td>
-                        <td class="etiqueta">Período:</td>
+                        <td class="etiqueta">Periodo:</td>
                         <td class="dato"><strong t-esc="o.get_periodo()"/></td>
                     </tr>
                     <tr>

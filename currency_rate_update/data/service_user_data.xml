@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
     <data noupdate="1">
 
         <record model="res.partner" id="currency_rate_update.partner_currency_rate">
@@ -19,4 +19,5 @@ Update Currency Rate</span>]]></field>
         </record>
 
     </data>
-</openerp>
+
+</odoo>
