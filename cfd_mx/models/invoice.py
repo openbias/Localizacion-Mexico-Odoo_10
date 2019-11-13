@@ -404,8 +404,8 @@ class AccountInvoice(models.Model):
         context = dict(self._context)
         tz = self.env.user.tz
         message = ''
-        if not self.number:
-            message += '<li>No se creo un Folio para la Factura</li>'
+        # if not self.number:
+        #     message += '<li>No se creo un Folio para la Factura</li>'
         if not self.tipo_comprobante:
             message += '<li>No se definio Tipo Comprobante</li>'
         if not self.journal_id.codigo_postal_id:
