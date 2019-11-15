@@ -182,6 +182,7 @@
                             </group>
                             <group>
                                 <field name="test" readonly="1"/>
+                                <field name="cfdi_timbre_id" />
                                 <field name="uuid" readonly="1"/>
                                 <field name="fecha_timbrado" readonly="1"/>
                                 <field name="date_invoice_cfdi" readonly="0" />

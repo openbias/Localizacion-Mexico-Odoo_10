@@ -166,9 +166,11 @@ class CFDITimbresSat(models.Model):
     @api.one
     @api.depends('name')
     def _get_cfdi_payment(self):
+        return False
         for pay_id in self.env['account.payment'].search([('cfdi_timbre_id', '=', self.id )], limit=1):
             self.payment_id = pay_id
 
+    payslip_id = fields.Many2one('hr.payslip', string="Nomina", copy=False)
     invoice_id = fields.Many2one('account.invoice', string=u'Invoice', copy=False, 
         store=True, readonly=True, compute='_get_cfdi_invoice')
     payment_id = fields.Many2one('account.payment', string=u'Payment', copy=False, 
@@ -282,7 +284,7 @@ class CFDITimbresSat(models.Model):
         }
 
     @api.multi
-    def get_xml_cfdi(self, objs=None):
+    def get_xml_cfdi(self, objs=None, cfdi_name=False):
         ctx = dict(self.env.context)
         nodosPagos = []
         timbreAtrib = {}
@@ -292,12 +294,17 @@ class CFDITimbresSat(models.Model):
         att_obj = self.env['ir.attachment']
         recs = objs if objs else self
         xml = False
+        print "--- self", objs, "self"
         for rec in recs:
-            name = rec.name
-            if objs:
+            name = cfdi_name
+            # name = rec.name
+            if not cfdi_name:
                 name = 'cfd_%s'%(rec.internal_number)
+            print("name", name)
             att_ids = att_obj.search([('res_model', '=', rec._name), ('res_id', '=', rec.id), ('type', '=', 'binary'), ('name', 'ilike', '.xml' )])
+            print "-----------att_id", att_ids
             for att_id in att_ids:
+                print "--att_id.datas", att_id.datas
                 if not att_id.datas:
                     continue
                 xml = att_id.datas
@@ -613,6 +620,86 @@ class AltaCatalogosCFDI(models.TransientModel):
         logging.info('Inicia Reporte CFDI')
         ctx = self.env['cfdi.timbres.sat'].getReportUuid(self.start_date, self.end_date)
         return self.env['report'].with_context(**ctx).get_action(self, 'report_xlsx', data=ctx)
+
+
+
+
+
+    def getElectronicCdfiNomina_threading(self, ids=None):
+        with api.Environment.manage():
+            new_cr = self.pool.cursor()
+            self = self.with_env(self.env(cr=new_cr))
+            Nomina = self.sudo().env['hr.payslip']
+            Attachment = self.sudo().env['ir.attachment']
+            Timbre = self.sudo().env['cfdi.timbres.sat']
+            indx = 0
+            for payslip in Nomina.sudo().search([('uuid', '!=', False), ('cfdi_timbre_id', '=', False)], order='date_to desc'):
+                indx += 1
+                logging.info(' - %s Nomina %s '%(indx, payslip.number) )
+                ctx = {
+                    'company_id': payslip.company_id.id,
+                    'force_company': payslip.company_id.id,
+                    'xml': True
+                }
+                name = 'cfd_%s'%payslip.number
+                attrs = Timbre.with_context(ctx).get_xml_cfdi(objs=payslip, cfdi_name=name)
+                if attrs and attrs.get("compAtrib") and attrs["compAtrib"].get("Sello"):
+                    xml = attrs["xml"]
+                    compAtrib = attrs["compAtrib"]
+                    timbreAtrib = attrs["timbreAtrib"]
+                    emisorAtrib = attrs["emisorAtrib"]
+                    receptorAtrib = attrs["receptorAtrib"]
+                    uuid = timbreAtrib.get('UUID')
+                    timbre_ids = Timbre.with_context(ctx).search([('name', '=', uuid)])
+                    vals = {
+                        "name": timbreAtrib.get('UUID'),
+                        "cfdi_supplier_rfc": emisorAtrib.get('Rfc', ''),
+                        "cfdi_customer_rfc": receptorAtrib.get('Rfc', ''),
+                        "cfdi_amount": float(compAtrib.get('Total', '0.0')),
+                        "cfdi_certificate": compAtrib.get('NoCertificado', ''),
+                        "cfdi_certificate_sat": timbreAtrib.get('NoCertificadoSAT', ''),
+                        "time_invoice": compAtrib.get('Fecha', ''),
+                        "time_invoice_sat": timbreAtrib.get('FechaTimbrado', ''),
+                        'currency_id': payslip.currency_id and payslip.currency_id.id or False,
+                        'cfdi_type': compAtrib.get('TipoDeComprobante', 'P'),
+                        "cfdi_pac_rfc": timbreAtrib.get('RfcProvCertif', ''),
+                        "cfdi_cadena_ori": "",
+                        'cfdi_cadena_sat': payslip.cadena_sat,
+                        'cfdi_sat_status': "valid",
+                        'journal_id': payslip.journal_id.id,
+                        'company_id': payslip.company_id.id,
+                        'test': payslip.test,
+                        'payslip_id': payslip.id
+                    }
+                    if timbre_ids:
+                        timbre_id = timbre_ids.sudo().with_context(ctx).write(vals)
+                    if not timbre_ids:
+                        timbre_id = Timbre.sudo().with_context(ctx).create(vals)
+                        xname = "%s.xml"%uuid
+                        attachment_values = {
+                            'name':  xname,
+                            'datas': xml,
+                            'datas_fname': xname,
+                            'description': 'Comprobante Fiscal Digital',
+                            'res_model': 'cfdi.timbres.sat',
+                            'res_id': timbre_id.id,
+                            'type': 'binary'
+                        }
+                        Attachment.sudo().with_context(ctx).create(attachment_values)
+                        payslip.sudo().with_context(ctx).write({
+                            'cfdi_timbre_id': timbre_id.id
+                        })
+                self._cr.commit()
+
+    @api.multi
+    def getElectronicCdfiNomina(self):
+        logging.info(' Inicia Analizis CFDI Nomina')
+        threaded_calculation = threading.Thread(target=self.getElectronicCdfiNomina_threading, args=(), kwargs={}, name='CFDI')
+        threaded_calculation.start()
+        threaded_calculation.join()
+        logging.info(' Finaliza Analizis CFDI')
+        return True
+
 
 class TipoRelacion(models.Model):
     _name = "cfd_mx.tiporelacion"

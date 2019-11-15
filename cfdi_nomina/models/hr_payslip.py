@@ -375,6 +375,7 @@ class HrPayslip(models.Model):
     cadena_original = fields.Text(string="Cadena Original", copy=False)
     certificado = fields.Char(string="No. Certificado", copy=False)
     fecha_sat = fields.Char(string="Fecha de Timbrado", copy=False)
+    cfdi_timbre_id = fields.Many2one('cfdi.timbres.sat', string=u'Timbre SAT')
     
     @api.multi
     def _calculation_confirm_sheet(self, ids, use_new_cursor=False):
@@ -613,8 +614,8 @@ class HrPayslip(models.Model):
             is_cfdi = rec.employee_id and rec.employee_id.contract_id and rec.employee_id.contract_id.is_cfdi or False
             if rec.uuid and rec.state not in ['draft']:
                 return True
-            if rec.uuid:
-                return True
+            # if rec.uuid:
+            #     return True
             if is_cfdi == False:
                 return True
 
@@ -666,6 +667,7 @@ class HrPayslip(models.Model):
                 message = res['message']
             else:
                 self.get_process_data(self, res.get('result'))
+                self.get_process_data_xml(self, res.get('result'))
         except ValueError, e:
             message = str(e)
         except Exception, e:
@@ -674,6 +676,55 @@ class HrPayslip(models.Model):
             self.action_raise_message("Error al Generar el XML \n\n %s "%( message.upper() ))
             return False
         return True
+
+
+    def get_process_data_xml(self, obj, res):
+        print "-------res", res
+        Currency = self.env['res.currency']
+        attachment_obj = self.env['ir.attachment']
+        Timbre = self.env['cfdi.timbres.sat']
+        currency_id = Currency.search([('name', '=', res.get('Moneda', ''))])
+        if not currency_id:
+            currency_id = Currency.search([('name', '=', 'MXN')])
+        timbre_id = Timbre.create({
+            'name': res.get('UUID', ''),
+            'cfdi_supplier_rfc': res.get('RfcEmisor', ''),
+            'cfdi_customer_rfc': res.get('RfcReceptor', ''),
+            'cfdi_amount': float(res.get('Total', '0.0')),
+            'cfdi_certificate': res.get('NoCertificado', ''),
+            'cfdi_certificate_sat': res.get('NoCertificadoSAT', ''),
+            'time_invoice': res.get('Fecha', ''),
+            'time_invoice_sat': res.get('FechaTimbrado', ''),
+            'currency_id': currency_id and currency_id.id or False,
+            'cfdi_type': res.get('TipoDeComprobante', ''),
+            'cfdi_pac_rfc': res.get('RfcProvCertif', ''),
+            'cfdi_cadena_ori': res.get('cadenaOri', ''),
+            'cfdi_cadena_sat': res.get('cadenaSat', ''),
+            'cfdi_sat_status': "valid",
+            'cfdi_state': "Vigente",
+            'journal_id': self.journal_id.id,
+            'test': self.company_id.cfd_mx_test,
+            'payslip_id': self.id
+        })
+        if timbre_id:
+            xname = "%s.xml"%res.get('UUID', '')
+            attachment_values = {
+                'name':  xname,
+                'datas': res.get('xml'),
+                'datas_fname': xname,
+                'description': 'Comprobante Fiscal Digital',
+                'res_model': 'cfdi.timbres.sat',
+                'res_id': timbre_id.id,
+                'type': 'binary'
+            }
+            attachment_obj.create(attachment_values)
+            self.write({
+                'cfdi_timbre_id': timbre_id.id,
+                'uuid': res.get('UUID', ''),
+                'test': self.company_id.cfd_mx_test
+            })
+        return True
+
 
 
     @api.multi

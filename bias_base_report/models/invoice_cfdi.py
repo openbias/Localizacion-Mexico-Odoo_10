@@ -73,14 +73,16 @@ class AccountCfdi(models.Model):
     def _get_cadena_sat_wrap(self):
         res = ""
         if self.cadena_sat:
-            res = self.get_info_sat(self.cadena_sat, 80)
+            print "-------------", self.cadena_sat
+            # res = self.get_info_sat(self.cadena_sat, 80)
         self.cadena_sat_wrap = res
 
     @api.one
     def _get_sello_sat_wrap(self):
         res = ""
         if self.sello_sat:
-            res = self.get_info_sat(self.sello_sat, 80)
+            print "---------", self.sello_sat
+            # res = self.get_info_sat(self.sello_sat, 80)
         self.sello_sat_wrap = res
 
     @api.one
@@ -196,7 +198,6 @@ class AccountCfdi(models.Model):
 
         datas = json.dumps(self.cfdi_datas, sort_keys=True, indent=4, separators=(',', ': '))
         logging.info(datas)
-
         url = '%s/stamp%s/'%(self.host, ctx['type'])
         if self.port:
             url = '%s:%s/stamp%s/'%(self.host, self.port, ctx['type'])

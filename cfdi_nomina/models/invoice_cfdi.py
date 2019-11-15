@@ -53,6 +53,15 @@ class AccountCfdi(models.Model):
     # Nomina
     #
     ################################
+
+    def nomina_info_relacionados(self):
+        cfdi_relacionado = {}
+        if self.cfdi_timbre_id:
+            cfdi_relacionado["TipoRelacion"] = '04'
+            cfdi_relacionado["uuid"] = self.cfdi_timbre_id.name
+        return cfdi_relacionado
+
+
     def nomina_info_comprobante(self):
         rec = self.obj
         tz = rec.env.user.tz
@@ -153,7 +162,6 @@ class AccountCfdi(models.Model):
 
         antiguedad = getAntiguedad(fecha_alta, rec.date_to)
         logging.info("----antiguedad %s --- %s --- %s  "%(antiguedad, fecha_alta, rec.date_to) )
-        print "Antiguedad", antiguedad, "FechaInicioRelLaboral", fecha_alta, "FechaFinalPago", rec.date_to
         riesgo_puesto = (empleado.job_id and empleado.job_id.riesgo_puesto_id and empleado.job_id.riesgo_puesto_id.code) or (company.riesgo_puesto_id and company.riesgo_puesto_id.code) or False
         receptor_attribs = {
             "Curp": empleado.curp or "",
