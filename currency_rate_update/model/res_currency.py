@@ -4,6 +4,8 @@
 import logging
 from odoo import models, fields, api, _
 
+from suds.client import Client
+import time
 from pytz import timezone
 import requests
 from datetime import datetime
@@ -13,7 +15,24 @@ _logger = logging.getLogger(__name__)
 
 
 
-
+def rate_retrieve_cop():
+    WSDL_URL = 'https://www.superfinanciera.gov.co/SuperfinancieraWebServiceTRM/TCRMServicesWebService/TCRMServicesWebService?WSDL'
+    date = time.strftime('%Y-%m-%d')
+    try:
+        client = Client(WSDL_URL, location=WSDL_URL, faults=True)
+        soapresp =  client.service.queryTCRM(date)
+        if soapresp["success"] and soapresp["value"]:
+            return {
+                'COP': [{
+                    'fecha': date,
+                    'importe': soapresp["value"]
+                }]
+            }
+        return False
+    except Exception as e:
+        _logger.info("---Error %s "%(str(e)))
+        return False
+    return False
 
 class CurrencyRate(models.Model):
     _inherit = 'res.currency.rate'
@@ -21,8 +40,6 @@ class CurrencyRate(models.Model):
 
     rate = fields.Float(digits=(12, 10), help='The rate of the currency to the currency of rate 1')
     rate_inv = fields.Float(digits=(12, 10), help='The rate of the currency to the currency of rate 1')
-
-
 
 class CurrencyRate(models.Model):
     _inherit = 'res.currency'
@@ -139,63 +156,13 @@ class CurrencyRate(models.Model):
                 self.refresh_currency(tipoCambios)
         except:
             pass
-        return True
+        try:
+            tipoCambios = rate_retrieve_cop()
+            self.refresh_currency(tipoCambios)
+        except:
+            pass
 
-    """
-    @api.one
-    def refresh_currency(self):
-        context = dict(self._context)
-        rate_obj = self.env['res.currency.rate']
-        rate = context.get('rate', 0.0)
-        rate_inv = context.get('rate_inv', 0.0)
-        date_cron = '%s'%(context.get('date_cron'))
-        rate_brw = rate_obj.search([('name', 'like', '%s 06:00:00'%(date_cron) ), ('currency_id', '=', self.id)])
-        if rate != 0.0 :
-            vals = {
-                'name': '%s 06:00:00'%(date_cron),
-                'currency_id': self.id,
-                'rate': rate,
-                'company_id': False
-            }
-            if rate_inv:
-                vals['rate_inv'] = rate_inv
-            if not rate_brw:
-                rate_obj.create(vals)
-                _logger.info('  ** Create currency %s -- date %s --rate %s ',self.name, date_cron, rate)
-            else:
-                rate_obj.write(vals)
-                _logger.info('  ** Update currency %s -- date %s --rate %s',self.name, date_cron, rate)
         return True
-
-    @api.multi
-    def run_currency_update_bias_old(self):
-        _logger.info(' === Starting the currency rate update cron')
-        tz = self.env.user.tz
-        date_cron = fields.Date.today()
-        if tz:
-            hora_factura_utc = datetime.now(timezone("UTC"))
-            hora_factura_local = hora_factura_utc.astimezone(timezone(tz))
-            date_cron = hora_factura_local.date()
-
-        rate_dict = update_service_MX_BdM.rate_retrieve()
-        for rate in rate_dict:
-            ctx = {
-                'date_cron': date_cron,
-                'rate': rate_dict[rate]
-            }
-            self.env.ref('base.%s'%(rate)).with_context(**ctx).refresh_currency()
-        _logger.info(' === End of the currency rate update cron')
-        return True
-    @api.multi
-    def update_currency_rate_bias(self):
-        self.run_currency_update_bias()
-    @api.multi
-    def get_currency_rate_today(self):
-        self.ensure_one()
-        rate_dict = update_service_MX_BdM.rate_retrieve()
-        print 'rate_dict', rate_dict
-        return rate_dict
-    """
 
     def update_currency_rate_bias(self):
         self._run_currency_update()

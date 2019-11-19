@@ -70,23 +70,30 @@ class CurrencyWizard(models.TransientModel):
     def action_update_rate(self):
         Currency = self.env['res.currency']
         Rate = self.env['res.currency.rate']
+        token = self.env['ir.config_parameter'].sudo().get_param('bmx.token', default='')
         for rec in self:
-            rate_retrieve = self.action_process_rate(rec.date_start, rec.date_stop)
-            logging.info(' == rate_retrieve == %s ', rate_retrieve)
-            currency_ids = Currency.search([('name', 'in', ['MXN', 'MN'])])
-            for currency in currency_ids: 
-                for line in rate_retrieve:
-                    rate_name = line['date']
-                    rate_ids = Rate.search([('name', 'like', '%s 06:00:00'%(rate_name) ), ('currency_id', '=', currency.id)])
-                    vals = {
-                        'name': '%s 06:00:00'%(rate_name),
-                        'currency_id': currency.id,
-                        'rate': line['rate'],
-                        'company_id': False
-                    }
-                    if not rate_ids:
-                        Rate.create(vals)
-                        logging.info('  ** Create currency %s -- date %s --rate %s ', currency.name, line['date'], line['rate'])
-                    else:
-                        rate_ids.write(vals)
-                        logging.info('  ** Update currency %s -- date %s --rate %s', currency.name, line['date'], line['rate'])
+            if token:
+                tipoCambios = Currency.getTipoCambio(rec.date_start, rec.date_stop, token)
+                Currency.refresh_currency(tipoCambios)
+        return True
+        """
+        rate_retrieve = self.action_process_rate(rec.date_start, rec.date_stop)
+        logging.info(' == rate_retrieve == %s ', rate_retrieve)
+        currency_ids = Currency.search([('name', 'in', ['MXN', 'MN'])])
+        for currency in currency_ids: 
+            for line in rate_retrieve:
+                rate_name = line['date']
+                rate_ids = Rate.search([('name', 'like', '%s 06:00:00'%(rate_name) ), ('currency_id', '=', currency.id)])
+                vals = {
+                    'name': '%s 06:00:00'%(rate_name),
+                    'currency_id': currency.id,
+                    'rate': line['rate'],
+                    'company_id': False
+                }
+                if not rate_ids:
+                    Rate.create(vals)
+                    logging.info('  ** Create currency %s -- date %s --rate %s ', currency.name, line['date'], line['rate'])
+                else:
+                    rate_ids.write(vals)
+                    logging.info('  ** Update currency %s -- date %s --rate %s', currency.name, line['date'], line['rate'])
+        """

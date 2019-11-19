@@ -754,6 +754,12 @@ class HrPayslip(models.Model):
             self.action_raise_message("Error al Generar el XML \n\n %s "%( message.upper() ))
             return False
         else:
+            self.cfdi_timbre_id.write({
+                "cfdi_cancel_date_sat": res["result"].get("Fecha"),
+                "cfdi_cancel_status_sat": res["result"].get("EstatusCancelacion"),
+                "cfdi_cancel_code_sat": res["result"].get("MsgCancelacion"),
+                "cfdi_cancel_state": res["result"].get("Status")
+            })
             acuse = res["result"].get("Acuse")
             self.move_id.reverse_moves()
             self.write({
