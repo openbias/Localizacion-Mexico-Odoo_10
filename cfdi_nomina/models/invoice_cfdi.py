@@ -31,7 +31,7 @@ def getAntiguedad(date_from, date_to):
         p_diff += "%sY"%(years)
     if months > 0:
         p_diff += "%sM"%(months)
-    if days > 0:
+    if days > 0 or days==0:
         p_diff += "%sD"%(days)
     return p_diff
     
