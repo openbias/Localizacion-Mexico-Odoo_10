@@ -25,6 +25,15 @@ def getAntiguedad(date_from, date_to):
     logging.info("years %s "%years )
     logging.info("months %s "%months )
     logging.info("days %s "%days )
+
+    p_diff = "P"
+    if years > 0:
+        p_diff += "%sY"%(years)
+    if months > 0:
+        p_diff += "%sM"%(months)
+    if days > 0:
+        p_diff += "%sD"%(days)
+    return p_diff
     
     p_diff = ""
     if (years <= 0 and months <= 0):
