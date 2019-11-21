@@ -13,7 +13,7 @@ from datetime import datetime
 
 _logger = logging.getLogger(__name__)
 
-
+# https://www.banxico.org.mx/SieAPIRest/service/v1/series/SF60653,SF46410/datos/2019-11-01/2019-11-21?token=2e02dc5320d8b632c3a506954ccfc5fad9d325752eac0140a7cac213d2b637c7
 
 def rate_retrieve_cop():
     WSDL_URL = 'https://www.superfinanciera.gov.co/SuperfinancieraWebServiceTRM/TCRMServicesWebService/TCRMServicesWebService?WSDL'
@@ -112,6 +112,10 @@ class CurrencyRate(models.Model):
                         'fecha': '%s'%fecha,
                         'importe': importe
                     })
+        for tipoeur in tipoCambios.get('EUR', []):
+            tipomxn = next(tipomxn for tipomxn in tipoCambios.get('MXN') if tipomxn["fecha"] == tipoeur['fecha'] )
+            tipoeur['importe_real'] = tipoeur.get('importe')
+            tipoeur['importe'] = tipomxn.get('importe', 0.0) / tipoeur.get('importe', 0.0)
         return tipoCambios
 
     @api.multi
