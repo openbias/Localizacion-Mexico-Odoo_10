@@ -294,17 +294,13 @@ class CFDITimbresSat(models.Model):
         att_obj = self.env['ir.attachment']
         recs = objs if objs else self
         xml = False
-        print "--- self", objs, "self"
         for rec in recs:
-            name = cfdi_name
+            # name = cfdi_name
             # name = rec.name
-            if not cfdi_name:
-                name = 'cfd_%s'%(rec.internal_number)
-            print("name", name)
+            # if not cfdi_name:
+            #     name = 'cfd_%s'%(rec.internal_number)
             att_ids = att_obj.search([('res_model', '=', rec._name), ('res_id', '=', rec.id), ('type', '=', 'binary'), ('name', 'ilike', '.xml' )])
-            print "-----------att_id", att_ids
             for att_id in att_ids:
-                print "--att_id.datas", att_id.datas
                 if not att_id.datas:
                     continue
                 xml = att_id.datas

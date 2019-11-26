@@ -9,6 +9,7 @@ import time
 from pytz import timezone
 import requests
 from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 
 _logger = logging.getLogger(__name__)
@@ -151,12 +152,13 @@ class CurrencyRate(models.Model):
         if tz:
             hora_factura_utc = datetime.now(timezone("UTC"))
             hora_factura_local = hora_factura_utc.astimezone(timezone(tz))
-            date_cron = hora_factura_local.date()
-
+            date_end = hora_factura_local.date()
+            date_start = date_end + relativedelta(days=-5)
+            print("---------date_start", date_start, date_end)
         try:
             token = self.env['ir.config_parameter'].sudo().get_param('bmx.token', default='')
             if token:
-                tipoCambios = self.getTipoCambio(date_cron, date_cron, token)
+                tipoCambios = self.getTipoCambio(date_start, date_end, token)
                 self.refresh_currency(tipoCambios)
         except:
             pass
