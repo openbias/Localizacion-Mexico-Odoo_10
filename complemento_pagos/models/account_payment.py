@@ -671,7 +671,7 @@ class AccountPayment(models.Model):
                 if invoice.journal_id.serie:
                     docto_attribs['Serie'] = invoice.journal_id.serie or ''
                 if inv_rate:
-                    docto_attribs['TipoCambioDR'] = (1 / inv_rate)
+                    docto_attribs['TipoCambioDR'] = (1 / float(inv_rate))
                 DoctoRelacionado = Nodo('pago10:DoctoRelacionado', docto_attribs, padre=Pago)
         return Comprobante
 
