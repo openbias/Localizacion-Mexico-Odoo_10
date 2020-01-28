@@ -172,12 +172,15 @@ class AccountCfdi(models.Model):
         antiguedad = getAntiguedad(fecha_alta, rec.date_to)
         logging.info("----antiguedad %s --- %s --- %s  "%(antiguedad, fecha_alta, rec.date_to) )
         riesgo_puesto = (empleado.job_id and empleado.job_id.riesgo_puesto_id and empleado.job_id.riesgo_puesto_id.code) or (company.riesgo_puesto_id and company.riesgo_puesto_id.code) or False
+
+        # periodicidad_pago = (rec.periodicidad_pago_id and rec.periodicidad_pago_id.code) or (rec.contract_id.periodicidad_pago_id and rec.contract_id.periodicidad_pago_id.code) or ""
+        periodicidad_pago = rec.contract_id.periodicidad_pago_id and rec.contract_id.periodicidad_pago_id.code or ""
         receptor_attribs = {
             "Curp": empleado.curp or "",
             "TipoContrato": rec.contract_id.type_id and rec.contract_id.type_id.code or "",
             "TipoRegimen": rec.contract_id.regimen_contratacion_id and rec.contract_id.regimen_contratacion_id.code or "",
             "NumEmpleado": empleado.cod_emp or "",
-            "PeriodicidadPago": rec.contract_id.periodicidad_pago_id and rec.contract_id.periodicidad_pago_id.code or "",
+            "PeriodicidadPago": periodicidad_pago,
             "ClaveEntFed": empleado.address_home_id and empleado.address_home_id.state_id.code or "",
             "Antiguedad": antiguedad
         }
@@ -354,8 +357,8 @@ class AccountCfdi(models.Model):
                 "lines": []
             }
             for otro_pago in nodo_o:
-                if otro_pago.total == 0:
-                    continue
+                # if otro_pago.total == 0:
+                #     continue
                 tipo_otro_pago, nombre_otro_pago = rec._get_code(otro_pago)
                 attrs = {
                     "TipoOtroPago": tipo_otro_pago,
@@ -390,8 +393,8 @@ class AccountCfdi(models.Model):
                     "SubsidioAlEmpleo": SubsidioAlEmpleo,
                     "CompensacionSaldosAFavor": CompensacionSaldosAFavor
                 })
-            if totalOtrosPagos > 0:
-                nomina_attribs["TotalOtrosPagos"] = "%.2f"%totalOtrosPagos
+            # if totalOtrosPagos > 0:
+            nomina_attribs["TotalOtrosPagos"] = "%.2f"%totalOtrosPagos
 
 
         #----------------

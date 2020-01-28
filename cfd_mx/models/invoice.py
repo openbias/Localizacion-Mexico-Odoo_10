@@ -449,8 +449,21 @@ class AccountInvoice(models.Model):
         if self.type.startswith("in"):
             return True
         message = self.action_validate_cfdi()
+
+
+        """
+        res = self.with_context({'type': 'invoice'}).stamp(self)
+        logging.info('----------- Action Create CFD  %s '%(res) )
+        if res.get('message'):
+            message = res['message']
+        else:
+            xml_datas = self.cfdi_append_addenda(res.get('result'))
+            self.get_process_data(self, xml_datas)
+            self.get_process_data_xml(xml_datas)
+        """
         try:
             res = self.with_context({'type': 'invoice'}).stamp(self)
+            logging.info('----------- Action Create CFD  %s '%(res) )
             if res.get('message'):
                 message = res['message']
             else:
@@ -465,6 +478,7 @@ class AccountInvoice(models.Model):
             message = message.replace("(u'", "").replace("', '')", "")
             self.with_context(**context).action_raise_message("Error al Generar el XML \n\n %s "%( message.upper() ))
             return False
+
         return True
 
     def get_process_data_xml(self, res):
@@ -510,6 +524,7 @@ class AccountInvoice(models.Model):
                 'uuid': res.get('UUID', ''),
                 'test': self.company_id.cfd_mx_test
             })
+        return True
 
     @api.multi
     def get_comprobante_addenda(self):

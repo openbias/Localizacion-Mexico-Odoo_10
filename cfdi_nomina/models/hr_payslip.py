@@ -114,11 +114,10 @@ class HrPayslipRun(models.Model):
     def _compute_tipo_nomina(self):
         if self.tipo_nomina_especial:
             tipo_nomina = 'O' if self.tipo_nomina_especial == 'ord' else 'E'
-            print "tipo_nomina", tipo_nomina
             for line in self.sudo().slip_ids:
                 line.tipo_nomina = tipo_nomina
                 line.tipo_nomina_especial = self.tipo_nomina_especial
-                print "line", line.name, tipo_nomina, line.tipo_nomina, line.tipo_nomina_especial
+                # print "line", line.name, tipo_nomina, line.tipo_nomina, line.tipo_nomina_especial
             self.tipo_nomina = tipo_nomina
 
     @api.one
@@ -679,7 +678,6 @@ class HrPayslip(models.Model):
 
 
     def get_process_data_xml(self, obj, res):
-        print "-------res", res
         Currency = self.env['res.currency']
         attachment_obj = self.env['ir.attachment']
         Timbre = self.env['cfdi.timbres.sat']
