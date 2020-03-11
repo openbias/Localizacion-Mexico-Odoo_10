@@ -184,7 +184,6 @@ class HrPayslipRun(models.Model):
                     if not slip_id.date_invoice_cfdi:
                         vals["date_invoice_cfdi"] = dtz
                         logging.info('---DATE %s '%(dtz) )
-                    print("---------vals", vals)
                     slip_id.write(vals)
                     new_cr.commit()
             new_cr.close()
