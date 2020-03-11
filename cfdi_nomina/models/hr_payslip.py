@@ -616,7 +616,18 @@ class HrPayslip(models.Model):
             move_dict['line_ids'] = line_ids
             move = self.env['account.move'].create(move_dict)
             slip.write({'move_id': move.id, 'date': date})
-            move.post()
+            
+            message = ""
+            try:
+                move.post()
+            except ValueError, e:
+                message = str(e)
+            except Exception, e:
+                message = str(e)
+            if message:
+                self.action_raise_message("Error al Generar el XML \n\n %s "%( message.upper() ))
+                return False
+
 
     @api.multi
     def action_payslip_done(self):
