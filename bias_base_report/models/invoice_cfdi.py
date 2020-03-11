@@ -230,6 +230,7 @@ class AccountCfdi(models.Model):
         }
         res = s.post(url, data=json.dumps(data), headers=headers)
         res_datas = res.json()
+        _logger.info("-----------response timbrado %s "%res_datas )
         msg = res_datas.get('error') and res_datas['error'].get('data') and res_datas['error']['data'].get('message')
         if msg:
             return res_datas['error']['data']

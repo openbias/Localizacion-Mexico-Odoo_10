@@ -109,11 +109,6 @@ class HrPayslipRun(models.Model):
             "tipo_nomina": tipo_nomina,
             "tipo_nomina_especial": self.tipo_nomina_especial
         })
-        """
-        for line in self.sudo().slip_ids:
-            line.source_sncf = self.source_sncf
-            line.amount_sncf = self.amount_sncf
-        """
         return True
 
     @api.one
@@ -124,7 +119,6 @@ class HrPayslipRun(models.Model):
             for line in self.sudo().slip_ids:
                 line.tipo_nomina = tipo_nomina
                 line.tipo_nomina_especial = self.tipo_nomina_especial
-                # print "line", line.name, tipo_nomina, line.tipo_nomina, line.tipo_nomina_especial
             self.tipo_nomina = tipo_nomina
 
     @api.one
@@ -182,11 +176,17 @@ class HrPayslipRun(models.Model):
             Slip = self.sudo().env['hr.payslip']
             for run in Payslip.browse(ids):
                 for slip_id in run.slip_ids:
+                    vals = {
+                        "mensaje_validar": "",
+                        "mensaje_timbrado_pac": "",
+                        "mensaje_pac": ""
+                    }
                     if not slip_id.date_invoice_cfdi:
+                        vals["date_invoice_cfdi"] = dtz
                         logging.info('---DATE %s '%(dtz) )
-                        slip_id.write({'date_invoice_cfdi': dtz})
-                        # new_cr.execute("UPDATE hr_payslip SET date_invoice_cfdi='%s' WHERE id=%s "%(dtz, slip_id.id) )
-                        new_cr.commit()
+                    print("---------vals", vals)
+                    slip_id.write(vals)
+                    new_cr.commit()
             new_cr.close()
         return {}
 
@@ -201,7 +201,7 @@ class HrPayslipRun(models.Model):
             for run in Payslip.browse(ids):
                 for slip_id in run.slip_ids:
                     if slip_id.uuid and slip_id.state not in ['draft']:
-                        pass
+                        continue
                     logging.info("Confirm Sheet Run Payslip %s 00 ---- "%(slip_id.id,))
                     # slip_id.with_context(batch=True)._calculation_confirm_sheet([slip_id.id], use_new_cursor=new_cr.dbname)
                     Slip.with_context(batch=True)._calculation_confirm_sheet([slip_id.id], use_new_cursor=new_cr.dbname)
@@ -244,34 +244,18 @@ class HrPayslipRun(models.Model):
         threaded_calculation.start()
         threaded_calculation.join()
 
+
         # Confirma la nomina
         threaded_calculation = threading.Thread(target=self._confirm_sheet_run_calculation, args=(), name=ids)
         threaded_calculation.start()
         threaded_calculation.join()
-
 
         # Escribe Mensajes
         threaded_calculation = threading.Thread(target=self._confirm_sheet_run_message, args=(), name=ids)
         threaded_calculation.start()
         threaded_calculation.join()
 
-        """
-        msg = ''
-        Payslip = self.env['hr.payslip.run']
-        for run in Payslip.browse(ids):
-            for slip_id in run.slip_ids:
-                if slip_id.mensaje_validar:
-                    msg += "<b>Error Nomina %s</b><br />"%(slip_id.number)
-                    msg += "<ol>%s</ol><br/>"%(slip_id.mensaje_validar)
-                elif slip_id.mensaje_timbrado_pac:
-                    msg += "<b>Mensaje TIMBRAR PAC %s</b><br />"%(slip_id.number)
-                    msg += "<ul>%s</ul>"%(slip_id.mensaje_timbrado_pac)
-                elif slip_id.mensaje_pac:
-                    msg += "<b>Mensaje CANCELAR PAC %s</b><br />"%(slip_id.number)
-                    msg += "<ul>%s</ul>"%(slip_id.mensaje_validar)
-            if len(msg) != 0:
-                run.message_post(body=msg)
-        """
+
         return {}
 
     @api.multi
@@ -522,6 +506,15 @@ class HrPayslip(models.Model):
             message += '<li>El Atributo "Receptor: SalarioDiarioIntegrado" es requerido</li>'
         if tipo_jornada_id not in ['02', '03', '01', '04', '05', '06', '07', '08', '99']:
             message += '<li>El Atributo "Receptor: TipoJornada" es requerido</li>'
+
+        val_company = False
+        if rec.company_id != rec.payslip_run_id.journal_id.company_id:
+            message += '<li>No se puede procesar nómina de diferentes compañias %s - %s </li>'%(rec.company_id.name, rec.payslip_run_id.journal_id.company_id.name)
+        for line in rec.line_ids:
+            if rec.company_id != line.company_id:
+                message += '<li>No se puede procesar nómina de diferentes compañias %s - %s </li>'%(rec.company_id.name, line.company_id)
+                break
+
         self.action_raise_message(message)
         return message
 
