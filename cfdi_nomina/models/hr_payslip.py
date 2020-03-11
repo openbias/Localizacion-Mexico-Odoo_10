@@ -62,6 +62,13 @@ class HrPayslipEmployees(models.TransientModel):
             self.env['hr.payslip.run'].browse([context['active_id']]).compute_sheet_run_line()
 
 
+class HrSalaryRule(models.Model):
+    _inherit = 'hr.salary.rule'
+
+    account_debit = fields.Many2one('account.account', 'Debit Account', domain=[('deprecated', '=', False)], company_dependent=True)
+    account_credit = fields.Many2one('account.account', 'Credit Account', domain=[('deprecated', '=', False)], company_dependent=True)
+
+
 class HrPayslipRun(models.Model):
     _name = "hr.payslip.run"
     _inherit = ['mail.thread', 'hr.payslip.run']
@@ -534,6 +541,7 @@ class HrPayslip(models.Model):
                 'ref': slip.number,
                 'journal_id': slip.journal_id.id,
                 'date': date,
+                'company_id': slip.company_id.id
             }
             for line in slip.details_by_salary_rule_category:
                 amount = slip.credit_note and -line.total or line.total
@@ -553,6 +561,7 @@ class HrPayslip(models.Model):
                         'credit': amount < 0.0 and -amount or 0.0,
                         'analytic_account_id': line.salary_rule_id.analytic_account_id.id,
                         'tax_line_id': line.salary_rule_id.account_tax_id.id,
+                        'company_id': slip.company_id.id
                     })
                     line_ids.append(debit_line)
                     debit_sum += debit_line[2]['debit'] - debit_line[2]['credit']
@@ -568,6 +577,7 @@ class HrPayslip(models.Model):
                         'credit': amount > 0.0 and amount or 0.0,
                         'analytic_account_id': line.salary_rule_id.analytic_account_id.id,
                         'tax_line_id': line.salary_rule_id.account_tax_id.id,
+                        'company_id': slip.company_id.id
                     })
                     line_ids.append(credit_line)
                     credit_sum += credit_line[2]['credit'] - credit_line[2]['debit']
@@ -584,6 +594,7 @@ class HrPayslip(models.Model):
                     'date': date,
                     'debit': 0.0,
                     'credit': debit_sum - credit_sum,
+                    'company_id': slip.company_id.id
                 })
                 line_ids.append(adjust_credit)
 
@@ -599,6 +610,7 @@ class HrPayslip(models.Model):
                     'date': date,
                     'debit': credit_sum - debit_sum,
                     'credit': 0.0,
+                    'company_id': slip.company_id.id
                 })
                 line_ids.append(adjust_debit)
             move_dict['line_ids'] = line_ids
