@@ -26,6 +26,7 @@
 
     # always loaded
     'data': [
+        'security/hr_payroll_security.xml',
         'security/ir.model.access.csv',
         'data/cfdi_nomina.tipo.xml',
         'data/cfdi_nomina.regimen_contratacion.xml',

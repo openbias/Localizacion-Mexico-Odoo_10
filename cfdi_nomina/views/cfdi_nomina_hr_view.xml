@@ -59,6 +59,17 @@
 
 
         <!-- HR Payslip  -->
+        <record id="hr_payslip_run_form_company" model="ir.ui.view">
+            <field name="name">hr.payslip.run.form.company</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='slip_ids']" position="attributes">
+                    <attribute name="domain">[('company_id', '=', company_id)]</attribute>
+                </xpath>
+            </field>
+        </record>
+
         <record id="hr_payslip_run_chatter_form" model="ir.ui.view">
             <field name="name">hr.payslip.run.chatter.form</field>
             <field name="model">hr.payslip.run</field>
@@ -99,6 +110,7 @@
                     <field name="eval_state" invisible="0" />
                 </field>
                 <field name="credit_note" position="after" >
+                    <field name="company_id" readonly="1" />
                     <field name="total" readonly="1" />
                     <field name="concepto" />
                     <field name="tipo_nomina_especial" />

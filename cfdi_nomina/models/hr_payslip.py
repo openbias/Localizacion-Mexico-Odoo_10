@@ -54,6 +54,9 @@ CATALOGO_TIPONOMINA = [('O','Ordinaria'),('E','Extraordinaria')]
 class HrPayslipEmployees(models.TransientModel):
     _inherit ='hr.payslip.employees'
 
+    company_id = fields.Many2one('res.company', string='Company', readonly=True, copy=False,
+        default=lambda self: self.env['res.company']._company_default_get() )
+
     @api.multi
     def compute_sheet(self):
         context = dict(self._context)
@@ -62,18 +65,15 @@ class HrPayslipEmployees(models.TransientModel):
             self.env['hr.payslip.run'].browse([context['active_id']]).compute_sheet_run_line()
 
 
-class HrSalaryRule(models.Model):
-    _inherit = 'hr.salary.rule'
-
-    account_debit = fields.Many2one('account.account', 'Debit Account', domain=[('deprecated', '=', False)], company_dependent=True)
-    account_credit = fields.Many2one('account.account', 'Credit Account', domain=[('deprecated', '=', False)], company_dependent=True)
-
-
 class HrPayslipRun(models.Model):
     _name = "hr.payslip.run"
     _inherit = ['mail.thread', 'hr.payslip.run']
     _description = 'Payslip Batches'
     _order = "date_start desc"
+
+
+    company_id = fields.Many2one('res.company', related='journal_id.company_id', string='Company', readonly=False,
+        index=True, store=True, copy=False)  # related is required
 
 
     @api.model

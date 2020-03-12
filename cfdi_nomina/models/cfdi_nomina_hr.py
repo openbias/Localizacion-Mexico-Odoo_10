@@ -27,6 +27,9 @@ class HrSalaryRule(models.Model):
     agrupacion_id = fields.Many2one('hr.salary.rule.group', string='Agrupacion')
     appears_on_payslip_report = fields.Boolean('Appears on Payslip Report', default=False, help="Used to display the salary rule on payslip report.")
     appears_on_payslip_xlsx = fields.Boolean('Appears on Report XLSX', default=False, help="Used to display the salary rule on payslip report.")
+    account_debit = fields.Many2one('account.account', 'Debit Account', domain=[('deprecated', '=', False)], company_dependent=True)
+    account_credit = fields.Many2one('account.account', 'Credit Account', domain=[('deprecated', '=', False)], company_dependent=True)
+
 
     @api.onchange('codigo_agrupador_id')
     def _onchange_codigo_agrupador_id(self):

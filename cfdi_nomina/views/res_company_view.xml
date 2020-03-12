@@ -8,7 +8,6 @@
                 <link href="/cfdi_nomina/static/src/less/layout_background.less" rel="stylesheet" type="text/less"/>
             </xpath>
         </template>
-
         
         <record id="view_company_form_inherit_riesgo" model="ir.ui.view">
             <field name="name">view.company.form.inherit.riesgo</field>

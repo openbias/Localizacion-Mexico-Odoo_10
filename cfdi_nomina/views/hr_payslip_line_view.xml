@@ -8,6 +8,17 @@
             parent="hr_payroll.menu_hr_payroll_root" 
             sequence="99"/>
 
+        <record id="view_hr_payslip_by_employees_cfdi" model="ir.ui.view">
+            <field name="name">view_hr_payslip_by_employees_cfdi</field>
+            <field name="model">hr.payslip.employees</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_by_employees"/>
+            <field name="arch" type="xml">
+                <field name="employee_ids" position="replace">
+                    <field name="company_id" colspan="4" />
+                    <field name="employee_ids" nolabel="1" colspan="4" domain="[('company_id', '=', company_id)]" />
+                </field>
+            </field>
+        </record>
 
         <record id="hr_salary_rule_form_report" model="ir.ui.view">
             <field name="name">hr.salary.rule.form.report</field>
