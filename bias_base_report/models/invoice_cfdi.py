@@ -134,7 +134,7 @@ class AccountCfdi(models.Model):
 
     def get_datas(self, obj, cia):
         self.obj = obj
-        self.test = cia.cfd_mx_test
+        self.cfd_mx_test = cia.cfd_mx_test
         self.pac = cia.cfd_mx_pac
         self.version = cia.cfd_mx_version
         self.host = cia.cfd_mx_host
@@ -207,7 +207,7 @@ class AccountCfdi(models.Model):
 
     def get_info_pac(self):
         cfdi_datas = {
-            'test': self.test,
+            'test': self.cfd_mx_test,
             'pac': self.pac,
             'version': self.version
         }

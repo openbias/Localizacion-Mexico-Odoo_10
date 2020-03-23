@@ -608,9 +608,11 @@ class AccountPayment(models.Model):
                 NumParcialidad = 1
             ImpSaldoAnt = inv.get('residual', 0.0)  # invoice.residual + amount_payment + rate_difference
             ImpPagado = amount_payment
+
             if amount_payment > ImpSaldoAnt:
                 ImpPagado = ImpSaldoAnt
                 ImpSaldoInsoluto = 0.0
+
             if self.currency_id != inv_currency_id:
                 TipoCambioDR = 1
                 if rate_difference:

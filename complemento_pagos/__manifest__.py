@@ -16,6 +16,8 @@
         'base',
         'mail',
         'account', 
+        'account_voucher',
+        'payment',
         'account_cancel',
         'bias_base_report',
         'cfd_mx'

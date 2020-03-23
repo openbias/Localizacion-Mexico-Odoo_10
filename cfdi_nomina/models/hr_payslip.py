@@ -425,7 +425,7 @@ class HrPayslip(models.Model):
                 break
         else:
             message = "<li>Error \n\nNo se encontro entrada de dias trabajados con codigo %s</li>"%code
-            self.action_raise_message(message)
+            self.action_raisemessage(message)
         return dias, horas
 
     def _get_input(self, line):
@@ -445,7 +445,7 @@ class HrPayslip(models.Model):
     def _get_code(self, line):
         if not line.salary_rule_id.codigo_agrupador_id:
             message = "<li>Error \n\nNo tiene codigo SAT: %s</li>"%line.salary_rule_id.name
-            self.action_raise_message(message)
+            self.action_raisemessage(message)
         codigo = line.salary_rule_id.codigo_agrupador_id.code
         nombre = line.salary_rule_id.codigo_agrupador_id.name
         return codigo, nombre
@@ -514,7 +514,7 @@ class HrPayslip(models.Model):
                 message += '<li>No se puede procesar nómina de diferentes compañias %s - %s </li>'%(rec.company_id.name, line.company_id)
                 break
 
-        self.action_raise_message(message)
+        self.action_raisemessage(message)
         return message
 
 
@@ -616,7 +616,7 @@ class HrPayslip(models.Model):
             except Exception, e:
                 message = str(e)
             if message:
-                self.action_raise_message("Error al Generar el XML \n\n %s "%( message.upper() ))
+                self.action_raisemessage("Error al Generar el XML \n\n %s "%( message.upper() ))
                 return False
 
 
@@ -631,9 +631,9 @@ class HrPayslip(models.Model):
             #     return True
             if is_cfdi == False:
                 return True
-
             logging.info('Action 00 %s '%(rec.number) )
             message = self.action_validate_cfdi()
+            """
             try:
                 self.compute_sheet()
             except ValueError, e:
@@ -641,17 +641,18 @@ class HrPayslip(models.Model):
             except Exception, e:
                 message = str(e)
             if message:
-                self.action_raise_message("Error al Generar el XML \n\n %s "%( message.upper() ))
+                self.action_raisemessage("Error al Generar el XML \n\n %s "%( message.upper() ))
                 return False
+            """
             if rec.total < 0:
-                self.action_raise_message("Error al Generar el XML \n\n No se puede timbrar nominas con importe negativos")
+                self.action_raisemessage("Error al Generar el XML \n\n No se puede timbrar nominas con importe negativos")
                 return True
 
             self.action_write_date_invoice_cfdi(rec.date_invoice_cfdi, self.id)
             res = rec.action_create_cfdi()
             if res == True:
-                rec.action_payslip_done_nomina()
-                # self.action_raise_message("Nomina timbrada")
+                # rec.action_payslip_done_nomina()
+                # self.action_raisemessage("Nomina timbrada")
                 rec.write({'state': 'done'})
         return res
 
@@ -679,17 +680,51 @@ class HrPayslip(models.Model):
             if res.get('message'):
                 message = res['message']
             else:
-                self.get_process_data(self, res.get('result'))
+                self.get_processdata(self, res.get('result'))
                 self.get_process_data_xml(self, res.get('result'))
         except ValueError, e:
             message = str(e)
         except Exception, e:
             message = str(e)
         if message:
-            self.action_raise_message("Error al Generar el XML \n\n %s "%( message.upper() ))
+            self.action_raisemessage("Error al Generar el XML \n\n %s "%( message.upper() ))
             return False
         return True
 
+    def get_processdata(self, obj, res):
+        context = dict(self._context) or {}
+        fname = "cfd_%s.xml"%(self.number or self.name or '')
+        if context.get('type') and context.get('type') == 'pagos':
+            fname = '%s.xml'%(res.get('UUID') or res.get('uuid') or self.number or self.name or '')
+        # Adjuntos
+        attachment_obj = self.env['ir.attachment']
+        attachment_values = {
+            'name': fname,
+            'datas': res.get('xml'),
+            'datas_fname': fname,
+            'description': 'Comprobante Fiscal Digital',
+            'res_model': self._name,
+            'res_id': obj.id,
+            'type': 'binary'
+        }
+        attachment_obj.create(attachment_values)
+        # Guarda datos:
+        values = {
+            'cadena': res.get('cadenaori', ''),
+            'fecha_timbrado': res.get('fecha'),
+            'sello_sat': res.get('satSeal'),
+            'certificado_sat': res.get('noCertificadoSAT'),
+            'sello': res.get('SelloCFD'),
+            'noCertificado': res.get('NoCertificado'),
+            'uuid': res.get('UUID') or res.get('uuid') or '',
+            'qrcode': res.get('qr_img'),
+            'mensaje_pac': res.get('Leyenda'),
+            'tipo_cambio': res.get('TipoCambio'),
+            'cadena_sat': res.get('cadena_sat'),
+            'test': res.get('test')
+        }
+        obj.write(values)
+        return True
 
     def get_process_data_xml(self, obj, res):
         Currency = self.env['res.currency']
@@ -763,7 +798,7 @@ class HrPayslip(models.Model):
         if res.get('message'):
             message = res['message']
             message = message.replace("(u'", "").replace("', '')", "")
-            self.action_raise_message("Error al Generar el XML \n\n %s "%( message.upper() ))
+            self.action_raisemessage("Error al Generar el XML \n\n %s "%( message.upper() ))
             return False
         else:
             self.cfdi_timbre_id.write({
@@ -810,3 +845,18 @@ class HrPayslip(models.Model):
         for p in pp:
             export_text += p + '\n'
         return export_text
+
+
+    def action_raisemessage(self, message):
+        self.ensure_one()
+        context = dict(self._context) or {}
+        if not self.mensaje_validar:
+            self.mensaje_validar = ""
+        if not context.get('batch', False):
+            if len(message) != 0:
+                message = message.replace('<li>', '').replace('</li>', '\n')
+                # self.message_post(body=message)
+                raise UserError(message)
+        else:
+            self.mensaje_validar += message
+        return True
