@@ -606,6 +606,8 @@ class AccountPayment(models.Model):
             NumParcialidad = len(invoice.payment_ids.filtered(lambda p: p.state not in ('draft', 'cancelled')).ids)
             if NumParcialidad == 0:
                 NumParcialidad = 1
+            else:
+                NumParcialidad += 1
             ImpSaldoAnt = inv.get('residual', 0.0)  # invoice.residual + amount_payment + rate_difference
             ImpPagado = amount_payment
 
