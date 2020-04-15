@@ -236,7 +236,10 @@ class HrPayslipRun(models.Model):
     @api.multi
     def confirm_sheet_run(self):
         ids = self.ids
-        logging.info("Confirm Sheet Run Payslip %s "%(ids,))
+        self.read([])
+        cia_id = self.company_id.id
+        cia_user_id = self.env.user.company_id.id
+        logging.info("Confirm Sheet Run Payslip %s - CIA %s - %s "%(ids, cia_id, cia_user_id) )
 
         # Escribe fecha
         threaded_calculation = threading.Thread(target=self._confirm_sheet_run_date, args=(), name=ids)
