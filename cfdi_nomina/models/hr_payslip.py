@@ -194,7 +194,20 @@ class HrPayslipRun(models.Model):
         with api.Environment.manage():
             new_cr = self.pool.cursor()
             self = self.with_env(self.env(cr=new_cr))
-            
+
+            Slip = self.sudo().env['hr.payslip']
+            where = [
+                ('payslip_run_id', 'in', ids),
+                ('state', '=', 'draft'),
+                ('uuid', '=', False)
+            ]
+            slip_search_ids = Slip.search_read(where, ['uuid'])
+            for slip_id in slip_search_ids:
+                Slip.with_context(batch=True)._calculation_confirm_sheet( [slip_id['id'] ] , use_new_cursor=new_cr.dbname)
+                new_cr.commit()
+
+           
+            """
             Payslip = self.sudo().env['hr.payslip.run']
             Slip = self.sudo().env['hr.payslip']
             for run in Payslip.browse(ids):
@@ -205,6 +218,7 @@ class HrPayslipRun(models.Model):
                     # slip_id.with_context(batch=True)._calculation_confirm_sheet([slip_id.id], use_new_cursor=new_cr.dbname)
                     Slip.with_context(batch=True)._calculation_confirm_sheet([slip_id.id], use_new_cursor=new_cr.dbname)
                     new_cr.commit()
+            """
             new_cr.close()
         return {}
 
@@ -236,26 +250,23 @@ class HrPayslipRun(models.Model):
     @api.multi
     def confirm_sheet_run(self):
         ids = self.ids
-        self.read([])
-        cia_id = self.company_id.id
-        cia_user_id = self.env.user.company_id.id
-        logging.info("Confirm Sheet Run Payslip %s - CIA %s - %s "%(ids, cia_id, cia_user_id) )
+        logging.info("Confirm Sheet Run Payslip %s "%(ids,))
 
         # Escribe fecha
-        threaded_calculation = threading.Thread(target=self._confirm_sheet_run_date, args=(), name=ids)
-        threaded_calculation.start()
-        threaded_calculation.join()
+        threaded_date = threading.Thread(target=self._confirm_sheet_run_date, args=(), name='date_%s'%ids)
+        threaded_date.start()
+        threaded_date.join()
 
 
         # Confirma la nomina
-        threaded_calculation = threading.Thread(target=self._confirm_sheet_run_calculation, args=(), name=ids)
+        threaded_calculation = threading.Thread(target=self._confirm_sheet_run_calculation, args=(), name='calculation_%s'%ids)
         threaded_calculation.start()
         threaded_calculation.join()
 
         # Escribe Mensajes
-        threaded_calculation = threading.Thread(target=self._confirm_sheet_run_message, args=(), name=ids)
-        threaded_calculation.start()
-        threaded_calculation.join()
+        threaded_message = threading.Thread(target=self._confirm_sheet_run_message, args=(), name='message_%s'%ids)
+        threaded_message.start()
+        threaded_message.join()
 
 
         return {}
@@ -368,6 +379,16 @@ class HrPayslip(models.Model):
     certificado = fields.Char(string="No. Certificado", copy=False)
     fecha_sat = fields.Char(string="Fecha de Timbrado", copy=False)
     cfdi_timbre_id = fields.Many2one('cfdi.timbres.sat', string=u'Timbre SAT')
+
+    @api.multi
+    def compute_sheet(self):
+        cia_user_id = self.env.user.company_id.id
+        for payslip in self:
+            cia_id = payslip.company_id.id
+            payslip.read([])
+            logging.info(" ----------Sheet CIA %s - %s "%(cia_id, cia_user_id) )
+        res = super(HrPayslip, self).compute_sheet()
+        return res
     
     @api.multi
     def _calculation_confirm_sheet(self, ids, use_new_cursor=False):
@@ -375,8 +396,14 @@ class HrPayslip(models.Model):
         if use_new_cursor:
             cr = registry(self._cr.dbname).cursor()
             self = self.with_env(self.env(cr=cr))
-        payslip_id = self.env['hr.payslip'].browse(ids)
-        payslip_id.action_payslip_done()
+        message = ""
+        try:
+            payslip_id = self.env['hr.payslip'].browse(ids)
+            payslip_id.action_payslip_done()
+        except ValueError, e:
+            message = str(e)
+        except Exception, e:
+            message = str(e)
         if use_new_cursor:
             cr.commit()
             cr.close()
@@ -511,13 +538,12 @@ class HrPayslip(models.Model):
 
         val_company = False
         if rec.company_id != rec.payslip_run_id.journal_id.company_id:
-            message += '<li>No se puede procesar nómina de diferentes compañias %s - %s </li>'%(rec.company_id.name, rec.payslip_run_id.journal_id.company_id.name)
+            message += u'<li>No se puede procesar nómina de diferentes compañias %s - %s </li>'%(rec.company_id.name, rec.payslip_run_id.journal_id.company_id.name)
         for line in rec.line_ids:
             if rec.company_id != line.company_id:
-                message += '<li>No se puede procesar nómina de diferentes compañias %s - %s </li>'%(rec.company_id.name, line.company_id)
+                message += u'<li>No se puede procesar nómina con lineas de diferentes compañias %s - %s </li>'%(rec.company_id.name, line.company_id.name)
                 break
-
-        self.action_raisemessage(message)
+        rec.action_raisemessage(message)
         return message
 
 
@@ -635,7 +661,9 @@ class HrPayslip(models.Model):
             if is_cfdi == False:
                 return True
             logging.info('Action 00 %s '%(rec.number) )
-            message = self.action_validate_cfdi()
+            message = rec.action_validate_cfdi()
+            if message:
+                return False
             """
             try:
                 self.compute_sheet()
@@ -648,10 +676,10 @@ class HrPayslip(models.Model):
                 return False
             """
             if rec.total < 0:
-                self.action_raisemessage("Error al Generar el XML \n\n No se puede timbrar nominas con importe negativos")
+                rec.action_raisemessage("Error al Generar el XML \n\n No se puede timbrar nominas con importe negativos")
                 return True
 
-            self.action_write_date_invoice_cfdi(rec.date_invoice_cfdi, self.id)
+            rec.action_write_date_invoice_cfdi(rec.date_invoice_cfdi, self.id)
             res = rec.action_create_cfdi()
             if res == True:
                 # rec.action_payslip_done_nomina()
@@ -853,13 +881,17 @@ class HrPayslip(models.Model):
     def action_raisemessage(self, message):
         self.ensure_one()
         context = dict(self._context) or {}
-        if not self.mensaje_validar:
-            self.mensaje_validar = ""
+        # if not self.mensaje_validar:
+        #     self.mensaje_validar = ""
         if not context.get('batch', False):
             if len(message) != 0:
                 message = message.replace('<li>', '').replace('</li>', '\n')
                 # self.message_post(body=message)
                 raise UserError(message)
         else:
-            self.mensaje_validar += message
+            msg = self.mensaje_validar or ''
+            msg += message
+            self.write({
+                'mensaje_validar': '%s'%( msg  )
+            })
         return True
