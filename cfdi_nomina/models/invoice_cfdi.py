@@ -319,10 +319,8 @@ class AccountCfdi(models.Model):
         deducciones = {}
         nodo_d = rec._get_lines_type('d')
         if nodo_d:
-            deducciones = {
-                "lines": [],
-                "attrs": {}
-            }
+            lines_d = []
+            attrs_d = {}
             for deduccion in nodo_d:
                 tipo_deduccion, nombre_deduccion = rec._get_code(deduccion)
                 if tipo_deduccion == '002':
@@ -338,12 +336,19 @@ class AccountCfdi(models.Model):
                     "Concepto": nombre_deduccion.replace(".", "").replace("/", "").replace("(", "").replace(")", ""),
                     "Importe": "%.2f"%abs(deduccion.total),
                 }
-                deducciones["lines"].append(nodo_deduccion)
+                lines_d.append(nodo_deduccion)
+            
             if totalD != 0.00:
-                deducciones["attrs"]["TotalOtrasDeducciones"] = "%.2f"%totalD
+                attrs_d["TotalOtrasDeducciones"] = "%.2f"%totalD
             if retenido != 0.00:
-                deducciones["attrs"]["TotalImpuestosRetenidos"] = "%.2f"%retenido
-            totalDeducciones = totalD + retenido
+                attrs_d["TotalImpuestosRetenidos"] = "%.2f"%retenido
+            # deducciones["attrs"]["TotalImpuestosRetenidos"] = "%.2f"%retenido
+            if (lines_d and attrs_d):
+                totalDeducciones = totalD + retenido
+                deducciones = {
+                    "lines": lines_d,
+                    "attrs": attrs_d
+                }
 
 
         #--------------------
@@ -419,7 +424,8 @@ class AccountCfdi(models.Model):
                     
         # **************** Llenado final de complemento **********
         nomina_attribs["TotalPercepciones"] = "%.2f"%totalPercepciones
-        nomina_attribs["TotalDeducciones"] = "%.2f"%totalDeducciones
+        if totalDeducciones != 0.0:
+            nomina_attribs["TotalDeducciones"] = "%.2f"%totalDeducciones
 
         # ***************** Conceptos y totales ******************
         importe = totalPercepciones + totalOtrosPagos
