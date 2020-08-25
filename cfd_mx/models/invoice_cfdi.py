@@ -82,6 +82,9 @@ class AccountCfdi(models.Model):
                 receptor_attribs['NumRegIdTrib'] = partner_data.identidad_fiscal or ''
         return receptor_attribs
 
+    def get_conceptos_noIdentificacion(self, line):
+        return line.product_id and line.product_id.default_code or ''
+
     def invoice_info_conceptos(self):
         obj = self.obj
         tax_obj = obj.env['account.tax']
@@ -98,7 +101,7 @@ class AccountCfdi(models.Model):
             # Descuento = round(line.price_discount_sat, dp_cantidad)
             concepto_attribs = {
                 'ClaveProdServ': line.product_id and line.product_id.clave_prodser_id and line.product_id.clave_prodser_id.clave or ClaveProdServ or '',
-                'NoIdentificacion': line.product_id and line.product_id.default_code or '',
+                'NoIdentificacion': self.get_conceptos_noIdentificacion(line),
                 'Descripcion': line.name.replace('[', '').replace(']', '') or '',
                 'Cantidad':  '%.*f' % (6, line.quantity),  # '%s'%(Cantidad),
                 'ClaveUnidad': line.uom_id and line.uom_id.clave_unidadesmedida_id and line.uom_id.clave_unidadesmedida_id.clave or '',

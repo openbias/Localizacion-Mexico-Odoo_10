@@ -958,8 +958,8 @@ class AccountBankStatementLine(models.Model):
     @api.multi
     def cfdi_is_required(self):
         self.ensure_one()
-        if self.company_id.cfd_mx_test:
-            return False
+        # if self.company_id.cfd_mx_test:
+        #     return False
         if self.amount < 0:
             partner_type = 'supplier'
         else:
