@@ -603,11 +603,16 @@ class AccountPayment(models.Model):
                 amount_payment = abs(move_line_id.amount_currency)
             rate_difference = [p for p in content if p.get('journal_name', '') == self.company_id.currency_exchange_journal_id.name]
             rate_difference = rate_difference[0].get('amount', 0.0) if rate_difference else 0.0
-            NumParcialidad = len(invoice.payment_ids.filtered(lambda p: p.state not in ('draft', 'cancelled')).ids)
-            if NumParcialidad == 0:
-                NumParcialidad = 1
+
+            if 'payment_ids' in inv:
+                NumParcialidad = inv['payment_ids'] + 1
             else:
-                NumParcialidad += 1
+                NumParcialidad = len(invoice.payment_ids.filtered(lambda p: p.state not in ('draft', 'cancelled')).ids)
+                if NumParcialidad == 0:
+                    NumParcialidad = 1
+                else:
+                    NumParcialidad += 1
+
             ImpSaldoAnt = inv.get('residual', 0.0)  # invoice.residual + amount_payment + rate_difference
             ImpPagado = amount_payment
 
@@ -919,13 +924,15 @@ class AccountBankStatementLine(models.Model):
                         inv = aml['move_line'].invoice_id
                         if inv.type == 'out_invoice':
                             invoice_ids |= inv
+                            NumParcialidad = len(inv.payment_ids.filtered(lambda p: p.state not in ('draft', 'cancelled')).ids)
                             ctx_inv[inv.id] = {
                                 'amount_total': inv.amount_total,
                                 'amount_total_company_signed': inv.amount_total_company_signed,
                                 'amount_total_signed': inv.amount_total_signed,
                                 'residual': inv.residual if inv.residual != 0.0 else inv.amount_total,
                                 'residual_company_signed': inv.residual_company_signed,
-                                'residual_signed': inv.residual_signed
+                                'residual_signed': inv.residual_signed,
+                                'payment_ids': NumParcialidad
                             }
         move = super(AccountBankStatementLine, self).process_reconciliation(counterpart_aml_dicts=counterpart_aml_dicts, payment_aml_rec=payment_aml_rec, new_aml_dicts=new_aml_dicts)
         if not self.cfdi_is_required():
@@ -934,6 +941,8 @@ class AccountBankStatementLine(models.Model):
             return move
         payments = move.mapped('line_ids.payment_id')
         payment_method = self.formapago_id and self.formapago_id.id
+
+        #             
         vals = {
             'cta_destino_id': self.cta_destino_id and self.cta_destino_id.id or False,
             'cta_origen_id': self.cta_origen_id and self.cta_origen_id.id or False,
@@ -952,7 +961,9 @@ class AccountBankStatementLine(models.Model):
             vals['partner_factoraje_id'] = self.partner_factoraje_id.id
             vals['cfdi_factoraje_id'] = self.cfdi_factoraje_id.id
         payments.write(vals)
+        print('---------- ctx_invctx_inv', ctx_inv)
         payments.with_context(ctx_inv=ctx_inv, model_model="MDM").action_validate_cfdi()
+
         return move
 
     @api.multi
