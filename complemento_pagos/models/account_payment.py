@@ -675,12 +675,12 @@ class AccountPayment(models.Model):
                     "NumParcialidad": '%s'%NumParcialidad,
                     "ImpSaldoAnt": ImpSaldoAnt,
                     "ImpPagado": amount_total,
-                    "ImpSaldoInsoluto": '%0.*f' % (decimal_precision, ImpSaldoInsoluto),
+                    "ImpSaldoInsoluto": '%0.*f' %  (decimal_precision, ImpSaldoInsoluto),
                 }
                 if invoice.journal_id.serie:
                     docto_attribs['Serie'] = invoice.journal_id.serie or ''
                 if inv_rate:
-                    docto_attribs['TipoCambioDR'] = (1 / float(inv_rate))
+                    docto_attribs['TipoCambioDR'] =  ('%.6f' % (1 / float(inv_rate)))
                 DoctoRelacionado = Nodo('pago10:DoctoRelacionado', docto_attribs, padre=Pago)
         return Comprobante
 
