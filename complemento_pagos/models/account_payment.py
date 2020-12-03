@@ -675,7 +675,7 @@ class AccountPayment(models.Model):
                     "NumParcialidad": '%s'%NumParcialidad,
                     "ImpSaldoAnt": ImpSaldoAnt,
                     "ImpPagado": amount_total,
-                    "ImpSaldoInsoluto": '%0.*f' %  (decimal_precision, ImpSaldoInsoluto),
+                    "ImpSaldoInsoluto":  ('%.6f' % (ImpSaldoInsoluto)) #  ImpSaldoInsoluto  # '%0.*f' %  (decimal_precision, ImpSaldoInsoluto),
                 }
                 if invoice.journal_id.serie:
                     docto_attribs['Serie'] = invoice.journal_id.serie or ''
@@ -961,7 +961,6 @@ class AccountBankStatementLine(models.Model):
             vals['partner_factoraje_id'] = self.partner_factoraje_id.id
             vals['cfdi_factoraje_id'] = self.cfdi_factoraje_id.id
         payments.write(vals)
-        print('---------- ctx_invctx_inv', ctx_inv)
         payments.with_context(ctx_inv=ctx_inv, model_model="MDM").action_validate_cfdi()
 
         return move

@@ -71,7 +71,6 @@ class HrPayslipRun(models.Model):
     _description = 'Payslip Batches'
     _order = "date_start desc"
 
-
     company_id = fields.Many2one('res.company', related='journal_id.company_id', string='Company', readonly=False,
         index=True, store=True, copy=False)  # related is required
 
@@ -157,9 +156,17 @@ class HrPayslipRun(models.Model):
     tipo_nomina_especial = fields.Selection([
             ('ord', 'Nomina Ordinaria'),
             ('ext_nom', 'Nomina Extraordinaria'),
-            ('ext_agui', 'Extraordinaria Aguinaldo')],
+            ('ext_agui', 'Extraordinaria Aguinaldo'),
+            ('ext_fini', 'Extraordinaria Finiquito'),
+            ('ext_ptu', 'Extraordinaria PTU'),],
         string="Tipo Nomina Especial", default="ord")
     tipo_nomina = fields.Selection(selection=CATALOGO_TIPONOMINA, string=u"Tipo Nómina", default='O', compute='_compute_sncf')
+    struct_id = fields.Many2one('hr.payroll.structure', string='Structure',
+        readonly=True, states={'draft': [('readonly', False)], 'verify': [('readonly', False)]},
+        help='Defines the rules that have to be applied to this payslip, accordingly '
+             'to the contract chosen. If you let empty the field contract, this field isn\'t '
+             'mandatory anymore and thus the rules applied will be all the rules set on the '
+             'structure of all contracts of the employee valid for the chosen period')
 
     def _confirm_sheet_run_date(self):
         ids = self.ids
@@ -194,7 +201,6 @@ class HrPayslipRun(models.Model):
         with api.Environment.manage():
             new_cr = self.pool.cursor()
             self = self.with_env(self.env(cr=new_cr))
-
             Slip = self.sudo().env['hr.payslip']
             where = [
                 ('payslip_run_id', 'in', ids),
@@ -205,20 +211,6 @@ class HrPayslipRun(models.Model):
             for slip_id in slip_search_ids:
                 Slip.with_context(batch=True)._calculation_confirm_sheet( [slip_id['id'] ] , use_new_cursor=new_cr.dbname)
                 new_cr.commit()
-
-           
-            """
-            Payslip = self.sudo().env['hr.payslip.run']
-            Slip = self.sudo().env['hr.payslip']
-            for run in Payslip.browse(ids):
-                for slip_id in run.slip_ids:
-                    if slip_id.uuid and slip_id.state not in ['draft']:
-                        continue
-                    logging.info("Confirm Sheet Run Payslip %s 00 ---- "%(slip_id.id,))
-                    # slip_id.with_context(batch=True)._calculation_confirm_sheet([slip_id.id], use_new_cursor=new_cr.dbname)
-                    Slip.with_context(batch=True)._calculation_confirm_sheet([slip_id.id], use_new_cursor=new_cr.dbname)
-                    new_cr.commit()
-            """
             new_cr.close()
         return {}
 
@@ -350,8 +342,10 @@ class HrPayslip(models.Model):
     tipo_nomina_especial = fields.Selection([
             ('ord', 'Nomina Ordinaria'),
             ('ext_nom', 'Nomina Extraordinaria'),
-            ('ext_agui', 'Extraordinaria Aguinaldo')],
-        string="Tipo Nomina Especial", default="ord")
+            ('ext_agui', 'Extraordinaria Aguinaldo'),
+            ('ext_fini', 'Extraordinaria Finiquito'),
+            ('ext_ptu', 'Extraordinaria PTU'),],
+        string="Tipo Nomina Especial", default="ord")    
     tipo_nomina = fields.Selection(selection=CATALOGO_TIPONOMINA, string=u"Tipo Nómina", default='O')
     currency_id = fields.Many2one('res.currency', string='Currency',
             required=True, readonly=True, 
@@ -408,6 +402,23 @@ class HrPayslip(models.Model):
             cr.commit()
             cr.close()
         return {}
+
+    # YTI TODO To rename. This method is not really an onchange, as it is not in any view
+    # employee_id and contract_id could be browse records
+    @api.multi
+    def onchange_employee_id(self, date_from, date_to, employee_id=False, contract_id=False):
+        res = super(HrPayslip, self).onchange_employee_id(date_from=date_from, date_to=date_to, employee_id=employee_id, contract_id=contract_id)
+        model = self.env.context.get('active_model')
+        active_id = self.env.context.get('active_id')
+        if model == 'hr.payslip.run':
+            payslip_run_id = self.env[model].browse(active_id)
+            struct = payslip_run_id.struct_id
+            if not struct:
+                return res
+            res['value'].update({
+                'struct_id': struct.id,
+            })
+        return res
 
 
     # Para ser usado por el modulo de contabilidad electronica
