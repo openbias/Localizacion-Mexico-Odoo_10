@@ -87,8 +87,9 @@ class CurrencyRate(models.Model):
                         help='The rate of the currency to the currency of rate 1.')
 
 
+    # SF46407
     def getTipoCambio(self, fechaIni, fechaFin, token):
-        url = "https://www.banxico.org.mx/SieAPIRest/service/v1/series/SF60653,SF46410/datos"
+        url = "https://www.banxico.org.mx/SieAPIRest/service/v1/series/SF60653,SF46410,SF46407/datos"
         urlHost = '%s/%s/%s'%(url, fechaIni, fechaFin)
         response = requests.get(
             urlHost,
@@ -96,6 +97,7 @@ class CurrencyRate(models.Model):
             headers={'Accept': 'application/json', 'Bmx-Token': token, 'Accept-Encoding': 'gzip'},
         )
         json_response = response.json()
+        print('------- json_response ', json_response)
         tipoCambios = {}
         for bmx in json_response:
             series = json_response[bmx].get('series') or []
@@ -105,6 +107,8 @@ class CurrencyRate(models.Model):
                     idSerie = 'MXN'
                 elif idSerie == 'SF46410':
                     idSerie = 'EUR'
+                elif idSerie == 'SF46407':
+                    idSerie = 'GBP'
                 tipoCambios[idSerie] = []
                 for dato in serie.get('datos', []):
                     fecha = datetime.strptime(dato.get('fecha'), '%d/%m/%Y').date()
@@ -117,6 +121,12 @@ class CurrencyRate(models.Model):
             tipomxn = next(tipomxn for tipomxn in tipoCambios.get('MXN') if tipomxn["fecha"] == tipoeur['fecha'] )
             tipoeur['importe_real'] = tipoeur.get('importe')
             tipoeur['importe'] = tipomxn.get('importe', 0.0) / tipoeur.get('importe', 0.0)
+
+        for tipogbp in tipoCambios.get('GBP', []):
+            tipomxn = next(tipomxn for tipomxn in tipoCambios.get('MXN') if tipomxn["fecha"] == tipogbp['fecha'] )
+            tipogbp['importe_real'] = tipogbp.get('importe')
+            tipogbp['importe'] = tipomxn.get('importe', 0.0) / tipogbp.get('importe', 0.0)
+
         return tipoCambios
 
     @api.multi
