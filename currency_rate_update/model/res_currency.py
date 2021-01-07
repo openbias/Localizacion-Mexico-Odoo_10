@@ -97,7 +97,6 @@ class CurrencyRate(models.Model):
             headers={'Accept': 'application/json', 'Bmx-Token': token, 'Accept-Encoding': 'gzip'},
         )
         json_response = response.json()
-        print('------- json_response ', json_response)
         tipoCambios = {}
         for bmx in json_response:
             series = json_response[bmx].get('series') or []
@@ -150,8 +149,6 @@ class CurrencyRate(models.Model):
                     else:
                         CurrencyRate.write(vals)
                         _logger.info('  ** Update currency %s -- date %s --rate %s',currency_id.name, tipo['fecha'], tipo['importe'])
-
-
         return True
 
     @api.model
@@ -164,7 +161,6 @@ class CurrencyRate(models.Model):
             hora_factura_local = hora_factura_utc.astimezone(timezone(tz))
             date_end = hora_factura_local.date()
             date_start = date_end + relativedelta(days=-5)
-            print("---------date_start", date_start, date_end)
         try:
             token = self.env['ir.config_parameter'].sudo().get_param('bmx.token', default='')
             if token:

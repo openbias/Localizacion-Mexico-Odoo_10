@@ -51,6 +51,31 @@ def cant_letra(currency, amount):
 
 CATALOGO_TIPONOMINA = [('O','Ordinaria'),('E','Extraordinaria')]
 
+
+class HrContract(models.Model):
+    """
+    Employee contract based on the visa, work permits
+    allows to configure different Salary structure
+    """
+    _inherit = 'hr.contract'
+    _description = 'Employee Contract'
+
+
+    @api.multi
+    def get_all_structures(self):
+        """
+        @return: the structures linked to the given contracts, ordered by hierachy (parent=False first,
+                 then first level children and so on) and without duplicata
+        """
+        if self.env.context.get('active_model') == 'hr.payslip.run':
+            active_id = self.env.context.get('active_id')
+            for run_id in self.env['hr.payslip.run'].browse( active_id ):
+                if run_id.struct_id:
+                    return [ run_id.struct_id.id ]
+        res = super(HrContract, self).get_all_structures()
+        return res
+
+
 class HrPayslipEmployees(models.TransientModel):
     _inherit ='hr.payslip.employees'
 
