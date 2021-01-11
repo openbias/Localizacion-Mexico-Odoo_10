@@ -402,13 +402,26 @@ class HrPayslip(models.Model):
     @api.multi
     def compute_sheet(self):
         cia_user_id = self.env.user.company_id.id
+        active_model = 'hr.payslip.run'
+        active_id = 0
         for payslip in self:
             cia_id = payslip.company_id.id
             payslip.read([])
+            active_id = payslip.payslip_run_id.id
             logging.info(" ----------Sheet CIA %s - %s "%(cia_id, cia_user_id) )
-        res = super(HrPayslip, self).compute_sheet()
+        res = super(HrPayslip, self.with_context(active_model=active_model, active_id=active_id)).compute_sheet()
         return res
+
+
+    # @api.model
+    # def get_payslip_lines(self, contract_ids, payslip_id):
+    #     res = super(HrPayslip, self.with_context(active_model='hr.payslip', active_id=self.id) ).get_payslip_lines(contract_ids=contract_ids, payslip_id=payslip_id)
+    #     return res
+
+
     
+
+
     @api.multi
     def _calculation_confirm_sheet(self, ids, use_new_cursor=False):
         message = ''
