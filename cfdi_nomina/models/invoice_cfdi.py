@@ -172,9 +172,8 @@ class AccountCfdi(models.Model):
         antiguedad = getAntiguedad(fecha_alta, rec.date_to)
         logging.info("----antiguedad %s --- %s --- %s  "%(antiguedad, fecha_alta, rec.date_to) )
         riesgo_puesto = (empleado.job_id and empleado.job_id.riesgo_puesto_id and empleado.job_id.riesgo_puesto_id.code) or (company.riesgo_puesto_id and company.riesgo_puesto_id.code) or False
-
-        # periodicidad_pago = (rec.periodicidad_pago_id and rec.periodicidad_pago_id.code) or (rec.contract_id.periodicidad_pago_id and rec.contract_id.periodicidad_pago_id.code) or ""
-        periodicidad_pago = rec.contract_id.periodicidad_pago_id and rec.contract_id.periodicidad_pago_id.code or ""
+        periodicidad_pago = (rec.periodicidad_pago_id and rec.periodicidad_pago_id.code) or (rec.contract_id.periodicidad_pago_id and rec.contract_id.periodicidad_pago_id.code) or ""
+        # periodicidad_pago = rec.contract_id.periodicidad_pago_id and rec.contract_id.periodicidad_pago_id.code or ""
         receptor_attribs = {
             "Curp": empleado.curp or "",
             "TipoContrato": rec.contract_id.type_id and rec.contract_id.type_id.code or "",
