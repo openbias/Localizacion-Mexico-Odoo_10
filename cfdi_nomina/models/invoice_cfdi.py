@@ -166,8 +166,8 @@ class AccountCfdi(models.Model):
             banco = empleado.bank_account_id and empleado.bank_account_id.bank_id.bic
             #Además, si no es CLABE asegurarse que tiene 10 posiciones la cuenta
             num_cuenta = num_cuenta[len(num_cuenta)-16:]
-        contract_id = empleado.contract_id
-        fecha_alta = empleado.fecha_alta or contract_id.date_start or False
+        # contract_id = empleado.contract_id
+        fecha_alta = rec.contract_id.date_start or empleado.fecha_alta or False
 
         antiguedad = getAntiguedad(fecha_alta, rec.date_to)
         logging.info("----antiguedad %s --- %s --- %s  "%(antiguedad, fecha_alta, rec.date_to) )
