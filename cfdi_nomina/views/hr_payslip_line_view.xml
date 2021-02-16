@@ -15,7 +15,8 @@
             <field name="arch" type="xml">
                 <field name="employee_ids" position="replace">
                     <field name="company_id" colspan="4" />
-                    <field name="employee_ids" nolabel="1" colspan="4" domain="[('company_id', '=', company_id)]" />
+                    <field name="employee_ids" nolabel="1" colspan="4" 
+                        domain="[('company_id', '=', company_id)]" context="{'active_test': True}" />
                 </field>
             </field>
         </record>

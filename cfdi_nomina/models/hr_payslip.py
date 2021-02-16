@@ -79,15 +79,32 @@ class HrContract(models.Model):
 class HrPayslipEmployees(models.TransientModel):
     _inherit ='hr.payslip.employees'
 
+    # domain=['|', ('active', '=', True), ('active', '=', False)], context={'active_test': False}
+
+    employee_ids = fields.Many2many('hr.employee', 'hr_employee_group_rel', 'payslip_id', 'employee_id', 'Employees', domain=['|', ('active', '=', True), ('active', '=', False)], context={'active_test': False})
     company_id = fields.Many2one('res.company', string='Company', readonly=True, copy=False,
         default=lambda self: self.env['res.company']._company_default_get() )
 
     @api.multi
     def compute_sheet(self):
         context = dict(self._context)
+        context['active_test'] = False
+        print('--------------- context compute_sheet', context)
         res = super(HrPayslipEmployees, self).compute_sheet()
         if context.get('active_id', False):
             self.env['hr.payslip.run'].browse([context['active_id']]).compute_sheet_run_line()
+
+    @api.model
+    def create(self, vals):
+        print('------------- vals', vals)
+        wiz = super(HrPayslipEmployees, self.with_context(active_test=False)).create(vals)
+        return wiz
+
+    @api.model
+    def default_get(self, fields):
+        print('---------- fields ', fields)
+        res = super(HrPayslipEmployees, self.with_context(active_test=False)).default_get(fields)
+        return res
 
 
 class HrPayslipRun(models.Model):
