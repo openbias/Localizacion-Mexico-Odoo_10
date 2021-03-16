@@ -207,11 +207,12 @@ class AccountCfdi(models.Model):
             importe = float(retenciones_attribs[ret_key].get('Importe'))
             retenciones_attribs[ret_key]['Importe'] = '%.*f' % (2, importe)
 
+        TotalImpuestosRetenidos = round(TotalImpuestosRetenidos, dp_cantidad)
+        TotalImpuestosTrasladados = round(TotalImpuestosTrasladados, dp_cantidad)
         cfdi_impuestos = {
             'TotalImpuestosRetenidos': '%.*f' % (2, TotalImpuestosRetenidos), # '%s'%(TotalImpuestosRetenidos), # '%.2f'%(TotalImpuestosRetenidos),
             'TotalImpuestosTrasladados': '%.*f' % (2, TotalImpuestosTrasladados), # '%s'%(TotalImpuestosTrasladados),  # '%.2f'%(TotalImpuestosTrasladados),
             'traslado_attribs': traslado_attribs,
             'retenciones_attribs': retenciones_attribs
         }
-        print cfdi_impuestos
         return cfdi_impuestos
