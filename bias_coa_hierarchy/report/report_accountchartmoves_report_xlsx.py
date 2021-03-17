@@ -69,7 +69,7 @@ class AccountChartMovesReportXlsx(ReportXlsx):
             acc = Account.with_context(**ctx).browse(ctx.get('account_id'))
             acc_ids = acc._get_children_and_consol()
 
-            h_balance = ['Cliente', 'Factura', 'Referencia', _('Fecha'), _('Debito'), _('Credito'), ' ']
+            h_balance = ['Cliente', 'Factura', 'Folio Fiscal', 'Referencia', _('Fecha'), _('Debito'), _('Credito'), ' ']
             sheet.write_row('A8', h_balance, header_format)
             # Start from the first cell below the headers.
             row = 8
@@ -85,7 +85,9 @@ class AccountChartMovesReportXlsx(ReportXlsx):
             row += 1
 
 
+            # uuid
             # Busca lineas de asientos
+            Invoice = self.env['account.invoice']
             Move = self.env['account.move']
             Line = self.env['account.move.line']
             where = [('account_id', 'in', acc_ids.ids), ('date', '<=', ctx['date_to']), ('date', '>=', ctx['date_from'])]
@@ -96,27 +98,36 @@ class AccountChartMovesReportXlsx(ReportXlsx):
             for aml in line_ids:
                 ref = ''
                 partner = ''
+                folio = aml.invoice_id and aml.invoice_id.cfdi_timbre_id and aml.invoice_id.cfdi_timbre_id.name or False
+                folio = folio or aml.invoice_id.uuid or ''
 
                 # domain account.move(4286,) [('id', 'in', [])]
                 ref = aml.move_id.name or aml.move_id.ref or ''
                 partner = aml.move_id.partner_id and aml.move_id.partner_id.name or ''
+                
                 if not partner:
                     action = aml.move_id.open_cash_basis_view()
                     domain = action.get('domain', [])
 
                     for move in Move.search(domain):
                         if move.tipo_poliza == '3' and move.partner_id:
+
+                            folio = ''
+                            for inv_id in Invoice.search_read([('move_id', '=', move.id)], ["name", "uuid", "cfdi_timbre_id"]):
+                                folio = inv_id['cfdi_timbre_id'][1] if len(inv_id.get('cfdi_timbre_id', [])) > 0 else inv_id.get('uuid', '')
+                                break
                             ref = move.name or move.ref or ''
                             partner = move.partner_id and move.partner_id.name or ''
                             break
 
                 sheet.write_string(row, col, '%s'%(partner), string_format_03)
                 sheet.write_string(row, col + 1, '%s'%(ref), string_format_03)
-                sheet.write_string(row, col + 2, '%s'%(aml.move_id.name or aml.move_id.ref or ''), string_format_03)
-                sheet.write_string(row, col + 3, aml.date, string_format_02)
-                sheet.write_number(row, col + 4, aml.debit, money_format)
-                sheet.write_number(row, col + 5, aml.credit, money_format)
-                sheet.write_string(row, col + 6, ' ', string_format_02)
+                sheet.write_string(row, col + 2, '%s'%(folio), string_format_03)
+                sheet.write_string(row, col + 3, '%s'%(aml.move_id.name or aml.move_id.ref or ''), string_format_03)
+                sheet.write_string(row, col + 4, aml.date, string_format_02)
+                sheet.write_number(row, col + 5, aml.debit, money_format)
+                sheet.write_number(row, col + 6, aml.credit, money_format)
+                sheet.write_string(row, col + 7, ' ', string_format_02)
                 row += 1
 
                 total_debit += aml.debit or 0.0
@@ -125,10 +136,11 @@ class AccountChartMovesReportXlsx(ReportXlsx):
             sheet.write_string(row, col, ' ', string_format_03)
             sheet.write_string(row, col + 1, ' ', string_format_03)
             sheet.write_string(row, col + 2, ' ', string_format_03)
-            sheet.write_string(row, col + 3, 'Total', string_format_03)
-            sheet.write_number(row, col + 4, total_debit, money_format)
-            sheet.write_number(row, col + 5, total_credit, money_format)
-            sheet.write_string(row, col + 6, ' ', string_format_02)
+            sheet.write_string(row, col + 3, ' ', string_format_03)
+            sheet.write_string(row, col + 4, 'Total', string_format_03)
+            sheet.write_number(row, col + 5, total_debit, money_format)
+            sheet.write_number(row, col + 6, total_credit, money_format)
+            sheet.write_string(row, col + 7, ' ', string_format_02)
 
 
 AccountChartMovesReportXlsx('report.accountchartmoves_report_xlsx', 'account.chart')
