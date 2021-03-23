@@ -600,6 +600,7 @@ class HrPayslip(models.Model):
             message += '<li>El Atributo "Receptor: TipoJornada" es requerido</li>'
 
         val_company = False
+
         if rec.company_id != rec.payslip_run_id.journal_id.company_id:
             message += u'<li>No se puede procesar nómina de diferentes compañias %s - %s </li>'%(rec.company_id.name, rec.payslip_run_id.journal_id.company_id.name)
         for line in rec.line_ids:
@@ -958,3 +959,11 @@ class HrPayslip(models.Model):
                 'mensaje_validar': '%s'%( msg  )
             })
         return True
+
+    def get_salary_line_total(self, code):
+        self.ensure_one()
+        line = self.line_ids.filtered(lambda line: line.code == code)
+        if line:
+            return line[0].total
+        else:
+            return 0.0

@@ -363,6 +363,7 @@ class AccountCfdi(models.Model):
             for otro_pago in nodo_o:
                 # if otro_pago.total == 0:
                 #     continue
+
                 tipo_otro_pago, nombre_otro_pago = rec._get_code(otro_pago)
                 attrs = {
                     "TipoOtroPago": tipo_otro_pago,
@@ -378,8 +379,11 @@ class AccountCfdi(models.Model):
                 SubsidioAlEmpleo = {}
                 CompensacionSaldosAFavor = {}
                 if tipo_otro_pago == '002':
+                    # otro_pago.total
+                    total_SAEC = rec.get_salary_line_total('SAEC')
+                    print('---------total SAEC ', total_SAEC)
                     SubsidioAlEmpleo = {
-                        'SubsidioCausado': "%.2f"%abs(otro_pago.total)
+                        'SubsidioCausado': "%.2f"%abs(total_SAEC)
                     }
                 
                 #--------------------
