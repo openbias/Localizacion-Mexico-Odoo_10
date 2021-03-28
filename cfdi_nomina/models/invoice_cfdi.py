@@ -134,6 +134,10 @@ class AccountCfdi(models.Model):
         fecha_utc =  datetime.now(timezone("UTC"))
         fecha_local = fecha_utc.astimezone(timezone(tz)).strftime("%Y-%m-%dT%H:%M:%S")
 
+        # Sueldos
+        sueldo_imss = rec.get_salary_line_total('SDI')
+        sueldo_diario = rec.get_salary_line_total('SDIA')
+
         # Atributos Nomina
         nomina_attribs = {
             "TipoNomina": rec.tipo_nomina,
@@ -201,10 +205,10 @@ class AccountCfdi(models.Model):
             receptor_attribs['Banco'] = banco
         if num_cuenta:
             receptor_attribs['CuentaBancaria'] = num_cuenta
-        if empleado.sueldo_diario:
-            receptor_attribs['SalarioBaseCotApor'] = "%.2f"%empleado.sueldo_diario
-        if empleado.sueldo_imss:
-            receptor_attribs['SalarioDiarioIntegrado'] = "%.2f"%empleado.sueldo_imss
+        if sueldo_diario:
+            receptor_attribs['SalarioBaseCotApor'] = "%.2f"%sueldo_diario
+        if sueldo_imss:
+            receptor_attribs['SalarioDiarioIntegrado'] = "%.2f"%sueldo_imss
 
         #--------------------
         # Percepciones
@@ -279,7 +283,7 @@ class AccountCfdi(models.Model):
                 #-------------------
                 # Nodo indemnización
                 #-------------------
-                ultimo_sueldo_mensual = empleado.sueldo_imss * 30
+                ultimo_sueldo_mensual = sueldo_imss * 30
                 percepciones["SeparacionIndemnizacion"] = {
                     'TotalPagado': "%.2f"%totalSepIndem,
                     'NumAñosServicio': empleado.anos_servicio,
@@ -290,7 +294,7 @@ class AccountCfdi(models.Model):
                 percepciones["attrs"]["TotalSeparacionIndemnizacion"] = "%.2f"%totalSepIndem
 
             if totalJubilacion:
-                ultimo_sueldo_mensual = empleado.sueldo_imss * 30
+                ultimo_sueldo_mensual = sueldo_imss * 30
                 #-------------------
                 # Nodo Jubilación
                 #-------------------
@@ -349,7 +353,6 @@ class AccountCfdi(models.Model):
                     "attrs": attrs_d
                 }
 
-
         #--------------------
         # Otros Pagos
         #--------------------
@@ -363,7 +366,6 @@ class AccountCfdi(models.Model):
             for otro_pago in nodo_o:
                 # if otro_pago.total == 0:
                 #     continue
-
                 tipo_otro_pago, nombre_otro_pago = rec._get_code(otro_pago)
                 attrs = {
                     "TipoOtroPago": tipo_otro_pago,
@@ -372,7 +374,6 @@ class AccountCfdi(models.Model):
                     "Importe": "%.2f"%abs(otro_pago.total)
                 }
                 totalOtrosPagos += otro_pago.total
-                
                 #--------------------
                 # Subsidio al empleo
                 #--------------------
@@ -384,7 +385,6 @@ class AccountCfdi(models.Model):
                     SubsidioAlEmpleo = {
                         'SubsidioCausado': "%.2f"%abs(total_SAEC)
                     }
-                
                 #--------------------
                 # Compensación anual
                 #--------------------
@@ -402,7 +402,6 @@ class AccountCfdi(models.Model):
                 })
             # if totalOtrosPagos > 0:
             nomina_attribs["TotalOtrosPagos"] = "%.2f"%totalOtrosPagos
-
 
         #----------------
         # Incapacidades
