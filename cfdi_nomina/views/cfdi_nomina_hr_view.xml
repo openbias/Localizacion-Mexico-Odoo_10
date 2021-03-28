@@ -203,6 +203,7 @@
                             <group>
                                 <field name="noCertificado" readonly="1" />
                                 <field name="certificado_sat" readonly="1"/>
+                                <field name="sueldo_imss" />
                             </group>
                             <group>
                                 <separator string="Cadena Original" colspan="4" />

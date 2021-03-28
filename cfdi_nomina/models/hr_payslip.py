@@ -8,6 +8,9 @@ from odoo.tools.safe_eval import safe_eval
 from odoo.api import Environment
 from openerp.addons.bias_base_report.bias_utis.amount_to_text_es_MX import amount_to_text
 
+from lxml import etree
+from lxml.objectify import fromstring
+import base64
 import re
 import pytz
 from pytz import timezone
@@ -350,6 +353,7 @@ class HrPayslipLine(models.Model):
 class HrPayslip(models.Model):
     _name = "hr.payslip"
     _inherit = ['mail.thread', 'hr.payslip', 'account.cfdi']
+    _order = 'date_from desc, payslip_run_id'
 
     @api.model
     def _default_currency(self):
@@ -378,6 +382,7 @@ class HrPayslip(models.Model):
                     break
         return True
 
+    sueldo_imss = fields.Monetary(string="Sueldo Integrado al IMSS")
     tipo_nomina_especial = fields.Selection([
             ('ord', 'Nomina Ordinaria'),
             ('ext_nom', 'Nomina Extraordinaria'),
@@ -431,10 +436,6 @@ class HrPayslip(models.Model):
     # def get_payslip_lines(self, contract_ids, payslip_id):
     #     res = super(HrPayslip, self.with_context(active_model='hr.payslip', active_id=self.id) ).get_payslip_lines(contract_ids=contract_ids, payslip_id=payslip_id)
     #     return res
-
-
-    
-
 
     @api.multi
     def _calculation_confirm_sheet(self, ids, use_new_cursor=False):
@@ -967,3 +968,53 @@ class HrPayslip(models.Model):
             return line[0].total
         else:
             return 0.0
+
+    @api.model
+    def l10n_mx_edi_retrieve_attachments(self):
+        self.ensure_one()
+        if not self.uuid:
+            return []
+        xml_name = 'cfd_%s.xml'%(self.number)
+        domain = [
+            ('res_id', '=', self.id),
+            ('res_model', '=', self._name),
+            ('name', 'like', xml_name )
+        ]
+        return self.env['ir.attachment'].search(domain)
+
+    @api.model
+    def l10n_mx_edi_retrieve_last_attachment(self):
+        attachment_ids = self.l10n_mx_edi_retrieve_attachments()
+        return attachment_ids and attachment_ids[0] or None
+
+    @api.model
+    def l10n_mx_edi_get_xml_etree(self, cfdi=None):
+        self.ensure_one()
+        if cfdi:
+            cfdi = base64.decodestring(cfdi)
+        res = fromstring(cfdi)
+        return res
+
+    @api.model
+    def l10n_mx_edi_get_nomina12_etree(self, cfdi):
+        if not hasattr(cfdi, 'Complemento'):
+            return None
+        attribute = 'nomina12:Nomina[1]'
+        namespace = {'nomina12': 'http://www.sat.gob.mx/nomina12'}
+        node = cfdi.Complemento.xpath(attribute, namespaces=namespace)
+        return node[0] if node else None
+
+
+    def getpayslipXMLDATA(self):
+        attachment_id = self.l10n_mx_edi_retrieve_last_attachment()
+        if not attachment_id:
+            return {}
+        cfdi = self.l10n_mx_edi_get_xml_etree(attachment_id.datas)
+        Nomina = self.l10n_mx_edi_get_nomina12_etree(cfdi)
+        if Nomina is not None:
+            for nom in Nomina:
+                NomReceptor = nom.Receptor
+                SalarioDiarioIntegrado = NomReceptor.get('SalarioDiarioIntegrado')
+                if SalarioDiarioIntegrado is not None:
+                    self.sueldo_imss = float(SalarioDiarioIntegrado)
+        return {}

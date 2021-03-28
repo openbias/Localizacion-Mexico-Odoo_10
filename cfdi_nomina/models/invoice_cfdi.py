@@ -381,7 +381,6 @@ class AccountCfdi(models.Model):
                 if tipo_otro_pago == '002':
                     # otro_pago.total
                     total_SAEC = rec.get_salary_line_total('SAEC')
-                    print('---------total SAEC ', total_SAEC)
                     SubsidioAlEmpleo = {
                         'SubsidioCausado': "%.2f"%abs(total_SAEC)
                     }
