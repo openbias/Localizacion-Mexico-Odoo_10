@@ -719,7 +719,7 @@ class HrPayslip(models.Model):
         res = False
         for rec in self:
             is_cfdi = rec.employee_id and rec.employee_id.contract_id and rec.employee_id.contract_id.is_cfdi or False
-            if rec.uuid and rec.state not in ['draft']:
+            if rec.uuid and rec.state not in ['draft', 'cancel']:
                 return True
             # if rec.uuid:
             #     return True
