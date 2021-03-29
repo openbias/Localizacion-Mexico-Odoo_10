@@ -27,7 +27,6 @@ import base64
 
 logging.basicConfig(level=logging.INFO)
 
-
 def extraeDecimales(nNumero, max_digits=2):
     strDecimales = str( round(nNumero%1, 2) ).replace('0.','')
     strDecimales += "0"*max_digits
@@ -1005,7 +1004,7 @@ class HrPayslip(models.Model):
         return node[0] if node else None
 
 
-    def getpayslipXMLDATA(self):
+    def getPayslipXMLDATA(self):
         attachment_id = self.l10n_mx_edi_retrieve_last_attachment()
         if not attachment_id:
             return {}
@@ -1017,4 +1016,51 @@ class HrPayslip(models.Model):
                 SalarioDiarioIntegrado = NomReceptor.get('SalarioDiarioIntegrado')
                 if SalarioDiarioIntegrado is not None:
                     self.sueldo_imss = float(SalarioDiarioIntegrado)
+        return {}
+
+    def setPayslipLinesNewLines(self):
+        if self.env.user.has_group('base.group_system'):
+            for slip in self:
+                if slip.line_ids.filtered(lambda l: l.code=='SAEC'):
+                    logging.info('------------- Contiene SAEC')
+                    continue
+                try:
+                    sae = slip.line_ids.filtered(lambda l: l.code=='SAE')
+                    ispt = slip.line_ids.filtered(lambda l: l.code=='ISPT')
+                    sdia = slip.line_ids.filtered(lambda l: l.code=='SDIA')
+                    saec = sae.copy(default={
+                        'code': 'SAEC',
+                        'name': 'SUBSIDIO AL EMPLEO CAUSADO',
+                        'salary_rule_id': 1095,
+                        })
+                    isptc = ispt.copy(default={
+                        'code': 'ISPTC',
+                        'name': 'ISR Causado',
+                        'salary_rule_id': 1096,
+                        })
+                    sdi = sdia.copy(default={
+                        'code': 'SDI',
+                        'name': 'Sueldo Integrado al IMSS',
+                        'salary_rule_id': 1097,
+                        'amount': slip.sueldo_imss
+                        })
+                    if isptc.total > saec.total:
+                        amount = (isptc.total - saec.total)
+                        sae.write({'amount':0})
+                        ispt.write({'amount':amount})
+                    else:
+                        amount = (saec.total - isptc.total)
+                        sae.write({'amount':amount})
+                        ispt.write({'amount':0})
+                    
+                    slip.write({
+                        'x_label_ids':[(4, 3)],
+                        'date_invoice_cfdi': False
+                    })
+                except:
+                    logging.info('------------- Error al procesar')
+                    continue
+                #raise Warning('ISPTC: %s\nRegla: %s'%(isptc.code,isptc.salary_rule_id.code))
+        else:
+            raise UserError('Esta acción sólo puede ser ejecutada por usuarios dentro del Grupo: ADMINISTRACION / CONFIGURACION')
         return {}
