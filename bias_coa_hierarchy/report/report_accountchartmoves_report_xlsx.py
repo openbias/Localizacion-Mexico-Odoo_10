@@ -114,7 +114,7 @@ class AccountChartMovesReportXlsx(ReportXlsx):
 
                             folio = ''
                             for inv_id in Invoice.search_read([('move_id', '=', move.id)], ["name", "uuid", "cfdi_timbre_id"]):
-                                folio = inv_id['cfdi_timbre_id'][1] if len(inv_id.get('cfdi_timbre_id', [])) > 0 else inv_id.get('uuid', '')
+                                folio = inv_id['cfdi_timbre_id'][1] if len(inv_id.get('cfdi_timbre_id') or []) > 0 else inv_id.get('uuid') or ''
                                 break
                             ref = move.name or move.ref or ''
                             partner = move.partner_id and move.partner_id.name or ''

@@ -229,7 +229,6 @@ class AccountCfdi(models.Model):
             "params": params
         }
         # res = s.post(url, data=json.dumps(data), headers=headers)
-        print('---------- url ', url)
         res = requests.post(url, data=json.dumps(data), headers=headers)
         res_datas = res.json()
         _logger.info("-----------response timbrado %s "%res_datas )

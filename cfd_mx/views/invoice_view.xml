@@ -2,7 +2,6 @@
 <openerp>
     <data>
 
-
         <record id="view_account_invoice_refund_cfdi" model="ir.ui.view">
             <field name="name">account.invoice.refund.cfdi.form</field>
             <field name="model">account.invoice.refund</field>
