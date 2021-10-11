@@ -95,6 +95,7 @@ class CurrencyRate(models.Model):
             urlHost,
             params={'token': token},
             headers={'Accept': 'application/json', 'Bmx-Token': token, 'Accept-Encoding': 'gzip'},
+            
         )
         json_response = response.json()
         tipoCambios = {}

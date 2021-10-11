@@ -383,7 +383,7 @@ class AccountPayment(models.Model):
         }
         data_json = json.dumps(data)
         _logger.info(data)
-        res = requests.post(url=url, data=data_json, headers=headers)
+        res = requests.post(url=url, data=data_json, headers=headers, verify=False)
         res_datas = res.json()
         msg = res_datas.get('error') and res_datas['error'].get('data') and res_datas['error']['data'].get('message')
         if msg:
@@ -730,7 +730,7 @@ class AccountPayment(models.Model):
                 }
             }
             data_json = json.dumps(data)
-            res = requests.post(url=url, data=data_json, headers=headers)
+            res = requests.post(url=url, data=data_json, headers=headers, verify=False)
             res_datas = res.json()
             msg = res_datas.get('error') and res_datas['error'].get('data') and res_datas['error']['data'].get('message')
             if msg:

@@ -22,11 +22,11 @@ class company(models.Model):
     cfd_mx_host = fields.Char(string="URL Stamp", size=256)
     cfd_mx_port = fields.Char(string="Port Stamp", size=256)
     cfd_mx_db = fields.Char(string="DB Stamp", size=256)
-    
+
     cfd_mx_cer = fields.Binary(string='Certificado', filters='*.cer,*.certificate,*.cert', required=False, default=None)
     cfd_mx_key = fields.Binary(string='Llave privada', filters='*.key', required=False, default=None)
     cfd_mx_key_password = fields.Char('Password llave', size=64, invisible=False, required=False, default="")
-    
+
     cfd_mx_test_nomina = fields.Boolean(string=u'Timbrar en modo de prueba (nómina)')
     cfd_mx_test = fields.Boolean(string='Timbrar Prueba', default=True)
     cfd_mx_pac = fields.Selection([('finkok', 'Finkok')], string="PAC", default='')
@@ -35,7 +35,7 @@ class company(models.Model):
 
     reason_cancel_invoice = fields.Boolean(string="Motivo de Cancelacion Factura")
 
-    
+
     # Quitar en Futuras versiones
     cfd_mx_finkok_user = fields.Char(string="Finkok User", size=64)
     cfd_mx_finkok_key = fields.Char(string="Finkok Password", size=64)
@@ -63,7 +63,7 @@ class company(models.Model):
             }
         }
         data_json = json.dumps(data)
-        res = requests.post(url=url, data=data_json, headers=headers)
+        res = requests.post(url=url, data=data_json, headers=headers, verify=False)
         res_datas = res.json()
         dict_error = {}
         if res_datas.get('error') and res_datas['error'].get('data') and res_datas['error']['data'].get('message'):

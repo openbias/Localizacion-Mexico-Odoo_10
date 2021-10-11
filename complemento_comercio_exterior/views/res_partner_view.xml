@@ -11,7 +11,7 @@
                 <page name="cfdi" position="inside">
                     <field name="comercio_exterior_activate" invisible="1" />
                     <field name="es_mex" invisible="1" />
-                    <group  attrs="{'invisible':[('comercio_exterior_activate','!=', True)]}" >
+                    <group  >
                         <separator string="Complemento Comercio Exterior" colspan="4"/>
                         <group>
                             <field name="codigo_postal_id" domain="[('state_id', '=', state_id)]" />

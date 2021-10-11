@@ -216,7 +216,7 @@ class AccountCfdi(models.Model):
 
     def action_server(self, url, host, db, params):
         # s = Session()
-        # s.get('%s/web?db=%s'%(host, db))
+        # s.get('%s/web?db=%s'%(host, db), verify=False)
         headers = {
             'Content-Type':'application/json',
             'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:27.0) Gecko/20100101 Firefox/27.0',
@@ -229,7 +229,7 @@ class AccountCfdi(models.Model):
             "params": params
         }
         # res = s.post(url, data=json.dumps(data), headers=headers)
-        res = requests.post(url, data=json.dumps(data), headers=headers)
+        res = requests.post(url, data=json.dumps(data), headers=headers, verify=False)
         res_datas = res.json()
         _logger.info("-----------response timbrado %s "%res_datas )
         msg = res_datas.get('error') and res_datas['error'].get('data') and res_datas['error']['data'].get('message')
